@@ -33,3 +33,16 @@ void event::createEnterEvent(int mapId, int entranceX, int entranceY){
         event::eventCreated=true;
     }
 }
+
+void event::createBattleEvent(int zoneId, std::vector<int> entitiesIds){
+    if(!event::eventCreated){
+        event::type="Battle";
+        event::information.addInfo(zoneId);
+        int temp=entitiesIds.size();
+        event::information.addInfo(temp);
+        for(int i=0; i<entitiesIds.size();i++){
+            event::information.addInfo(entitiesIds[i]);
+        }
+        event::eventCreated=true;
+    }
+}

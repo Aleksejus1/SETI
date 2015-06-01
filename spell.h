@@ -31,6 +31,7 @@ class spell
         bool isLearned=false;
         float manaCost=0;
         layer shape;
+        SDL_Point offset;
 };
 
 #endif // SPELL_H

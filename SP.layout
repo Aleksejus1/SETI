@@ -1,171 +1,127 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="character.cpp" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="map.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="652" topLine="0" />
+			<Cursor1 position="1031" topLine="26" />
 		</Cursor>
 	</File>
-	<File name="map.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2267" topLine="28" />
+			<Cursor1 position="6157" topLine="85" />
+		</Cursor>
+	</File>
+	<File name="functions.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9461" topLine="32" />
 		</Cursor>
 		<Folding>
+			<Collapse line="25" />
 			<Collapse line="32" />
-			<Collapse line="38" />
+			<Collapse line="171" />
+			<Collapse line="187" />
+			<Collapse line="196" />
+			<Collapse line="200" />
+			<Collapse line="210" />
+			<Collapse line="249" />
+			<Collapse line="256" />
+			<Collapse line="266" />
+			<Collapse line="297" />
+			<Collapse line="304" />
+			<Collapse line="310" />
+			<Collapse line="316" />
+			<Collapse line="327" />
+			<Collapse line="338" />
+			<Collapse line="349" />
+			<Collapse line="358" />
+			<Collapse line="367" />
+			<Collapse line="374" />
+			<Collapse line="381" />
+			<Collapse line="395" />
+			<Collapse line="407" />
+			<Collapse line="419" />
+			<Collapse line="429" />
+			<Collapse line="439" />
+			<Collapse line="443" />
+			<Collapse line="447" />
+			<Collapse line="458" />
+			<Collapse line="467" />
+			<Collapse line="476" />
+			<Collapse line="483" />
+			<Collapse line="490" />
+			<Collapse line="496" />
+			<Collapse line="501" />
+			<Collapse line="510" />
+			<Collapse line="519" />
+			<Collapse line="526" />
+			<Collapse line="538" />
+			<Collapse line="568" />
+			<Collapse line="598" />
+			<Collapse line="630" />
+			<Collapse line="654" />
+			<Collapse line="662" />
+			<Collapse line="666" />
+			<Collapse line="711" />
 		</Folding>
-	</File>
-	<File name="event.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="558" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="zone.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="418" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="interact.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="479" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="entity.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="739" topLine="2" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1992" topLine="39" />
-		</Cursor>
-	</File>
-	<File name="functions.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3221" topLine="44" />
-		</Cursor>
-	</File>
-	<File name="variables.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1137" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="entity.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="937" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="interact.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="468" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="item.cpp" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="418" topLine="0" />
-		</Cursor>
 	</File>
 	<File name="info.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="595" topLine="0" />
+			<Cursor1 position="240" topLine="14" />
 		</Cursor>
 	</File>
-	<File name="keyboard.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="573" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="variables.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="739" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="layer.h" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="576" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="mobSpawner.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="150" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="keyboard.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="spell.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="map.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="functions.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1014" topLine="11" />
+			<Cursor1 position="7414" topLine="54" />
 		</Cursor>
 	</File>
-	<File name="objects.h" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="layer.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="580" topLine="0" />
+			<Cursor1 position="657" topLine="11" />
 		</Cursor>
 	</File>
-	<File name="slot.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="spell.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="448" topLine="0" />
+			<Cursor1 position="668" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="space.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="variables.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1049" topLine="11" />
+			<Cursor1 position="686" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="slot.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="character.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="418" topLine="0" />
+			<Cursor1 position="842" topLine="14" />
 		</Cursor>
 	</File>
-	<File name="objects.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="variables.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="1873" topLine="40" />
 		</Cursor>
 	</File>
-	<File name="zone.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="map.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="429" topLine="0" />
+			<Cursor1 position="2522" topLine="64" />
 		</Cursor>
 	</File>
-	<File name="functions.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="event.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="15175" topLine="30" />
-		</Cursor>
-		<Folding>
-			<Collapse line="32" />
-			<Collapse line="124" />
-			<Collapse line="130" />
-			<Collapse line="136" />
-			<Collapse line="150" />
-			<Collapse line="166" />
-			<Collapse line="175" />
-			<Collapse line="179" />
-			<Collapse line="189" />
-			<Collapse line="228" />
-			<Collapse line="235" />
-		</Folding>
-	</File>
-	<File name="item.h" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="429" topLine="0" />
+			<Cursor1 position="994" topLine="25" />
 		</Cursor>
 	</File>
-	<File name="character.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="event.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="637" topLine="0" />
+			<Cursor1 position="733" topLine="14" />
 		</Cursor>
 	</File>
-	<File name="event.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="interact.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="602" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="space.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="611" topLine="10" />
+			<Cursor1 position="573" topLine="11" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

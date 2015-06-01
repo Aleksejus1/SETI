@@ -28,15 +28,16 @@
 
 functions f; //Main way of accessing variables and functions in main.cpp
 std::vector<map> maps;//Holder for all existing maps in the game
+std::vector<map> battleZones; //Holder for all of the existing battle zones in the game
 
-void createMap(std::string name, std::string id);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
+void createMap(std::string name, std::string id, std::vector<map> &location);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
         f.loadMedia();//Pre-load images and variables
-        createMap("Place holder", "error");
-        createMap("The first map ever", "First");
+        createMap("Place holder", "error", maps);
+        createMap("The first map ever", "First", maps);
         maps[maps.size()-1].createLayer("qpm\\secret.png");
         maps[maps.size()-1].createLayer("qpm\\bc.png");
         maps[maps.size()-1].createLayer("qpm\\Roks.png");
@@ -44,8 +45,10 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,320,420);
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1000,400,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,1080,480);
+        maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",300,440,50,50,false);
+        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
 
-        createMap("The second map", "Caves");
+        createMap("The second map", "Caves",maps);
         maps[maps.size()-1].createLayer("qpm\\secret2.png");
         maps[maps.size()-1].createLayer("qpm\\bc2.png");
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",300,440,false);
@@ -53,9 +56,11 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
 
-        createMap("The third map", "Pyramids_So_Real");
-        maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
-        maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
+        createMap("The third map", "Pyramids_So_Real", battleZones);
+        battleZones[battleZones.size()-1].createLayer("qpm\\pyramids_secret.png");
+        battleZones[battleZones.size()-1].createLayer("qpm\\pyramids_transparent.png");
+
+
 
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
@@ -87,9 +92,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                 f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].rect,true);
             }
             for(int i=0; i<maps[f.player.map_location].interactable.size(); i++){
-                f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].rect,
-                                maps[f.player.map_location].interactable[i].location.x,
-                                maps[f.player.map_location].interactable[i].location.y);
+                if(!maps[f.player.map_location].interactable[i].resized)
+                f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].rect,maps[f.player.map_location].interactable[i].location.x,maps[f.player.map_location].interactable[i].location.y);
+                else{f.renderTexture(maps[f.player.map_location].interactable[i].texture,
+                                     maps[f.player.map_location].interactable[i].rect,
+                                     maps[f.player.map_location].interactable[i].location.x,
+                                     maps[f.player.map_location].interactable[i].location.y,
+                                     maps[f.player.map_location].interactable[i].resized_w,
+                                     maps[f.player.map_location].interactable[i].resized_h);
+                }
             }
             f.moveCharacter(true,maps[f.player.map_location].layers[0].surface);
             interact();
@@ -103,12 +114,12 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
     return f.messages.wParam;
 }
 
-void createMap(std::string name, std::string id){
+void createMap(std::string name, std::string id, std::vector<map> &location){
     map map_temp(f);
     map_temp.name=name;
     map_temp.id=id;
     for(int i=0; i<1; i++){
-        maps.push_back(map_temp);
+        location.push_back(map_temp);
     }
 }
 

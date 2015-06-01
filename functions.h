@@ -30,6 +30,7 @@ class functions: public variables
         void renderInventory();//Presents renderer with all the necessary inventory pixel information
         void callEvent(std::string type, info &information);//Depending on the type given will call the representing even function
         void callEventEnter(info &information);//Event function used for entering different territories/maps
+        void callEventBattle(info &information);//Event function used for entering battle
         void getEntityCornerColors(SDL_Surface* surface, SDL_Color colorHolder[4], SDL_Point pixelLocation[4]);//gets the colors of all the four corners of the player
         void getEntityCorner(int corner, SDL_Point entityLocation, SDL_Rect& entityRect, SDL_Point &locationHolder);//gets the corner corresponding to the corner variable: 1-top-left, 2-top-right, 3-bottom-right, 4-bottom-left
         void addObstruction(int r, int g, int b, int a);//Add a color to the list of obstruction colors by giving rgba values
@@ -74,7 +75,8 @@ class functions: public variables
         void getPixelColors(SDL_Surface* surface, double x, double y, SDL_Color &colorHolder);//Places the color of the given surface at the given coordinates to the given color holder
         SDL_Color getPixelColors(SDL_Surface* surface, double x, double y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
         void addButton(std::string name, SDL_Keycode key);//Adds a button to the button check list, name corresponds its' shortcut name, and the second variable is the SDL_Keycode variable which always looks like this: SDLK_
-        void addSpell(std::string type, float damage, float manaCost, std::string path); //Adds spell to ...
+        void addSpell(std::string type, float damage, float manaCost, std::string path, int x, int y); //Adds spell to ...
+        void addEntity(float healthPoints,int level,float manaPoints,std::string name); //Adds entities in-game
 };
 
 #endif // FUNCTIONS_H

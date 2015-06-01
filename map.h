@@ -38,10 +38,12 @@ class map
         std::vector<objects> object;
         std::vector<interact> interactable;
         void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, bool isInteractableColidable);
+        void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable);
         void createObject(std::string imagePath, int objectLocationX, int objectLocationY, bool isObjectColidable);
         void createLayer(std::string imagePath);
         void createZone(std::string owner, std::string zoneName);
         void createMobSpawner();
+
 };
 
 #endif // MAP_H

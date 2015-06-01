@@ -37,8 +37,11 @@ class variables
         std::vector<keyboard> buttons; //Button information holder, used to detect if the user is pressing a specific button on keyboard
         std::vector<SDL_Color> Colors; //Color holder for different areas/zones
         std::vector<spell> Spells; // The spells will be placed here
+        std::vector<entity> battleEnemies; //Holder for the enemies during the battle
+        std::vector<entity> entities; //Holds all in-game entities
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
+        int battleZoneId=0; //Holds information in witch zone, corresponding to this ID,  the battle is taking place in
         int FPS=60; //Amount of frames in a second
         int delay=1000/FPS; //Amount of time to wait before going to the next frame in milliseconds
         int SCREEN_WIDTH=1280; //Application screen width in pixels

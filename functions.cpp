@@ -126,6 +126,9 @@ void functions::callEvent(std::string type, info &information){
     if(type=="Enter"){
         functions::callEventEnter(information);
     }
+    else if(type=="Battle"){
+        functions::callEventBattle(information);
+    }
 }
 
 void functions::callEventEnter(info &information){
@@ -133,6 +136,24 @@ void functions::callEventEnter(info &information){
     functions::player.location.x=information.intInfo[1];
     functions::player.location.y=information.intInfo[2];
 }
+
+void functions::callEventBattle(info &information){
+     functions::battleZoneId=information.intInfo[0];
+    for(int i=0;i<information.intInfo[1];i++){
+        functions::battleEnemies.push_back(functions::entities[information.intInfo[i+2]]);
+    }
+    functions::player.isInBattle=true;
+}
+
+void functions::addEntity(float healthPoints,int level,float manaPoints,std::string name){
+    entity entity_temp;
+    entity_temp.healthPoints=healthPoints;
+    entity_temp.level=level;
+    entity_temp.manaPoints=manaPoints;
+    entity_temp.name=name;
+    functions::entities.push_back(entity_temp);
+}
+
 
 void functions::getEntityCornerColors(SDL_Surface* surface, SDL_Color colorHolder[4], SDL_Point pixelLocation[4]){
     std::stringstream ss;
@@ -233,11 +254,13 @@ void functions::moveCharacter(){
     if(functions::buttons[functions::findButton("W")].pressed==1 || functions::buttons[functions::findButton("Up")].pressed==1)    functions::player.location.y-=functions::player.movementSpeed;
 }
 
-void functions::addSpell(std::string type, float damage, float manaCost, std::string path){
+void functions::addSpell(std::string type, float damage, float manaCost, std::string path, int x, int y){
     spell spell_temp;
     spell_temp.elementType=type;
     spell_temp.damage=damage;
     spell_temp.manaCost=manaCost;
+    spell_temp.offset.x=x;
+    spell_temp.offset.y=y;
     if (functions::loadImage(path, spell_temp.shape)==0){functions::Spells.push_back(spell_temp);};
 }
 
@@ -269,6 +292,7 @@ void functions::loadMedia(){
     if(functions::player.inventory.slots.size()%functions::inventorySlotsPerRow!=0) functions::sections++;
     functions::player.inventory.ammountOfIntersections=functions::player.inventory.backPanel.rect.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.rect.h/2*2+1+(functions::player.inventory.backPanel.rect.h-functions::sections*functions::player.inventory.slotFrame.rect.h-(functions::sections+1)*distanceBetweenSlots);
     functions::tatssbatm=(functions::player.inventory.slider.location.y+functions::player.inventory.backPanel.rect.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.rect.h/2-1)-(functions::player.inventory.slider.location.y+functions::player.inventory.slider.rect.h/2);
+    functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png",50,50);
 }
 
 void functions::addButton(std::string name, SDL_Keycode key){
