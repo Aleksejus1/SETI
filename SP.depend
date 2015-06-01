@@ -23,7 +23,7 @@
 	"variables.h"
 	"layer.h"
 
-1433141400 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
+1433165467 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -45,8 +45,9 @@
 	<commdlg.h>
 	"layer.h"
 	"variables.h"
+	"spell.h"
 
-1433111238 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433165467 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -69,6 +70,7 @@
 	"character.h"
 	"keyboard.h"
 	"info.h"
+	"spell.h"
 
 1394940796 c:\justino\programming\c++\sdl\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -438,7 +440,7 @@
 	"character.h"
 	"map.h"
 
-1433110746 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433163646 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1179,7 +1181,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\character.cpp
+1433097083 source:d:\desktop\progr\sp--summer-project-\character.cpp
 	"character.h"
 	"entity.h"
 	"SDL.h"
@@ -1202,7 +1204,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 d:\desktop\progr\sp--summer-project-\character.h
+1433097083 d:\desktop\progr\sp--summer-project-\character.h
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -1225,7 +1227,7 @@
 	<commdlg.h>
 	"space.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\entity.h
+1433055431 d:\desktop\progr\sp--summer-project-\entity.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1592,7 +1594,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\skill.h
+1433011111 d:\desktop\progr\sp--summer-project-\skill.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1613,7 +1615,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 d:\desktop\progr\sp--summer-project-\layer.h
+1433082836 d:\desktop\progr\sp--summer-project-\layer.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1634,7 +1636,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 d:\desktop\progr\sp--summer-project-\space.h
+1433140394 d:\desktop\progr\sp--summer-project-\space.h
 	"slot.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -1658,7 +1660,7 @@
 	"layer.h"
 	"objects.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\slot.h
+1433085064 d:\desktop\progr\sp--summer-project-\slot.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1680,7 +1682,7 @@
 	<commdlg.h>
 	"item.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\item.h
+1433085044 d:\desktop\progr\sp--summer-project-\item.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1701,7 +1703,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 d:\desktop\progr\sp--summer-project-\objects.h
+1433082789 d:\desktop\progr\sp--summer-project-\objects.h
 	<tchar.h>
 	<windows.h>
 	<stdio.h>
@@ -1723,7 +1725,7 @@
 	"SDL_syswm.h"
 	"layer.h"
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\entity.cpp
+1433009897 source:d:\desktop\progr\sp--summer-project-\entity.cpp
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -1745,7 +1747,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\event.cpp
+1433071554 source:d:\desktop\progr\sp--summer-project-\event.cpp
 	"event.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -1767,7 +1769,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 d:\desktop\progr\sp--summer-project-\event.h
+1433071592 d:\desktop\progr\sp--summer-project-\event.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1789,7 +1791,7 @@
 	<commdlg.h>
 	"info.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\info.h
+1433070207 d:\desktop\progr\sp--summer-project-\info.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1810,7 +1812,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433161426 source:d:\desktop\progr\sp--summer-project-\functions.cpp
+1433161867 source:d:\desktop\progr\sp--summer-project-\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1835,7 +1837,7 @@
 	"layer.h"
 	"spell.h"
 
-1433161424 d:\desktop\progr\sp--summer-project-\functions.h
+1433161867 d:\desktop\progr\sp--summer-project-\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1859,7 +1861,7 @@
 	"variables.h"
 	"spell.h"
 
-1433156301 d:\desktop\progr\sp--summer-project-\variables.h
+1433161867 d:\desktop\progr\sp--summer-project-\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1884,7 +1886,7 @@
 	"info.h"
 	"spell.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\keyboard.h
+1433078452 d:\desktop\progr\sp--summer-project-\keyboard.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1905,7 +1907,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\info.cpp
+1433070212 source:d:\desktop\progr\sp--summer-project-\info.cpp
 	"info.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -1927,7 +1929,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\interact.cpp
+1433068789 source:d:\desktop\progr\sp--summer-project-\interact.cpp
 	"interact.h"
 	"objects.h"
 	<tchar.h>
@@ -1950,7 +1952,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\interact.h
+1433071821 d:\desktop\progr\sp--summer-project-\interact.h
 	"objects.h"
 	<tchar.h>
 	<windows.h>
@@ -1973,7 +1975,7 @@
 	"SDL_syswm.h"
 	"event.h"
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\item.cpp
+1433085048 source:d:\desktop\progr\sp--summer-project-\item.cpp
 	"item.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -1995,7 +1997,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\keyboard.cpp
+1433055149 source:d:\desktop\progr\sp--summer-project-\keyboard.cpp
 	"keyboard.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2017,7 +2019,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\layer.cpp
+1433011914 source:d:\desktop\progr\sp--summer-project-\layer.cpp
 	"layer.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2039,7 +2041,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150915 source:d:\desktop\progr\sp--summer-project-\main.cpp
+1433160046 source:d:\desktop\progr\sp--summer-project-\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2062,7 +2064,7 @@
 	"functions.h"
 	"map.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\map.h
+1433072972 d:\desktop\progr\sp--summer-project-\map.h
 	<tchar.h>
 	<windows.h>
 	<stdio.h>
@@ -2089,7 +2091,7 @@
 	"mobSpawner.h"
 	"layer.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\zone.h
+1433004097 d:\desktop\progr\sp--summer-project-\zone.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2110,7 +2112,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 d:\desktop\progr\sp--summer-project-\mobspawner.h
+1433011138 d:\desktop\progr\sp--summer-project-\mobspawner.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2132,7 +2134,7 @@
 	<commdlg.h>
 	"entity.h"
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\map.cpp
+1433085246 source:d:\desktop\progr\sp--summer-project-\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -2159,7 +2161,7 @@
 	"SDL_syswm.h"
 	"zone.h"
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\mobspawner.cpp
+1433011105 source:d:\desktop\progr\sp--summer-project-\mobspawner.cpp
 	"mobSpawner.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2181,7 +2183,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\objects.cpp
+1432999409 source:d:\desktop\progr\sp--summer-project-\objects.cpp
 	"objects.h"
 	<tchar.h>
 	<windows.h>
@@ -2203,7 +2205,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\skill.cpp
+1433011115 source:d:\desktop\progr\sp--summer-project-\skill.cpp
 	"skill.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2225,7 +2227,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\slot.cpp
+1433085041 source:d:\desktop\progr\sp--summer-project-\slot.cpp
 	"slot.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2247,7 +2249,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\space.cpp
+1433097201 source:d:\desktop\progr\sp--summer-project-\space.cpp
 	"space.h"
 	"slot.h"
 	"SDL.h"
@@ -2270,7 +2272,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433156565 source:d:\desktop\progr\sp--summer-project-\variables.cpp
+1433161867 source:d:\desktop\progr\sp--summer-project-\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2295,7 +2297,7 @@
 	"map.h"
 	"spell.h"
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\zone.cpp
+1433004100 source:d:\desktop\progr\sp--summer-project-\zone.cpp
 	"zone.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2339,7 +2341,7 @@
 	<commdlg.h>
 	"layer.h"
 
-1433160817 d:\desktop\progr\sp--summer-project-\spell.h
+1433161698 d:\desktop\progr\sp--summer-project-\spell.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2361,7 +2363,52 @@
 	<commdlg.h>
 	"layer.h"
 
-1433160815 source:d:\desktop\progr\sp--summer-project-\spell.cpp
+1433161688 source:d:\desktop\progr\sp--summer-project-\spell.cpp
+	"spell.h"
+	"layer.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433165298 c:\justino\programming\c++\sdl projects\sp [summer-project]\spell.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+
+1433165288 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\spell.cpp
 	"spell.h"
 	"layer.h"
 	"SDL.h"
