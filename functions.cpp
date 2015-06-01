@@ -20,6 +20,7 @@
 #include "functions.h"
 #include "variables.h"
 #include "layer.h"
+#include "spell.h"
 
 functions::functions()
 {
@@ -230,6 +231,14 @@ void functions::moveCharacter(){
     if(functions::buttons[functions::findButton("A")].pressed==1 || functions::buttons[functions::findButton("Left")].pressed==1)  functions::player.location.x-=functions::player.movementSpeed;
     if(functions::buttons[functions::findButton("S")].pressed==1 || functions::buttons[functions::findButton("Down")].pressed==1)  functions::player.location.y+=functions::player.movementSpeed;
     if(functions::buttons[functions::findButton("W")].pressed==1 || functions::buttons[functions::findButton("Up")].pressed==1)    functions::player.location.y-=functions::player.movementSpeed;
+}
+
+void functions::addSpell(std::string type, float damage, float manaCost, std::string path){
+    spell spell_temp;
+    spell_temp.elementType=type;
+    spell_temp.damage=damage;
+    spell_temp.manaCost=manaCost;
+    if (functions::loadImage(path, spell_temp.shape)==0){functions::Spells.push_back(spell_temp);};
 }
 
 void functions::loadMedia(){
@@ -687,3 +696,5 @@ void functions::close() {
 	TTF_Quit();
 	SDL_Quit();
 }
+
+

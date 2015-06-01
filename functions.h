@@ -21,6 +21,7 @@
 #include <commdlg.h>
 #include "layer.h"
 #include "variables.h"
+#include "spell.h"
 
 class functions: public variables
 {
@@ -73,6 +74,7 @@ class functions: public variables
         void getPixelColors(SDL_Surface* surface, double x, double y, SDL_Color &colorHolder);//Places the color of the given surface at the given coordinates to the given color holder
         SDL_Color getPixelColors(SDL_Surface* surface, double x, double y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
         void addButton(std::string name, SDL_Keycode key);//Adds a button to the button check list, name corresponds its' shortcut name, and the second variable is the SDL_Keycode variable which always looks like this: SDLK_
+        void addSpell(std::string type, float damage, float manaCost, std::string path); //Adds spell to ...
 };
 
 #endif // FUNCTIONS_H

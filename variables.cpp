@@ -20,6 +20,7 @@
 #include <commdlg.h>
 #include "character.h"
 #include "map.h"
+#include "spell.h"
 
 variables::variables():
 player(0,0,25,13,28,228,30)//initialize the player with hard-coded values

@@ -1810,7 +1810,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\functions.cpp
+1433161426 source:d:\desktop\progr\sp--summer-project-\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1833,8 +1833,9 @@
 	"functions.h"
 	"variables.h"
 	"layer.h"
+	"spell.h"
 
-1433150754 d:\desktop\progr\sp--summer-project-\functions.h
+1433161424 d:\desktop\progr\sp--summer-project-\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1856,8 +1857,9 @@
 	<commdlg.h>
 	"layer.h"
 	"variables.h"
+	"spell.h"
 
-1433151647 d:\desktop\progr\sp--summer-project-\variables.h
+1433156301 d:\desktop\progr\sp--summer-project-\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1880,6 +1882,7 @@
 	"character.h"
 	"keyboard.h"
 	"info.h"
+	"spell.h"
 
 1433150754 d:\desktop\progr\sp--summer-project-\keyboard.h
 	"SDL.h"
@@ -2267,7 +2270,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433150754 source:d:\desktop\progr\sp--summer-project-\variables.cpp
+1433156565 source:d:\desktop\progr\sp--summer-project-\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2290,9 +2293,77 @@
 	<commdlg.h>
 	"character.h"
 	"map.h"
+	"spell.h"
 
 1433150754 source:d:\desktop\progr\sp--summer-project-\zone.cpp
 	"zone.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433160817 d:\desktop\progr\sp--summer-project-\include\spell.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+
+1433160817 d:\desktop\progr\sp--summer-project-\spell.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+
+1433160815 source:d:\desktop\progr\sp--summer-project-\spell.cpp
+	"spell.h"
+	"layer.h"
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"

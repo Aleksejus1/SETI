@@ -22,6 +22,7 @@
 #include "character.h"
 #include "keyboard.h"
 #include "info.h"
+#include "spell.h"
 
 class variables
 {
@@ -35,6 +36,7 @@ class variables
         std::vector<SDL_Color> obstructions; //Color holder for those colors which should be impossible to pass for the player [should be used for secret layer]
         std::vector<keyboard> buttons; //Button information holder, used to detect if the user is pressing a specific button on keyboard
         std::vector<SDL_Color> Colors; //Color holder for different areas/zones
+        std::vector<spell> Spells; // The spells will be placed here
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
         int FPS=60; //Amount of frames in a second
@@ -45,7 +47,7 @@ class variables
         int inventorySlotsPerRow=4; //Amount of slots in a single inventory row
         int distanceBetweenSlots=0; //Pixel distance between slots in the inventory
         int sections=0; //Amount of rows in the inventory
-        float sliderSpeed=4; //Speed that the slider goes in;
+        float sliderSpeed=10; //Speed that the slider goes in;
         float tatssbatm=0; //Total Amount The Slider Should Be Able To Move - TATSSBATM
         SDL_Point screenStartPosition={128,130}; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window
