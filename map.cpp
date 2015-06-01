@@ -57,6 +57,8 @@ void map::createInteractable(std::string imagePath, int interactableLocationX, i
     interactable_temp.location.y=interactableLocationY;
     interactable_temp.colidable=isInteractableColidable;
     if(f.loadImage(imagePath,interactable_temp)==0){
+        interactable_temp.rect.x=interactableLocationX;
+        interactable_temp.rect.y=interactableLocationY;
         map::interactable.push_back(interactable_temp);
     }
     else f.error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+f.toString(interactableLocationX)+"; y="+f.toString(interactableLocationY)+"; colidable="+f.toString(isInteractableColidable)+";]");
@@ -67,10 +69,11 @@ void map::createInteractable(std::string imagePath, int interactableLocationX, i
     interactable_temp.location.x=interactableLocationX;
     interactable_temp.location.y=interactableLocationY;
     interactable_temp.colidable=isInteractableColidable;
-    interactable_temp.resized=true;
-    interactable_temp.resized_h=h;
-    interactable_temp.resized_w=w;
     if(f.loadImage(imagePath,interactable_temp)==0){
+        interactable_temp.rect.x=interactableLocationX;
+        interactable_temp.rect.y=interactableLocationY;
+        interactable_temp.rect.h=h;
+        interactable_temp.rect.w=w;
         map::interactable.push_back(interactable_temp);
     }
     else f.error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+f.toString(interactableLocationX)+"; y="+f.toString(interactableLocationY)+"; colidable="+f.toString(isInteractableColidable)+";]");

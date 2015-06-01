@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433165467 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433189166 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -24,7 +24,7 @@
 	"layer.h"
 	"spell.h"
 
-1433165467 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
+1433189718 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -48,7 +48,7 @@
 	"variables.h"
 	"spell.h"
 
-1433165467 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433189445 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -417,7 +417,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1433166538 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.cpp
+1433180646 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -442,7 +442,7 @@
 	"map.h"
 	"spell.h"
 
-1433166486 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433186227 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -555,7 +555,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433088846 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
+1433184070 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -582,7 +582,7 @@
 	"SDL_syswm.h"
 	"zone.h"
 
-1433076572 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
+1433180646 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
 	<tchar.h>
 	<windows.h>
 	<stdio.h>
@@ -675,7 +675,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433100683 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
+1433180646 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -786,7 +786,7 @@
 	<commdlg.h>
 	"entity.h"
 
-1433086436 c:\justino\programming\c++\sdl projects\sp [summer-project]\layer.h
+1433184110 c:\justino\programming\c++\sdl projects\sp [summer-project]\layer.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -916,7 +916,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433075154 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\event.cpp
+1433188668 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\event.cpp
 	"event.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -938,7 +938,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433075192 c:\justino\programming\c++\sdl projects\sp [summer-project]\event.h
+1433188334 c:\justino\programming\c++\sdl projects\sp [summer-project]\event.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2388,7 +2388,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433165298 c:\justino\programming\c++\sdl projects\sp [summer-project]\spell.h
+1433180646 c:\justino\programming\c++\sdl projects\sp [summer-project]\spell.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"

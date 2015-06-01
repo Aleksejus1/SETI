@@ -27,9 +27,6 @@ class layer
         SDL_Surface* surface=NULL;
         SDL_Texture* texture=NULL;
         SDL_Rect rect;
-        bool resized=false;
-        int resized_h=0;
-        int resized_w=0;
 };
 
 #endif // LAYER_H

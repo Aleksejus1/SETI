@@ -27,6 +27,8 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        void addEnemyId(std::string enemyName);
+        void findEntity(std::string name, int returnValue);//Returns the id of an entity with the same name
         void renderInventory();//Presents renderer with all the necessary inventory pixel information
         void callEvent(std::string type, info &information);//Depending on the type given will call the representing even function
         void callEventEnter(info &information);//Event function used for entering different territories/maps
@@ -76,7 +78,7 @@ class functions: public variables
         SDL_Color getPixelColors(SDL_Surface* surface, double x, double y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
         void addButton(std::string name, SDL_Keycode key);//Adds a button to the button check list, name corresponds its' shortcut name, and the second variable is the SDL_Keycode variable which always looks like this: SDLK_
         void addSpell(std::string type, float damage, float manaCost, std::string path, int x, int y); //Adds spell to ...
-        void addEntity(float healthPoints,int level,float manaPoints,std::string name); //Adds entities in-game
+        void addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath); //Adds entities in-game
 };
 
 #endif // FUNCTIONS_H

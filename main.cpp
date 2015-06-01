@@ -28,16 +28,16 @@
 
 functions f; //Main way of accessing variables and functions in main.cpp
 std::vector<map> maps;//Holder for all existing maps in the game
-std::vector<map> battleZones; //Holder for all of the existing battle zones in the game
 
-void createMap(std::string name, std::string id, std::vector<map> &location);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
+void createMap(std::string name, std::string id);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
         f.loadMedia();//Pre-load images and variables
-        createMap("Place holder", "error", maps);
-        createMap("The first map ever", "First", maps);
+        //create maps
+        createMap("Place holder", "error");
+        createMap("The first map ever", "First");
         maps[maps.size()-1].createLayer("qpm\\secret.png");
         maps[maps.size()-1].createLayer("qpm\\bc.png");
         maps[maps.size()-1].createLayer("qpm\\Roks.png");
@@ -46,20 +46,24 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1000,400,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,1080,480);
         maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",300,440,50,50,false);
-        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
+        f.addEnemyId("Zombie");
+        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
+        maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
+        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
 
-        createMap("The second map", "Caves",maps);
+        createMap("The second map", "Caves");
         maps[maps.size()-1].createLayer("qpm\\secret2.png");
         maps[maps.size()-1].createLayer("qpm\\bc2.png");
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",300,440,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
-
-        createMap("The third map", "Pyramids_So_Real", battleZones);
-        battleZones[battleZones.size()-1].createLayer("qpm\\pyramids_secret.png");
-        battleZones[battleZones.size()-1].createLayer("qpm\\pyramids_transparent.png");
-
+        //finished creating maps
+        f.ammountOfMaps=maps.size();
+        //create battle zones
+        createMap("The third map", "Pyramids_So_Real");
+        maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
+        maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
 
 
         while( !f.quit ) { //Event cycle, does once every game tick
@@ -88,21 +92,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     f.mouseWheelMotion=f.e.wheel.y;//Sets the mouse wheel value to it's corresponding one -1 to the used, 1 away from the used
                 }
             }
-            for(int i=1; i<maps[f.player.map_location].layers.size(); i++){
-                f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].rect,true);
-            }
-            for(int i=0; i<maps[f.player.map_location].interactable.size(); i++){
-                if(!maps[f.player.map_location].interactable[i].resized)
-                f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].rect,maps[f.player.map_location].interactable[i].location.x,maps[f.player.map_location].interactable[i].location.y);
-                else{f.renderTexture(maps[f.player.map_location].interactable[i].texture,
-                                     maps[f.player.map_location].interactable[i].rect,
-                                     maps[f.player.map_location].interactable[i].location.x,
-                                     maps[f.player.map_location].interactable[i].location.y,
-                                     maps[f.player.map_location].interactable[i].resized_w,
-                                     maps[f.player.map_location].interactable[i].resized_h);
-                }
-            }
-            f.moveCharacter(true,maps[f.player.map_location].layers[0].surface);
+            for(int i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].rect,true);
+            for(int i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].rect);
+            f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
             interact();
             f.renderTexture(f.player.image.texture,f.player.image.rect,f.player.location.x,f.player.location.y);
             f.renderInventory();
@@ -114,12 +106,12 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
     return f.messages.wParam;
 }
 
-void createMap(std::string name, std::string id, std::vector<map> &location){
+void createMap(std::string name, std::string id){
     map map_temp(f);
     map_temp.name=name;
     map_temp.id=id;
     for(int i=0; i<1; i++){
-        location.push_back(map_temp);
+        maps.push_back(map_temp);
     }
 }
 
@@ -149,4 +141,11 @@ void interact(){
         f.player.movementSpeed=f.player.baseMovementSpeed*4;
     }
     else f.player.movementSpeed=f.player.baseMovementSpeed;
+    if(f.buttons[f.findButton("N")].pressed==1){
+        f.buttons[f.findButton("N")].pressed=2;
+        f.bordersAreAThing=!f.bordersAreAThing;
+    }
+    if(f.buttons[f.findButton("Esc")].pressed==1){
+        f.quit=true;
+    }
 }

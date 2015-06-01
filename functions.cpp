@@ -30,6 +30,22 @@ functions::functions()
     functions::addColor(0,0,255);
 }
 
+void functions::addEnemyId(std::string enemyName){
+    int i;
+    functions::findEntity(enemyName,i);
+    functions::battleEnemiesIds.push_back(i);
+}
+
+void functions::findEntity(std::string name, int returnValue){
+    returnValue=-1;
+    for(int i=0; i<functions::entities.size(); i++){
+        if(functions::entities[i].name==name){
+            returnValue=i;
+        }
+    }
+    if(returnValue==-1) functions::error(name+" entity was not found, fix the program you lazy programmer!");
+}
+
 void functions::renderInventory(){
     if(functions::player.inventory.open){
         if(functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed<=0&&
@@ -143,17 +159,19 @@ void functions::callEventBattle(info &information){
         functions::battleEnemies.push_back(functions::entities[information.intInfo[i+2]]);
     }
     functions::player.isInBattle=true;
+    functions::player.map_location=functions::ammountOfMaps+functions::battleZoneId;
 }
 
-void functions::addEntity(float healthPoints,int level,float manaPoints,std::string name){
+void functions::addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath){
     entity entity_temp;
     entity_temp.healthPoints=healthPoints;
     entity_temp.level=level;
     entity_temp.manaPoints=manaPoints;
     entity_temp.name=name;
-    functions::entities.push_back(entity_temp);
+    if(functions::loadImage(imagePath,entity_temp.image)==0){
+        functions::entities.push_back(entity_temp);
+    }
 }
-
 
 void functions::getEntityCornerColors(SDL_Surface* surface, SDL_Color colorHolder[4], SDL_Point pixelLocation[4]){
     std::stringstream ss;
@@ -285,6 +303,8 @@ void functions::loadMedia(){
     functions::addButton("E",SDLK_e);
     functions::addButton("I",SDLK_i);
     functions::addButton("Left Shift",SDLK_LSHIFT);
+    functions::addButton("N",SDLK_n);
+    functions::addButton("Esc",SDLK_ESCAPE);
     functions::addObstruction(0,0,10,255);
     functions::addObstruction(0,0,200,255);
     functions::distanceBetweenSlots=(functions::player.inventory.backPanel.rect.w-functions::player.inventory.slotFrame.rect.w*functions::inventorySlotsPerRow)/(functions::inventorySlotsPerRow+1);
@@ -293,6 +313,7 @@ void functions::loadMedia(){
     functions::player.inventory.ammountOfIntersections=functions::player.inventory.backPanel.rect.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.rect.h/2*2+1+(functions::player.inventory.backPanel.rect.h-functions::sections*functions::player.inventory.slotFrame.rect.h-(functions::sections+1)*distanceBetweenSlots);
     functions::tatssbatm=(functions::player.inventory.slider.location.y+functions::player.inventory.backPanel.rect.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.rect.h/2-1)-(functions::player.inventory.slider.location.y+functions::player.inventory.slider.rect.h/2);
     functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png",50,50);
+    functions::addEntity(20.0,1,0.0,"Zombie","qpm\\Zombie.png");
 }
 
 void functions::addButton(std::string name, SDL_Keycode key){
@@ -720,5 +741,3 @@ void functions::close() {
 	TTF_Quit();
 	SDL_Quit();
 }
-
-
