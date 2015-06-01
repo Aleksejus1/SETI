@@ -45,6 +45,7 @@ class variables
         int inventorySlotsPerRow=4; //Amount of slots in a single inventory row
         int distanceBetweenSlots=0; //Pixel distance between slots in the inventory
         int sections=0; //Amount of rows in the inventory
+        float sliderSpeed=4; //Speed that the slider goes in;
         float tatssbatm=0; //Total Amount The Slider Should Be Able To Move - TATSSBATM
         SDL_Point screenStartPosition={128,130}; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window

@@ -31,9 +31,9 @@ functions::functions()
 
 void functions::renderInventory(){
     if(functions::player.inventory.open){
-        if(functions::player.inventory.offsetY+functions::mouseWheelMotion*4<=0&&
-           functions::player.inventory.offsetY+functions::mouseWheelMotion*4>=functions::player.inventory.backPanel.rect.h-functions::sections*functions::player.inventory.slotFrame.rect.h-(functions::sections+1)*distanceBetweenSlots)
-            functions::player.inventory.offsetY+=functions::mouseWheelMotion*4;
+        if(functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed<=0&&
+           functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed>=functions::player.inventory.backPanel.rect.h-functions::sections*functions::player.inventory.slotFrame.rect.h-(functions::sections+1)*distanceBetweenSlots)
+            functions::player.inventory.offsetY+=functions::mouseWheelMotion*functions::sliderSpeed;
         functions::player.inventory.inventoryL.surface=SDL_ConvertSurface(functions::player.inventory.frame.surface,functions::player.inventory.frame.surface->format,0);
         functions::copySurface(functions::player.inventory.backPanel.surface,
                                functions::player.inventory.inventoryL.surface,
