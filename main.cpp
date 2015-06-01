@@ -1,4 +1,3 @@
-//this is just a test :D
 #if defined(UNICODE) && !defined(_UNICODE)
     #define _UNICODE
 #elif defined(_UNICODE) && !defined(UNICODE)
