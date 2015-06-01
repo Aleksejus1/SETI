@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add directory="C:/Justino/Programming/C++/sdl/include/SDL2" />
 			<Add directory="C:/sdl/32/include/SDL2" />
+			<Add directory="D:/Desktop/progr/sdl" />
+			<Add directory="D:/Desktop/progr/sdl/include/SDL2" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDL2main -lSDL2 -mwindows -lOpenGL32 -lglu32 -lSDL2_mixer -lSDL2_image -lSDL2_ttf" />
@@ -42,6 +44,7 @@
 			<Add library="comctl32" />
 			<Add directory="C:/Justino/Programming/C++/sdl/lib" />
 			<Add directory="C:/sdl/32/lib" />
+			<Add directory="D:/Desktop/progr/sdl/lib" />
 		</Linker>
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
