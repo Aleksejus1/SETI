@@ -28,7 +28,7 @@ class functions: public variables
     public:
         functions(); //Initialization function
         void addEnemyId(std::string enemyName);
-        void findEntity(std::string name, int returnValue);//Returns the id of an entity with the same name
+        int findEntity(std::string name);//Returns the id of an entity with the same name
         void renderInventory();//Presents renderer with all the necessary inventory pixel information
         void callEvent(std::string type, info &information);//Depending on the type given will call the representing even function
         void callEventEnter(info &information);//Event function used for entering different territories/maps

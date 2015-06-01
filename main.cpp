@@ -30,6 +30,7 @@ functions f; //Main way of accessing variables and functions in main.cpp
 std::vector<map> maps;//Holder for all existing maps in the game
 
 void createMap(std::string name, std::string id);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
+void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
@@ -61,8 +62,12 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         //finished creating maps
         f.ammountOfMaps=maps.size();
         //create battle zones
-        createMap("The third map", "Pyramids_So_Real");
+        createBattleZone("The third map", "Pyramids_So_Real",
+                         0,0,   0,0,   320,500,   0,0,   0,0,
+                         0,0,   0,0,   0,0,       0,0,   0,0
+                         );
         maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
+        maps[maps.size()-1].createLayer("qpm\\bc3.png");
         maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
 
 
@@ -92,6 +97,11 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     f.mouseWheelMotion=f.e.wheel.y;//Sets the mouse wheel value to it's corresponding one -1 to the used, 1 away from the used
                 }
             }
+            if(f.player.isInBattle==1){ //instead of this there should be a call to a function which would initiate the battle "Ain't my job"-Aleksejus
+                f.player.location.x=maps[f.player.map_location].platforms[2].x;
+                f.player.location.y=maps[f.player.map_location].platforms[2].y;
+                f.player.isInBattle=2;
+            }
             for(int i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].rect,true);
             for(int i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].rect);
             f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
@@ -110,6 +120,26 @@ void createMap(std::string name, std::string id){
     map map_temp(f);
     map_temp.name=name;
     map_temp.id=id;
+    for(int i=0; i<1; i++){
+        maps.push_back(map_temp);
+    }
+}
+
+void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0){
+    map map_temp(f);
+    map_temp.name=name;
+    map_temp.id=id;
+    SDL_Point location;
+    location.x=x1; location.y=y1; map_temp.platforms.push_back(location);
+    location.x=x2; location.y=y2; map_temp.platforms.push_back(location);
+    location.x=x3; location.y=y3; map_temp.platforms.push_back(location);
+    location.x=x4; location.y=y4; map_temp.platforms.push_back(location);
+    location.x=x5; location.y=y5; map_temp.platforms.push_back(location);
+    location.x=x6; location.y=y6; map_temp.platforms.push_back(location);
+    location.x=x7; location.y=y7; map_temp.platforms.push_back(location);
+    location.x=x8; location.y=y8; map_temp.platforms.push_back(location);
+    location.x=x9; location.y=y9; map_temp.platforms.push_back(location);
+    location.x=x0; location.y=y0; map_temp.platforms.push_back(location);
     for(int i=0; i<1; i++){
         maps.push_back(map_temp);
     }

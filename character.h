@@ -30,7 +30,7 @@ class character: public entity
         float baseMovementSpeed=1;
         float movementSpeed=baseMovementSpeed;
         space inventory;
-        bool isInBattle=false;
+        int isInBattle=0;
 };
 
 #endif // CHARACTER_H

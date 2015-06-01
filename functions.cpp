@@ -31,19 +31,17 @@ functions::functions()
 }
 
 void functions::addEnemyId(std::string enemyName){
-    int i;
-    functions::findEntity(enemyName,i);
-    functions::battleEnemiesIds.push_back(i);
+    functions::battleEnemiesIds.push_back(functions::findEntity(enemyName));
 }
 
-void functions::findEntity(std::string name, int returnValue){
-    returnValue=-1;
+int functions::findEntity(std::string name){
     for(int i=0; i<functions::entities.size(); i++){
         if(functions::entities[i].name==name){
-            returnValue=i;
+            return i;
         }
     }
-    if(returnValue==-1) functions::error(name+" entity was not found, fix the program you lazy programmer!");
+    functions::error(name+" entity was not found, fix the program you lazy programmer!");
+    return -1;
 }
 
 void functions::renderInventory(){
@@ -154,11 +152,11 @@ void functions::callEventEnter(info &information){
 }
 
 void functions::callEventBattle(info &information){
-     functions::battleZoneId=information.intInfo[0];
+    functions::battleZoneId=information.intInfo[0];
     for(int i=0;i<information.intInfo[1];i++){
         functions::battleEnemies.push_back(functions::entities[information.intInfo[i+2]]);
     }
-    functions::player.isInBattle=true;
+    functions::player.isInBattle=1;
     functions::player.map_location=functions::ammountOfMaps+functions::battleZoneId;
 }
 
@@ -266,10 +264,12 @@ void functions::moveCharacter(bool withObstructions, SDL_Surface* surfaceOfObstr
 }
 
 void functions::moveCharacter(){
-    if(functions::buttons[functions::findButton("D")].pressed==1 || functions::buttons[functions::findButton("Right")].pressed==1) functions::player.location.x+=functions::player.movementSpeed;
-    if(functions::buttons[functions::findButton("A")].pressed==1 || functions::buttons[functions::findButton("Left")].pressed==1)  functions::player.location.x-=functions::player.movementSpeed;
-    if(functions::buttons[functions::findButton("S")].pressed==1 || functions::buttons[functions::findButton("Down")].pressed==1)  functions::player.location.y+=functions::player.movementSpeed;
-    if(functions::buttons[functions::findButton("W")].pressed==1 || functions::buttons[functions::findButton("Up")].pressed==1)    functions::player.location.y-=functions::player.movementSpeed;
+    if(functions::player.isInBattle==0){
+        if(functions::buttons[functions::findButton("D")].pressed==1 || functions::buttons[functions::findButton("Right")].pressed==1) functions::player.location.x+=functions::player.movementSpeed;
+        if(functions::buttons[functions::findButton("A")].pressed==1 || functions::buttons[functions::findButton("Left")].pressed==1)  functions::player.location.x-=functions::player.movementSpeed;
+        if(functions::buttons[functions::findButton("S")].pressed==1 || functions::buttons[functions::findButton("Down")].pressed==1)  functions::player.location.y+=functions::player.movementSpeed;
+        if(functions::buttons[functions::findButton("W")].pressed==1 || functions::buttons[functions::findButton("Up")].pressed==1)    functions::player.location.y-=functions::player.movementSpeed;
+    }
 }
 
 void functions::addSpell(std::string type, float damage, float manaCost, std::string path, int x, int y){

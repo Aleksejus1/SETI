@@ -37,6 +37,7 @@ class map
         std::vector<zone> zones;
         std::vector<objects> object;
         std::vector<interact> interactable;
+        std::vector<SDL_Point> platforms;
         void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, bool isInteractableColidable);
         void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable);
         void createObject(std::string imagePath, int objectLocationX, int objectLocationY, bool isObjectColidable);

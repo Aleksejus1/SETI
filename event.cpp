@@ -40,7 +40,7 @@ void event::createBattleEvent(int zoneId, std::vector<int> entitiesIds){
         event::information.addInfo(zoneId);
         int temp=entitiesIds.size();
         event::information.addInfo(temp);
-        for(int i=0; i<entitiesIds.size();i++){
+        for(int i=0; i<temp;i++){
             event::information.addInfo(entitiesIds[i]);
         }
         entitiesIds.clear();
