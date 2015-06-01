@@ -54,6 +54,14 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
 
+        createMap("TEST", "TEST");
+        maps[maps.size()-1].createLayer("qpm\\secret2.png");
+        maps[maps.size()-1].createLayer("qpm\\bc2.png");
+        maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",300,440,false);
+        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
+        maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
+        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
+
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
             while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
