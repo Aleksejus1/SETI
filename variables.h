@@ -43,6 +43,7 @@ class variables
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
         bool bordersAreAThing=true; //you did not see this =.=
+        int antialiasing=0;
         int ammountOfMaps=0; //holder for how many maps there are
         int battleZoneId=0; //Holds information in witch zone, corresponding to this ID,  the battle is taking place in
         int FPS=60; //Amount of frames in a second

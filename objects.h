@@ -25,7 +25,6 @@ class objects: public layer
 {
     public:
         objects();
-        SDL_Point location;
         bool colidable;
 };
 

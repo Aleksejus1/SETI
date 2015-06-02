@@ -31,6 +31,47 @@ functions::functions()
     functions::addColor(0,0,255);
 }
 
+void functions::battle(){
+    if(functions::player.isInBattle==2){
+        for(int i=0; i<functions::battleEnemies.size(); i++){
+            functions::renderTexture(functions::battleEnemies[i].image.texture,
+                                     functions::battleEnemies[i].image.surface->clip_rect,
+                                     functions::battleEnemies[i].location.x,
+                                     functions::battleEnemies[i].location.y);
+        }
+    }
+}
+
+void functions::resizeImage(double angle, int h_w, int smooth, layer &layerer, bool trueForHeight_falseForWidth){
+    double zoom=h_w;
+    if(trueForHeight_falseForWidth) zoom=zoom/layerer.surface->h;
+    else zoom=zoom/layerer.surface->w;
+    SDL_Surface* surface=rotozoomSurface(layerer.surface,angle,zoom,smooth);
+    SDL_FreeSurface(layerer.surface);
+    layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
+    layerer.location.w=layerer.surface->w;
+    layerer.location.h=layerer.surface->h;
+    layerer.texture=SDL_CreateTextureFromSurface(functions::renderer,layerer.surface);
+}
+
+void functions::resizeImage(double angle, int w, int h, int smooth, layer &layerer){
+    double zoomx=w; zoomx=zoomx/layerer.surface->w;
+    double zoomy=h; zoomy=zoomy/layerer.surface->h;
+    SDL_Surface* surface=rotozoomSurfaceXY(layerer.surface,angle,zoomx,zoomy,smooth);
+    SDL_FreeSurface(layerer.surface);
+    layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
+    layerer.location.w=layerer.surface->w;
+    layerer.location.h=layerer.surface->h;
+    layerer.texture=SDL_CreateTextureFromSurface(functions::renderer,layerer.surface);
+}
+
+void functions::resizeImage(layer &layerer, double angle, double zoomx, double zoomy, int smooth){
+    SDL_Surface* surface=rotozoomSurfaceXY(layerer.surface,angle,zoomx,zoomy,smooth);
+    SDL_FreeSurface(layerer.surface);
+    layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
+    layerer.texture=SDL_CreateTextureFromSurface(functions::renderer,layerer.surface);
+}
+
 void functions::resizeImage(layer &layerer, double angle, double zoom, int smooth){
     SDL_Surface* surface=rotozoomSurface(layerer.surface,angle,zoom,smooth);
     SDL_FreeSurface(layerer.surface);
@@ -55,44 +96,44 @@ int functions::findEntity(std::string name){
 void functions::renderInventory(){
     if(functions::player.inventory.open){
         if(functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed<=0&&
-           functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed>=functions::player.inventory.backPanel.rect.h-functions::sections*functions::player.inventory.slotFrame.rect.h-(functions::sections+1)*distanceBetweenSlots)
+           functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed>=functions::player.inventory.backPanel.location.h-functions::sections*functions::player.inventory.slotFrame.location.h-(functions::sections+1)*distanceBetweenSlots)
             functions::player.inventory.offsetY+=functions::mouseWheelMotion*functions::sliderSpeed;
         functions::player.inventory.inventoryL.surface=SDL_ConvertSurface(functions::player.inventory.frame.surface,functions::player.inventory.frame.surface->format,0);
         functions::copySurface(functions::player.inventory.backPanel.surface,
                                functions::player.inventory.inventoryL.surface,
-                               functions::player.inventory.backPanel.rect,
+                               functions::player.inventory.backPanel.location,
                                functions::player.inventory.backPanelOffset.x,
                                functions::player.inventory.backPanelOffset.y);
         int y2,x2;
         for(int i=0; i<functions::sections; i++){
-            y2=i*functions::player.inventory.slotFrame.rect.h+(i+1)*distanceBetweenSlots+functions::player.inventory.backPanelOffset.y;
+            y2=i*functions::player.inventory.slotFrame.location.h+(i+1)*distanceBetweenSlots+functions::player.inventory.backPanelOffset.y;
             y2+=functions::player.inventory.offsetY;
-            if(y2<functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.rect.h&&
-                y2+functions::player.inventory.slotFrame.rect.h>functions::player.inventory.backPanelOffset.y){
+            if(y2<functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.location.h&&
+                y2+functions::player.inventory.slotFrame.location.h>functions::player.inventory.backPanelOffset.y){
                 for(int o=0; o<functions::inventorySlotsPerRow; o++){
                     if(i*functions::inventorySlotsPerRow+o+1>functions::player.inventory.slots.size())o=functions::inventorySlotsPerRow;
                     else{
-                        x2=o*functions::player.inventory.slotFrame.rect.w+(o+1)*distanceBetweenSlots+functions::player.inventory.backPanelOffset.x;
+                        x2=o*functions::player.inventory.slotFrame.location.w+(o+1)*distanceBetweenSlots+functions::player.inventory.backPanelOffset.x;
                         if(y2<functions::player.inventory.backPanelOffset.y){
                             //------------------------------------------------------------------------------------------------//
                             functions::copySurface(functions::player.inventory.slotFrame.surface,//from
                                                    functions::player.inventory.inventoryL.surface,//to
-                                                   functions::player.inventory.slotFrame.rect.x,//from x
+                                                   functions::player.inventory.slotFrame.location.x,//from x
                                                    functions::player.inventory.backPanelOffset.y-y2,//from y
-                                                   functions::player.inventory.slotFrame.rect.w,//width
-                                                   functions::player.inventory.slotFrame.rect.h-functions::player.inventory.backPanelOffset.y+y2,//height
+                                                   functions::player.inventory.slotFrame.location.w,//width
+                                                   functions::player.inventory.slotFrame.location.h-functions::player.inventory.backPanelOffset.y+y2,//height
                                                    x2,//to x
                                                    functions::player.inventory.backPanelOffset.y);//to y
                             //------------------------------------------------------------------------------------------------//
                         }
-                        else if(y2+functions::player.inventory.slotFrame.rect.h>functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.rect.h){
+                        else if(y2+functions::player.inventory.slotFrame.location.h>functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.location.h){
                             //------------------------------------------------------------------------------------------------//
                             functions::copySurface(functions::player.inventory.slotFrame.surface,//from
                                                    functions::player.inventory.inventoryL.surface,//to
-                                                   functions::player.inventory.slotFrame.rect.x,
-                                                   functions::player.inventory.slotFrame.rect.y,
-                                                   functions::player.inventory.slotFrame.rect.w,
-                                                   functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.rect.h-y2,
+                                                   functions::player.inventory.slotFrame.location.x,
+                                                   functions::player.inventory.slotFrame.location.y,
+                                                   functions::player.inventory.slotFrame.location.w,
+                                                   functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.location.h-y2,
                                                    x2,
                                                    y2);
                             //------------------------------------------------------------------------------------------------//
@@ -100,7 +141,7 @@ void functions::renderInventory(){
                         else {
                             functions::copySurface(functions::player.inventory.slotFrame.surface,//from
                                                    functions::player.inventory.inventoryL.surface,//to
-                                                   functions::player.inventory.slotFrame.rect,
+                                                   functions::player.inventory.slotFrame.location,
                                                    x2,
                                                    y2);
                         }
@@ -112,31 +153,31 @@ void functions::renderInventory(){
         if(functions::player.inventory.ammountOfIntersections>=0){
             functions::copySurface(functions::player.inventory.slider.surface,
                                    functions::player.inventory.inventoryL.surface,0,0,
-                                   functions::player.inventory.slider.rect.w,
-                                   functions::player.inventory.slider.rect.h/2,
+                                   functions::player.inventory.slider.location.w,
+                                   functions::player.inventory.slider.location.h/2,
                                    functions::player.inventory.sliderOffset.x,
                                    functions::player.inventory.sliderOffset.y-functions::player.inventory.offsetY);
             functions::copySurface(functions::player.inventory.slider.surface,
                                    functions::player.inventory.inventoryL.surface,0,
-                                   functions::player.inventory.slider.rect.h/2+1,
-                                   functions::player.inventory.slider.rect.w,
-                                   functions::player.inventory.slider.rect.h/2,
+                                   functions::player.inventory.slider.location.h/2+1,
+                                   functions::player.inventory.slider.location.w,
+                                   functions::player.inventory.slider.location.h/2,
                                    functions::player.inventory.sliderOffset.x,
-                                   functions::player.inventory.sliderOffset.y+functions::player.inventory.ammountOfIntersections+functions::player.inventory.slider.rect.h/2-functions::player.inventory.offsetY);
+                                   functions::player.inventory.sliderOffset.y+functions::player.inventory.ammountOfIntersections+functions::player.inventory.slider.location.h/2-functions::player.inventory.offsetY);
             for(int i=0; i<=functions::player.inventory.ammountOfIntersections; i++){
                 functions::copySurface(functions::player.inventory.slider.surface,
                                        functions::player.inventory.inventoryL.surface,0,
-                                       functions::player.inventory.slider.rect.h/2+1,
-                                       functions::player.inventory.slider.rect.w,1,
+                                       functions::player.inventory.slider.location.h/2+1,
+                                       functions::player.inventory.slider.location.w,1,
                                        functions::player.inventory.sliderOffset.x,
-                                       functions::player.inventory.sliderOffset.y+functions::player.inventory.slider.rect.h/2+i-functions::player.inventory.offsetY,
-                                       functions::player.inventory.slider.rect.w,1);
+                                       functions::player.inventory.sliderOffset.y+functions::player.inventory.slider.location.h/2+i-functions::player.inventory.offsetY,
+                                       functions::player.inventory.slider.location.w,1);
             }
         }
         else{
             functions::copySurface(functions::player.inventory.slider.surface,
                                    functions::player.inventory.inventoryL.surface,
-                                   functions::player.inventory.slider.rect,
+                                   functions::player.inventory.slider.location,
                                    functions::player.inventory.sliderOffset.x,
                                    functions::player.inventory.sliderOffset.y-functions::player.inventory.offsetY*(functions::tatssbatm/(functions::tatssbatm-functions::player.inventory.ammountOfIntersections)));
         }
@@ -182,7 +223,7 @@ void functions::addEntity(float healthPoints,int level,float manaPoints,std::str
 void functions::getEntityCornerColors(SDL_Surface* surface, SDL_Color colorHolder[4], SDL_Point pixelLocation[4]){
     std::stringstream ss;
     for(int i=0; i<4; i++) {
-        functions::getEntityCorner(i+1,functions::player.location,functions::player.image.rect,pixelLocation[i]);
+        functions::getEntityCorner(i+1,functions::player.location,functions::player.image.location,pixelLocation[i]);
         pixelLocation[i].x=pixelLocation[i].x*surface->w/functions::SCREEN_WIDTH;
         pixelLocation[i].y=pixelLocation[i].y*surface->h/functions::SCREEN_HEIGHT;
         functions::getPixelColors(surface,pixelLocation[i].x,
@@ -293,7 +334,7 @@ void functions::addSpell(std::string type, float damage, float manaCost, std::st
 void functions::loadMedia(){
     functions::loadImage("qpm\\player.png",functions::player.image);
     functions::loadImage("qpm\\inventoryFrame.png",functions::player.inventory.frame);
-    functions::player.inventory.setLocations(functions::SCREEN_WIDTH-functions::player.inventory.frame.rect.w-50,50);
+    functions::player.inventory.setLocations(functions::SCREEN_WIDTH-functions::player.inventory.frame.location.w-50,50);
     functions::loadImage("qpm\\inventoryBackPanel.png",functions::player.inventory.backPanel);
     functions::loadImage("qpm\\inventorySlot.png",functions::player.inventory.slotFrame);
     functions::loadImage("qpm\\inventorySlider.png",functions::player.inventory.slider);
@@ -315,13 +356,16 @@ void functions::loadMedia(){
     functions::addButton("Esc",SDLK_ESCAPE);
     functions::addObstruction(0,0,10,255);
     functions::addObstruction(0,0,200,255);
-    functions::distanceBetweenSlots=(functions::player.inventory.backPanel.rect.w-functions::player.inventory.slotFrame.rect.w*functions::inventorySlotsPerRow)/(functions::inventorySlotsPerRow+1);
+    functions::distanceBetweenSlots=(functions::player.inventory.backPanel.location.w-functions::player.inventory.slotFrame.location.w*functions::inventorySlotsPerRow)/(functions::inventorySlotsPerRow+1);
     functions::sections=functions::player.inventory.slots.size()/functions::inventorySlotsPerRow;
     if(functions::player.inventory.slots.size()%functions::inventorySlotsPerRow!=0) functions::sections++;
-    functions::player.inventory.ammountOfIntersections=functions::player.inventory.backPanel.rect.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.rect.h/2*2+1+(functions::player.inventory.backPanel.rect.h-functions::sections*functions::player.inventory.slotFrame.rect.h-(functions::sections+1)*distanceBetweenSlots);
-    functions::tatssbatm=(functions::player.inventory.slider.location.y+functions::player.inventory.backPanel.rect.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.rect.h/2-1)-(functions::player.inventory.slider.location.y+functions::player.inventory.slider.rect.h/2);
+    functions::player.inventory.ammountOfIntersections=functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2*2+1+(functions::player.inventory.backPanel.location.h-functions::sections*functions::player.inventory.slotFrame.location.h-(functions::sections+1)*distanceBetweenSlots);
+    functions::tatssbatm=(functions::player.inventory.slider.location.y+functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2-1)-(functions::player.inventory.slider.location.y+functions::player.inventory.slider.location.h/2);
     functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png",50,50);
     functions::addEntity(20.0,1,0.0,"Zombie","qpm\\Zombie.png");
+    functions::resizeImage(0,functions::player.image.surface->h,0,functions::entities[functions::entities.size()-1].image,true);
+    functions::addEntity(20.0,1,0.0,"Zombie_mini","qpm\\Zombie.png");
+    functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
 }
 
 void functions::addButton(std::string name, SDL_Keycode key){
@@ -672,10 +716,10 @@ int functions::loadImage(std::string path, layer &layererer){
             return 1;
         }
         else{
-            layererer.rect.x=0;
-            layererer.rect.y=0;
-            layererer.rect.w=layererer.surface->w;
-            layererer.rect.h=layererer.surface->h;
+            layererer.location.x=0;
+            layererer.location.y=0;
+            layererer.location.w=layererer.surface->w;
+            layererer.location.h=layererer.surface->h;
         }
     }
     return 0;

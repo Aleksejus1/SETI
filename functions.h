@@ -27,6 +27,10 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        void battle(); //render all enemies and other battle stuffs
+        void resizeImage(double angle, int h_w, int smooth, layer &layerer, bool trueForHeight_falseForWidth);
+        void resizeImage(double angle, int w, int h, int smooth, layer &layerer);
+        void resizeImage(layer &layerer, double angle, double zoomx, double zoomy, int smooth);
         void resizeImage(layer &layerer, double angle, double zoom, int smooth);
         void addEnemyId(std::string enemyName);
         int findEntity(std::string name);//Returns the id of an entity with the same name

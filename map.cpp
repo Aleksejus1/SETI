@@ -53,12 +53,10 @@ void map::createZone(std::string owner, std::string zoneName){
 
 void map::createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, bool isInteractableColidable){
     interact interactable_temp;
-    interactable_temp.location.x=interactableLocationX;
-    interactable_temp.location.y=interactableLocationY;
     interactable_temp.colidable=isInteractableColidable;
     if(f.loadImage(imagePath,interactable_temp)==0){
-        interactable_temp.rect.x=interactableLocationX;
-        interactable_temp.rect.y=interactableLocationY;
+        interactable_temp.location.x=interactableLocationX;
+        interactable_temp.location.y=interactableLocationY;
         map::interactable.push_back(interactable_temp);
     }
     else f.error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+f.toString(interactableLocationX)+"; y="+f.toString(interactableLocationY)+"; colidable="+f.toString(isInteractableColidable)+";]");
@@ -66,15 +64,11 @@ void map::createInteractable(std::string imagePath, int interactableLocationX, i
 
 void map::createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable){
     interact interactable_temp;
-    interactable_temp.location.x=interactableLocationX;
-    interactable_temp.location.y=interactableLocationY;
     interactable_temp.colidable=isInteractableColidable;
     if(f.loadImage(imagePath,interactable_temp)==0){
-        interactable_temp.rect.x=interactableLocationX;
-        interactable_temp.rect.y=interactableLocationY;
-        interactable_temp.rect.h=h;
-        interactable_temp.rect.w=w;
-        f.resizeImage(interactable_temp,180,20,1);
+        interactable_temp.location.x=interactableLocationX;
+        interactable_temp.location.y=interactableLocationY;
+        f.resizeImage(0,w,h,f.antialiasing,interactable_temp);
         map::interactable.push_back(interactable_temp);
     }
     else f.error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+f.toString(interactableLocationX)+"; y="+f.toString(interactableLocationY)+"; colidable="+f.toString(isInteractableColidable)+";]");
@@ -94,6 +88,7 @@ void map::createObject(std::string imagePath, int objectLocationX, int objectLoc
 void map::createLayer(std::string imagePath){
     layer layer_temp;
     if(f.loadImage(imagePath,layer_temp)==0){
+        f.resizeImage(0,f.SCREEN_WIDTH,f.SCREEN_HEIGHT,f.antialiasing,layer_temp);
         map::layers.push_back(layer_temp);
     }
     else f.error("The program was unable to create a layer. [Info: imagePath="+imagePath+";");

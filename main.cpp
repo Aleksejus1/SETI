@@ -48,6 +48,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,1080,480);
         maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",300,440,50,50,false);
         f.addEnemyId("Zombie");
+        f.addEnemyId("Zombie");
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
         maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
@@ -64,7 +65,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         //create battle zones
         createBattleZone("The third map", "Pyramids_So_Real",
                          0,0,   0,0,   320,500,   0,0,   0,0,
-                         0,0,   0,0,   0,0,       0,0,   0,0
+                         0,0,   0,0,   f.SCREEN_WIDTH-320,500,       f.SCREEN_WIDTH-320+20,540,   0,0
                          );
         maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
         maps[maps.size()-1].createLayer("qpm\\bc3.png");
@@ -98,15 +99,24 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                 }
             }
             if(f.player.isInBattle==1){ //instead of this there should be a call to a function which would initiate the battle "Ain't my job"-Aleksejus
-                f.player.location.x=maps[f.player.map_location].platforms[2].x;
-                f.player.location.y=maps[f.player.map_location].platforms[2].y;
+                f.player.location.x=maps[f.player.map_location].platforms[2].x-f.player.image.surface->w/2;
+                f.player.location.y=maps[f.player.map_location].platforms[2].y-f.player.image.surface->h;
                 f.player.isInBattle=2;
+                f.battleEnemies[f.battleEnemies.size()-2].location.x=maps[f.player.map_location].platforms[7].x-f.battleEnemies[f.battleEnemies.size()-2].image.surface->w/2;
+                f.battleEnemies[f.battleEnemies.size()-2].location.y=maps[f.player.map_location].platforms[7].y-f.battleEnemies[f.battleEnemies.size()-2].image.surface->h;
+                f.battleEnemies[f.battleEnemies.size()-1].location.x=maps[f.player.map_location].platforms[8].x-f.battleEnemies[f.battleEnemies.size()-1].image.surface->w/2;
+                f.battleEnemies[f.battleEnemies.size()-1].location.y=maps[f.player.map_location].platforms[8].y-f.battleEnemies[f.battleEnemies.size()-1].image.surface->h;
             }
-            for(int i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].rect,true);
-            for(int i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].rect);
+            for(int i=1; i<maps[f.player.map_location].layers.size(); i++)
+            f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
+            for(int i=0; i<maps[f.player.map_location].interactable.size(); i++)
+                f.renderTexture(maps[f.player.map_location].interactable[i].texture,
+                                maps[f.player.map_location].interactable[i].surface->clip_rect,
+                                maps[f.player.map_location].interactable[i].location);
             f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
+            f.battle();
             interact();
-            f.renderTexture(f.player.image.texture,f.player.image.rect,f.player.location.x,f.player.location.y);
+            f.renderTexture(f.player.image.texture,f.player.image.location,f.player.location.x,f.player.location.y);
             f.renderInventory();
             SDL_RenderPresent(f.renderer); // update screen
             SDL_Delay(f.delay); // control frame rate
@@ -152,11 +162,11 @@ void interact(){
         float check;
         int id=-1;
         for(int i=0; i<maps[f.player.map_location].interactable.size(); i++){
-            check=sqrt(pow(f.player.location.x+f.player.image.rect.w/2-
-                           maps[f.player.map_location].interactable[i].location.x-maps[f.player.map_location].interactable[i].rect.w/2,2)+
-                       pow(f.player.location.y+f.player.image.rect.h/2-
-                           maps[f.player.map_location].interactable[i].location.y-maps[f.player.map_location].interactable[i].rect.h/2,2));
-            if(check<f.player.image.rect.h/2&&check<smallestDistance){
+            check=sqrt(pow(f.player.location.x+f.player.image.location.w/2-
+                           maps[f.player.map_location].interactable[i].location.x-maps[f.player.map_location].interactable[i].location.w/2,2)+
+                       pow(f.player.location.y+f.player.image.location.h/2-
+                           maps[f.player.map_location].interactable[i].location.y-maps[f.player.map_location].interactable[i].location.h/2,2));
+            if(check<f.player.image.location.h/2&&check<smallestDistance){
                 smallestDistance=check;
                 id=i;
             }
