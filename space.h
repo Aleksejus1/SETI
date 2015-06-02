@@ -1,6 +1,6 @@
 #ifndef SPACE_H
 #define SPACE_H
-#include "slot.h"
+#include "itemStack.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -27,7 +27,7 @@ class space
 {
     public:
         space();
-        std::vector<slot> slots;
+        std::vector<itemStack> itemStacks;
         layer slotFrame,inventoryL;
         objects frame,backPanel,slider;
         SDL_Point backPanelOffset,sliderOffset;
@@ -35,12 +35,12 @@ class space
         bool open=false;
         void setOffesets(int backPanelOffsetX, int backPanelOffsetY, int sliderOffsetX, int sliderOffsetY);
         void setLocations(int x, int y);
-        void addSlot();
-        void addSlot(int itemCount, item itemToPut);
-        void addSlots(int ammount);
-        void addSlots(int ammount, int itemCount, item itemToPut);
-        void setSlot(int slotId, int itemCount);
-        void setSlot(int slotId, int itemCount, item itemToSet);
+        void addItemStack();
+        void addItemStack(int itemCount, item itemToPut);
+        void addItemStacks(int ammount);
+        void addItemStacks(int ammount, int itemCount, item itemToPut);
+        void setItemStack(int itemStackId, int itemCount);
+        void setItemStack(int itemStackId, int itemCount, item itemToSet);
 };
 
 #endif // SPACE_H

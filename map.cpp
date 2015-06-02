@@ -30,6 +30,37 @@ map::map(functions &fu):
     //ctor
 }
 
+void map::addGatherableReturnItemStack(gather &gatherableTypeVar,int itemCount,item containingItem){
+    itemStack itemStack_temp;
+    itemStack_temp.itemCount=itemCount;
+    itemStack_temp.containingItem=containingItem;
+    gatherableTypeVar.returnItems.push_back(itemStack_temp);
+}
+
+void map::createGatherable(bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName){
+    //also need to call createEvent function, addStage function, addGatherableReturnItemStack
+    gather gather_temp;
+    gather_temp.colidable=colidable;
+    gather_temp.gatherTime=gatherTime;
+    gather_temp.requiredLevel=requiredLevel;
+    gather_temp.requiredSkillName=requiredSkillName;
+    map::gatherable.push_back(gather_temp);
+}
+
+void map::addStage(gather &gatherableTypeVar,float timeUntilNextStage, bool isItAShortcutStage, std::string imagePath){
+    stage stage_temp;
+    stage_temp.timeUntilNextStage=timeUntilNextStage;
+    stage_temp.shortcut=isItAShortcutStage;
+    if(f.loadImage(imagePath,stage_temp.image)==0){
+        gatherableTypeVar.stages.push_back(stage_temp);
+    }
+    else f.error("The program was unable to create an interactable. [Info: "+
+                 f.toString(timeUntilNextStage)+"=timeUntilNextStage"+";\n"+
+                 "isItAShortcutStage="+f.toString(isItAShortcutStage)+";\n"+
+                 "imagePath="+imagePath+";\n"+
+                 "]");
+}
+
 void createMobSpawner(int location_x, int location_y){
     mobSpawner spawner_temp;
     spawner_temp.location.x=location_x;

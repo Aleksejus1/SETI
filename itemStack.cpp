@@ -1,4 +1,4 @@
-#include "slot.h"
+#include "itemStack.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -19,7 +19,7 @@
 #include <sys/types.h>
 #include <commdlg.h>
 
-slot::slot()
+itemStack::itemStack()
 {
     //ctor
 }

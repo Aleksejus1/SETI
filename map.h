@@ -25,19 +25,26 @@
 #include "functions.h"
 #include "mobSpawner.h"
 #include "layer.h"
+#include "gather.h"
 
 class map
 {
     public:
         functions f;
         map(functions &fu);
+        //variables
         std::string name,id;
         std::vector<mobSpawner> mobSpawnLocations;
         std::vector<layer> layers;
         std::vector<zone> zones;
         std::vector<objects> object;
         std::vector<interact> interactable;
+        std::vector<gather> gatherable;
         std::vector<SDL_Point> platforms;
+        //functions
+        void addGatherableReturnItemStack(gather &gatherableTypeVar,int itemCount,item containingItem);
+        void createGatherable(bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName);
+        void addStage(gather &gatherableTypeVar,float timeUntilNextStage, bool isItAShortcutStage, std::string imagePath);
         void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, bool isInteractableColidable);
         void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable);
         void createObject(std::string imagePath, int objectLocationX, int objectLocationY, bool isObjectColidable);

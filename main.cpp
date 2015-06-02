@@ -61,6 +61,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
+        maps[maps.size()-1].createGatherable(false,2,0,"shitGathering");
+        maps[maps.size()-1].addStage(maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1],-1,true,"qpm\\poop_full.png");
+        maps[maps.size()-1].addStage(maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1],2,false,"qpm\\poop_empty.png");
         //finished creating maps
         f.ammountOfMaps=maps.size();
         //create battle zones

@@ -148,7 +148,7 @@ void functions::renderInventory(){
             if(y2<functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.location.h&&
                 y2+functions::player.inventory.slotFrame.location.h>functions::player.inventory.backPanelOffset.y){
                 for(int o=0; o<functions::inventorySlotsPerRow; o++){
-                    if(i*functions::inventorySlotsPerRow+o+1>functions::player.inventory.slots.size())o=functions::inventorySlotsPerRow;
+                    if(i*functions::inventorySlotsPerRow+o+1>functions::player.inventory.itemStacks.size())o=functions::inventorySlotsPerRow;
                     else{
                         x2=o*functions::player.inventory.slotFrame.location.w+(o+1)*distanceBetweenSlots+functions::player.inventory.backPanelOffset.x;
                         if(y2<functions::player.inventory.backPanelOffset.y){
@@ -400,8 +400,8 @@ void functions::loadMedia(){
             }
             functions::player.inventory.setLocations(functions::SCREEN_WIDTH-functions::player.inventory.frame.location.w-50,50);
             functions::distanceBetweenSlots=(functions::player.inventory.backPanel.location.w-functions::player.inventory.slotFrame.location.w*functions::inventorySlotsPerRow)/(functions::inventorySlotsPerRow+1);
-            functions::sections=functions::player.inventory.slots.size()/functions::inventorySlotsPerRow;
-            if(functions::player.inventory.slots.size()%functions::inventorySlotsPerRow!=0) functions::sections++;
+            functions::sections=functions::player.inventory.itemStacks.size()/functions::inventorySlotsPerRow;
+            if(functions::player.inventory.itemStacks.size()%functions::inventorySlotsPerRow!=0) functions::sections++;
             functions::player.inventory.ammountOfIntersections=functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2*2+1+(functions::player.inventory.backPanel.location.h-functions::sections*functions::player.inventory.slotFrame.location.h-(functions::sections+1)*distanceBetweenSlots);
             functions::tatssbatm=(functions::player.inventory.slider.location.y+functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2-1)-(functions::player.inventory.slider.location.y+functions::player.inventory.slider.location.h/2);
         }

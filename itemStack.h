@@ -1,5 +1,5 @@
-#ifndef SLOT_H
-#define SLOT_H
+#ifndef ITEMSTACK_H
+#define ITEMSTACK_H
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -21,12 +21,13 @@
 #include <commdlg.h>
 #include "item.h"
 
-class slot
+
+class itemStack
 {
     public:
-        slot();
+        itemStack();
         item containingItem;
         int itemCount=0;
 };
 
-#endif // SLOT_H
+#endif // ITEMSTACK_H

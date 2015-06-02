@@ -24,5 +24,5 @@ character::character(int inventoryX, int inventoryY, int ammountOfSlotsInInvento
 {
     character::inventory.setOffesets(offset_x,offset_y,offset_x2,offset_y2);
     character::inventory.setLocations(inventoryX,inventoryY);
-    character::inventory.addSlots(ammountOfSlotsInInventory);
+    character::inventory.addItemStacks(ammountOfSlotsInInventory);
 }

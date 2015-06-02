@@ -1,5 +1,5 @@
 #include "space.h"
-#include "slot.h"
+#include "itemStack.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -41,35 +41,35 @@ void space::setLocations(int x, int y){
     space::slider.location.y=y+space::sliderOffset.y;
 }
 
-void space::addSlot(){
-    slot slot_temp;
-    space::slots.push_back(slot_temp);
+void space::addItemStack(){
+    itemStack itemStack_temp;
+    space::itemStacks.push_back(itemStack_temp);
 }
 
-void space::addSlot(int itemCount, item itemToPut){
-    slot slot_temp;
-    slot_temp.containingItem=itemToPut;
-    slot_temp.itemCount=itemCount;
-    space::slots.push_back(slot_temp);
+void space::addItemStack(int itemCount, item itemToPut){
+    itemStack itemStack_temp;
+    itemStack_temp.containingItem=itemToPut;
+    itemStack_temp.itemCount=itemCount;
+    space::itemStacks.push_back(itemStack_temp);
 }
 
-void space::addSlots(int ammount){
-    slot slot_temp;
-    for(int i=0; i<ammount; i++) space::slots.push_back(slot_temp);
+void space::addItemStacks(int ammount){
+    itemStack itemStack_temp;
+    for(int i=0; i<ammount; i++) space::itemStacks.push_back(itemStack_temp);
 }
 
-void space::addSlots(int ammount, int itemCount, item itemToPut){
-    slot slot_temp;
-    slot_temp.containingItem=itemToPut;
-    slot_temp.itemCount=itemCount;
-    for(int i=0; i<ammount; i++) space::slots.push_back(slot_temp);
+void space::addItemStacks(int ammount, int itemCount, item itemToPut){
+    itemStack itemStack_temp;
+    itemStack_temp.containingItem=itemToPut;
+    itemStack_temp.itemCount=itemCount;
+    for(int i=0; i<ammount; i++) space::itemStacks.push_back(itemStack_temp);
 }
 
-void space::setSlot(int slotId, int itemCount){
-    space::slots[slotId].itemCount=itemCount;
+void space::setItemStack(int itemStackId, int itemCount){
+    space::itemStacks[itemStackId].itemCount=itemCount;
 }
 
-void space::setSlot(int slotId, int itemCount, item itemToSet){
-    space::slots[slotId].itemCount=itemCount;
-    space::slots[slotId].containingItem=itemToSet;
+void space::setItemStack(int itemStackId, int itemCount, item itemToSet){
+    space::itemStacks[itemStackId].itemCount=itemCount;
+    space::itemStacks[itemStackId].containingItem=itemToSet;
 }

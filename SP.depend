@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433264678 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433278525 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -49,7 +49,7 @@
 	"variables.h"
 	"spell.h"
 
-1433264744 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433280146 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -556,7 +556,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433264731 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
+1433278794 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -583,7 +583,7 @@
 	"SDL_syswm.h"
 	"zone.h"
 
-1433264743 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
+1433279411 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
 	<tchar.h>
 	<windows.h>
 	<stdio.h>
@@ -609,6 +609,7 @@
 	"functions.h"
 	"mobSpawner.h"
 	"layer.h"
+	"gather.h"
 
 1433007697 c:\justino\programming\c++\sdl projects\sp [summer-project]\zone.h
 	"SDL.h"
@@ -653,7 +654,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433100683 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\character.cpp
+1433278492 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\character.cpp
 	"character.h"
 	"entity.h"
 	"SDL.h"
@@ -1050,8 +1051,8 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433143994 c:\justino\programming\c++\sdl projects\sp [summer-project]\space.h
-	"slot.h"
+1433278476 c:\justino\programming\c++\sdl projects\sp [summer-project]\space.h
+	"itemStack.h"
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1161,9 +1162,9 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433100801 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\space.cpp
+1433278882 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\space.cpp
 	"space.h"
-	"slot.h"
+	"itemStack.h"
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2443,4 +2444,62 @@
 1346777480 c:\justino\programming\c++\sdl projects\sp [summer-project]\sdl2_rotozoom.h
 	<math.h>
 	"SDL.h"
+
+1433278206 c:\justino\programming\c++\sdl projects\sp [summer-project]\itemstack.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"item.h"
+
+1433277851 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\gather.cpp
+	"gather.h"
+
+1433278997 c:\justino\programming\c++\sdl projects\sp [summer-project]\gather.h
+	"interact.h"
+	"stage.h"
+	"itemStack.h"
+
+1433278894 c:\justino\programming\c++\sdl projects\sp [summer-project]\stage.h
+	"layer.h"
+
+1433278215 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\itemstack.cpp
+	"itemStack.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433277659 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\stage.cpp
+	"stage.h"
 

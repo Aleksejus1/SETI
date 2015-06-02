@@ -46,6 +46,10 @@
 			<Add directory="C:/sdl/32/lib" />
 			<Add directory="D:/Desktop/progr/sdl/lib" />
 		</Linker>
+		<Unit filename="SDL2_rotozoom.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="SDL2_rotozoom.h" />
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
 		<Unit filename="entity.cpp" />
@@ -54,12 +58,16 @@
 		<Unit filename="event.h" />
 		<Unit filename="functions.cpp" />
 		<Unit filename="functions.h" />
+		<Unit filename="gather.cpp" />
+		<Unit filename="gather.h" />
 		<Unit filename="info.cpp" />
 		<Unit filename="info.h" />
 		<Unit filename="interact.cpp" />
 		<Unit filename="interact.h" />
 		<Unit filename="item.cpp" />
 		<Unit filename="item.h" />
+		<Unit filename="itemStack.cpp" />
+		<Unit filename="itemStack.h" />
 		<Unit filename="keyboard.cpp" />
 		<Unit filename="keyboard.h" />
 		<Unit filename="layer.cpp" />
@@ -73,12 +81,12 @@
 		<Unit filename="objects.h" />
 		<Unit filename="skill.cpp" />
 		<Unit filename="skill.h" />
-		<Unit filename="slot.cpp" />
-		<Unit filename="slot.h" />
 		<Unit filename="space.cpp" />
 		<Unit filename="space.h" />
 		<Unit filename="spell.cpp" />
 		<Unit filename="spell.h" />
+		<Unit filename="stage.cpp" />
+		<Unit filename="stage.h" />
 		<Unit filename="variables.cpp" />
 		<Unit filename="variables.h" />
 		<Unit filename="zone.cpp" />
