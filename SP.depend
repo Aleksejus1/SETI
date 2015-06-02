@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433193395 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433243243 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -23,8 +23,9 @@
 	"variables.h"
 	"layer.h"
 	"spell.h"
+	"SDL2_rotozoom.h"
 
-1433193799 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
+1433242832 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -442,7 +443,7 @@
 	"map.h"
 	"spell.h"
 
-1433194840 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433195255 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -555,7 +556,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433184070 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
+1433243215 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -2432,4 +2433,14 @@
 	<sys/stat.h>
 	<sys/types.h>
 	<commdlg.h>
+
+1391338940 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\sdl2_rotozoom.c
+	<windows.h>
+	<stdlib.h>
+	<string.h>
+	"SDL2_rotozoom.h"
+
+1346777480 c:\justino\programming\c++\sdl projects\sp [summer-project]\sdl2_rotozoom.h
+	<math.h>
+	"SDL.h"
 

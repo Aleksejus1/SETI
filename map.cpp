@@ -74,6 +74,7 @@ void map::createInteractable(std::string imagePath, int interactableLocationX, i
         interactable_temp.rect.y=interactableLocationY;
         interactable_temp.rect.h=h;
         interactable_temp.rect.w=w;
+        f.resizeImage(interactable_temp,180,20,1);
         map::interactable.push_back(interactable_temp);
     }
     else f.error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+f.toString(interactableLocationX)+"; y="+f.toString(interactableLocationY)+"; colidable="+f.toString(isInteractableColidable)+";]");

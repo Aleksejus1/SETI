@@ -21,6 +21,7 @@
 #include "variables.h"
 #include "layer.h"
 #include "spell.h"
+#include "SDL2_rotozoom.h"
 
 functions::functions()
 {
@@ -28,6 +29,13 @@ functions::functions()
     functions::addColor(255,0,0);
     functions::addColor(0,255,0);
     functions::addColor(0,0,255);
+}
+
+void functions::resizeImage(layer &layerer, double angle, double zoom, int smooth){
+    SDL_Surface* surface=rotozoomSurface(layerer.surface,angle,zoom,smooth);
+    SDL_FreeSurface(layerer.surface);
+    layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
+    layerer.texture=SDL_CreateTextureFromSurface(functions::renderer,layerer.surface);
 }
 
 void functions::addEnemyId(std::string enemyName){

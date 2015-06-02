@@ -27,6 +27,7 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        void resizeImage(layer &layerer, double angle, double zoom, int smooth);
         void addEnemyId(std::string enemyName);
         int findEntity(std::string name);//Returns the id of an entity with the same name
         void renderInventory();//Presents renderer with all the necessary inventory pixel information
