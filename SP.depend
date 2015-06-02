@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433262605 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433264678 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -443,7 +443,7 @@
 	"map.h"
 	"spell.h"
 
-1433259057 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433264584 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -556,7 +556,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433255925 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
+1433264731 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -917,7 +917,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433193295 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\event.cpp
+1433264656 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\event.cpp
 	"event.h"
 	"SDL.h"
 	"SDL_image.h"
