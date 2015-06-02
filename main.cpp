@@ -32,6 +32,7 @@ std::vector<map> maps;//Holder for all existing maps in the game
 void createMap(std::string name, std::string id);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
 void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
+void battle(); //render all enemies and other battle stuffs
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
@@ -65,7 +66,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         //create battle zones
         createBattleZone("The third map", "Pyramids_So_Real",
                          0,0,   0,0,   320,500,   0,0,   0,0,
-                         0,0,   0,0,   f.SCREEN_WIDTH-320,500,       f.SCREEN_WIDTH-320+20,540,   0,0
+                         f.SCREEN_WIDTH-320,500,   f.SCREEN_WIDTH-320+20,540,   0,0,       0,0,   0,0
                          );
         maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
         maps[maps.size()-1].createLayer("qpm\\bc3.png");
@@ -98,15 +99,6 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     f.mouseWheelMotion=f.e.wheel.y;//Sets the mouse wheel value to it's corresponding one -1 to the used, 1 away from the used
                 }
             }
-            if(f.player.isInBattle==1){ //instead of this there should be a call to a function which would initiate the battle "Ain't my job"-Aleksejus
-                f.player.location.x=maps[f.player.map_location].platforms[2].x-f.player.image.surface->w/2;
-                f.player.location.y=maps[f.player.map_location].platforms[2].y-f.player.image.surface->h;
-                f.player.isInBattle=2;
-                f.battleEnemies[f.battleEnemies.size()-2].location.x=maps[f.player.map_location].platforms[7].x-f.battleEnemies[f.battleEnemies.size()-2].image.surface->w/2;
-                f.battleEnemies[f.battleEnemies.size()-2].location.y=maps[f.player.map_location].platforms[7].y-f.battleEnemies[f.battleEnemies.size()-2].image.surface->h;
-                f.battleEnemies[f.battleEnemies.size()-1].location.x=maps[f.player.map_location].platforms[8].x-f.battleEnemies[f.battleEnemies.size()-1].image.surface->w/2;
-                f.battleEnemies[f.battleEnemies.size()-1].location.y=maps[f.player.map_location].platforms[8].y-f.battleEnemies[f.battleEnemies.size()-1].image.surface->h;
-            }
             for(int i=1; i<maps[f.player.map_location].layers.size(); i++)
             f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
             for(int i=0; i<maps[f.player.map_location].interactable.size(); i++)
@@ -114,7 +106,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                                 maps[f.player.map_location].interactable[i].surface->clip_rect,
                                 maps[f.player.map_location].interactable[i].location);
             f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
-            f.battle();
+            battle();
             interact();
             f.renderTexture(f.player.image.texture,f.player.image.location,f.player.location.x,f.player.location.y);
             f.renderInventory();
@@ -189,3 +181,29 @@ void interact(){
         f.quit=true;
     }
 }
+
+void battle(){
+
+    if(f.player.isInBattle==1){//initialize the battle
+        //set player' location
+            f.player.location.x=maps[f.player.map_location].platforms[2].x-f.player.image.surface->w/2;
+            f.player.location.y=maps[f.player.map_location].platforms[2].y-f.player.image.surface->h;
+        //set allies location [allies not yet implemented into the game
+        //set enemies locations
+            for(int i=0; ((i<f.battleEnemies.size())&&(i<5)); i++){
+                f.battleEnemies[i].location.x=maps[f.player.map_location].platforms[i+5].x-f.battleEnemies[i].image.surface->w/2;
+                f.battleEnemies[i].location.y=maps[f.player.map_location].platforms[i+5].y-f.battleEnemies[i].image.surface->h;
+            }
+            f.player.isInBattle=2;
+        //done initializing the battle
+    }
+    else if(f.player.isInBattle==2){//battle in progress
+        for(int i=0;((i<f.battleEnemies.size())&&(i<5)); i++){
+            f.renderTexture(f.battleEnemies[i].image.texture,
+                            f.battleEnemies[i].image.surface->clip_rect,
+                            f.battleEnemies[i].location.x,
+                            f.battleEnemies[i].location.y);
+        }
+    }
+}
+

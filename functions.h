@@ -27,7 +27,6 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
-        void battle(); //render all enemies and other battle stuffs
         void resizeImage(double angle, int h_w, int smooth, layer &layerer, bool trueForHeight_falseForWidth);
         void resizeImage(double angle, int w, int h, int smooth, layer &layerer);
         void resizeImage(layer &layerer, double angle, double zoomx, double zoomy, int smooth);

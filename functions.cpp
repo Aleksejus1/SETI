@@ -31,17 +31,6 @@ functions::functions()
     functions::addColor(0,0,255);
 }
 
-void functions::battle(){
-    if(functions::player.isInBattle==2){
-        for(int i=0; i<functions::battleEnemies.size(); i++){
-            functions::renderTexture(functions::battleEnemies[i].image.texture,
-                                     functions::battleEnemies[i].image.surface->clip_rect,
-                                     functions::battleEnemies[i].location.x,
-                                     functions::battleEnemies[i].location.y);
-        }
-    }
-}
-
 void functions::resizeImage(double angle, int h_w, int smooth, layer &layerer, bool trueForHeight_falseForWidth){
     double zoom=h_w;
     if(trueForHeight_falseForWidth) zoom=zoom/layerer.surface->h;
