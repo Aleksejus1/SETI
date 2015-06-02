@@ -27,6 +27,7 @@ class entity
     public:
         entity();
         SDL_Point location;
+        struct doublePoint{double x,y;}; doublePoint legCenter;
         layer image;
         int map_location,level;
         std::string name;

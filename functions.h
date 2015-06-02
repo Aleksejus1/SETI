@@ -27,6 +27,13 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        bool movePoint(SDL_Point *point, int movementSpeed);
+        bool pointInsideRect(int x, int y, SDL_Rect &rect);
+        bool pointInsideRect(SDL_Point &point, SDL_Rect &rect);
+        bool pointInsideRect(SDL_Point &point, int x, int y, int w, int h);
+        bool pointInsideRect(int x, int y, int x2, int y2, int w, int h);
+        int findImage(std::string imageIdInFormOfString);
+        void createImage(std::string imagePath, std::string imageIdInFormOfString);
         void resizeImage(double angle, int h_w, int smooth, layer &layerer, bool trueForHeight_falseForWidth);
         void resizeImage(double angle, int w, int h, int smooth, layer &layerer);
         void resizeImage(layer &layerer, double angle, double zoomx, double zoomy, int smooth);
@@ -67,6 +74,7 @@ class functions: public variables
         void renderTexture(SDL_Texture* texture,SDL_Rect &sourceRect,int x, int y, int w, int h);//Render the texture from the given source rectangle to the give point and size
         void renderTexture(SDL_Texture* texture,SDL_Rect &sourceRect,int x, int y);//Render the texture from the given source rectangle to the given destination point [keeps the same size]
         std::string toString(int number);//Return the string value of the given number
+        std::string toString(double number);//Return the string value of the given number
         bool equalColors(SDL_Color a, SDL_Color b);//Checks if both colors are equal/same
         void addColor(int r, int g, int b, int a);//Adds a color to the color list used for zones/areas by giving the rgba values
         void addColor(int r, int g, int b);//Adds a color to the color list used for zones/areas by giving the rgb values, alpha value is 255 - [full] by default
@@ -82,7 +90,7 @@ class functions: public variables
         SDL_Color getPixelColors(SDL_Surface* surface, double x, double y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
         void addButton(std::string name, SDL_Keycode key);//Adds a button to the button check list, name corresponds its' shortcut name, and the second variable is the SDL_Keycode variable which always looks like this: SDLK_
         void addSpell(std::string type, float damage, float manaCost, std::string path, int x, int y); //Adds spell to ...
-        void addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath); //Adds entities in-game
+        void addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY); //Adds entities in-game
 };
 
 #endif // FUNCTIONS_H

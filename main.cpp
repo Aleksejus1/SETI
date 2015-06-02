@@ -48,8 +48,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1000,400,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,1080,480);
         maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",300,440,50,50,false);
-        f.addEnemyId("Zombie");
-        f.addEnemyId("Zombie");
+        //f.addEnemyId("debug_1"); f.addEnemyId("debug_2"); f.addEnemyId("debug_3"); f.addEnemyId("debug_4"); f.addEnemyId("debug_5");
+        f.addEnemyId("Zombie"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie_mini"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie");
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
         maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
@@ -66,7 +66,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         //create battle zones
         createBattleZone("The third map", "Pyramids_So_Real",
                          0,0,   0,0,   320,500,   0,0,   0,0,
-                         f.SCREEN_WIDTH-320,500,   f.SCREEN_WIDTH-320+20,540,   0,0,       0,0,   0,0
+                         786,533,  797,675,  933,597,  1095,558,  1086,666
+                         //393,419,   431,456,   315,387,   387,483,   360,519
                          );
         maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
         maps[maps.size()-1].createLayer("qpm\\bc3.png");
@@ -75,6 +76,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
+            f.mouseButton=0; //Reset mouse button
             while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
                 if(f.e.type==SDL_QUIT){//If program tries to shut down
                     f.quit = true;//Exit the game loop
@@ -98,13 +100,16 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                 else if(f.e.type==SDL_MOUSEWHEEL){//Checks if the mouse wheel was used
                     f.mouseWheelMotion=f.e.wheel.y;//Sets the mouse wheel value to it's corresponding one -1 to the used, 1 away from the used
                 }
+                else if(f.e.type==SDL_MOUSEBUTTONDOWN){//Checks if the mouse button was pressed
+                    f.mouseButton=1;
+                }
+                else if(f.e.type==SDL_MOUSEBUTTONUP){//Checks if the mouse button was unpressed
+                    f.mouseButton=2;
+                    SDL_GetMouseState(&f.mouse.x,&f.mouse.y);
+                }
             }
-            for(int i=1; i<maps[f.player.map_location].layers.size(); i++)
-            f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
-            for(int i=0; i<maps[f.player.map_location].interactable.size(); i++)
-                f.renderTexture(maps[f.player.map_location].interactable[i].texture,
-                                maps[f.player.map_location].interactable[i].surface->clip_rect,
-                                maps[f.player.map_location].interactable[i].location);
+            for(int i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
+            for(int i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].location);
             f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
             battle();
             interact();
@@ -180,10 +185,14 @@ void interact(){
     if(f.buttons[f.findButton("Esc")].pressed==1){
         f.quit=true;
     }
+    if(f.buttons[f.findButton("G")].pressed==1){
+        f.error(f.toString(f.selectedId+5)+"=["+
+                f.toString(maps[f.player.map_location].platforms[f.selectedId+5].x)+";"+
+                f.toString(maps[f.player.map_location].platforms[f.selectedId+5].y)+"]");
+    }
 }
 
 void battle(){
-
     if(f.player.isInBattle==1){//initialize the battle
         //set player' location
             f.player.location.x=maps[f.player.map_location].platforms[2].x-f.player.image.surface->w/2;
@@ -197,12 +206,34 @@ void battle(){
             f.player.isInBattle=2;
         //done initializing the battle
     }
-    else if(f.player.isInBattle==2){//battle in progress
+    if(f.player.isInBattle==2){//battle in progress
+        int base=f.findImage("base");
         for(int i=0;((i<f.battleEnemies.size())&&(i<5)); i++){
+            if(f.mouseButton==2){
+                if(f.pointInsideRect(f.mouse,
+                                     f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,
+                                     f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2,
+                                     f.images[base].image.surface->w,
+                                     f.images[base].image.surface->h)||
+                   f.pointInsideRect(f.mouse,
+                                     f.battleEnemies[i].location.x,
+                                     f.battleEnemies[i].location.y,
+                                     f.battleEnemies[i].image.surface->w,
+                                     f.battleEnemies[i].image.surface->h)){
+                       f.selectedId=i;
+                }
+            }
+            f.renderTexture(f.images[base].image.texture,
+                            f.images[base].image.surface->clip_rect,
+                            f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,
+                            f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2);
             f.renderTexture(f.battleEnemies[i].image.texture,
                             f.battleEnemies[i].image.surface->clip_rect,
                             f.battleEnemies[i].location.x,
                             f.battleEnemies[i].location.y);
+        }
+        if(f.selectedId!=-1){
+            if(f.movePoint(&(maps[f.player.map_location].platforms[f.selectedId+5]),3)) f.player.isInBattle=1;
         }
     }
 }

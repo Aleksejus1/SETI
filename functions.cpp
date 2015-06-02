@@ -31,6 +31,54 @@ functions::functions()
     functions::addColor(0,0,255);
 }
 
+bool functions::movePoint(SDL_Point *point, int movementSpeed){
+    bool change=false;
+    if(functions::buttons[functions::findButton("D")].pressed==1 || functions::buttons[functions::findButton("Right")].pressed==1) {point->x+=movementSpeed; change=true;}
+    if(functions::buttons[functions::findButton("A")].pressed==1 || functions::buttons[functions::findButton("Left")].pressed==1)  {point->x-=movementSpeed; change=true;}
+    if(functions::buttons[functions::findButton("S")].pressed==1 || functions::buttons[functions::findButton("Down")].pressed==1)  {point->y+=movementSpeed; change=true;}
+    if(functions::buttons[functions::findButton("W")].pressed==1 || functions::buttons[functions::findButton("Up")].pressed==1)    {point->y-=movementSpeed; change=true;}
+    return change;
+}
+
+bool functions::pointInsideRect(int x, int y, SDL_Rect &rect){
+    if(x>=rect.x&&x<=rect.x+rect.w&&y>=rect.y&&y<=rect.y+rect.h) return true;
+    return false;
+}
+
+bool functions::pointInsideRect(SDL_Point &point, SDL_Rect &rect){
+    if(point.x>=rect.x&&point.x<=rect.x+rect.w&&point.y>=rect.y&&point.y<=rect.y+rect.h) return true;
+    return false;
+}
+
+bool functions::pointInsideRect(SDL_Point &point, int x, int y, int w, int h){
+    if(point.x>=x&&point.x<=x+w&&point.y>=y&&point.y<=y+h) return true;
+    return false;
+}
+
+bool functions::pointInsideRect(int x, int y, int x2, int y2, int w, int h){
+    if(x>=x2&&x<=x2+w&&y>=y2&&y<=y2+h) return true;
+    return false;
+}
+
+int functions::findImage(std::string imageIdInFormOfString){
+    for(int i=0; i<functions::images.size(); i++){
+        if(functions::images[i].id==imageIdInFormOfString){
+            return i;
+        }
+    }
+    functions::error(imageIdInFormOfString+" image was not found, fix the program you lazy programmer!");
+    return -1;
+}
+
+void functions::createImage(std::string imagePath, std::string imageIdInFormOfString){
+    functions::image image_temp;
+    image_temp.id=imageIdInFormOfString;
+    if(functions::loadImage(imagePath,image_temp.image)==0){
+        functions::images.push_back(image_temp);
+    }
+    else functions::error("The program was unable to create an image. [Info: imagePath="+imagePath+";");
+}
+
 void functions::resizeImage(double angle, int h_w, int smooth, layer &layerer, bool trueForHeight_falseForWidth){
     double zoom=h_w;
     if(trueForHeight_falseForWidth) zoom=zoom/layerer.surface->h;
@@ -198,13 +246,15 @@ void functions::callEventBattle(info &information){
     functions::player.map_location=functions::ammountOfMaps+functions::battleZoneId;
 }
 
-void functions::addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath){
+void functions::addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY){
     entity entity_temp;
     entity_temp.healthPoints=healthPoints;
     entity_temp.level=level;
     entity_temp.manaPoints=manaPoints;
     entity_temp.name=name;
     if(functions::loadImage(imagePath,entity_temp.image)==0){
+        entity_temp.legCenter.x=legCenterX/entity_temp.image.surface->w;
+        entity_temp.legCenter.y=legCenterY/entity_temp.image.surface->h;
         functions::entities.push_back(entity_temp);
     }
 }
@@ -321,40 +371,68 @@ void functions::addSpell(std::string type, float damage, float manaCost, std::st
 }
 
 void functions::loadMedia(){
-    functions::loadImage("qpm\\player.png",functions::player.image);
-    functions::loadImage("qpm\\inventoryFrame.png",functions::player.inventory.frame);
-    functions::player.inventory.setLocations(functions::SCREEN_WIDTH-functions::player.inventory.frame.location.w-50,50);
-    functions::loadImage("qpm\\inventoryBackPanel.png",functions::player.inventory.backPanel);
-    functions::loadImage("qpm\\inventorySlot.png",functions::player.inventory.slotFrame);
-    functions::loadImage("qpm\\inventorySlider.png",functions::player.inventory.slider);
-    functions::addButton("Always false",SDLK_d);
-    functions::addButton("D",SDLK_d);
-    functions::addButton("A",SDLK_a);
-    functions::addButton("S",SDLK_s);
-    functions::addButton("W",SDLK_w);
-    functions::addButton("Right",SDLK_RIGHT);
-    functions::addButton("Left",SDLK_LEFT);
-    functions::addButton("Down",SDLK_DOWN);
-    functions::addButton("Up",SDLK_UP);
-    functions::addButton("F",SDLK_f);
-    functions::addButton("G",SDLK_g);
-    functions::addButton("E",SDLK_e);
-    functions::addButton("I",SDLK_i);
-    functions::addButton("Left Shift",SDLK_LSHIFT);
-    functions::addButton("N",SDLK_n);
-    functions::addButton("Esc",SDLK_ESCAPE);
-    functions::addObstruction(0,0,10,255);
-    functions::addObstruction(0,0,200,255);
-    functions::distanceBetweenSlots=(functions::player.inventory.backPanel.location.w-functions::player.inventory.slotFrame.location.w*functions::inventorySlotsPerRow)/(functions::inventorySlotsPerRow+1);
-    functions::sections=functions::player.inventory.slots.size()/functions::inventorySlotsPerRow;
-    if(functions::player.inventory.slots.size()%functions::inventorySlotsPerRow!=0) functions::sections++;
-    functions::player.inventory.ammountOfIntersections=functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2*2+1+(functions::player.inventory.backPanel.location.h-functions::sections*functions::player.inventory.slotFrame.location.h-(functions::sections+1)*distanceBetweenSlots);
-    functions::tatssbatm=(functions::player.inventory.slider.location.y+functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2-1)-(functions::player.inventory.slider.location.y+functions::player.inventory.slider.location.h/2);
-    functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png",50,50);
-    functions::addEntity(20.0,1,0.0,"Zombie","qpm\\Zombie.png");
-    functions::resizeImage(0,functions::player.image.surface->h,0,functions::entities[functions::entities.size()-1].image,true);
-    functions::addEntity(20.0,1,0.0,"Zombie_mini","qpm\\Zombie.png");
-    functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
+    if(true){//add buttons
+        functions::addButton("Always false",SDLK_d);
+        functions::addButton("D",SDLK_d);
+        functions::addButton("A",SDLK_a);
+        functions::addButton("S",SDLK_s);
+        functions::addButton("W",SDLK_w);
+        functions::addButton("Right",SDLK_RIGHT);
+        functions::addButton("Left",SDLK_LEFT);
+        functions::addButton("Down",SDLK_DOWN);
+        functions::addButton("Up",SDLK_UP);
+        functions::addButton("F",SDLK_f);
+        functions::addButton("G",SDLK_g);
+        functions::addButton("E",SDLK_e);
+        functions::addButton("I",SDLK_i);
+        functions::addButton("Left Shift",SDLK_LSHIFT);
+        functions::addButton("N",SDLK_n);
+        functions::addButton("Esc",SDLK_ESCAPE);
+    }
+    if(true){//create player
+        functions::loadImage("qpm\\player.png",functions::player.image);
+        if(true){//create player inventory
+            if(true){//load images
+                functions::loadImage("qpm\\inventoryFrame.png",functions::player.inventory.frame);
+                functions::loadImage("qpm\\inventoryBackPanel.png",functions::player.inventory.backPanel);
+                functions::loadImage("qpm\\inventorySlot.png",functions::player.inventory.slotFrame);
+                functions::loadImage("qpm\\inventorySlider.png",functions::player.inventory.slider);
+            }
+            functions::player.inventory.setLocations(functions::SCREEN_WIDTH-functions::player.inventory.frame.location.w-50,50);
+            functions::distanceBetweenSlots=(functions::player.inventory.backPanel.location.w-functions::player.inventory.slotFrame.location.w*functions::inventorySlotsPerRow)/(functions::inventorySlotsPerRow+1);
+            functions::sections=functions::player.inventory.slots.size()/functions::inventorySlotsPerRow;
+            if(functions::player.inventory.slots.size()%functions::inventorySlotsPerRow!=0) functions::sections++;
+            functions::player.inventory.ammountOfIntersections=functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2*2+1+(functions::player.inventory.backPanel.location.h-functions::sections*functions::player.inventory.slotFrame.location.h-(functions::sections+1)*distanceBetweenSlots);
+            functions::tatssbatm=(functions::player.inventory.slider.location.y+functions::player.inventory.backPanel.location.h+(2*(functions::player.inventory.backPanelOffset.y-functions::player.inventory.sliderOffset.y))-functions::player.inventory.slider.location.h/2-1)-(functions::player.inventory.slider.location.y+functions::player.inventory.slider.location.h/2);
+        }
+    }
+    if(true){//add obstructions
+        functions::addObstruction(0,0,10,255);
+        functions::addObstruction(0,0,200,255);
+    }
+    if(true){//add spells/attacks
+        functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png",50,50);
+    }
+    if(true){//create entities/mobs
+        functions::addEntity(20.0,1,0.0,"Zombie","qpm\\Zombie.png",184,478);
+        functions::resizeImage(0,functions::player.image.surface->h,0,functions::entities[functions::entities.size()-1].image,true);
+        functions::addEntity(20.0,1,0.0,"Zombie_mini","qpm\\Zombie.png",184,478);
+        functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
+        functions::addEntity(20.0,1,0.0,"debug_1","qpm\\debug_1.png",147,488);
+        functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
+        functions::addEntity(20.0,1,0.0,"debug_2","qpm\\debug_2.png",147,488);
+        functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
+        functions::addEntity(20.0,1,0.0,"debug_3","qpm\\debug_3.png",147,488);
+        functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
+        functions::addEntity(20.0,1,0.0,"debug_4","qpm\\debug_4.png",147,488);
+        functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
+        functions::addEntity(20.0,1,0.0,"debug_5","qpm\\debug_5.png",147,488);
+        functions::resizeImage(0,functions::player.image.surface->w,0,functions::entities[functions::entities.size()-1].image,false);
+    }
+    if(true){//create images
+        functions::createImage("qpm\\base.png","base");
+        functions::resizeImage(functions::images[functions::images.size()-1].image,0,0.35,functions::antialiasing);
+    }
 }
 
 void functions::addButton(std::string name, SDL_Keycode key){
@@ -551,6 +629,12 @@ void functions::renderTexture(SDL_Texture* texture,SDL_Rect &sourceRect,int x, i
 }
 
 std::string functions::toString(int number){
+    std::stringstream ss;
+    ss << number;
+    return ss.str();
+}
+
+std::string functions::toString(double number){
     std::stringstream ss;
     ss << number;
     return ss.str();

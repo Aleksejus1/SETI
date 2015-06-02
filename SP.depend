@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433251984 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433262605 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -25,7 +25,7 @@
 	"spell.h"
 	"SDL2_rotozoom.h"
 
-1433251964 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
+1433261835 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -49,7 +49,7 @@
 	"variables.h"
 	"spell.h"
 
-1433251441 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433260045 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -443,7 +443,7 @@
 	"map.h"
 	"spell.h"
 
-1433251363 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433259057 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -556,7 +556,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433251291 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
+1433255925 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -583,7 +583,7 @@
 	"SDL_syswm.h"
 	"zone.h"
 
-1433194075 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
+1433255976 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
 	<tchar.h>
 	<windows.h>
 	<stdio.h>
@@ -699,7 +699,7 @@
 	<commdlg.h>
 	"space.h"
 
-1433059031 c:\justino\programming\c++\sdl projects\sp [summer-project]\entity.h
+1433258091 c:\justino\programming\c++\sdl projects\sp [summer-project]\entity.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"

@@ -40,9 +40,13 @@ class variables
         std::vector<spell> Spells; // The spells will be placed here
         std::vector<entity> battleEnemies; //Holder for the enemies during the battle
         std::vector<entity> entities; //Holds all in-game entities
+        struct image{layer image;std::string id;}; std::vector<image> images;//Hold all extra images
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
         bool bordersAreAThing=true; //you did not see this =.=
+        int mouseButton=0;
+        SDL_Point mouse;
+        int selectedId=-1;
         int antialiasing=0;
         int ammountOfMaps=0; //holder for how many maps there are
         int battleZoneId=0; //Holds information in witch zone, corresponding to this ID,  the battle is taking place in
