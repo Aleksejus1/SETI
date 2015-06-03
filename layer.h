@@ -27,6 +27,9 @@ class layer
         SDL_Surface* surface=NULL;
         SDL_Texture* texture=NULL;
         SDL_Rect location;
+        void free();
+        void freeSurface();
+        void freeTexture();
 };
 
 #endif // LAYER_H

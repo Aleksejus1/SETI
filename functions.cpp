@@ -100,6 +100,37 @@ void functions::loadMedia(){
         functions::addItem("Poop","ingredient","qpm\\item_poop.png");
         functions::addItem("Berry","consumable","qpm\\item_berry.png");
     }
+    if(true){//load Fonts
+        functions::font=TTF_OpenFont("ttf\\DroidSerif.ttf",functions::fontSize);
+        TTF_SetFontStyle(functions::font,TTF_STYLE_BOLD);
+    }
+}
+
+void functions::giveItems(itemStack &itemsToGive){
+    for(Uint8 i=0; i<functions::player.inventory.itemStacks.size(); i++){
+        if(functions::player.inventory.itemStacks[i].containingItem==itemsToGive.containingItem){
+            functions::player.inventory.itemStacks[i].itemCount+=itemsToGive.itemCount;
+            i=functions::player.inventory.itemStacks.size();
+        }
+        else if(functions::player.inventory.itemStacks[i].itemCount==0){
+            functions::player.inventory.itemStacks[i]=itemsToGive;
+            i=functions::player.inventory.itemStacks.size();
+        }
+    }
+}
+
+void functions::giveItems(item &itemToGive, int ammount){
+    for(Uint8 i=0; i<functions::player.inventory.itemStacks.size(); i++){
+        if(functions::player.inventory.itemStacks[i].containingItem==itemToGive){
+            functions::player.inventory.itemStacks[i].itemCount+=ammount;
+            i=functions::player.inventory.itemStacks.size();
+        }
+        else if(functions::player.inventory.itemStacks[i].itemCount==0){
+            functions::player.inventory.itemStacks[i].itemCount=ammount;
+            functions::player.inventory.itemStacks[i].containingItem=itemToGive;
+            i=functions::player.inventory.itemStacks.size();
+        }
+    }
 }
 
 int functions::findNextStage(std::vector<stage> &stages, int currentStage){
@@ -232,15 +263,20 @@ int functions::findEntity(std::string name){
 
 void functions::renderInventory(){
     if(functions::player.inventory.open){
-        if(functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed<=0&&
-           functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed>=functions::player.inventory.backPanel.location.h-functions::sections*functions::player.inventory.slotFrame.location.h-(functions::sections+1)*distanceBetweenSlots)
-            functions::player.inventory.offsetY+=functions::mouseWheelMotion*functions::sliderSpeed;
+        float a=functions::player.inventory.offsetY+functions::mouseWheelMotion*functions::sliderSpeed;
+        float b=functions::player.inventory.backPanel.location.h-functions::sections*functions::player.inventory.slotFrame.location.h-(functions::sections+1)*distanceBetweenSlots;
+        if(a<0){
+            if(a>b)
+                functions::player.inventory.offsetY+=functions::mouseWheelMotion*functions::sliderSpeed;
+            else if(functions::player.inventory.offsetY!=b){
+                functions::player.inventory.offsetY=b;
+            }
+        }
+        else if(functions::player.inventory.offsetY!=0){
+            functions::player.inventory.offsetY=0;
+        }
         functions::player.inventory.inventoryL.surface=SDL_ConvertSurface(functions::player.inventory.frame.surface,functions::player.inventory.frame.surface->format,0);
-        functions::copySurface(functions::player.inventory.backPanel.surface,
-                               functions::player.inventory.inventoryL.surface,
-                               functions::player.inventory.backPanel.surface->clip_rect,
-                               functions::player.inventory.backPanelOffset.x,
-                               functions::player.inventory.backPanelOffset.y);
+        functions::copySurface(functions::player.inventory.backPanel.surface,functions::player.inventory.inventoryL.surface,functions::player.inventory.backPanel.surface->clip_rect,functions::player.inventory.backPanelOffset.x,functions::player.inventory.backPanelOffset.y);
         int y2,x2;
         for(int i=0; i<functions::sections; i++){
             y2=i*functions::player.inventory.slotFrame.location.h+(i+1)*distanceBetweenSlots+functions::player.inventory.backPanelOffset.y;
@@ -250,10 +286,26 @@ void functions::renderInventory(){
                 for(int o=0; o<functions::inventorySlotsPerRow; o++){
                     if((Uint8)(i*functions::inventorySlotsPerRow+o+1)>functions::player.inventory.itemStacks.size())o=functions::inventorySlotsPerRow;
                     else{
+                        slotFrameWithItem=SDL_ConvertSurface(functions::player.inventory.slotFrame.surface,functions::player.inventory.slotFrame.surface->format,0);
+                        if(functions::player.inventory.itemStacks[i*functions::inventorySlotsPerRow+o].itemCount>0){
+                            itemImage.surface=SDL_ConvertSurface(functions::player.inventory.itemStacks[i*functions::inventorySlotsPerRow+o].containingItem.image.surface,functions::player.inventory.itemStacks[i*functions::inventorySlotsPerRow+o].containingItem.image.surface->format,0);
+                            functions::resizeImage(0,slotFrameWithItem->w-6,slotFrameWithItem->h-6,0,itemImage);
+                            functions::copySurface(itemImage.surface,
+                                                   slotFrameWithItem,
+                                                   itemImage.surface->clip_rect,
+                                                   3,3);
+                           itemImage.free();
+                           functions::message=TTF_RenderText_Solid(functions::font,functions::toString(functions::player.inventory.itemStacks[i*functions::inventorySlotsPerRow+o].itemCount).c_str(),functions::messageColor);
+                           functions::copySurface(functions::message,
+                                                  slotFrameWithItem,
+                                                  functions::message->clip_rect,
+                                                  slotFrameWithItem->w-functions::message->w,
+                                                  slotFrameWithItem->h-functions::message->h+3);
+                        }
                         x2=o*functions::player.inventory.slotFrame.location.w+(o+1)*distanceBetweenSlots+functions::player.inventory.backPanelOffset.x;
                         if(y2<functions::player.inventory.backPanelOffset.y){
                             //------------------------------------------------------------------------------------------------//
-                            functions::copySurface(functions::player.inventory.slotFrame.surface,//from
+                            functions::copySurface(slotFrameWithItem,//from
                                                    functions::player.inventory.inventoryL.surface,//to
                                                    functions::player.inventory.slotFrame.location.x,//from x
                                                    functions::player.inventory.backPanelOffset.y-y2,//from y
@@ -265,7 +317,7 @@ void functions::renderInventory(){
                         }
                         else if(y2+functions::player.inventory.slotFrame.location.h>functions::player.inventory.backPanelOffset.y+functions::player.inventory.backPanel.location.h){
                             //------------------------------------------------------------------------------------------------//
-                            functions::copySurface(functions::player.inventory.slotFrame.surface,//from
+                            functions::copySurface(slotFrameWithItem,//from
                                                    functions::player.inventory.inventoryL.surface,//to
                                                    functions::player.inventory.slotFrame.location.x,
                                                    functions::player.inventory.slotFrame.location.y,
@@ -276,16 +328,18 @@ void functions::renderInventory(){
                             //------------------------------------------------------------------------------------------------//
                         }
                         else {
-                            functions::copySurface(functions::player.inventory.slotFrame.surface,//from
+                            functions::copySurface(slotFrameWithItem,//from
                                                    functions::player.inventory.inventoryL.surface,//to
                                                    functions::player.inventory.slotFrame.location,
                                                    x2,
                                                    y2);
                         }
+                        SDL_FreeSurface(slotFrameWithItem); slotFrameWithItem=NULL;
                     }
                 }
             }
         }
+
         functions::copySurface(functions::player.inventory.frame.surface,functions::player.inventory.inventoryL.surface,functions::player.inventory.inventoryL.surface->clip_rect);
         if(functions::player.inventory.ammountOfIntersections>=0){
             functions::copySurface(functions::player.inventory.slider.surface,
@@ -312,13 +366,16 @@ void functions::renderInventory(){
             }
         }
         else{
-            functions::copySurface(functions::player.inventory.slider.surface,
-                                   functions::player.inventory.inventoryL.surface,
-                                   functions::player.inventory.slider.location,
-                                   functions::player.inventory.sliderOffset.x,
-                                   functions::player.inventory.sliderOffset.y-functions::player.inventory.offsetY*(functions::tatssbatm/(functions::tatssbatm-functions::player.inventory.ammountOfIntersections)));
+            functions::copySurface(functions::player.inventory.slider.surface,functions::player.inventory.inventoryL.surface,functions::player.inventory.slider.location,functions::player.inventory.sliderOffset.x,functions::player.inventory.sliderOffset.y-functions::player.inventory.offsetY*(functions::tatssbatm/(functions::tatssbatm-functions::player.inventory.ammountOfIntersections)));
         }
-        functions::renderSurface(functions::player.inventory.inventoryL.surface,functions::player.inventory.inventoryL.surface->clip_rect,functions::player.inventory.frame.location.x,functions::player.inventory.frame.location.y);
+        functions::renderSurface(
+        functions::player.inventory.inventoryL.surface,
+        functions::player.inventory.inventoryL.surface->clip_rect,
+        functions::player.inventory.frame.location.x,
+        functions::player.inventory.frame.location.y
+        );
+        SDL_FreeSurface(functions::player.inventory.inventoryL.surface);
+        functions::player.inventory.inventoryL.surface=NULL;
     }
 }
 
@@ -555,6 +612,7 @@ void functions::renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect,SDL_Rect
     SDL_Texture* texture=NULL;
     texture=SDL_CreateTextureFromSurface(functions::renderer,surface);
     SDL_RenderCopy(renderer,texture,&sourceRect,&destinationRect);
+    SDL_DestroyTexture(texture);
     texture=NULL;
 }
 
@@ -562,6 +620,7 @@ void functions::renderSurface(SDL_Surface* surface,SDL_Rect &sourceAndDestRect){
     SDL_Texture* texture=NULL;
     texture=SDL_CreateTextureFromSurface(functions::renderer,surface);
     SDL_RenderCopy(renderer,texture,&sourceAndDestRect,&sourceAndDestRect);
+    SDL_DestroyTexture(texture);
     texture=NULL;
 }
 
@@ -576,6 +635,7 @@ void functions::renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect, bool fi
             functions::error(SDL_GetError());
         }
     }
+    SDL_DestroyTexture(texture);
     texture=NULL;
 }
 
@@ -588,6 +648,7 @@ void functions::renderSurface(SDL_Surface* surface,int x1, int y1, int w1, int h
     destinationRect.x=x2; destinationRect.y=y2;
     destinationRect.w=w1; destinationRect.h=h1;
     SDL_RenderCopy(renderer,texture,&sourceRect,&destinationRect);
+    SDL_DestroyTexture(texture);
     texture=NULL;
 }
 
@@ -600,6 +661,7 @@ void functions::renderSurface(SDL_Surface* surface,int x1, int y1, int w1, int h
     destinationRect.x=x2; destinationRect.y=y2;
     destinationRect.w=w2; destinationRect.h=h2;
     SDL_RenderCopy(renderer,texture,&sourceRect,&destinationRect);
+    SDL_DestroyTexture(texture);
     texture=NULL;
 }
 
@@ -610,6 +672,7 @@ void functions::renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect,int x, i
     destinationRect.x=x; destinationRect.y=y;
     destinationRect.w=w; destinationRect.h=h;
     SDL_RenderCopy(renderer,texture,&sourceRect,&destinationRect);
+    SDL_DestroyTexture(texture);
     texture=NULL;
 }
 
@@ -620,6 +683,7 @@ void functions::renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect,int x, i
     destinationRect.x=x; destinationRect.y=y;
     destinationRect.w=sourceRect.w; destinationRect.h=sourceRect.h;
     SDL_RenderCopy(renderer,texture,&sourceRect,&destinationRect);
+    SDL_DestroyTexture(texture);
     texture=NULL;
 }
 

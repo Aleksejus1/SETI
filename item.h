@@ -26,6 +26,7 @@ class item
     public:
         item();
         layer image;
+        friend bool operator==(item &a, item &b);
         std::string name="empty";
         std::string type="none";
 };

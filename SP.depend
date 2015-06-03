@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433338199 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433348548 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -25,7 +25,7 @@
 	"spell.h"
 	"SDL2_rotozoom.h"
 
-1433322077 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
+1433345425 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -50,7 +50,7 @@
 	"spell.h"
 	"stage.h"
 
-1433323769 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433348661 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -445,7 +445,7 @@
 	"map.h"
 	"spell.h"
 
-1433338330 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433347217 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -790,7 +790,7 @@
 	<commdlg.h>
 	"entity.h"
 
-1433264718 c:\justino\programming\c++\sdl projects\sp [summer-project]\layer.h
+1433343156 c:\justino\programming\c++\sdl projects\sp [summer-project]\layer.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -855,7 +855,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433015514 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\layer.cpp
+1433343144 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\layer.cpp
 	"layer.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -1099,7 +1099,7 @@
 	<commdlg.h>
 	"item.h"
 
-1433313600 c:\justino\programming\c++\sdl projects\sp [summer-project]\item.h
+1433345876 c:\justino\programming\c++\sdl projects\sp [summer-project]\item.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1121,7 +1121,7 @@
 	<commdlg.h>
 	"layer.h"
 
-1433088648 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\item.cpp
+1433345893 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\item.cpp
 	"item.h"
 	"SDL.h"
 	"SDL_image.h"

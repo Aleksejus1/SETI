@@ -23,3 +23,16 @@ layer::layer()
 {
     //ctor
 }
+
+void layer::free(){
+    layer::freeSurface();
+    layer::freeTexture();
+}
+
+void layer::freeSurface(){
+    SDL_FreeSurface(layer::surface); layer::surface=NULL;
+}
+
+void layer::freeTexture(){
+    SDL_DestroyTexture(layer::texture); layer::texture=NULL;
+}

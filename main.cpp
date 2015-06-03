@@ -55,14 +55,14 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
         maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
-        maps[maps.size()-1].createGatherable(500,320,false,2,0,"harvesting");
+        maps[maps.size()-1].createGatherable(500,320,false,1,0,"harvesting");
         maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
         maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Berry")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         maps[maps.size()-1].addStage(-1,true,true,"qpm\\bush_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(6,false,false,"qpm\\bush_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(1,false,false,"qpm\\bush_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(6,true,false,"qpm\\bush_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(1,true,false,"qpm\\bush_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
 
         createMap("The second map", "Caves");
@@ -72,20 +72,20 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
-        maps[maps.size()-1].createGatherable(150,300,false,2,0,"shitGathering");
+        maps[maps.size()-1].createGatherable(150,300,false,1,0,"shitGathering");
         maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
         maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_full2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_full2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_half2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(2,true,false,"qpm\\poop_empty2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(1,true,false,"qpm\\poop_empty2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
         //finished creating maps
         f.ammountOfMaps=maps.size();
@@ -144,12 +144,10 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //finish rendering map details
             //--------------------------------------
             //Allow user to control what's happening
-            if(f.player.gathering!=0){
-                gather();
-            }
+            if(f.player.gathering!=0) gather();
+            else if(f.player.isInBattle!=0) battle();
             else{
                 f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
-                battle();
                 interact();
                 regrow();
             }
@@ -253,9 +251,9 @@ void interact(){
         f.quit=true;
     }
     if(f.buttons[f.findButton("G")].pressed==1){
-        f.error(f.toString(f.selectedId+5)+"=["+
-                f.toString(maps[f.player.map_location].platforms[f.selectedId+5].x)+";"+
-                f.toString(maps[f.player.map_location].platforms[f.selectedId+5].y)+"]");
+        f.error(f.toString(f.player.inventory.itemStacks[0].itemCount)+"=ammount\n"+
+                f.player.inventory.itemStacks[0].containingItem.name+"=name\n"+
+                f.player.inventory.itemStacks[0].containingItem.type+"=type");
     }
 }
 
@@ -277,27 +275,13 @@ void battle(){
         int base=f.findImage("base");
         for(Uint8 i=0;((i<f.battleEnemies.size())&&(i<5)); i++){
             if(f.mouseButton==2){
-                if(f.pointInsideRect(f.mouse,
-                                     f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,
-                                     f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2,
-                                     f.images[base].image.surface->w,
-                                     f.images[base].image.surface->h)||
-                   f.pointInsideRect(f.mouse,
-                                     f.battleEnemies[i].location.x,
-                                     f.battleEnemies[i].location.y,
-                                     f.battleEnemies[i].image.surface->w,
-                                     f.battleEnemies[i].image.surface->h)){
+                if(f.pointInsideRect(f.mouse,f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2,f.images[base].image.surface->w,f.images[base].image.surface->h)||
+                   f.pointInsideRect(f.mouse,f.battleEnemies[i].location.x,f.battleEnemies[i].location.y,f.battleEnemies[i].image.surface->w,f.battleEnemies[i].image.surface->h)){
                        f.selectedId=i;
                 }
             }
-            f.renderTexture(f.images[base].image.texture,
-                            f.images[base].image.surface->clip_rect,
-                            f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,
-                            f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2);
-            f.renderTexture(f.battleEnemies[i].image.texture,
-                            f.battleEnemies[i].image.surface->clip_rect,
-                            f.battleEnemies[i].location.x,
-                            f.battleEnemies[i].location.y);
+            f.renderTexture(f.images[base].image.texture,f.images[base].image.surface->clip_rect,f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2);
+            f.renderTexture(f.battleEnemies[i].image.texture,f.battleEnemies[i].image.surface->clip_rect,f.battleEnemies[i].location.x,f.battleEnemies[i].location.y);
         }
         if(f.selectedId!=-1){
             if(f.movePoint(&(maps[f.player.map_location].platforms[f.selectedId+5]),3)) f.player.isInBattle=1;
@@ -318,12 +302,13 @@ void gather(){
         }
         f.progressBar.surface=SDL_ConvertSurface(f.images[f.findImage("progressBarFrame")].image.surface,f.images[f.findImage("progressBarFrame")].image.surface->format,0);
         f.copySurface(f.images[f.findImage("progressBarInside")].image.surface,f.progressBar.surface,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h);
-        f.renderSurface(f.progressBar.surface,
-                        f.progressBar.surface->clip_rect,
-                        (f.SCREEN_WIDTH-f.progressBar.surface->w)/2,
-                        f.SCREEN_HEIGHT-f.progressBar.surface->h-20);
+        f.renderSurface(f.progressBar.surface,f.progressBar.surface->clip_rect,(f.SCREEN_WIDTH-f.progressBar.surface->w)/2,f.SCREEN_HEIGHT-f.progressBar.surface->h-20);
+        f.progressBar.free();
         if(f.player.gatherTime<=0){
             f.player.gatherTime=0;
+            for(Uint8 i=0; i<maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems.size(); i++){
+                f.giveItems(maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems[i]);
+            }
             maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,f.player.gatherStartStage);
             maps[f.player.map_location].gatherable[f.player.gatherableId].timeUntilRegrow=maps[f.player.map_location].gatherable[f.player.gatherableId].stages[maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage].timeUntilNextStage;
             f.player.gathering=0;

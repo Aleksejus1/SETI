@@ -23,3 +23,8 @@ item::item()
 {
     //ctor
 }
+
+bool operator==(item &a, item &b){
+    if(a.name==b.name&&a.type==b.type) return true;
+    return false;
+}

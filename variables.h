@@ -33,6 +33,10 @@ class variables
         SDL_Window* window=NULL; //Main application window
         SDL_SysWMinfo WindowInfo; //Application window information holder
         SDL_Event e; //User input event holder
+        TTF_Font* font=NULL;
+        int fontSize=14;
+        SDL_Surface* message;
+        SDL_Color messageColor={255,255,255,255};
         HWND hwnd; //Main application window handler/owner
         std::vector<int> battleEnemiesIds;//hold the ids' for the enemies that are being fought;
         std::vector<SDL_Color> obstructions; //Color holder for those colors which should be impossible to pass for the player [should be used for secret layer]
@@ -43,6 +47,8 @@ class variables
         std::vector<entity> entities; //Holds all in-game entities
         std::vector<item> items;//Holds all in-game items
         layer progressBar;
+        SDL_Surface* slotFrameWithItem=NULL;
+        layer itemImage;
         struct image{layer image;std::string id;}; std::vector<image> images;//Hold all extra images
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
