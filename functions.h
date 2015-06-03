@@ -22,11 +22,13 @@
 #include "layer.h"
 #include "variables.h"
 #include "spell.h"
+#include "stage.h"
 
 class functions: public variables
 {
     public:
         functions(); //Initialization function
+        int findNextStage(std::vector<stage> &stages, int currentStage);
         int findItem(std::string itemName);
         void addItem(std::string name, std::string type, std::string imagePath);
         bool movePoint(SDL_Point *point, int movementSpeed);

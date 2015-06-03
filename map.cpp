@@ -49,10 +49,11 @@ void map::createGatherable(int gatherableLocationX, int gatherableLocationY, boo
     map::gatherable.push_back(gather_temp);
 }
 
-void map::addStage(float timeUntilNextStage, bool isItAShortcutStage, std::string imagePath,gather &gatherableTypeVar){
+void map::addStage(float timeUntilNextStage, bool isItAShortcutStage, bool isItGatherable, std::string imagePath,gather &gatherableTypeVar){
     stage stage_temp;
     stage_temp.timeUntilNextStage=timeUntilNextStage;
     stage_temp.shortcut=isItAShortcutStage;
+    stage_temp.isItGatherable=isItGatherable;
     if(f.loadImage(imagePath,stage_temp.image)==0){
         gatherableTypeVar.stages.push_back(stage_temp);
     }

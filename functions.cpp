@@ -99,6 +99,15 @@ void functions::loadMedia(){
     }
 }
 
+int functions::findNextStage(std::vector<stage> &stages, int currentStage){
+    for(int i=currentStage+1; i<stages.size(); i++){
+        if(stages[i].shortcut){
+            return i;
+        }
+    }
+    return 0;
+}
+
 int functions::findItem(std::string itemName){
     for(Uint8 i=0; i<functions::items.size(); i++){
         if(functions::items[i].name==itemName){
@@ -328,7 +337,6 @@ void functions::callEvent(std::string type, info &information){
 void functions::callEventGather(info &information){
     functions::player.gathering=1;
     functions::player.gatherableId=information.intInfo[0];
-    functions::error("Shit is being gathered... and shit.\nNeed to create a function in main.cpp that handles events that take time to complete.");
 }
 
 void functions::callEventEnter(info &information){

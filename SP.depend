@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433319303 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433322122 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -25,7 +25,7 @@
 	"spell.h"
 	"SDL2_rotozoom.h"
 
-1433318274 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
+1433322077 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -48,6 +48,7 @@
 	"layer.h"
 	"variables.h"
 	"spell.h"
+	"stage.h"
 
 1433314826 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
@@ -584,7 +585,7 @@
 	"SDL_syswm.h"
 	"zone.h"
 
-1433319378 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
+1433322558 c:\justino\programming\c++\sdl projects\sp [summer-project]\map.h
 	<tchar.h>
 	<windows.h>
 	<stdio.h>
@@ -2477,7 +2478,7 @@
 	"stage.h"
 	"itemStack.h"
 
-1433278894 c:\justino\programming\c++\sdl projects\sp [summer-project]\stage.h
+1433322511 c:\justino\programming\c++\sdl projects\sp [summer-project]\stage.h
 	"layer.h"
 
 1433278215 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\itemstack.cpp

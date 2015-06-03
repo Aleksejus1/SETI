@@ -33,6 +33,7 @@ void createMap(std::string name, std::string id);//Adds a new map to the maps va
 void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
 void battle(); //render all enemies and other battle stuffs
+void gather();
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
@@ -64,9 +65,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].createGatherable(150,300,false,2,0,"shitGathering");
         maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
         maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        maps[maps.size()-1].addStage(-1,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(2,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(2,true,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
         //finished creating maps
         f.ammountOfMaps=maps.size();
@@ -124,9 +125,14 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                 maps[f.player.map_location].gatherable[i].location.x,
                 maps[f.player.map_location].gatherable[i].location.y);
             }
-            f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
-            battle();
-            interact();
+            if(f.player.gathering!=0){
+                gather();
+            }
+            else{
+                f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
+                battle();
+                interact();
+            }
             f.renderTexture(f.player.image.texture,f.player.image.location,f.player.location.x,f.player.location.y);
             f.renderInventory();
             SDL_RenderPresent(f.renderer); // update screen
@@ -185,15 +191,17 @@ void interact(){
         if(id!=-1) f.callEvent(maps[f.player.map_location].interactable[id].events.type, maps[f.player.map_location].interactable[id].events.information);
         else{
             for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++){
-                check=sqrt(pow(f.player.location.x+f.player.image.surface->w/2-
-                               maps[f.player.map_location].gatherable[i].location.x-
-                               maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->w/2,2)+
-                           pow(f.player.location.y+f.player.image.surface->h/2-
-                               maps[f.player.map_location].gatherable[i].location.y-
-                               maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->h/2,2));
-                if(check<f.player.image.surface->h/2&&check<smallestDistance){
-                    smallestDistance=check;
-                    id=i;
+                if(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].isItGatherable){
+                    check=sqrt(pow(f.player.location.x+f.player.image.surface->w/2-
+                                   maps[f.player.map_location].gatherable[i].location.x-
+                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->w/2,2)+
+                               pow(f.player.location.y+f.player.image.surface->h/2-
+                                   maps[f.player.map_location].gatherable[i].location.y-
+                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->h/2,2));
+                    if(check<f.player.image.surface->h/2&&check<smallestDistance){
+                        smallestDistance=check;
+                        id=i;
+                    }
                 }
             }
             if(id!=-1) f.callEvent(maps[f.player.map_location].gatherable[id].events.type, maps[f.player.map_location].gatherable[id].events.information);
@@ -267,3 +275,17 @@ void battle(){
     }
 }
 
+void gather(){
+    if(f.player.gathering==1){//initialize gathering
+        f.player.gatherTime=maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime;
+        f.player.gathering=2;
+    }
+    if(f.player.gathering==2){//render and calculate the process bar of gathering
+        f.player.gatherTime-=(float)(1)/f.FPS;
+        if(f.player.gatherTime<=0){
+            f.player.gatherTime=0;
+            maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage);
+            f.player.gathering=0;
+        }
+    }
+}
