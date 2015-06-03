@@ -33,6 +33,7 @@ class character: public entity
         int isInBattle=0;
         int gathering=0;
         int gatherableId=-1;
+        int gatherStartStage=0;
         float gatherTime=0;
         int gatherLevelRequired=0;
 };

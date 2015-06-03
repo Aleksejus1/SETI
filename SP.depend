@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433322122 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433323665 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -50,7 +50,7 @@
 	"spell.h"
 	"stage.h"
 
-1433314826 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433323769 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -558,7 +558,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433319361 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
+1433322484 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -679,7 +679,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433317774 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
+1433326011 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2473,7 +2473,7 @@
 1433277851 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\gather.cpp
 	"gather.h"
 
-1433319545 c:\justino\programming\c++\sdl projects\sp [summer-project]\gather.h
+1433324881 c:\justino\programming\c++\sdl projects\sp [summer-project]\gather.h
 	"interact.h"
 	"stage.h"
 	"itemStack.h"

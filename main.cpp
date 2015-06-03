@@ -34,6 +34,7 @@ void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int 
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
 void battle(); //render all enemies and other battle stuffs
 void gather();
+void regrow();
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
@@ -67,7 +68,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(2,true,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(5,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        maps[maps.size()-1].addStage(5,true,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
         //finished creating maps
         f.ammountOfMaps=maps.size();
@@ -85,6 +88,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
             f.mouseButton=0; //Reset mouse button
+            //read and assign user input events that happened since last activation of this cycle
             while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
                 if(f.e.type==SDL_QUIT){//If program tries to shut down
                     f.quit = true;//Exit the game loop
@@ -116,15 +120,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     SDL_GetMouseState(&f.mouse.x,&f.mouse.y);
                 }
             }
+            //finish handling user input
+            //-------------------------------------
+            //render Map Details
             for(Uint8 i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
             for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].location);
-            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++){
-                f.renderTexture(
-                maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.texture,
-                maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->clip_rect,
-                maps[f.player.map_location].gatherable[i].location.x,
-                maps[f.player.map_location].gatherable[i].location.y);
-            }
+            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++) f.renderTexture(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.texture,maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->clip_rect,maps[f.player.map_location].gatherable[i].location.x,maps[f.player.map_location].gatherable[i].location.y);
+            //finish rendering map details
+            //--------------------------------------
+            //Allow user to control what's happening
             if(f.player.gathering!=0){
                 gather();
             }
@@ -132,11 +136,22 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                 f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
                 battle();
                 interact();
+                regrow();
             }
+            //finish user actions
+            //---------------------------------------
+            //render render player character
             f.renderTexture(f.player.image.texture,f.player.image.location,f.player.location.x,f.player.location.y);
+            //finish rendering player
+            //---------------------------------------
+            //render UI
             f.renderInventory();
+            //finish rendering UI elements
+            //---------------------------------------
+            //finish up this game tick
             SDL_RenderPresent(f.renderer); // update screen
             SDL_Delay(f.delay); // control frame rate
+            //end of game tick
         }
         f.close(); //Free resources and close SDL
 	}//try to initialize if fails, get crash number
@@ -279,13 +294,38 @@ void gather(){
     if(f.player.gathering==1){//initialize gathering
         f.player.gatherTime=maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime;
         f.player.gathering=2;
+        f.player.gatherStartStage=maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage;
     }
     if(f.player.gathering==2){//render and calculate the process bar of gathering
         f.player.gatherTime-=(float)(1)/f.FPS;
+        if((1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime)>=(float)1/(f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)){
+           maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.player.gatherStartStage+(int)(((1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime))/((float)1/(f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)));
+        }
+        f.progressBar.surface=SDL_ConvertSurface(f.images[f.findImage("progressBarFrame")].image.surface,f.images[f.findImage("progressBarFrame")].image.surface->format,0);
+        f.copySurface(f.images[f.findImage("progressBarInside")].image.surface,f.progressBar.surface,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h);
+        f.renderSurface(f.progressBar.surface,
+                        f.progressBar.surface->clip_rect,
+                        (f.SCREEN_WIDTH-f.progressBar.surface->w)/2,
+                        f.SCREEN_HEIGHT-f.progressBar.surface->h-20);
         if(f.player.gatherTime<=0){
             f.player.gatherTime=0;
-            maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage);
+            maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,f.player.gatherStartStage);
+            maps[f.player.map_location].gatherable[f.player.gatherableId].timeUntilRegrow=maps[f.player.map_location].gatherable[f.player.gatherableId].stages[maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage].timeUntilNextStage;
             f.player.gathering=0;
+        }
+    }
+}
+
+void regrow(){
+    for(int i=0; i<maps.size(); i++){
+        for(int o=0; o<maps[i].gatherable.size(); o++){
+            if(maps[i].gatherable[o].currentStage!=0){
+                maps[i].gatherable[o].timeUntilRegrow-=(float)(1)/f.FPS;
+                if(maps[i].gatherable[o].timeUntilRegrow<=0){
+                    maps[i].gatherable[o].currentStage--;
+                    maps[i].gatherable[o].timeUntilRegrow=maps[i].gatherable[o].stages[maps[i].gatherable[o].currentStage].timeUntilNextStage;
+                }
+            }
         }
     }
 }

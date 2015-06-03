@@ -93,6 +93,8 @@ void functions::loadMedia(){
     if(true){//create images
         functions::createImage("qpm\\base.png","base");
         functions::resizeImage(functions::images[functions::images.size()-1].image,0,0.35,functions::antialiasing);
+        functions::createImage("qpm\\progressBarFrame.png","progressBarFrame");
+        functions::createImage("qpm\\progressBarInside.png","progressBarInside");
     }
     if(true){//create items
         functions::addItem("Poop","ingredient","qpm\\item_poop.png");

@@ -42,6 +42,7 @@ class variables
         std::vector<entity> battleEnemies; //Holder for the enemies during the battle
         std::vector<entity> entities; //Holds all in-game entities
         std::vector<item> items;//Holds all in-game items
+        layer progressBar;
         struct image{layer image;std::string id;}; std::vector<image> images;//Hold all extra images
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
