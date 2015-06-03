@@ -98,6 +98,7 @@ void functions::loadMedia(){
     }
     if(true){//create items
         functions::addItem("Poop","ingredient","qpm\\item_poop.png");
+        functions::addItem("Berry","consumable","qpm\\item_berry.png");
     }
 }
 

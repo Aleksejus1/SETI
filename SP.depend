@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433323665 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433338199 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -445,7 +445,7 @@
 	"map.h"
 	"spell.h"
 
-1433321065 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433338330 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"

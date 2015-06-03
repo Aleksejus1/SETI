@@ -55,6 +55,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
         maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
+        maps[maps.size()-1].createGatherable(500,320,false,2,0,"harvesting");
+        maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
+        maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Berry")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(-1,true,true,"qpm\\bush_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        maps[maps.size()-1].addStage(6,false,false,"qpm\\bush_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        maps[maps.size()-1].addStage(6,true,false,"qpm\\bush_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
 
         createMap("The second map", "Caves");
         maps[maps.size()-1].createLayer("qpm\\secret2.png");
@@ -68,9 +77,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(5,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_full2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(5,true,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_half2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        maps[maps.size()-1].addStage(2,false,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        maps[maps.size()-1].addStage(2,true,false,"qpm\\poop_empty2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
         f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
         //finished creating maps
         f.ammountOfMaps=maps.size();
