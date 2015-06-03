@@ -23,6 +23,7 @@
 #include "keyboard.h"
 #include "info.h"
 #include "spell.h"
+#include "item.h"
 
 class variables
 {

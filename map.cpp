@@ -30,24 +30,26 @@ map::map(functions &fu):
     //ctor
 }
 
-void map::addGatherableReturnItemStack(gather &gatherableTypeVar,int itemCount,item containingItem){
+void map::addGatherableReturnItemStack(int itemCount,item containingItem,gather &gatherableTypeVar){
     itemStack itemStack_temp;
     itemStack_temp.itemCount=itemCount;
     itemStack_temp.containingItem=containingItem;
     gatherableTypeVar.returnItems.push_back(itemStack_temp);
 }
 
-void map::createGatherable(bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName){
+void map::createGatherable(int gatherableLocationX, int gatherableLocationY, bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName){
     //also need to call createEvent function, addStage function, addGatherableReturnItemStack
     gather gather_temp;
     gather_temp.colidable=colidable;
     gather_temp.gatherTime=gatherTime;
     gather_temp.requiredLevel=requiredLevel;
     gather_temp.requiredSkillName=requiredSkillName;
+    gather_temp.location.x=gatherableLocationX;
+    gather_temp.location.y=gatherableLocationY;
     map::gatherable.push_back(gather_temp);
 }
 
-void map::addStage(gather &gatherableTypeVar,float timeUntilNextStage, bool isItAShortcutStage, std::string imagePath){
+void map::addStage(float timeUntilNextStage, bool isItAShortcutStage, std::string imagePath,gather &gatherableTypeVar){
     stage stage_temp;
     stage_temp.timeUntilNextStage=timeUntilNextStage;
     stage_temp.shortcut=isItAShortcutStage;

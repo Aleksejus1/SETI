@@ -30,6 +30,7 @@ class event
         bool eventCreated=false;
         void createEnterEvent(int mapId, int entranceX, int entranceY);
         void createBattleEvent(int zoneId, std::vector<int> entitiesIds);
+        void createGatherEvent(int idOfGatherable);
 };
 
 #endif // EVENT_H

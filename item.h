@@ -19,11 +19,13 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <commdlg.h>
+#include "layer.h"
 
 class item
 {
     public:
         item();
+        layer image;
         std::string name="empty";
         std::string type="none";
 };

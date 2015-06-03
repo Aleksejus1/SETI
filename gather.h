@@ -11,6 +11,7 @@ class gather: public interact
         std::vector<stage> stages;
         std::vector<itemStack> returnItems; //item returned when gathered
         std::string requiredSkillName;//skill type id which's level is used to determine if player can gather
+        int currentStage=0;
         int requiredLevel;//required level of the given skill type for gathering at 100% success chance
         float gatherTime;//time required to gather
 };

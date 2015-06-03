@@ -31,6 +31,10 @@ class character: public entity
         float movementSpeed=baseMovementSpeed;
         space inventory;
         int isInBattle=0;
+        int gathering=0;
+        int gatherableId=-1;
+        float gatherTime=0;
+        int gatherLevelRequired=0;
 };
 
 #endif // CHARACTER_H

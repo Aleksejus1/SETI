@@ -61,9 +61,13 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
         maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
         maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
-        maps[maps.size()-1].createGatherable(false,2,0,"shitGathering");
-        maps[maps.size()-1].addStage(maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1],-1,true,"qpm\\poop_full.png");
-        maps[maps.size()-1].addStage(maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1],2,false,"qpm\\poop_empty.png");
+        maps[maps.size()-1].createGatherable(150,300,false,2,0,"shitGathering");
+        maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
+        maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        maps[maps.size()-1].addStage(-1,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        maps[maps.size()-1].addStage(2,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
         //finished creating maps
         f.ammountOfMaps=maps.size();
         //create battle zones
@@ -85,7 +89,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     f.quit = true;//Exit the game loop
                 }
                 else if(f.e.type==SDL_KEYDOWN){//Checks the pressed buttons
-                    for(int i=1; i<f.buttons.size(); i++){//Goes through all buttons inside the buttons variable
+                    for(Uint8 i=1; i<f.buttons.size(); i++){//Goes through all buttons inside the buttons variable
                         if(f.e.key.keysym.sym==f.buttons[i].keycode){//Checks if the event holding the pressed button is the same as the button that is being checked
                             if(f.buttons[i].pressed==0) f.buttons[i].pressed=1;//If the button is unpressed then mark it as pressed
                             i=f.buttons.size();//Exits the check for this event
@@ -93,7 +97,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     }
                 }
                 else if(f.e.type==SDL_KEYUP){//Checks the unpressed buttons
-                    for(int i=1; i<f.buttons.size(); i++){//Goes through all buttons inside the buttons variable
+                    for(Uint8 i=1; i<f.buttons.size(); i++){//Goes through all buttons inside the buttons variable
                         if(f.e.key.keysym.sym==f.buttons[i].keycode){//Checks if the event holding the unpressed button is the same as the button that is being checked
                             f.buttons[i].pressed=0;//Marks the button as unpressed
                             i=f.buttons.size();//Exits the check for this event
@@ -111,8 +115,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     SDL_GetMouseState(&f.mouse.x,&f.mouse.y);
                 }
             }
-            for(int i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
-            for(int i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].location);
+            for(Uint8 i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
+            for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].location);
+            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++){
+                f.renderTexture(
+                maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.texture,
+                maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->clip_rect,
+                maps[f.player.map_location].gatherable[i].location.x,
+                maps[f.player.map_location].gatherable[i].location.y);
+            }
             f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
             battle();
             interact();
@@ -161,17 +172,32 @@ void interact(){
         float smallestDistance=pow(10,3);
         float check;
         int id=-1;
-        for(int i=0; i<maps[f.player.map_location].interactable.size(); i++){
-            check=sqrt(pow(f.player.location.x+f.player.image.location.w/2-
-                           maps[f.player.map_location].interactable[i].location.x-maps[f.player.map_location].interactable[i].location.w/2,2)+
-                       pow(f.player.location.y+f.player.image.location.h/2-
-                           maps[f.player.map_location].interactable[i].location.y-maps[f.player.map_location].interactable[i].location.h/2,2));
-            if(check<f.player.image.location.h/2&&check<smallestDistance){
+        for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++){
+            check=sqrt(pow(f.player.location.x+f.player.image.surface->w/2-
+                           maps[f.player.map_location].interactable[i].location.x-maps[f.player.map_location].interactable[i].surface->w/2,2)+
+                       pow(f.player.location.y+f.player.image.surface->h/2-
+                           maps[f.player.map_location].interactable[i].location.y-maps[f.player.map_location].interactable[i].surface->h/2,2));
+            if(check<f.player.image.surface->h/2&&check<smallestDistance){
                 smallestDistance=check;
                 id=i;
             }
         }
         if(id!=-1) f.callEvent(maps[f.player.map_location].interactable[id].events.type, maps[f.player.map_location].interactable[id].events.information);
+        else{
+            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++){
+                check=sqrt(pow(f.player.location.x+f.player.image.surface->w/2-
+                               maps[f.player.map_location].gatherable[i].location.x-
+                               maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->w/2,2)+
+                           pow(f.player.location.y+f.player.image.surface->h/2-
+                               maps[f.player.map_location].gatherable[i].location.y-
+                               maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->h/2,2));
+                if(check<f.player.image.surface->h/2&&check<smallestDistance){
+                    smallestDistance=check;
+                    id=i;
+                }
+            }
+            if(id!=-1) f.callEvent(maps[f.player.map_location].gatherable[id].events.type, maps[f.player.map_location].gatherable[id].events.information);
+        }
     }
     if(f.buttons[f.findButton("I")].pressed==1){
         f.buttons[f.findButton("I")].pressed=2;
@@ -202,7 +228,7 @@ void battle(){
             f.player.location.y=maps[f.player.map_location].platforms[2].y-f.player.image.surface->h;
         //set allies location [allies not yet implemented into the game
         //set enemies locations
-            for(int i=0; ((i<f.battleEnemies.size())&&(i<5)); i++){
+            for(Uint8 i=0; ((i<f.battleEnemies.size())&&(i<5)); i++){
                 f.battleEnemies[i].location.x=maps[f.player.map_location].platforms[i+5].x-f.battleEnemies[i].image.surface->w/2;
                 f.battleEnemies[i].location.y=maps[f.player.map_location].platforms[i+5].y-f.battleEnemies[i].image.surface->h;
             }
@@ -211,7 +237,7 @@ void battle(){
     }
     if(f.player.isInBattle==2){//battle in progress
         int base=f.findImage("base");
-        for(int i=0;((i<f.battleEnemies.size())&&(i<5)); i++){
+        for(Uint8 i=0;((i<f.battleEnemies.size())&&(i<5)); i++){
             if(f.mouseButton==2){
                 if(f.pointInsideRect(f.mouse,
                                      f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,

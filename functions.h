@@ -27,6 +27,8 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        int findItem(std::string itemName);
+        void addItem(std::string name, std::string type, std::string imagePath);
         bool movePoint(SDL_Point *point, int movementSpeed);
         bool pointInsideRect(int x, int y, SDL_Rect &rect);
         bool pointInsideRect(SDL_Point &point, SDL_Rect &rect);
@@ -44,6 +46,7 @@ class functions: public variables
         void callEvent(std::string type, info &information);//Depending on the type given will call the representing even function
         void callEventEnter(info &information);//Event function used for entering different territories/maps
         void callEventBattle(info &information);//Event function used for entering battle
+        void callEventGather(info &information);//Event function used for initiating a gathering process
         void getEntityCornerColors(SDL_Surface* surface, SDL_Color colorHolder[4], SDL_Point pixelLocation[4]);//gets the colors of all the four corners of the player
         void getEntityCorner(int corner, SDL_Point entityLocation, SDL_Rect& entityRect, SDL_Point &locationHolder);//gets the corner corresponding to the corner variable: 1-top-left, 2-top-right, 3-bottom-right, 4-bottom-left
         void addObstruction(int r, int g, int b, int a);//Add a color to the list of obstruction colors by giving rgba values

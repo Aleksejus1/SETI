@@ -47,3 +47,11 @@ void event::createBattleEvent(int zoneId, std::vector<int> entitiesIds){
         event::eventCreated=true;
     }
 }
+
+void event::createGatherEvent(int idOfGatherable){
+    if(!event::eventCreated){
+        event::type="Gather";
+        event::information.addInfo(idOfGatherable);
+        event::eventCreated=true;
+    }
+}

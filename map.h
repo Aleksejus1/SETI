@@ -42,9 +42,9 @@ class map
         std::vector<gather> gatherable;
         std::vector<SDL_Point> platforms;
         //functions
-        void addGatherableReturnItemStack(gather &gatherableTypeVar,int itemCount,item containingItem);
-        void createGatherable(bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName);
-        void addStage(gather &gatherableTypeVar,float timeUntilNextStage, bool isItAShortcutStage, std::string imagePath);
+        void addGatherableReturnItemStack(int itemCount,item containingItem,gather &gatherableTypeVar);
+        void createGatherable(int gatherableLocationX, int gatherableLocationY, bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName);
+        void addStage(float timeUntilNextStage, bool isItAShortcutStage, std::string imagePath,gather &gatherableTypeVar);
         void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, bool isInteractableColidable);
         void createInteractable(std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable);
         void createObject(std::string imagePath, int objectLocationX, int objectLocationY, bool isObjectColidable);
