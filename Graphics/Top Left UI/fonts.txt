@@ -1,0 +1,3 @@
+name: Lithos pro
+lvl(number): Lithos pro
+health/mana/xp(numbers): calibri
