@@ -99,7 +99,6 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         maps[maps.size()-1].createLayer("qpm\\bc3.png");
         maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
 
-
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
             f.mouseButton=0; //Reset mouse button
@@ -285,6 +284,12 @@ void battle(){
         }
         if(f.selectedId!=-1){
             if(f.movePoint(&(maps[f.player.map_location].platforms[f.selectedId+5]),3)) f.player.isInBattle=1;
+        }
+        int battleUI=f.findImage("battleUI");
+        f.renderTexture(f.images[battleUI].image.texture,f.images[battleUI].image.surface->clip_rect,0,(f.SCREEN_HEIGHT-f.images[battleUI].image.surface->h));
+        for(int i = 0; i < 4; i++)
+        {
+             f.renderTexture(f.Spells[0].icon.texture,f.Spells[0].icon.surface->clip_rect, 615+i*57, 645);
         }
     }
 }

@@ -26,12 +26,12 @@ class spell
 {
     public:
         spell();
-        std::string elementType;
-        float damage=0;
-        bool isLearned=false;
-        float manaCost=0;
-        layer shape;
-        SDL_Point offset;
+        std::string elementType; //The name of element
+        float damage=0; // Damage amount of the spell
+        bool isLearned=false; // Is the spell learned or not
+        float manaCost=0; //Mana cost of the spell
+        layer shape,icon; //Shape - the layer of spell, icon - the icon of she spell in ui
+        SDL_Point offset; //The location of rendered image
 };
 
 #endif // SPELL_H

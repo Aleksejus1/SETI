@@ -89,14 +89,14 @@ class functions: public variables
         void close();//Used to close some important variables and also SDL2 and its' modules
         void error(int errorNumber);//Used to print out an error corresponding to the give value
         void error(std::string errorMessage);//Used to print out the given error message or simply any message
-        int loadImage(std::string path, layer &layererer);//Fills the SDL_Surface and SDL_Texture of the given layer by an image given in the path variable
+        int loadImage(std::string path, layer &layererer);//Fills the SDL_Surface and SDL_Texture of the given layer by an image given in the path variable, if succeeds, returns 0, else 1, 2.
         int getZoneId(SDL_Surface* secretLayer);//Return the value of the corresponding zone id based on the players' current location and the given server layer. If fails to find a color between zone colors, returns -1
         SDL_Color getColor(int id);//Return the SDL_Color value of the zone based on the given zone id
         Uint32 getPixel(SDL_Surface *surface, int x, int y);//Return a Uint32 value pixel holder in the given coordinate of the given surface
         void getPixelColors(SDL_Surface* surface, double x, double y, SDL_Color &colorHolder);//Places the color of the given surface at the given coordinates to the given color holder
         SDL_Color getPixelColors(SDL_Surface* surface, double x, double y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
         void addButton(std::string name, SDL_Keycode key);//Adds a button to the button check list, name corresponds its' shortcut name, and the second variable is the SDL_Keycode variable which always looks like this: SDLK_
-        void addSpell(std::string type, float damage, float manaCost, std::string path, int x, int y); //Adds spell to ...
+        void addSpell(std::string type, float damage, float manaCost, std::string path, std::string path2, int x, int y); //Adds spell to ...
         void addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY); //Adds entities in-game
 };
 

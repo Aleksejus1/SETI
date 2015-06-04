@@ -72,7 +72,8 @@ void functions::loadMedia(){
         functions::addObstruction(0,0,200,255);
     }
     if(true){//add spells/attacks
-        functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png",50,50);
+        functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png", "qpm\\icon.png", 50,50);
+        functions::resizeImage(0, 50, 50, functions::antialiasing, functions::Spells[0].icon);
     }
     if(true){//create entities/mobs
         functions::addEntity(20.0,1,0.0,"Zombie","qpm\\Zombie.png",184,478);
@@ -95,6 +96,10 @@ void functions::loadMedia(){
         functions::resizeImage(functions::images[functions::images.size()-1].image,0,0.35,functions::antialiasing);
         functions::createImage("qpm\\progressBarFrame.png","progressBarFrame");
         functions::createImage("qpm\\progressBarInside.png","progressBarInside");
+    }
+    if(true){//create UI
+        functions::createImage("qpm\\BattleUI.png","battleUI");
+        functions::resizeImage(0,functions::SCREEN_WIDTH,functions::antialiasing,functions::images[functions::images.size()-1].image,false);
     }
     if(true){//create items
         functions::addItem("Poop","ingredient","qpm\\item_poop.png");
@@ -528,14 +533,17 @@ void functions::moveCharacter(){
     }
 }
 
-void functions::addSpell(std::string type, float damage, float manaCost, std::string path, int x, int y){
+void functions::addSpell(std::string type, float damage, float manaCost, std::string path, std::string path2, int x, int y){
     spell spell_temp;
     spell_temp.elementType=type;
     spell_temp.damage=damage;
     spell_temp.manaCost=manaCost;
     spell_temp.offset.x=x;
     spell_temp.offset.y=y;
-    if (functions::loadImage(path, spell_temp.shape)==0){functions::Spells.push_back(spell_temp);};
+    if (functions::loadImage(path, spell_temp.shape)==0&&functions::loadImage(path2, spell_temp.icon)==0){functions::Spells.push_back(spell_temp);
+
+       }
+
 }
 
 void functions::addButton(std::string name, SDL_Keycode key){
