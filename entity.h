@@ -33,7 +33,7 @@ class entity
         std::string name;
         std::vector<skill> skills;
         void addSkill(std::string name,int experience, int level);
-        float healthPoints,manaPoints;
+        float healthPointsMax,healthPoints,healthPointsPrev,manaPointsMax,manaPoints,manaPointsPrev;
 };
 
 #endif // ENTITY_H

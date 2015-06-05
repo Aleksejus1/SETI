@@ -100,6 +100,18 @@ void functions::loadMedia(){
     if(true){//create UI
         functions::createImage("qpm\\BattleUI.png","battleUI");
         functions::resizeImage(0,functions::SCREEN_WIDTH,functions::antialiasing,functions::images[functions::images.size()-1].image,false);
+        functions::loadImage("Graphics\\Top Left UI\\blue_bar.png",functions::UI.bar_blue);
+        functions::loadImage("Graphics\\Top Left UI\\red_bar.png",functions::UI.red.image);
+        functions::loadImage("Graphics\\Top Left UI\\green_bar.png",functions::UI.bar_green);
+        functions::loadImage("Graphics\\Top Left UI\\empty_bar.png",functions::UI.bar_empty);
+        functions::loadImage("Graphics\\Top Left UI\\grey_bar.png",functions::UI.bar_grey);
+        functions::loadImage("Graphics\\Top Left UI\\ui_character_v1.png",functions::UI.characterUI);
+        /*functions::resizeImage(functions::UI.characterUI,0,0.35,1);
+        functions::resizeImage(functions::UI.bar_grey,0,0.35,1);
+        functions::resizeImage(functions::UI.bar_empty,0,0.35,1);
+        functions::resizeImage(functions::UI.bar_green,0,0.35,1);
+        functions::resizeImage(functions::UI.bar_red,0,0.35,1);
+        functions::resizeImage(functions::UI.bar_blue,0,0.35,1);*/
     }
     if(true){//create items
         functions::addItem("Poop","ingredient","qpm\\item_poop.png");
@@ -109,6 +121,23 @@ void functions::loadMedia(){
         functions::font=TTF_OpenFont("ttf\\DroidSerif.ttf",functions::fontSize);
         TTF_SetFontStyle(functions::font,TTF_STYLE_BOLD);
     }
+}
+
+void functions::renderUI(){
+    functions::renderTexture(functions::UI.characterUI.texture,functions::UI.characterUI.surface->clip_rect);
+    if(functions::player.healthPoints!=functions::player.healthPointsPrev){
+        int temp=functions::UI.red.image.surface->w*(functions::player.healthPoints/functions::player.healthPointsMax);
+        functions::UI.red.full.free();
+        functions::UI.red.full.surface=SDL_ConvertSurface(functions::UI.red.image.surface,functions::UI.red.image.surface->format,0);
+        functions::copySurface(functions::UI.bar_empty.surface,functions::UI.red.full.surface,
+                               temp,0,functions::UI.bar_empty.surface->w-temp,functions::UI.bar_empty.surface->h,
+                               (int)(functions::UI.characterUI.surface->w*((float)360/(float)1113))+temp,
+                               (int)(functions::UI.characterUI.surface->h*((float)192/(float)471)));
+        functions::UI.red.full.texture=SDL_CreateTextureFromSurface(functions::renderer,functions::UI.red.full.surface);
+        functions::error("test");
+    }
+    functions::player.healthPointsPrev=functions::player.healthPoints;
+    functions::renderSurface(functions::UI.red.full.surface,functions::UI.red.full.surface->clip_rect);
 }
 
 void functions::giveItems(itemStack &itemsToGive){

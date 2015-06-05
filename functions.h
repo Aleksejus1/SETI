@@ -28,6 +28,7 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        void renderUI();
         void giveItems(itemStack &itemsToGive);
         void giveItems(item &itemToGive, int ammount);
         int findNextStage(std::vector<stage> &stages, int currentStage);

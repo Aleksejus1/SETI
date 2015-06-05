@@ -50,6 +50,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="SDL2_rotozoom.h" />
+		<Unit filename="bar.cpp" />
+		<Unit filename="bar.h" />
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
 		<Unit filename="entity.cpp" />
@@ -87,6 +89,8 @@
 		<Unit filename="spell.h" />
 		<Unit filename="stage.cpp" />
 		<Unit filename="stage.h" />
+		<Unit filename="userInterface.cpp" />
+		<Unit filename="userInterface.h" />
 		<Unit filename="variables.cpp" />
 		<Unit filename="variables.h" />
 		<Unit filename="zone.cpp" />

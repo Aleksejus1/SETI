@@ -24,6 +24,7 @@
 #include "info.h"
 #include "spell.h"
 #include "item.h"
+#include "userInterface.h"
 
 class variables
 {
@@ -37,6 +38,7 @@ class variables
         int fontSize=14;
         SDL_Surface* message;
         SDL_Color messageColor={255,255,255,255};
+        userInterface UI;
         HWND hwnd; //Main application window handler/owner
         std::vector<int> battleEnemiesIds;//hold the ids' for the enemies that are being fought;
         std::vector<SDL_Color> obstructions; //Color holder for those colors which should be impossible to pass for the player [should be used for secret layer]

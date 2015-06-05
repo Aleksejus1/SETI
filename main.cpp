@@ -39,65 +39,66 @@ void regrow();
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
         f.loadMedia();//Pre-load images and variables
-        //create maps
-        createMap("Place holder", "error");
-        createMap("The first map ever", "First");
-        maps[maps.size()-1].createLayer("qpm\\secret.png");
-        maps[maps.size()-1].createLayer("qpm\\bc.png");
-        maps[maps.size()-1].createLayer("qpm\\Roks.png");
-        maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",600,400,false);
-        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,320,420);
-        maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1000,400,false);
-        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,1080,480);
-        maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",300,440,50,50,false);
-        //f.addEnemyId("debug_1"); f.addEnemyId("debug_2"); f.addEnemyId("debug_3"); f.addEnemyId("debug_4"); f.addEnemyId("debug_5");
-        f.addEnemyId("Zombie"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie_mini"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie");
-        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
-        maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
-        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
-        maps[maps.size()-1].createGatherable(500,320,false,1,0,"harvesting");
-        maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
-        maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Berry")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        maps[maps.size()-1].addStage(-1,true,true,"qpm\\bush_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(1,false,false,"qpm\\bush_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(1,true,false,"qpm\\bush_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        if(true){//create maps
+            createMap("Place holder", "error");
+            createMap("The first map ever", "First");
+            maps[maps.size()-1].createLayer("qpm\\secret.png");
+            maps[maps.size()-1].createLayer("qpm\\bc.png");
+            maps[maps.size()-1].createLayer("qpm\\Roks.png");
+            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",600,400,false);
+            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,320,420);
+            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1000,400,false);
+            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,1080,480);
+            maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",300,440,50,50,false);
+            //f.addEnemyId("debug_1"); f.addEnemyId("debug_2"); f.addEnemyId("debug_3"); f.addEnemyId("debug_4"); f.addEnemyId("debug_5");
+            f.addEnemyId("Zombie"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie_mini"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie");
+            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
+            maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
+            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
+            maps[maps.size()-1].createGatherable(500,320,false,1,0,"harvesting");
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
+            maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Berry")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            maps[maps.size()-1].addStage(-1,true,true,"qpm\\bush_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].addStage(1,false,false,"qpm\\bush_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].addStage(1,true,false,"qpm\\bush_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
 
-        createMap("The second map", "Caves");
-        maps[maps.size()-1].createLayer("qpm\\secret2.png");
-        maps[maps.size()-1].createLayer("qpm\\bc2.png");
-        maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",300,440,false);
-        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
-        maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
-        maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
-        maps[maps.size()-1].createGatherable(150,300,false,1,0,"shitGathering");
-        maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
-        maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_full2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        maps[maps.size()-1].addStage(1,true,false,"qpm\\poop_empty2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-        f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
-        //finished creating maps
+            createMap("The second map", "Caves");
+            maps[maps.size()-1].createLayer("qpm\\secret2.png");
+            maps[maps.size()-1].createLayer("qpm\\bc2.png");
+            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",300,440,false);
+            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
+            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
+            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
+            maps[maps.size()-1].createGatherable(150,300,false,1,0,"shitGathering");
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
+            maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_full2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].addStage(1,true,false,"qpm\\poop_empty2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
+            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+        }
         f.ammountOfMaps=maps.size();
-        //create battle zones
-        createBattleZone("The third map", "Pyramids_So_Real",
-                         0,0,   0,0,   320,500,   0,0,   0,0,
-                         786,533,  797,675,  933,597,  1095,558,  1086,666
-                         //393,419,   431,456,   315,387,   387,483,   360,519
-                         );
-        maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
-        maps[maps.size()-1].createLayer("qpm\\bc3.png");
-        maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
+        if(true){//create battle zones
+            createBattleZone("The third map", "Pyramids_So_Real",
+                             0,0,   0,0,   320,500,   0,0,   0,0,
+                             786,533,  797,675,  933,597,  1095,558,  1086,666
+                             //393,419,   431,456,   315,387,   387,483,   360,519
+                             );
+            maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
+            maps[maps.size()-1].createLayer("qpm\\bc3.png");
+            maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
+        }
 
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
@@ -158,6 +159,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //---------------------------------------
             //render UI
             f.renderInventory();
+            f.renderUI();
             //finish rendering UI elements
             //---------------------------------------
             //finish up this game tick
