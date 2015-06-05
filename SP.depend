@@ -1235,7 +1235,7 @@
 	<commdlg.h>
 	"space.h"
 
-1433350600 d:\desktop\progr\sp--summer-project-\entity.h
+1433533821 d:\desktop\progr\sp--summer-project-\entity.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1821,7 +1821,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433418164 source:d:\desktop\progr\sp--summer-project-\functions.cpp
+1433544976 source:d:\desktop\progr\sp--summer-project-\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1847,7 +1847,7 @@
 	"spell.h"
 	"SDL2_rotozoom.h"
 
-1433412848 d:\desktop\progr\sp--summer-project-\functions.h
+1433543036 d:\desktop\progr\sp--summer-project-\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1872,7 +1872,7 @@
 	"spell.h"
 	"stage.h"
 
-1433415041 d:\desktop\progr\sp--summer-project-\variables.h
+1433533821 d:\desktop\progr\sp--summer-project-\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -1897,6 +1897,7 @@
 	"info.h"
 	"spell.h"
 	"item.h"
+	"userInterface.h"
 
 1433078452 d:\desktop\progr\sp--summer-project-\keyboard.h
 	"SDL.h"
@@ -2053,7 +2054,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433416663 source:d:\desktop\progr\sp--summer-project-\main.cpp
+1433547743 source:d:\desktop\progr\sp--summer-project-\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2285,7 +2286,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433172943 source:d:\desktop\progr\sp--summer-project-\variables.cpp
+1433533821 source:d:\desktop\progr\sp--summer-project-\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2354,7 +2355,7 @@
 	<commdlg.h>
 	"layer.h"
 
-1433414442 d:\desktop\progr\sp--summer-project-\spell.h
+1433544418 d:\desktop\progr\sp--summer-project-\spell.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2655,6 +2656,57 @@
 	"bar.h"
 
 1433490271 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\userinterface.cpp
+	"userInterface.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433533821 d:\desktop\progr\sp--summer-project-\userinterface.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+	"bar.h"
+
+1433533821 d:\desktop\progr\sp--summer-project-\bar.h
+	"layer.h"
+
+1433533821 source:d:\desktop\progr\sp--summer-project-\bar.cpp
+	"bar.h"
+
+1433533821 source:d:\desktop\progr\sp--summer-project-\userinterface.cpp
 	"userInterface.h"
 	"SDL.h"
 	"SDL_image.h"

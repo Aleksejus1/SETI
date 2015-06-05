@@ -49,6 +49,7 @@ void functions::loadMedia(){
         functions::addButton("Left Shift",SDLK_LSHIFT);
         functions::addButton("N",SDLK_n);
         functions::addButton("Esc",SDLK_ESCAPE);
+        functions::addButton("Z",SDLK_z);
     }
     if(true){//create player
         functions::loadImage("qpm\\player.png",functions::player.image);
@@ -72,8 +73,9 @@ void functions::loadMedia(){
         functions::addObstruction(0,0,200,255);
     }
     if(true){//add spells/attacks
-        functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png", "qpm\\icon.png", 50,50);
-        functions::resizeImage(0, 50, 50, functions::antialiasing, functions::Spells[0].icon);
+        functions::addSpell("Spell", 1337, 0, "qpm\\1st spell.png", "qpm\\icon_active.png", "qpm\\icon_cooldown.png", 50,50);
+        functions::resizeImage(0, 50, 50, functions::antialiasing, functions::Spells[0].icon_active);
+        functions::resizeImage(0, 50, 50, functions::antialiasing, functions::Spells[0].icon_cooldown);
     }
     if(true){//create entities/mobs
         functions::addEntity(20.0,1,0.0,"Zombie","qpm\\Zombie.png",184,478);
@@ -562,15 +564,15 @@ void functions::moveCharacter(){
     }
 }
 
-void functions::addSpell(std::string type, float damage, float manaCost, std::string path, std::string path2, int x, int y){
+void functions::addSpell(std::string type, float damage, float manaCost, std::string base, std::string icon_active, std::string icon_cooldown, int x, int y){
     spell spell_temp;
     spell_temp.elementType=type;
     spell_temp.damage=damage;
     spell_temp.manaCost=manaCost;
     spell_temp.offset.x=x;
     spell_temp.offset.y=y;
-    if (functions::loadImage(path, spell_temp.shape)==0&&functions::loadImage(path2, spell_temp.icon)==0){functions::Spells.push_back(spell_temp);
-
+    if (functions::loadImage(base, spell_temp.base)==0&&functions::loadImage(icon_active, spell_temp.icon_active)==0&&functions::loadImage(icon_cooldown, spell_temp.icon_cooldown)==0){
+        functions::Spells.push_back(spell_temp);
        }
 
 }

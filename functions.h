@@ -97,7 +97,7 @@ class functions: public variables
         void getPixelColors(SDL_Surface* surface, double x, double y, SDL_Color &colorHolder);//Places the color of the given surface at the given coordinates to the given color holder
         SDL_Color getPixelColors(SDL_Surface* surface, double x, double y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
         void addButton(std::string name, SDL_Keycode key);//Adds a button to the button check list, name corresponds its' shortcut name, and the second variable is the SDL_Keycode variable which always looks like this: SDLK_
-        void addSpell(std::string type, float damage, float manaCost, std::string path, std::string path2, int x, int y); //Adds spell to ...
+        void addSpell(std::string type, float damage, float manaCost, std::string base, std::string icon_active, std::string icon_cooldown, int x, int y); //Adds spell to ...
         void addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY); //Adds entities in-game
 };
 

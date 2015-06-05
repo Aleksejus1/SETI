@@ -102,7 +102,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
-            f.mouseButton=0; //Reset mouse button
+            if(f.mouseButton==2)f.mouseButton=0; //Reset mouse button
             //read and assign user input events that happened since last activation of this cycle
             while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
                 if(f.e.type==SDL_QUIT){//If program tries to shut down
@@ -148,9 +148,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             else if(f.player.isInBattle!=0) battle();
             else{
                 f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
-                interact();
                 regrow();
             }
+                interact();
             //finish user actions
             //---------------------------------------
             //render render player character
@@ -159,7 +159,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //---------------------------------------
             //render UI
             f.renderInventory();
-            f.renderUI();
+            //f.renderUI();
             //finish rendering UI elements
             //---------------------------------------
             //finish up this game tick
@@ -256,6 +256,15 @@ void interact(){
                 f.player.inventory.itemStacks[0].containingItem.name+"=name\n"+
                 f.player.inventory.itemStacks[0].containingItem.type+"=type");
     }
+    if(f.buttons[f.findButton("Z")].pressed==1)
+    {
+        f.error("["+f.toString(f.battleEnemies[0].location.x)+";"+f.toString(f.battleEnemies[0].location.y)+"]=0\n"+
+                "["+f.toString(f.battleEnemies[1].location.x)+";"+f.toString(f.battleEnemies[1].location.y)+"]=1\n"+
+                "["+f.toString(f.battleEnemies[2].location.x)+";"+f.toString(f.battleEnemies[2].location.y)+"]=2\n"+
+                "["+f.toString(f.battleEnemies[3].location.x)+";"+f.toString(f.battleEnemies[3].location.y)+"]=3\n"+
+                "["+f.toString(f.battleEnemies[4].location.x)+";"+f.toString(f.battleEnemies[4].location.y)+"]=4\n"+
+                "selected="+f.toString(f.selectedId));
+    }
 }
 
 void battle(){
@@ -291,8 +300,19 @@ void battle(){
         f.renderTexture(f.images[battleUI].image.texture,f.images[battleUI].image.surface->clip_rect,0,(f.SCREEN_HEIGHT-f.images[battleUI].image.surface->h));
         for(int i = 0; i < 4; i++)
         {
-             f.renderTexture(f.Spells[0].icon.texture,f.Spells[0].icon.surface->clip_rect, 615+i*57, 645);
+             f.renderTexture(f.Spells[0].icon_active.texture,f.Spells[0].icon_active.surface->clip_rect, 615+i*57, 645);
+             if(f.pointInsideRect(615, 645, 615, 645, 50, 50)&&(f.mouseButton==1))
+             {
+                 int *x,*y;
+                 //SDL_GetMouseState(x,y);
+                 f.renderTexture(f.Spells[0].icon_cooldown.texture,f.Spells[0].icon_cooldown.surface->clip_rect, 615, 645);
+                 /*if(f.pointInsideRect(615, 645, 615, 645, 50, 50)&&f.mouseButton==2)
+                 {
+                     f.renderTexture(f.Spells[0].icon_cooldown.texture,f.Spells[0].icon_cooldown.surface->clip_rect, 615, 645);
+                 }*/
+             }
         }
+
     }
 }
 

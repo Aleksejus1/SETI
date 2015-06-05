@@ -29,8 +29,9 @@ class spell
         std::string elementType; //The name of element
         float damage=0; // Damage amount of the spell
         bool isLearned=false; // Is the spell learned or not
+        bool isActive=false; // Is the spell active or not
         float manaCost=0; //Mana cost of the spell
-        layer shape,icon; //Shape - the layer of spell, icon - the icon of she spell in ui
+        layer base,icon_active, icon_cooldown; //Shape - the layer of spell, icon_active - active icon spell in UI, etc..
         SDL_Point offset; //The location of rendered image
 };
 
