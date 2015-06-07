@@ -25,8 +25,11 @@
 variables::variables():
 player(0,0,25,13,28,228,30)//initialize the player with hard-coded values
 {
-    player.healthPointsMax=20.0;
-    player.healthPoints=player.healthPointsMax-10.0;
+    player.healthPointsMax=999.0;
+    player.healthPoints=player.healthPointsMax-333;
+    player.manaPointsMax=820.0;
+    player.manaPoints=player.manaPointsMax-800;
+    player.experiencePoints=125.0;
     player.location.x=320;//sets the starting x position of the player
     player.location.y=420;//sets the starting y position of the player
     player.map_location=1;//sets the starting map id of the player

@@ -34,13 +34,19 @@ class variables
         SDL_Window* window=NULL; //Main application window
         SDL_SysWMinfo WindowInfo; //Application window information holder
         SDL_Event e; //User input event holder
-        TTF_Font* font=NULL;
+        TTF_Font* font=NULL;//font for regular numbers [for now only used in inventory]
             int fontSize=14;
         TTF_Font* font_calibri=NULL;//font for bars' numbers
             int font_calibriSize=36;
+        TTF_Font* font_lithosPro=NULL;//font for the name of the class/rank and level in character UI
+            int font_lithosProSize=36;
+        TTF_Font* font_lithosProForLevel=NULL;//font for the name of the class/rank and level in character UI
+            int font_lithosProForLevelSize=50;
         SDL_Surface* message;
         SDL_Color messageColor={255,255,255,255};
+        SDL_Color levelColor={185,0,4,255};
         userInterface UI;
+        userInterface UI2;
         HWND hwnd; //Main application window handler/owner
         std::vector<int> battleEnemiesIds;//hold the ids' for the enemies that are being fought;
         std::vector<SDL_Color> obstructions; //Color holder for those colors which should be impossible to pass for the player [should be used for secret layer]
