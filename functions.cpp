@@ -143,6 +143,7 @@ void functions::loadMedia(){
         font_lithosPro=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProSize);
         TTF_SetFontStyle(font_lithosPro,TTF_STYLE_BOLD);
         font_lithosProForLevel=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProForLevelSize);
+        TTF_SetFontStyle(font_lithosProForLevel,TTF_STYLE_BOLD);
     }
 }
 void functions::renderUI(){
@@ -167,8 +168,8 @@ void functions::renderUI(){
     }
     if(true){//render stamina/xp/grey bar
         UI.grey=SDL_ConvertSurface(UI.bar_empty.surface,UI.bar_empty.surface->format,0);
-        copySurface(UI.bar_grey.surface,UI.grey,0,0,UI.bar_grey.surface->w*player.experiencePoints/player.experiencePoints,UI.bar_grey.surface->h,0,0);
-        message=TTF_RenderText_Blended(font_calibri,(toString(player.experiencePoints)+"/"+toString(player.experiencePoints)).c_str(),messageColor);
+        copySurface(UI.bar_grey.surface,UI.grey,0,0,UI.bar_grey.surface->w*player.experiencePoints/player.experienceRequiredForNextLevel,UI.bar_grey.surface->h,0,0);
+        message=TTF_RenderText_Blended(font_calibri,(toString(player.experiencePoints)+"/"+toString(player.experienceRequiredForNextLevel)).c_str(),messageColor);
         copySurface(message,UI.grey,message->clip_rect,(UI.grey->w-message->w)/2,(UI.grey->h-message->h)/2+1);
         renderSurface(UI.grey,UI.grey->clip_rect,UI.bar_grey.location.x,UI.bar_grey.location.y);
         SDL_FreeSurface(message); message=NULL;
@@ -177,7 +178,8 @@ void functions::renderUI(){
     if(true){//render class/rank tablet
         UI.green=SDL_ConvertSurface(UI.bar_empty.surface,UI.bar_empty.surface->format,0);
         copySurface(UI.bar_green.surface,UI.green,0,0,UI.bar_green.surface->w*player.experiencePoints/player.experiencePoints,UI.bar_green.surface->h,0,0);
-        message=TTF_RenderText_Blended(font_lithosPro," EGYPTIAN WARRIOR ",messageColor);
+        std::string name=" "; name+=player.type; name+=" ";
+        message=TTF_RenderText_Blended(font_lithosPro,name.c_str(),messageColor);
         copySurface(message,UI.green,message->clip_rect,0,(UI.green->h-message->h)/2+1);
         renderSurface(UI.green,0,0,message->w,UI.green->h,UI.bar_green.location.x,UI.bar_green.location.y);
         SDL_FreeSurface(message); message=NULL;
@@ -186,8 +188,9 @@ void functions::renderUI(){
     if(true){//render player Level
         message=TTF_RenderText_Blended(font_lithosProForLevel,toString(player.level).c_str(),levelColor);
         while(message->w>84*UI.characterUI.surface->w/(float)1113){
-            font_lithosProForLevelSize--;
+            font_lithosProForLevelSize-=0.1;
             font_lithosProForLevel=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProForLevelSize);
+            TTF_SetFontStyle(font_lithosProForLevel,TTF_STYLE_BOLD);
             SDL_FreeSurface(message); message=NULL;
             message=TTF_RenderText_Blended(font_lithosProForLevel,toString(player.level).c_str(),levelColor);
         }

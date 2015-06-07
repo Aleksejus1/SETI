@@ -254,6 +254,7 @@ void interact(){
     if(f.buttons[f.findButton("G")].pressed==1){
         f.player.healthPoints-=2; if(f.player.healthPoints<0) f.player.healthPoints=0;
         f.player.manaPoints+=2; if(f.player.manaPoints>f.player.manaPointsMax) f.player.manaPoints=f.player.manaPointsMax;
+        f.player.experiencePoints+=100; if(f.player.experiencePoints>=f.player.experienceRequiredForNextLevel){f.player.experiencePoints-=f.player.experienceRequiredForNextLevel; f.player.level++;}
     }
     if(f.buttons[f.findButton("Z")].pressed==1){
         f.error("["+f.toString(f.battleEnemies[0].location.x)+";"+f.toString(f.battleEnemies[0].location.y)+"]=0\n"+

@@ -29,6 +29,8 @@ class character: public entity
         float experiencePoints;
         float baseMovementSpeed=1;
         float movementSpeed=baseMovementSpeed;
+        float experienceRequiredForNextLevel;
+        std::string type;// class/rank of the player
         space inventory;
         int isInBattle=0;
         int gathering=0;

@@ -37,11 +37,11 @@ class variables
         TTF_Font* font=NULL;//font for regular numbers [for now only used in inventory]
             int fontSize=14;
         TTF_Font* font_calibri=NULL;//font for bars' numbers
-            int font_calibriSize=36;
+            float font_calibriSize=36;
         TTF_Font* font_lithosPro=NULL;//font for the name of the class/rank and level in character UI
-            int font_lithosProSize=36;
+            float font_lithosProSize=36;
         TTF_Font* font_lithosProForLevel=NULL;//font for the name of the class/rank and level in character UI
-            int font_lithosProForLevelSize=50;
+            float font_lithosProForLevelSize=50;
         SDL_Surface* message;
         SDL_Color messageColor={255,255,255,255};
         SDL_Color levelColor={185,0,4,255};

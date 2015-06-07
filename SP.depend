@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433693614 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433695002 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -50,7 +50,7 @@
 	"spell.h"
 	"stage.h"
 
-1433692743 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433694519 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -421,7 +421,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1433689453 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.cpp
+1433694981 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -446,7 +446,7 @@
 	"map.h"
 	"spell.h"
 
-1433693773 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433695096 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -680,7 +680,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433326011 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
+1433694908 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
