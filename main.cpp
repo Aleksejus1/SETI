@@ -252,9 +252,8 @@ void interact(){
         f.quit=true;
     }
     if(f.buttons[f.findButton("G")].pressed==1){
-        f.error(f.toString(f.player.inventory.itemStacks[0].itemCount)+"=ammount\n"+
-                f.player.inventory.itemStacks[0].containingItem.name+"=name\n"+
-                f.player.inventory.itemStacks[0].containingItem.type+"=type");
+        f.player.healthPoints-=2; if(f.player.healthPoints<0) f.player.healthPoints=0;
+        f.player.manaPoints+=2; if(f.player.manaPoints>f.player.manaPointsMax) f.player.manaPoints=f.player.manaPointsMax;
     }
     if(f.buttons[f.findButton("Z")].pressed==1){
         f.error("["+f.toString(f.battleEnemies[0].location.x)+";"+f.toString(f.battleEnemies[0].location.y)+"]=0\n"+
