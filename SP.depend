@@ -25,7 +25,7 @@
 	"spell.h"
 	"SDL2_rotozoom.h"
 
-1433489112 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
+1433671250 c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -446,7 +446,7 @@
 	"map.h"
 	"spell.h"
 
-1433489102 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433671420 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2400,7 +2400,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433455406 c:\justino\programming\c++\sdl projects\sp [summer-project]\spell.h
+1433671250 c:\justino\programming\c++\sdl projects\sp [summer-project]\spell.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"

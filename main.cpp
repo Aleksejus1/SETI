@@ -256,8 +256,7 @@ void interact(){
                 f.player.inventory.itemStacks[0].containingItem.name+"=name\n"+
                 f.player.inventory.itemStacks[0].containingItem.type+"=type");
     }
-    if(f.buttons[f.findButton("Z")].pressed==1)
-    {
+    if(f.buttons[f.findButton("Z")].pressed==1){
         f.error("["+f.toString(f.battleEnemies[0].location.x)+";"+f.toString(f.battleEnemies[0].location.y)+"]=0\n"+
                 "["+f.toString(f.battleEnemies[1].location.x)+";"+f.toString(f.battleEnemies[1].location.y)+"]=1\n"+
                 "["+f.toString(f.battleEnemies[2].location.x)+";"+f.toString(f.battleEnemies[2].location.y)+"]=2\n"+
