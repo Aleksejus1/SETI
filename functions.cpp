@@ -101,12 +101,18 @@ void functions::loadMedia(){
     if(true){//create UI
         createImage("qpm\\BattleUI.png","battleUI");
         resizeImage(0,SCREEN_WIDTH,antialiasing,images[images.size()-1].image,false);
+        loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
+        loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red);
+            UI.bar_red.location.x=UI.characterUI.surface->w*360/1113;
+            UI.bar_red.location.y=UI.characterUI.surface->h*192/471;
         loadImage("Graphics\\Top Left UI\\blue_bar.png",UI.bar_blue);
-        loadImage("Graphics\\Top Left UI\\red_bar.png",UI.red.image);
+            UI.bar_blue.location.x=UI.characterUI.surface->w*360/1113;
+            UI.bar_blue.location.y=UI.characterUI.surface->h*237/471;
+        loadImage("Graphics\\Top Left UI\\grey_bar.png",UI.bar_grey);
+            UI.bar_grey.location.x=UI.characterUI.surface->w*360/1113;
+            UI.bar_grey.location.y=UI.characterUI.surface->h*281/471;
         loadImage("Graphics\\Top Left UI\\green_bar.png",UI.bar_green);
         loadImage("Graphics\\Top Left UI\\empty_bar.png",UI.bar_empty);
-        loadImage("Graphics\\Top Left UI\\grey_bar.png",UI.bar_grey);
-        loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
         /*resizeImage(UI.characterUI,0,0.35,1);
         resizeImage(UI.bar_grey,0,0.35,1);
         resizeImage(UI.bar_empty,0,0.35,1);
@@ -121,23 +127,38 @@ void functions::loadMedia(){
     if(true){//load Fonts
         font=TTF_OpenFont("ttf\\DroidSerif.ttf",fontSize);
         TTF_SetFontStyle(font,TTF_STYLE_BOLD);
+        font_calibri=TTF_OpenFont("ttf\\Calibri.ttf",font_calibriSize);
     }
 }
 void functions::renderUI(){
     renderTexture(UI.characterUI.texture,UI.characterUI.surface->clip_rect);
-    if(player.healthPoints!=player.healthPointsPrev){
-        int temp=UI.red.image.surface->w*(player.healthPoints/player.healthPointsMax);
-        UI.red.full.free();
-        UI.red.full.surface=SDL_ConvertSurface(UI.red.image.surface,UI.red.image.surface->format,0);
-        copySurface(UI.bar_empty.surface,UI.red.full.surface,
-                               temp,0,UI.bar_empty.surface->w-temp,UI.bar_empty.surface->h,
-                               (int)(UI.characterUI.surface->w*((float)360/(float)1113))+temp,
-                               (int)(UI.characterUI.surface->h*((float)192/(float)471)));
-        UI.red.full.texture=SDL_CreateTextureFromSurface(renderer,UI.red.full.surface);
-        error("test");
+    if(true){//render health bar
+        UI.red=SDL_ConvertSurface(UI.bar_empty.surface,UI.bar_empty.surface->format,0);
+        copySurface(UI.bar_red.surface,UI.red,0,0,UI.bar_red.surface->w*player.healthPoints/player.healthPointsMax,UI.bar_red.surface->h,0,0);
+        message=TTF_RenderText_Solid(font_calibri,(toString(player.healthPoints)+"/"+toString(player.healthPointsMax)).c_str(),messageColor);
+        copySurface(message,UI.red,message->clip_rect,(UI.red->w-message->w)/2,(UI.red->h-message->h)/2);
+        renderSurface(UI.red,UI.red->clip_rect,UI.bar_red.location.x,UI.bar_red.location.y);
+        SDL_FreeSurface(message); message=NULL;
+        SDL_FreeSurface(UI.red); UI.red=NULL;
     }
-    player.healthPointsPrev=player.healthPoints;
-    renderSurface(UI.red.full.surface,UI.red.full.surface->clip_rect);
+    if(true){//render mana bar
+        UI.blue=SDL_ConvertSurface(UI.bar_empty.surface,UI.bar_empty.surface->format,0);
+        copySurface(UI.bar_blue.surface,UI.blue,0,0,UI.bar_blue.surface->w*player.manaPoints/player.manaPointsMax,UI.bar_blue.surface->h,0,0);
+        message=TTF_RenderText_Solid(font_calibri,(toString(player.manaPoints)+"/"+toString(player.manaPointsMax)).c_str(),messageColor);
+        copySurface(message,UI.blue,message->clip_rect,(UI.blue->w-message->w)/2,(UI.blue->h-message->h)/2);
+        renderSurface(UI.blue,UI.blue->clip_rect,UI.bar_blue.location.x,UI.bar_blue.location.y);
+        SDL_FreeSurface(message); message=NULL;
+        SDL_FreeSurface(UI.blue); UI.blue=NULL;
+    }
+    if(true){//render stamina/xp/grey bar
+        UI.grey=SDL_ConvertSurface(UI.bar_empty.surface,UI.bar_empty.surface->format,0);
+        copySurface(UI.bar_grey.surface,UI.grey,0,0,UI.bar_grey.surface->w*player.experiencePoints/player.experiencePoints,UI.bar_grey.surface->h,0,0);
+        message=TTF_RenderText_Solid(font_calibri,(toString(player.experiencePoints)+"/"+toString(player.experiencePoints)).c_str(),messageColor);
+        copySurface(message,UI.grey,message->clip_rect,(UI.grey->w-message->w)/2,(UI.grey->h-message->h)/2);
+        renderSurface(UI.grey,UI.grey->clip_rect,UI.bar_grey.location.x,UI.bar_grey.location.y);
+        SDL_FreeSurface(message); message=NULL;
+        SDL_FreeSurface(UI.grey); UI.grey=NULL;
+    }
 }
 void functions::giveItems(itemStack &itemsToGive){
     for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){

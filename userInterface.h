@@ -20,14 +20,16 @@
 #include <sys/types.h>
 #include <commdlg.h>
 #include "layer.h"
-#include "bar.h"
 
 class userInterface
 {
     public:
         userInterface();
-        bar red;
-        layer bar_blue,bar_green,bar_grey,bar_empty,characterUI;
+        SDL_Surface* red;
+        SDL_Surface* blue;
+        SDL_Surface* grey;
+        SDL_Surface* green;
+        layer bar_red,bar_blue,bar_green,bar_grey,bar_empty,characterUI;
 };
 
 #endif // USERINTERFACE_H

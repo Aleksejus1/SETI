@@ -159,7 +159,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //---------------------------------------
             //render UI
             f.renderInventory();
-            //f.renderUI();
+            f.renderUI();
             //finish rendering UI elements
             //---------------------------------------
             //finish up this game tick

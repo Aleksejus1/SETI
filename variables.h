@@ -35,7 +35,9 @@ class variables
         SDL_SysWMinfo WindowInfo; //Application window information holder
         SDL_Event e; //User input event holder
         TTF_Font* font=NULL;
-        int fontSize=14;
+            int fontSize=14;
+        TTF_Font* font_calibri=NULL;//font for bars' numbers
+            int font_calibriSize=36;
         SDL_Surface* message;
         SDL_Color messageColor={255,255,255,255};
         userInterface UI;

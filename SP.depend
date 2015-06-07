@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433495550 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1433675778 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -50,7 +50,7 @@
 	"spell.h"
 	"stage.h"
 
-1433490280 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1433675910 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -446,7 +446,7 @@
 	"map.h"
 	"spell.h"
 
-1433671420 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1433672444 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2632,7 +2632,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433495635 c:\justino\programming\c++\sdl projects\sp [summer-project]\userinterface.h
+1433676589 c:\justino\programming\c++\sdl projects\sp [summer-project]\userinterface.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2653,7 +2653,6 @@
 	<sys/types.h>
 	<commdlg.h>
 	"layer.h"
-	"bar.h"
 
 1433490271 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\userinterface.cpp
 	"userInterface.h"

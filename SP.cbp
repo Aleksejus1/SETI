@@ -50,8 +50,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="SDL2_rotozoom.h" />
-		<Unit filename="bar.cpp" />
-		<Unit filename="bar.h" />
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
 		<Unit filename="entity.cpp" />
