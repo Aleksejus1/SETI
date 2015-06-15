@@ -25,22 +25,6 @@ space::space()
     //ctor
 }
 
-void space::setOffesets(int backPanelOffsetX, int backPanelOffsetY, int sliderOffsetX, int sliderOffsetY){
-    space::backPanelOffset.x=backPanelOffsetX;
-    space::backPanelOffset.y=backPanelOffsetY;
-    space::sliderOffset.x=sliderOffsetX;
-    space::sliderOffset.y=sliderOffsetY;
-}
-
-void space::setLocations(int x, int y){
-    space::frame.location.x=x;
-    space::frame.location.y=y;
-    space::backPanel.location.x=x+space::backPanelOffset.x;
-    space::backPanel.location.y=y+space::backPanelOffset.y;
-    space::slider.location.x=x+space::sliderOffset.x;
-    space::slider.location.y=y+space::sliderOffset.y;
-}
-
 void space::addItemStack(){
     itemStack itemStack_temp;
     space::itemStacks.push_back(itemStack_temp);

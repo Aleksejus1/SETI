@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1433695002 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1434126570 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -50,7 +50,7 @@
 	"spell.h"
 	"stage.h"
 
-1433694519 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
+1434124114 c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -421,7 +421,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1433694981 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.cpp
+1434017646 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -657,7 +657,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433278492 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\character.cpp
+1434126238 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\character.cpp
 	"character.h"
 	"entity.h"
 	"SDL.h"
@@ -680,7 +680,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433694908 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
+1434126478 c:\justino\programming\c++\sdl projects\sp [summer-project]\character.h
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -701,7 +701,7 @@
 	<sys/stat.h>
 	<sys/types.h>
 	<commdlg.h>
-	"space.h"
+	"characterSpace.h"
 
 1433494125 c:\justino\programming\c++\sdl projects\sp [summer-project]\entity.h
 	"SDL.h"
@@ -1054,7 +1054,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433278476 c:\justino\programming\c++\sdl projects\sp [summer-project]\space.h
+1434124578 c:\justino\programming\c++\sdl projects\sp [summer-project]\space.h
 	"itemStack.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2726,4 +2726,1273 @@
 	<sys/stat.h>
 	<sys/types.h>
 	<commdlg.h>
+
+1434126170 c:\justino\programming\c++\sdl projects\sp [summer-project]\characterspace.h
+	"space.h"
+
+1434124412 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\characterspace.cpp
+	"characterSpace.h"
+
+1434126238 source:c:\programming\c++\sdl projects\sp [summer-project]\character.cpp
+	"character.h"
+	"entity.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1434126478 c:\programming\c++\sdl projects\sp [summer-project]\character.h
+	"entity.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"characterSpace.h"
+
+1433494125 c:\programming\c++\sdl projects\sp [summer-project]\entity.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"skill.h"
+	"layer.h"
+
+1433014711 c:\programming\c++\sdl projects\sp [summer-project]\skill.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433343156 c:\programming\c++\sdl projects\sp [summer-project]\layer.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1434384931 c:\programming\c++\sdl projects\sp [summer-project]\characterspace.h
+	"space.h"
+
+1434324881 c:\programming\c++\sdl projects\sp [summer-project]\space.h
+	"itemStack.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+	"objects.h"
+
+1433278206 c:\programming\c++\sdl projects\sp [summer-project]\itemstack.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"item.h"
+
+1433345876 c:\programming\c++\sdl projects\sp [summer-project]\item.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+
+1433264743 c:\programming\c++\sdl projects\sp [summer-project]\objects.h
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	"layer.h"
+
+1434124412 source:c:\programming\c++\sdl projects\sp [summer-project]\characterspace.cpp
+	"characterSpace.h"
+
+1433013497 source:c:\programming\c++\sdl projects\sp [summer-project]\entity.cpp
+	"entity.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433319076 source:c:\programming\c++\sdl projects\sp [summer-project]\event.cpp
+	"event.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433319434 c:\programming\c++\sdl projects\sp [summer-project]\event.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"info.h"
+
+1433073807 c:\programming\c++\sdl projects\sp [summer-project]\info.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433277851 source:c:\programming\c++\sdl projects\sp [summer-project]\gather.cpp
+	"gather.h"
+
+1433324881 c:\programming\c++\sdl projects\sp [summer-project]\gather.h
+	"interact.h"
+	"stage.h"
+	"itemStack.h"
+
+1433075421 c:\programming\c++\sdl projects\sp [summer-project]\interact.h
+	"objects.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	"event.h"
+
+1433322511 c:\programming\c++\sdl projects\sp [summer-project]\stage.h
+	"layer.h"
+
+1433073812 source:c:\programming\c++\sdl projects\sp [summer-project]\info.cpp
+	"info.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433072389 source:c:\programming\c++\sdl projects\sp [summer-project]\interact.cpp
+	"interact.h"
+	"objects.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+
+1433345893 source:c:\programming\c++\sdl projects\sp [summer-project]\item.cpp
+	"item.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433278215 source:c:\programming\c++\sdl projects\sp [summer-project]\itemstack.cpp
+	"itemStack.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433058749 source:c:\programming\c++\sdl projects\sp [summer-project]\keyboard.cpp
+	"keyboard.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433082052 c:\programming\c++\sdl projects\sp [summer-project]\keyboard.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433343144 source:c:\programming\c++\sdl projects\sp [summer-project]\layer.cpp
+	"layer.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1434382125 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"functions.h"
+	"map.h"
+
+1434332621 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+	"variables.h"
+	"spell.h"
+	"stage.h"
+
+1434324705 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"character.h"
+	"keyboard.h"
+	"info.h"
+	"spell.h"
+	"item.h"
+	"userInterface.h"
+
+1433671250 c:\programming\c++\sdl projects\sp [summer-project]\spell.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+
+1433676589 c:\programming\c++\sdl projects\sp [summer-project]\userinterface.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"layer.h"
+
+1433322558 c:\programming\c++\sdl projects\sp [summer-project]\map.h
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"interact.h"
+	"objects.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	"zone.h"
+	"functions.h"
+	"mobSpawner.h"
+	"layer.h"
+	"gather.h"
+
+1433007697 c:\programming\c++\sdl projects\sp [summer-project]\zone.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433014738 c:\programming\c++\sdl projects\sp [summer-project]\mobspawner.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"entity.h"
+
+1433322484 source:c:\programming\c++\sdl projects\sp [summer-project]\map.cpp
+	"map.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"interact.h"
+	"objects.h"
+	"functions.h"
+	"variables.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	"zone.h"
+
+1433014705 source:c:\programming\c++\sdl projects\sp [summer-project]\mobspawner.cpp
+	"mobSpawner.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433003009 source:c:\programming\c++\sdl projects\sp [summer-project]\objects.cpp
+	"objects.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+
+1391338940 source:c:\programming\c++\sdl projects\sp [summer-project]\sdl2_rotozoom.c
+	<windows.h>
+	<stdlib.h>
+	<string.h>
+	"SDL2_rotozoom.h"
+
+1346777480 c:\programming\c++\sdl projects\sp [summer-project]\sdl2_rotozoom.h
+	<math.h>
+	"SDL.h"
+
+1433014715 source:c:\programming\c++\sdl projects\sp [summer-project]\skill.cpp
+	"skill.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1434126603 source:c:\programming\c++\sdl projects\sp [summer-project]\space.cpp
+	"space.h"
+	"itemStack.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433165288 source:c:\programming\c++\sdl projects\sp [summer-project]\spell.cpp
+	"spell.h"
+	"layer.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1433277659 source:c:\programming\c++\sdl projects\sp [summer-project]\stage.cpp
+	"stage.h"
+
+1433490271 source:c:\programming\c++\sdl projects\sp [summer-project]\userinterface.cpp
+	"userInterface.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1434386104 source:c:\programming\c++\sdl projects\sp [summer-project]\variables.cpp
+	"variables.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"character.h"
+	"map.h"
+	"spell.h"
+
+1433007700 source:c:\programming\c++\sdl projects\sp [summer-project]\zone.cpp
+	"zone.h"
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+
+1416010729 c:\programming\c++\sdl\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\begin_code.h
+
+1394940798 c:\programming\c++\sdl\include\sdl2\close_code.h
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_pixels.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940796 c:\programming\c++\sdl\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376159942 c:\programming\c++\sdl\include\sdl2\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1376160144 c:\programming\c++\sdl\include\sdl2\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_syswm.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	<windows.h>
+	<Inspectable.h>
+	<X11/Xlib.h>
+	<X11/Xatom.h>
+	<directfb.h>
+	<Cocoa/Cocoa.h>
+	<UIKit/UIKit.h>
+	<mir_toolkit/mir_client_library.h>
+	"close_code.h"
+
+1434386298 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"functions.h"
+	"variables.h"
+	"layer.h"
+	"spell.h"
+	"SDL2_rotozoom.h"
 

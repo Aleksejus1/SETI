@@ -52,20 +52,6 @@ void functions::loadMedia(){
     }
     if(true){//create player
         loadImage("qpm\\player.png",player.image);
-        if(true){//create player inventory
-            if(true){//load images
-                loadImage("qpm\\inventoryFrame.png",player.inventory.frame);
-                loadImage("qpm\\inventoryBackPanel.png",player.inventory.backPanel);
-                loadImage("qpm\\inventorySlot.png",player.inventory.slotFrame);
-                loadImage("qpm\\inventorySlider.png",player.inventory.slider);
-            }
-            player.inventory.setLocations(SCREEN_WIDTH-player.inventory.frame.location.w-50,50);
-            distanceBetweenSlots=(player.inventory.backPanel.location.w-player.inventory.slotFrame.location.w*inventorySlotsPerRow)/(inventorySlotsPerRow+1);
-            sections=player.inventory.itemStacks.size()/inventorySlotsPerRow;
-            if(player.inventory.itemStacks.size()%inventorySlotsPerRow!=0) sections++;
-            player.inventory.ammountOfIntersections=player.inventory.backPanel.location.h+(2*(player.inventory.backPanelOffset.y-player.inventory.sliderOffset.y))-player.inventory.slider.location.h/2*2+1+(player.inventory.backPanel.location.h-sections*player.inventory.slotFrame.location.h-(sections+1)*distanceBetweenSlots);
-            tatssbatm=(player.inventory.slider.location.y+player.inventory.backPanel.location.h+(2*(player.inventory.backPanelOffset.y-player.inventory.sliderOffset.y))-player.inventory.slider.location.h/2-1)-(player.inventory.slider.location.y+player.inventory.slider.location.h/2);
-        }
     }
     if(true){//add obstructions
         addObstruction(0,0,10,255);
@@ -101,30 +87,91 @@ void functions::loadMedia(){
     if(true){//create UI
         createImage("qpm\\BattleUI.png","battleUI");
         resizeImage(0,SCREEN_WIDTH,antialiasing,images[images.size()-1].image,false);
-        float zoom=(float)1/(float)3;
-        loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
-            resizeImage(UI.characterUI,0,zoom,1);
-        loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red);
-            resizeImage(UI.bar_red,0,zoom,1);
-                UI.bar_red.location.x=UI.characterUI.surface->w*360/1113;
-                UI.bar_red.location.y=UI.characterUI.surface->h*192/471;
-        loadImage("Graphics\\Top Left UI\\blue_bar.png",UI.bar_blue);
-            resizeImage(UI.bar_blue,0,zoom,1);
-                UI.bar_blue.location.x=UI.characterUI.surface->w*360/1113;
-                UI.bar_blue.location.y=UI.characterUI.surface->h*237/471;
-        loadImage("Graphics\\Top Left UI\\grey_bar.png",UI.bar_grey);
-            resizeImage(UI.bar_grey,0,zoom,1);
-                UI.bar_grey.location.x=UI.characterUI.surface->w*360/1113;
-                UI.bar_grey.location.y=UI.characterUI.surface->h*281/471;
-        loadImage("Graphics\\Top Left UI\\green_bar.png",UI.bar_green);
-            resizeImage(UI.bar_green,0,zoom,1);
-                UI.bar_green.location.x=UI.characterUI.surface->w*387/1113;
-                UI.bar_green.location.y=UI.characterUI.surface->h*343/471;
-        loadImage("Graphics\\Top Left UI\\empty_bar.png",UI.bar_empty);
-            resizeImage(UI.bar_empty,0,zoom,1);
-        font_calibriSize*=zoom;
-        font_lithosProSize*=zoom;
-        font_lithosProForLevelSize*=zoom;
+        if(true){ //create character UI
+            loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
+                resizeImage(UI.characterUI,0,characterUiZoom,1);
+            loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red);
+                resizeImage(UI.bar_red,0,characterUiZoom,1);
+                    UI.bar_red.location.x=UI.characterUI.surface->w*360/1113;
+                    UI.bar_red.location.y=UI.characterUI.surface->h*192/471;
+            loadImage("Graphics\\Top Left UI\\blue_bar.png",UI.bar_blue);
+                resizeImage(UI.bar_blue,0,characterUiZoom,1);
+                    UI.bar_blue.location.x=UI.characterUI.surface->w*360/1113;
+                    UI.bar_blue.location.y=UI.characterUI.surface->h*237/471;
+            loadImage("Graphics\\Top Left UI\\grey_bar.png",UI.bar_grey);
+                resizeImage(UI.bar_grey,0,characterUiZoom,1);
+                    UI.bar_grey.location.x=UI.characterUI.surface->w*360/1113;
+                    UI.bar_grey.location.y=UI.characterUI.surface->h*281/471;
+            loadImage("Graphics\\Top Left UI\\green_bar.png",UI.bar_green);
+                resizeImage(UI.bar_green,0,characterUiZoom,1);
+                    UI.bar_green.location.x=UI.characterUI.surface->w*387/1113;
+                    UI.bar_green.location.y=UI.characterUI.surface->h*343/471;
+            loadImage("Graphics\\Top Left UI\\empty_bar.png",UI.bar_empty);
+                resizeImage(UI.bar_empty,0,characterUiZoom,1);
+        }
+        if(true){//create inventory interface
+            if(true){//load images
+                std::string prePath="Graphics\\equipment ui slice\\";
+                std::string endingPath=".png";
+                loadImage(prePath+"body"+endingPath,player.inventory.imageEquipmentBody);
+                    resizeImage(player.inventory.imageEquipmentBody,0,player.inventory.zoom,1);
+                loadImage(prePath+"head"+endingPath,player.inventory.imageEquipmentHead);
+                    resizeImage(player.inventory.imageEquipmentHead,0,player.inventory.zoom,1);
+                loadImage(prePath+"jewels"+endingPath,player.inventory.imageEquipmentJewels);
+                    resizeImage(player.inventory.imageEquipmentJewels,0,player.inventory.zoom,1);
+                loadImage(prePath+"legs"+endingPath,player.inventory.imageEquipmentLegs);
+                    resizeImage(player.inventory.imageEquipmentLegs,0,player.inventory.zoom,1);
+                loadImage(prePath+"shield"+endingPath,player.inventory.imageEquipmentShield);
+                    resizeImage(player.inventory.imageEquipmentShield,0,player.inventory.zoom,1);
+                loadImage(prePath+"shoes"+endingPath,player.inventory.imageEquipmentShoes);
+                    resizeImage(player.inventory.imageEquipmentShoes,0,player.inventory.zoom,1);
+                loadImage(prePath+"weapon"+endingPath,player.inventory.imageEquipmentWeapon);
+                    resizeImage(player.inventory.imageEquipmentWeapon,0,player.inventory.zoom,1);
+                loadImage(prePath+"scroll_bar"+endingPath,player.inventory.imageScrollBar);
+                    resizeImage(player.inventory.imageScrollBar,0,player.inventory.zoom,1);
+                loadImage(prePath+"scroll_bubble"+endingPath,player.inventory.imageScrollBubble);
+                    resizeImage(player.inventory.imageScrollBubble,0,player.inventory.zoom,1);
+                loadImage(prePath+"inventory_slot"+endingPath,player.inventory.imageInventorySlot);
+                    resizeImage(player.inventory.imageInventorySlot,0,player.inventory.zoom,1);
+                loadImage(prePath+"main_body"+endingPath,player.inventory.imageMain);
+                    resizeImage(player.inventory.imageMain,0,player.inventory.zoom,1);
+                /*
+                loadImage("Graphics\\equipment ui slice\\main_body.png",player.inventory.frame);
+                loadImage("qpm\\inventoryBackPanel.png",player.inventory.backPanel);
+                loadImage("qpm\\inventorySlot.png",player.inventory.slotFrame);
+                loadImage("qpm\\inventorySlider.png",player.inventory.slider);
+                */
+            }
+            player.inventory.slotsInOneRow=4;
+            player.inventory.rowsInInventory=player.inventory.itemStacks.size()/player.inventory.slotsInOneRow;
+            if(player.inventory.itemStacks.size()%player.inventory.slotsInOneRow!=0) player.inventory.rowsInInventory++;
+            player.inventory.slotLocationTopLeft.x=1298;
+            player.inventory.slotLocationTopLeft.y=185;
+            player.inventory.distanceBetweenSlots=267;
+            int scrollBarEndingY=2251;
+            createSurface(&player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->w,(scrollBarEndingY-player.inventory.slotLocationTopLeft.y)*player.inventory.zoom);
+            for(int i=0; i<player.inventory.imageScrollBubbleFull.surface->h; i++) copySurface(player.inventory.imageScrollBubble.surface,player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->clip_rect,0,i);
+            int temp2=50;
+            int temp=8; if(player.inventory.rowsInInventory<=temp) {temp=player.inventory.rowsInInventory; temp2=player.inventory.imageScrollBubbleFull.surface->h-1;}
+            createSurface(&player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->w,temp2);
+            for(int i=0; i<player.inventory.imageScrollBarFull.surface->h; i++) copySurface(player.inventory.imageScrollBar.surface,player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->clip_rect,0,i);
+            player.inventory.furthestPossibleSliderLocation=player.inventory.imageScrollBubbleFull.surface->h-player.inventory.imageScrollBarFull.surface->h;
+            for(int i=0; i<player.inventory.slotsInOneRow; i++) player.inventory.slotsLocationsX.push_back((player.inventory.slotLocationTopLeft.x+player.inventory.distanceBetweenSlots*i)*player.inventory.zoom);
+            player.inventory.slotLocationBottomY=player.inventory.slotLocationTopLeft.y+7*player.inventory.distanceBetweenSlots+player.inventory.imageInventorySlot.surface->w/player.inventory.zoom;
+            player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots*player.inventory.zoom)/(float)player.inventory.furthestPossibleSliderLocation;
+            /* calculate some stuff which are currently not necessary
+            player.inventory.ammountOfIntersections=
+                player.inventory.backPanel.location.h+
+                ( 2* (player.inventory.backPanelOffset.y - player.inventory.sliderOffset.y)) -
+                player.inventory.slider.location.h / 2 * 2+
+                1+
+                (player.inventory.backPanel.location.h - sections * player.inventory.slotFrame.location.h - (sections+1) * distanceBetweenSlots);
+            tatssbatm=(player.inventory.slider.location.y+player.inventory.backPanel.location.h+(2*(player.inventory.backPanelOffset.y-player.inventory.sliderOffset.y))-player.inventory.slider.location.h/2-1)-(player.inventory.slider.location.y+player.inventory.slider.location.h/2);
+            */
+        }
+        font_calibriSize*=characterUiZoom;
+        font_lithosProSize*=characterUiZoom;
+        font_lithosProForLevelSize*=characterUiZoom;
         /*resizeImage(UI.characterUI,0,0.35,1);
         resizeImage(UI.bar_grey,0,0.35,1);
         resizeImage(UI.bar_empty,0,0.35,1);
@@ -145,6 +192,16 @@ void functions::loadMedia(){
         font_lithosProForLevel=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProForLevelSize);
         TTF_SetFontStyle(font_lithosProForLevel,TTF_STYLE_BOLD);
     }
+}
+void functions::createSurface(SDL_Surface** surfaceDestination, int width, int height){
+    *surfaceDestination=SDL_CreateRGBSurface(0,
+                       width,
+                       height,
+                       32,
+                       0x000000ff,
+                       0x0000ff00,
+                       0x00ff0000,
+                       0xff000000);
 }
 void functions::renderUI(){
     renderTexture(UI.characterUI.texture,UI.characterUI.surface->clip_rect);
@@ -209,6 +266,7 @@ void functions::giveItems(itemStack &itemsToGive){
             i=player.inventory.itemStacks.size();
         }
     }
+    player.inventory.update=true;
 }
 void functions::giveItems(item &itemToGive, int ammount){
     for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){
@@ -222,6 +280,7 @@ void functions::giveItems(item &itemToGive, int ammount){
             i=player.inventory.itemStacks.size();
         }
     }
+    player.inventory.update=true;
 }
 int functions::findNextStage(std::vector<stage> &stages, int currentStage){
     for(int i=currentStage+1; i<stages.size(); i++){
@@ -245,7 +304,7 @@ void functions::addItem(std::string name, std::string type, std::string imagePat
     item_temp.name=name;
     item_temp.type=type;
     if(loadImage(imagePath,item_temp.image)==0){
-        resizeImage(0,player.inventory.slotFrame.surface->w,player.inventory.slotFrame.surface->h,antialiasing,item_temp.image);
+        resizeImage(0,player.inventory.imageInventorySlot.surface->w,player.inventory.imageInventorySlot.surface->h,antialiasing,item_temp.image);
         items.push_back(item_temp);
     }
 }
@@ -337,8 +396,9 @@ int functions::findEntity(std::string name){
 }
 void functions::renderInventory(){
     if(player.inventory.open){
+        /*
         float a=player.inventory.offsetY+mouseWheelMotion*sliderSpeed;
-        float b=player.inventory.backPanel.location.h-sections*player.inventory.slotFrame.location.h-(sections+1)*distanceBetweenSlots;
+        float b=player.inventory.backPanel.location.h-sections*player.inventory.inventorySlot.location.h-(sections+1)*distanceBetweenSlots;
         if(a<0){
             if(a>b)
                 player.inventory.offsetY+=mouseWheelMotion*sliderSpeed;
@@ -352,67 +412,6 @@ void functions::renderInventory(){
         player.inventory.inventoryL.surface=SDL_ConvertSurface(player.inventory.frame.surface,player.inventory.frame.surface->format,0);
         copySurface(player.inventory.backPanel.surface,player.inventory.inventoryL.surface,player.inventory.backPanel.surface->clip_rect,player.inventory.backPanelOffset.x,player.inventory.backPanelOffset.y);
         int y2,x2;
-        for(int i=0; i<sections; i++){
-            y2=i*player.inventory.slotFrame.location.h+(i+1)*distanceBetweenSlots+player.inventory.backPanelOffset.y;
-            y2+=player.inventory.offsetY;
-            if(y2<player.inventory.backPanelOffset.y+player.inventory.backPanel.location.h&&
-                y2+player.inventory.slotFrame.location.h>player.inventory.backPanelOffset.y){
-                for(int o=0; o<inventorySlotsPerRow; o++){
-                    if((Uint8)(i*inventorySlotsPerRow+o+1)>player.inventory.itemStacks.size())o=inventorySlotsPerRow;
-                    else{
-                        slotFrameWithItem=SDL_ConvertSurface(player.inventory.slotFrame.surface,player.inventory.slotFrame.surface->format,0);
-                        if(player.inventory.itemStacks[i*inventorySlotsPerRow+o].itemCount>0){
-                            itemImage.surface=SDL_ConvertSurface(player.inventory.itemStacks[i*inventorySlotsPerRow+o].containingItem.image.surface,player.inventory.itemStacks[i*inventorySlotsPerRow+o].containingItem.image.surface->format,0);
-                            resizeImage(0,slotFrameWithItem->w-6,slotFrameWithItem->h-6,0,itemImage);
-                            copySurface(itemImage.surface,
-                                                   slotFrameWithItem,
-                                                   itemImage.surface->clip_rect,
-                                                   3,3);
-                           itemImage.free();
-                           message=TTF_RenderText_Solid(font,toString(player.inventory.itemStacks[i*inventorySlotsPerRow+o].itemCount).c_str(),messageColor);
-                           copySurface(message,
-                                                  slotFrameWithItem,
-                                                  message->clip_rect,
-                                                  slotFrameWithItem->w-message->w,
-                                                  slotFrameWithItem->h-message->h+3);
-                        }
-                        x2=o*player.inventory.slotFrame.location.w+(o+1)*distanceBetweenSlots+player.inventory.backPanelOffset.x;
-                        if(y2<player.inventory.backPanelOffset.y){
-                            //------------------------------------------------------------------------------------------------//
-                            copySurface(slotFrameWithItem,//from
-                                                   player.inventory.inventoryL.surface,//to
-                                                   player.inventory.slotFrame.location.x,//from x
-                                                   player.inventory.backPanelOffset.y-y2,//from y
-                                                   player.inventory.slotFrame.location.w,//width
-                                                   player.inventory.slotFrame.location.h-player.inventory.backPanelOffset.y+y2,//height
-                                                   x2,//to x
-                                                   player.inventory.backPanelOffset.y);//to y
-                            //------------------------------------------------------------------------------------------------//
-                        }
-                        else if(y2+player.inventory.slotFrame.location.h>player.inventory.backPanelOffset.y+player.inventory.backPanel.location.h){
-                            //------------------------------------------------------------------------------------------------//
-                            copySurface(slotFrameWithItem,//from
-                                                   player.inventory.inventoryL.surface,//to
-                                                   player.inventory.slotFrame.location.x,
-                                                   player.inventory.slotFrame.location.y,
-                                                   player.inventory.slotFrame.location.w,
-                                                   player.inventory.backPanelOffset.y+player.inventory.backPanel.location.h-y2,
-                                                   x2,
-                                                   y2);
-                            //------------------------------------------------------------------------------------------------//
-                        }
-                        else {
-                            copySurface(slotFrameWithItem,//from
-                                                   player.inventory.inventoryL.surface,//to
-                                                   player.inventory.slotFrame.location,
-                                                   x2,
-                                                   y2);
-                        }
-                        SDL_FreeSurface(slotFrameWithItem); slotFrameWithItem=NULL;
-                    }
-                }
-            }
-        }
 
         copySurface(player.inventory.frame.surface,player.inventory.inventoryL.surface,player.inventory.inventoryL.surface->clip_rect);
         if(player.inventory.ammountOfIntersections>=0){
@@ -450,6 +449,59 @@ void functions::renderInventory(){
         );
         SDL_FreeSurface(player.inventory.inventoryL.surface);
         player.inventory.inventoryL.surface=NULL;
+        */
+        if(mouseWheelMotion!=0){
+            float possibleSliderLocation=player.inventory.scrollBarOffset-mouseWheelMotion*sliderSpeed;
+            if(possibleSliderLocation>0){
+                if(possibleSliderLocation<player.inventory.furthestPossibleSliderLocation){
+                    player.inventory.scrollBarOffset-=mouseWheelMotion*sliderSpeed;
+                }
+                else player.inventory.scrollBarOffset=player.inventory.furthestPossibleSliderLocation;
+            }
+            else player.inventory.scrollBarOffset=0;
+            player.inventory.update=true;
+        }
+        if(player.inventory.update){
+            player.inventory.update=false;
+            player.inventory.imageFull.freeSurface(); player.inventory.imageFull.surface=NULL;
+            player.inventory.imageFull.surface=SDL_ConvertSurface(player.inventory.imageMain.surface,player.inventory.imageMain.surface->format,0);
+            player.inventory.imageScroll.surface=SDL_ConvertSurface(player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubbleFull.surface->format,0);
+            int slotsLocationY;
+            for(int y=0; y<player.inventory.rowsInInventory; y++){//render item slots
+                slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)*player.inventory.zoom-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
+                for(int x=0; x<player.inventory.slotsInOneRow; x++){
+                    if(y*player.inventory.slotsInOneRow+x+1<=player.inventory.itemStacks.size()){
+                        slotFrameWithItem=SDL_ConvertSurface(player.inventory.imageInventorySlot.surface,player.inventory.imageInventorySlot.surface->format,0);
+                        if(player.inventory.itemStacks[y*inventorySlotsPerRow+x].itemCount>0){ //render existing item
+                            copySurface(player.inventory.itemStacks[y*inventorySlotsPerRow+x].containingItem.image.surface,slotFrameWithItem,player.inventory.itemStacks[y*inventorySlotsPerRow+x].containingItem.image.surface->clip_rect);
+                            message=TTF_RenderText_Solid(font,toString(player.inventory.itemStacks[y*inventorySlotsPerRow+x].itemCount).c_str(),messageColor);
+                            copySurface(message,slotFrameWithItem,message->clip_rect,player.inventory.imageInventorySlot.surface->w-message->w,player.inventory.imageInventorySlot.surface->h-message->h);
+                            SDL_FreeSurface(message); message=NULL;
+                        }
+                        if((int)slotsLocationY<(int)(player.inventory.slotLocationTopLeft.y*player.inventory.zoom)){ //render itemSlots that are clipping at top
+                            copySurface(slotFrameWithItem,player.inventory.imageFull.surface,0,player.inventory.slotLocationTopLeft.y*player.inventory.zoom-slotsLocationY,player.inventory.imageInventorySlot.surface->w,player.inventory.imageInventorySlot.surface->h-player.inventory.slotLocationTopLeft.y*player.inventory.zoom+slotsLocationY,player.inventory.slotsLocationsX[x],player.inventory.slotLocationTopLeft.y*player.inventory.zoom);
+                        }
+                        else if((int)(slotsLocationY+player.inventory.imageInventorySlot.surface->h)>(int)(player.inventory.slotLocationBottomY*player.inventory.zoom)){ //render itemSlots that are clipping at bottom
+                            copySurface(slotFrameWithItem,player.inventory.imageFull.surface,0,0,player.inventory.imageInventorySlot.surface->w,player.inventory.slotLocationBottomY*player.inventory.zoom-slotsLocationY,player.inventory.slotsLocationsX[x],slotsLocationY);
+                        }
+                        else {//render regular itemSlots
+                            copySurface(slotFrameWithItem,player.inventory.imageFull.surface,player.inventory.imageInventorySlot.surface->clip_rect,player.inventory.slotsLocationsX[x],slotsLocationY);
+                        }
+                        SDL_FreeSurface(slotFrameWithItem); slotFrameWithItem=NULL;
+                    }
+                    else{
+                        x=player.inventory.slotsInOneRow;
+                        y=player.inventory.rowsInInventory;
+                    }
+                }
+            }
+            copySurface(player.inventory.imageScrollBarFull.surface,player.inventory.imageScroll.surface,player.inventory.imageScrollBarFull.surface->clip_rect,0,
+                        player.inventory.scrollBarOffset);
+            copySurface(player.inventory.imageScroll.surface,player.inventory.imageFull.surface,player.inventory.imageScroll.surface->clip_rect,2354*player.inventory.zoom,player.inventory.slotLocationTopLeft.y*player.inventory.zoom);
+            player.inventory.imageScroll.freeSurface(); player.inventory.imageScroll.surface=NULL;
+            player.inventory.imageFull.texture=SDL_CreateTextureFromSurface(renderer,player.inventory.imageFull.surface);
+        }
+        renderTexture(player.inventory.imageFull.texture,player.inventory.imageFull.surface->clip_rect);
     }
 }
 void functions::callEvent(std::string type, info &information){
@@ -967,7 +1019,7 @@ bool functions::initialize(){
 	}
 
     //Set texture filtering to linear
-    if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"0")) error(1);
+    if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"2")) error(1);
 
     //Create window
     window = SDL_CreateWindow( screenName.c_str(), screenStartPosition.x, screenStartPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, fullscreen);

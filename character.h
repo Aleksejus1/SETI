@@ -20,18 +20,18 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <commdlg.h>
-#include "space.h"
+#include "characterSpace.h"
 
 class character: public entity
 {
     public:
-        character(int inventoryX, int inventoryY, int ammountOfSlotsInInventory,int offset_x,int offset_y,int offset_x2,int offset_y2);
+        character();
         float experiencePoints;
         float baseMovementSpeed=1;
         float movementSpeed=baseMovementSpeed;
         float experienceRequiredForNextLevel;
         std::string type;// class/rank of the player
-        space inventory;
+        characterSpace inventory;
         int isInBattle=0;
         int gathering=0;
         int gatherableId=-1;

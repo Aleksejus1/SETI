@@ -42,6 +42,7 @@ class variables
             float font_lithosProSize=36;
         TTF_Font* font_lithosProForLevel=NULL;//font for the name of the class/rank and level in character UI
             float font_lithosProForLevelSize=50;
+        float characterUiZoom=(float)1/(float)3;
         SDL_Surface* message;
         SDL_Color messageColor={255,255,255,255};
         SDL_Color levelColor={185,0,4,255};
@@ -66,7 +67,7 @@ class variables
         int mouseButton=0;
         SDL_Point mouse;
         int selectedId=-1;
-        int antialiasing=0;
+        int antialiasing=1;
         int ammountOfMaps=0; //holder for how many maps there are
         int battleZoneId=0; //Holds information in witch zone, corresponding to this ID,  the battle is taking place in
         int FPS=60; //Amount of frames in a second

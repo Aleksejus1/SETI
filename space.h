@@ -28,13 +28,14 @@ class space
     public:
         space();
         std::vector<itemStack> itemStacks;
-        layer slotFrame,inventoryL;
-        objects frame,backPanel,slider;
-        SDL_Point backPanelOffset,sliderOffset;
-        int offsetY,ammountOfIntersections;
         bool open=false;
-        void setOffesets(int backPanelOffsetX, int backPanelOffsetY, int sliderOffsetX, int sliderOffsetY);
-        void setLocations(int x, int y);
+        layer imageMain;
+        int rowsInInventory;
+        SDL_Point slotLocationTopLeft;
+        int slotLocationBottomY;
+        int distanceBetweenSlots;
+        std::vector<int> slotsLocationsX;
+        int slotsInOneRow;
         void addItemStack();
         void addItemStack(int itemCount, item itemToPut);
         void addItemStacks(int ammount);

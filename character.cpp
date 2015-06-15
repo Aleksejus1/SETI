@@ -20,9 +20,4 @@
 #include <sys/types.h>
 #include <commdlg.h>
 
-character::character(int inventoryX, int inventoryY, int ammountOfSlotsInInventory,int offset_x,int offset_y,int offset_x2,int offset_y2)
-{
-    character::inventory.setOffesets(offset_x,offset_y,offset_x2,offset_y2);
-    character::inventory.setLocations(inventoryX,inventoryY);
-    character::inventory.addItemStacks(ammountOfSlotsInInventory);
-}
+character::character(){}

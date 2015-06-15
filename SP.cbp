@@ -30,7 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/Justino/Programming/C++/sdl/include/SDL2" />
+			<Add directory="C:/Programming/C++/sdl/include/SDL2" />
 			<Add directory="C:/sdl/32/include/SDL2" />
 			<Add directory="D:/Desktop/progr/sdl" />
 			<Add directory="D:/Desktop/progr/sdl/include/SDL2" />
@@ -42,7 +42,7 @@
 			<Add library="user32" />
 			<Add library="kernel32" />
 			<Add library="comctl32" />
-			<Add directory="C:/Justino/Programming/C++/sdl/lib" />
+			<Add directory="C:/Programming/C++/sdl/lib" />
 			<Add directory="C:/sdl/32/lib" />
 			<Add directory="D:/Desktop/progr/sdl/lib" />
 		</Linker>
@@ -52,6 +52,8 @@
 		<Unit filename="SDL2_rotozoom.h" />
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
+		<Unit filename="characterSpace.cpp" />
+		<Unit filename="characterSpace.h" />
 		<Unit filename="entity.cpp" />
 		<Unit filename="entity.h" />
 		<Unit filename="event.cpp" />

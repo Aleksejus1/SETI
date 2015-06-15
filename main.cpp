@@ -150,7 +150,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                 f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
                 regrow();
             }
-                interact();
+            interact();
             //finish user actions
             //---------------------------------------
             //render render player character
@@ -158,8 +158,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //finish rendering player
             //---------------------------------------
             //render UI
-            f.renderInventory();
             f.renderUI();
+            f.renderInventory();
             //finish rendering UI elements
             //---------------------------------------
             //finish up this game tick
@@ -202,7 +202,7 @@ void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int 
 }
 
 void interact(){
-    if(f.buttons[f.findButton("E")].pressed==1&&maps[f.player.map_location].interactable.size()>0){
+    if(f.buttons[f.findButton("E")].pressed==1&&maps[f.player.map_location].interactable.size()>0&&f.player.gathering==0){
         f.buttons[f.findButton("E")].pressed=2;
         float smallestDistance=pow(10,3);
         float check;
@@ -239,6 +239,7 @@ void interact(){
     if(f.buttons[f.findButton("I")].pressed==1){
         f.buttons[f.findButton("I")].pressed=2;
         f.player.inventory.open=!f.player.inventory.open;
+        f.player.inventory.update=true;
     }
     if(f.buttons[f.findButton("Left Shift")].pressed==1){
         f.player.movementSpeed=f.player.baseMovementSpeed*4;
