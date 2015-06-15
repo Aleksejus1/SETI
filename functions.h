@@ -32,6 +32,7 @@ class functions: public variables
         void renderUI();
         void giveItems(itemStack &itemsToGive);
         void giveItems(item &itemToGive, int ammount);
+        void giveItems(item &itemToGive, int ammount, itemStack &toWhere);
         int findNextStage(std::vector<stage> &stages, int currentStage);
         int findItem(std::string itemName);
         void addItem(std::string name, std::string type, std::string imagePath);

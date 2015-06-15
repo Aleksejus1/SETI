@@ -135,49 +135,54 @@ void functions::loadMedia(){
                     resizeImage(player.inventory.imageInventorySlot,0,player.inventory.zoom,1);
                 loadImage(prePath+"main_body"+endingPath,player.inventory.imageMain);
                     resizeImage(player.inventory.imageMain,0,player.inventory.zoom,1);
-                /*
-                loadImage("Graphics\\equipment ui slice\\main_body.png",player.inventory.frame);
-                loadImage("qpm\\inventoryBackPanel.png",player.inventory.backPanel);
-                loadImage("qpm\\inventorySlot.png",player.inventory.slotFrame);
-                loadImage("qpm\\inventorySlider.png",player.inventory.slider);
-                */
+                loadImage(prePath+"abilities\\1"+endingPath,player.inventory.imageStatHealth);
+                    resizeImage(player.inventory.imageStatHealth,0,player.inventory.zoom,1);
+                loadImage(prePath+"abilities\\2"+endingPath,player.inventory.imageStatAttack);
+                    resizeImage(player.inventory.imageStatAttack,0,player.inventory.zoom,1);
+                loadImage(prePath+"abilities\\3"+endingPath,player.inventory.imageStatInteligence);
+                    resizeImage(player.inventory.imageStatInteligence,0,player.inventory.zoom,1);
+                loadImage(prePath+"abilities\\4"+endingPath,player.inventory.imageStatAgility);
+                    resizeImage(player.inventory.imageStatAgility,0,player.inventory.zoom,1);
+                loadImage(prePath+"abilities\\5"+endingPath,player.inventory.imageStatStrength);
+                    resizeImage(player.inventory.imageStatStrength,0,player.inventory.zoom,1);
             }
-            player.inventory.slotsInOneRow=4;
-            player.inventory.rowsInInventory=player.inventory.itemStacks.size()/player.inventory.slotsInOneRow;
-            if(player.inventory.itemStacks.size()%player.inventory.slotsInOneRow!=0) player.inventory.rowsInInventory++;
-            player.inventory.slotLocationTopLeft.x=1298;
-            player.inventory.slotLocationTopLeft.y=185;
-            player.inventory.distanceBetweenSlots=267;
-            int scrollBarEndingY=2251;
-            createSurface(&player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->w,(scrollBarEndingY-player.inventory.slotLocationTopLeft.y)*player.inventory.zoom);
-            for(int i=0; i<player.inventory.imageScrollBubbleFull.surface->h; i++) copySurface(player.inventory.imageScrollBubble.surface,player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->clip_rect,0,i);
-            int temp2=50;
-            int temp=8; if(player.inventory.rowsInInventory<=temp) {temp=player.inventory.rowsInInventory; temp2=player.inventory.imageScrollBubbleFull.surface->h-1;}
-            createSurface(&player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->w,temp2);
-            for(int i=0; i<player.inventory.imageScrollBarFull.surface->h; i++) copySurface(player.inventory.imageScrollBar.surface,player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->clip_rect,0,i);
-            player.inventory.furthestPossibleSliderLocation=player.inventory.imageScrollBubbleFull.surface->h-player.inventory.imageScrollBarFull.surface->h;
-            for(int i=0; i<player.inventory.slotsInOneRow; i++) player.inventory.slotsLocationsX.push_back((player.inventory.slotLocationTopLeft.x+player.inventory.distanceBetweenSlots*i)*player.inventory.zoom);
-            player.inventory.slotLocationBottomY=player.inventory.slotLocationTopLeft.y+7*player.inventory.distanceBetweenSlots+player.inventory.imageInventorySlot.surface->w/player.inventory.zoom;
-            player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots*player.inventory.zoom)/(float)player.inventory.furthestPossibleSliderLocation;
-            /* calculate some stuff which are currently not necessary
-            player.inventory.ammountOfIntersections=
-                player.inventory.backPanel.location.h+
-                ( 2* (player.inventory.backPanelOffset.y - player.inventory.sliderOffset.y)) -
-                player.inventory.slider.location.h / 2 * 2+
-                1+
-                (player.inventory.backPanel.location.h - sections * player.inventory.slotFrame.location.h - (sections+1) * distanceBetweenSlots);
-            tatssbatm=(player.inventory.slider.location.y+player.inventory.backPanel.location.h+(2*(player.inventory.backPanelOffset.y-player.inventory.sliderOffset.y))-player.inventory.slider.location.h/2-1)-(player.inventory.slider.location.y+player.inventory.slider.location.h/2);
-            */
+            if(true){//calculate stuff
+                player.inventory.slotsInOneRow=4;
+                player.inventory.rowsInInventory=player.inventory.itemStacks.size()/player.inventory.slotsInOneRow;
+                if(player.inventory.itemStacks.size()%player.inventory.slotsInOneRow!=0) player.inventory.rowsInInventory++;
+                player.inventory.distanceBetweenStats=player.inventory.zoom*144;
+                player.inventory.statTopLeftLocation.x=player.inventory.zoom*215;
+                player.inventory.statTopLeftLocation.y=player.inventory.zoom*1516;
+                player.inventory.slotLocationTopLeft.x=player.inventory.zoom*1298;
+                player.inventory.slotLocationTopLeft.y=player.inventory.zoom*185;
+                player.inventory.distanceBetweenSlots=player.inventory.zoom*267;
+                player.inventory.distanceBetweenEquipmentSlots=player.inventory.zoom*264;
+                player.inventory.equipmentTopLeftLocation.x=player.inventory.zoom*297;
+                player.inventory.equipmentTopLeftLocation.y=player.inventory.zoom*181;
+                int scrollBarEndingY=player.inventory.zoom*2251;
+                createSurface(&player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->w,(scrollBarEndingY-player.inventory.slotLocationTopLeft.y));
+                for(int i=0; i<player.inventory.imageScrollBubbleFull.surface->h; i++) copySurface(player.inventory.imageScrollBubble.surface,player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->clip_rect,0,i);
+                int temp=8; int temp2;
+                if(player.inventory.rowsInInventory<=temp){
+                    temp=player.inventory.rowsInInventory;
+                    temp2=player.inventory.imageScrollBubbleFull.surface->h-1;
+                    sliderSpeed=0;
+                }
+                else{
+                    temp2=player.inventory.imageScrollBubbleFull.surface->h/(player.inventory.rowsInInventory-temp+1);
+                    sliderSpeed=(player.inventory.imageScrollBubbleFull.surface->h-temp2)/(player.inventory.rowsInInventory-temp)/sliderCountForOneRow;
+                }
+                createSurface(&player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->w,temp2);
+                for(int i=0; i<player.inventory.imageScrollBarFull.surface->h; i++) copySurface(player.inventory.imageScrollBar.surface,player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->clip_rect,0,i);
+                player.inventory.furthestPossibleSliderLocation=player.inventory.imageScrollBubbleFull.surface->h-player.inventory.imageScrollBarFull.surface->h;
+                for(int i=0; i<player.inventory.slotsInOneRow; i++) player.inventory.slotsLocationsX.push_back((player.inventory.slotLocationTopLeft.x+player.inventory.distanceBetweenSlots*i));
+                player.inventory.slotLocationBottomY=player.inventory.slotLocationTopLeft.y+7*player.inventory.distanceBetweenSlots+player.inventory.imageInventorySlot.surface->w;
+                player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots)/(float)player.inventory.furthestPossibleSliderLocation;
+            }
         }
         font_calibriSize*=characterUiZoom;
         font_lithosProSize*=characterUiZoom;
         font_lithosProForLevelSize*=characterUiZoom;
-        /*resizeImage(UI.characterUI,0,0.35,1);
-        resizeImage(UI.bar_grey,0,0.35,1);
-        resizeImage(UI.bar_empty,0,0.35,1);
-        resizeImage(UI.bar_green,0,0.35,1);
-        resizeImage(UI.bar_red,0,0.35,1);
-        resizeImage(UI.bar_blue,0,0.35,1);*/
     }
     if(true){//create items
         addItem("Poop","ingredient","qpm\\item_poop.png");
@@ -282,6 +287,10 @@ void functions::giveItems(item &itemToGive, int ammount){
     }
     player.inventory.update=true;
 }
+void functions::giveItems(item &itemToGive, int ammount, itemStack &toWhere){
+    toWhere.itemCount=ammount;
+    toWhere.containingItem=itemToGive;
+}
 int functions::findNextStage(std::vector<stage> &stages, int currentStage){
     for(int i=currentStage+1; i<stages.size(); i++){
         if(stages[i].shortcut){
@@ -353,34 +362,46 @@ void functions::resizeImage(double angle, int h_w, int smooth, layer &layerer, b
     double zoom=h_w;
     if(trueForHeight_falseForWidth) zoom=zoom/layerer.surface->h;
     else zoom=zoom/layerer.surface->w;
-    SDL_Surface* surface=rotozoomSurface(layerer.surface,angle,zoom,smooth);
-    SDL_FreeSurface(layerer.surface);
+    SDL_Surface* surface;
+    createSurface(&surface,(int)(layerer.surface->w*zoom),(int)(layerer.surface->h*zoom));
+    surface=rotozoomSurface(layerer.surface,angle,zoom,smooth);
+    SDL_FreeSurface(layerer.surface); layerer.surface=NULL;
     layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
     layerer.location.w=layerer.surface->w;
     layerer.location.h=layerer.surface->h;
     layerer.texture=SDL_CreateTextureFromSurface(renderer,layerer.surface);
+    SDL_FreeSurface(surface); surface=NULL;
 }
 void functions::resizeImage(double angle, int w, int h, int smooth, layer &layerer){
     double zoomx=w; zoomx=zoomx/layerer.surface->w;
     double zoomy=h; zoomy=zoomy/layerer.surface->h;
-    SDL_Surface* surface=rotozoomSurfaceXY(layerer.surface,angle,zoomx,zoomy,smooth);
-    SDL_FreeSurface(layerer.surface);
+    SDL_Surface* surface;
+    createSurface(&surface,(int)(layerer.surface->w*zoomx),(int)(layerer.surface->h*zoomy));
+    surface=rotozoomSurfaceXY(layerer.surface,angle,zoomx,zoomy,smooth);
+    SDL_FreeSurface(layerer.surface); layerer.surface=NULL;
     layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
     layerer.location.w=layerer.surface->w;
     layerer.location.h=layerer.surface->h;
     layerer.texture=SDL_CreateTextureFromSurface(renderer,layerer.surface);
+    SDL_FreeSurface(surface); surface=NULL;
 }
 void functions::resizeImage(layer &layerer, double angle, double zoomx, double zoomy, int smooth){
-    SDL_Surface* surface=rotozoomSurfaceXY(layerer.surface,angle,zoomx,zoomy,smooth);
-    SDL_FreeSurface(layerer.surface);
+    SDL_Surface* surface;
+    createSurface(&surface,(int)(layerer.surface->w*zoomx),(int)(layerer.surface->h*zoomy));
+    surface=rotozoomSurfaceXY(layerer.surface,angle,zoomx,zoomy,smooth);
+    SDL_FreeSurface(layerer.surface); layerer.surface=NULL;
     layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
     layerer.texture=SDL_CreateTextureFromSurface(renderer,layerer.surface);
+    SDL_FreeSurface(surface); surface=NULL;
 }
 void functions::resizeImage(layer &layerer, double angle, double zoom, int smooth){
-    SDL_Surface* surface=rotozoomSurface(layerer.surface,angle,zoom,smooth);
-    SDL_FreeSurface(layerer.surface);
+    SDL_Surface* surface;
+    createSurface(&surface,(int)(layerer.surface->w*zoom),(int)(layerer.surface->h*zoom));
+    surface=rotozoomSurface(layerer.surface,angle,zoom,smooth);
+    SDL_FreeSurface(layerer.surface); layerer.surface=NULL;
     layerer.surface=SDL_ConvertSurface(surface,surface->format,0);
     layerer.texture=SDL_CreateTextureFromSurface(renderer,layerer.surface);
+    SDL_FreeSurface(surface); surface=NULL;
 }
 void functions::addEnemyId(std::string enemyName){
     battleEnemiesIds.push_back(findEntity(enemyName));
@@ -396,61 +417,7 @@ int functions::findEntity(std::string name){
 }
 void functions::renderInventory(){
     if(player.inventory.open){
-        /*
-        float a=player.inventory.offsetY+mouseWheelMotion*sliderSpeed;
-        float b=player.inventory.backPanel.location.h-sections*player.inventory.inventorySlot.location.h-(sections+1)*distanceBetweenSlots;
-        if(a<0){
-            if(a>b)
-                player.inventory.offsetY+=mouseWheelMotion*sliderSpeed;
-            else if(player.inventory.offsetY!=b){
-                player.inventory.offsetY=b;
-            }
-        }
-        else if(player.inventory.offsetY!=0){
-            player.inventory.offsetY=0;
-        }
-        player.inventory.inventoryL.surface=SDL_ConvertSurface(player.inventory.frame.surface,player.inventory.frame.surface->format,0);
-        copySurface(player.inventory.backPanel.surface,player.inventory.inventoryL.surface,player.inventory.backPanel.surface->clip_rect,player.inventory.backPanelOffset.x,player.inventory.backPanelOffset.y);
-        int y2,x2;
-
-        copySurface(player.inventory.frame.surface,player.inventory.inventoryL.surface,player.inventory.inventoryL.surface->clip_rect);
-        if(player.inventory.ammountOfIntersections>=0){
-            copySurface(player.inventory.slider.surface,
-                                   player.inventory.inventoryL.surface,0,0,
-                                   player.inventory.slider.location.w,
-                                   player.inventory.slider.location.h/2,
-                                   player.inventory.sliderOffset.x,
-                                   player.inventory.sliderOffset.y-player.inventory.offsetY);
-            copySurface(player.inventory.slider.surface,
-                                   player.inventory.inventoryL.surface,0,
-                                   player.inventory.slider.location.h/2+1,
-                                   player.inventory.slider.location.w,
-                                   player.inventory.slider.location.h/2,
-                                   player.inventory.sliderOffset.x,
-                                   player.inventory.sliderOffset.y+player.inventory.ammountOfIntersections+player.inventory.slider.location.h/2-player.inventory.offsetY);
-            for(int i=0; i<=player.inventory.ammountOfIntersections; i++){
-                copySurface(player.inventory.slider.surface,
-                                       player.inventory.inventoryL.surface,0,
-                                       player.inventory.slider.location.h/2+1,
-                                       player.inventory.slider.location.w,1,
-                                       player.inventory.sliderOffset.x,
-                                       player.inventory.sliderOffset.y+player.inventory.slider.location.h/2+i-player.inventory.offsetY,
-                                       player.inventory.slider.location.w,1);
-            }
-        }
-        else{
-            copySurface(player.inventory.slider.surface,player.inventory.inventoryL.surface,player.inventory.slider.location,player.inventory.sliderOffset.x,player.inventory.sliderOffset.y-player.inventory.offsetY*(tatssbatm/(tatssbatm-player.inventory.ammountOfIntersections)));
-        }
-        renderSurface(
-        player.inventory.inventoryL.surface,
-        player.inventory.inventoryL.surface->clip_rect,
-        player.inventory.frame.location.x,
-        player.inventory.frame.location.y
-        );
-        SDL_FreeSurface(player.inventory.inventoryL.surface);
-        player.inventory.inventoryL.surface=NULL;
-        */
-        if(mouseWheelMotion!=0){
+        if(mouseWheelMotion!=0){//process mouse wheel action [move scroll bar]
             float possibleSliderLocation=player.inventory.scrollBarOffset-mouseWheelMotion*sliderSpeed;
             if(possibleSliderLocation>0){
                 if(possibleSliderLocation<player.inventory.furthestPossibleSliderLocation){
@@ -465,40 +432,190 @@ void functions::renderInventory(){
             player.inventory.update=false;
             player.inventory.imageFull.freeSurface(); player.inventory.imageFull.surface=NULL;
             player.inventory.imageFull.surface=SDL_ConvertSurface(player.inventory.imageMain.surface,player.inventory.imageMain.surface->format,0);
-            player.inventory.imageScroll.surface=SDL_ConvertSurface(player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubbleFull.surface->format,0);
-            int slotsLocationY;
-            for(int y=0; y<player.inventory.rowsInInventory; y++){//render item slots
-                slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)*player.inventory.zoom-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
-                for(int x=0; x<player.inventory.slotsInOneRow; x++){
-                    if(y*player.inventory.slotsInOneRow+x+1<=player.inventory.itemStacks.size()){
-                        slotFrameWithItem=SDL_ConvertSurface(player.inventory.imageInventorySlot.surface,player.inventory.imageInventorySlot.surface->format,0);
-                        if(player.inventory.itemStacks[y*inventorySlotsPerRow+x].itemCount>0){ //render existing item
-                            copySurface(player.inventory.itemStacks[y*inventorySlotsPerRow+x].containingItem.image.surface,slotFrameWithItem,player.inventory.itemStacks[y*inventorySlotsPerRow+x].containingItem.image.surface->clip_rect);
-                            message=TTF_RenderText_Solid(font,toString(player.inventory.itemStacks[y*inventorySlotsPerRow+x].itemCount).c_str(),messageColor);
-                            copySurface(message,slotFrameWithItem,message->clip_rect,player.inventory.imageInventorySlot.surface->w-message->w,player.inventory.imageInventorySlot.surface->h-message->h);
-                            SDL_FreeSurface(message); message=NULL;
+            if(true){//render Item Slots
+                int slotsLocationY;
+                for(int y=0; y<player.inventory.rowsInInventory; y++){
+                    slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
+                    for(int x=0; x<player.inventory.slotsInOneRow; x++){
+                        if(y*player.inventory.slotsInOneRow+x+1<=player.inventory.itemStacks.size()){
+                            slotFrameWithItem=SDL_ConvertSurface(player.inventory.imageInventorySlot.surface,player.inventory.imageInventorySlot.surface->format,0);
+                            if(player.inventory.itemStacks[y*inventorySlotsPerRow+x].itemCount>0){ //render existing item
+                                copySurface(player.inventory.itemStacks[y*inventorySlotsPerRow+x].containingItem.image.surface,slotFrameWithItem,player.inventory.itemStacks[y*inventorySlotsPerRow+x].containingItem.image.surface->clip_rect);
+                                message=TTF_RenderText_Solid(font,toString(player.inventory.itemStacks[y*inventorySlotsPerRow+x].itemCount).c_str(),messageColor);
+                                copySurface(message,slotFrameWithItem,message->clip_rect,player.inventory.imageInventorySlot.surface->w-message->w,player.inventory.imageInventorySlot.surface->h-message->h);
+                                SDL_FreeSurface(message); message=NULL;
+                            }
+                            if((int)slotsLocationY<(int)(player.inventory.slotLocationTopLeft.y)){ //render itemSlots that are clipping at top
+                                copySurface(slotFrameWithItem,player.inventory.imageFull.surface,0,player.inventory.slotLocationTopLeft.y-slotsLocationY,player.inventory.imageInventorySlot.surface->w,player.inventory.imageInventorySlot.surface->h-player.inventory.slotLocationTopLeft.y+slotsLocationY,player.inventory.slotsLocationsX[x],player.inventory.slotLocationTopLeft.y);
+                            }
+                            else if((int)(slotsLocationY+player.inventory.imageInventorySlot.surface->h)>(int)(player.inventory.slotLocationBottomY)){ //render itemSlots that are clipping at bottom
+                                copySurface(slotFrameWithItem,player.inventory.imageFull.surface,0,0,player.inventory.imageInventorySlot.surface->w,player.inventory.slotLocationBottomY-slotsLocationY,player.inventory.slotsLocationsX[x],slotsLocationY);
+                            }
+                            else {//render regular itemSlots
+                                copySurface(slotFrameWithItem,player.inventory.imageFull.surface,player.inventory.imageInventorySlot.surface->clip_rect,player.inventory.slotsLocationsX[x],slotsLocationY);
+                            }
+                            SDL_FreeSurface(slotFrameWithItem); slotFrameWithItem=NULL;
                         }
-                        if((int)slotsLocationY<(int)(player.inventory.slotLocationTopLeft.y*player.inventory.zoom)){ //render itemSlots that are clipping at top
-                            copySurface(slotFrameWithItem,player.inventory.imageFull.surface,0,player.inventory.slotLocationTopLeft.y*player.inventory.zoom-slotsLocationY,player.inventory.imageInventorySlot.surface->w,player.inventory.imageInventorySlot.surface->h-player.inventory.slotLocationTopLeft.y*player.inventory.zoom+slotsLocationY,player.inventory.slotsLocationsX[x],player.inventory.slotLocationTopLeft.y*player.inventory.zoom);
+                        else{
+                            x=player.inventory.slotsInOneRow;
+                            y=player.inventory.rowsInInventory;
                         }
-                        else if((int)(slotsLocationY+player.inventory.imageInventorySlot.surface->h)>(int)(player.inventory.slotLocationBottomY*player.inventory.zoom)){ //render itemSlots that are clipping at bottom
-                            copySurface(slotFrameWithItem,player.inventory.imageFull.surface,0,0,player.inventory.imageInventorySlot.surface->w,player.inventory.slotLocationBottomY*player.inventory.zoom-slotsLocationY,player.inventory.slotsLocationsX[x],slotsLocationY);
-                        }
-                        else {//render regular itemSlots
-                            copySurface(slotFrameWithItem,player.inventory.imageFull.surface,player.inventory.imageInventorySlot.surface->clip_rect,player.inventory.slotsLocationsX[x],slotsLocationY);
-                        }
-                        SDL_FreeSurface(slotFrameWithItem); slotFrameWithItem=NULL;
-                    }
-                    else{
-                        x=player.inventory.slotsInOneRow;
-                        y=player.inventory.rowsInInventory;
                     }
                 }
             }
-            copySurface(player.inventory.imageScrollBarFull.surface,player.inventory.imageScroll.surface,player.inventory.imageScrollBarFull.surface->clip_rect,0,
-                        player.inventory.scrollBarOffset);
-            copySurface(player.inventory.imageScroll.surface,player.inventory.imageFull.surface,player.inventory.imageScroll.surface->clip_rect,2354*player.inventory.zoom,player.inventory.slotLocationTopLeft.y*player.inventory.zoom);
-            player.inventory.imageScroll.freeSurface(); player.inventory.imageScroll.surface=NULL;
+            if(true){//render Scroll Bar
+                player.inventory.imageScroll.surface=SDL_ConvertSurface(player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubbleFull.surface->format,0);
+                copySurface(player.inventory.imageScrollBarFull.surface,player.inventory.imageScroll.surface,player.inventory.imageScrollBarFull.surface->clip_rect,0,player.inventory.scrollBarOffset);
+                copySurface(player.inventory.imageScroll.surface,player.inventory.imageFull.surface,player.inventory.imageScroll.surface->clip_rect,2354*player.inventory.zoom,player.inventory.slotLocationTopLeft.y);
+                player.inventory.imageScroll.freeSurface(); player.inventory.imageScroll.surface=NULL;
+            }
+            if(true){//render Equipment
+            if(player.inventory.equipmentHandRight.itemCount==0){
+                copySurface(player.inventory.imageEquipmentWeapon.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageEquipmentWeapon.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*0,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*0);
+            }
+            else{
+                copySurface(player.inventory.imageInventorySlot.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageInventorySlot.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*0,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*0);
+                copySurface(player.inventory.equipmentHandRight.containingItem.image.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.equipmentHandRight.containingItem.image.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*0,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*0);
+            }
+            if(player.inventory.equipmentHead.itemCount==0){
+                copySurface(player.inventory.imageEquipmentHead.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageEquipmentHead.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*0);
+            }
+            else{
+                copySurface(player.inventory.imageInventorySlot.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageInventorySlot.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*0);
+                copySurface(player.inventory.equipmentHead.containingItem.image.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.equipmentHead.containingItem.image.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*0);
+            }
+            if(player.inventory.equipmentNeck.itemCount==0){
+                copySurface(player.inventory.imageEquipmentJewels.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageEquipmentJewels.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*0,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*1);
+            }
+            else{
+                copySurface(player.inventory.imageInventorySlot.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageInventorySlot.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*0,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*1);
+                copySurface(player.inventory.equipmentNeck.containingItem.image.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.equipmentNeck.containingItem.image.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*0,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*1);
+            }
+            if(player.inventory.equipmentBody.itemCount==0){
+                copySurface(player.inventory.imageEquipmentBody.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageEquipmentBody.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*1);
+            }
+            else{
+                copySurface(player.inventory.imageInventorySlot.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageInventorySlot.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*1);
+                copySurface(player.inventory.equipmentBody.containingItem.image.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.equipmentBody.containingItem.image.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*1);
+            }
+            if(player.inventory.equipmentLegs.itemCount==0){
+                copySurface(player.inventory.imageEquipmentLegs.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageEquipmentLegs.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*2);
+            }
+            else{
+                copySurface(player.inventory.imageInventorySlot.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageInventorySlot.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*2);
+                copySurface(player.inventory.equipmentLegs.containingItem.image.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.equipmentLegs.containingItem.image.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*2);
+            }
+            if(player.inventory.equipmentHandLeft.itemCount==0){
+                copySurface(player.inventory.imageEquipmentShield.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageEquipmentShield.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*2,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*2);
+            }
+            else{
+                copySurface(player.inventory.imageInventorySlot.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageInventorySlot.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*2,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*2);
+                copySurface(player.inventory.equipmentHandLeft.containingItem.image.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.equipmentHandLeft.containingItem.image.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*2,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*2);
+            }
+            if(player.inventory.equipmentFeet.itemCount==0){
+                copySurface(player.inventory.imageEquipmentShoes.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageEquipmentShoes.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*3);
+            }
+            else{
+                copySurface(player.inventory.imageInventorySlot.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.imageInventorySlot.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*3);
+                copySurface(player.inventory.equipmentFeet.containingItem.image.surface,
+                            player.inventory.imageFull.surface,
+                            player.inventory.equipmentFeet.containingItem.image.surface->clip_rect,
+                            player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*1,
+                            player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*3);
+            }
+            }
+            if(true){//render Stats
+                copySurface(player.inventory.imageStatHealth.surface,player.inventory.imageFull.surface,player.inventory.imageStatHealth.surface->clip_rect,player.inventory.statTopLeftLocation.x,
+                            player.inventory.statTopLeftLocation.y);
+                copySurface(player.inventory.imageStatAttack.surface,player.inventory.imageFull.surface,player.inventory.imageStatAttack.surface->clip_rect,player.inventory.statTopLeftLocation.x,
+                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats);
+                copySurface(player.inventory.imageStatStrength.surface,player.inventory.imageFull.surface,player.inventory.imageStatStrength.surface->clip_rect,player.inventory.statTopLeftLocation.x,
+                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*2);
+                copySurface(player.inventory.imageStatAgility.surface,player.inventory.imageFull.surface,player.inventory.imageStatAgility.surface->clip_rect,player.inventory.statTopLeftLocation.x,
+                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*3);
+                copySurface(player.inventory.imageStatInteligence.surface,player.inventory.imageFull.surface,player.inventory.imageStatInteligence.surface->clip_rect,player.inventory.statTopLeftLocation.x,
+                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*4);
+            }
             player.inventory.imageFull.texture=SDL_CreateTextureFromSurface(renderer,player.inventory.imageFull.surface);
         }
         renderTexture(player.inventory.imageFull.texture,player.inventory.imageFull.surface->clip_rect);

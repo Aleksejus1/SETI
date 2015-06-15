@@ -32,6 +32,6 @@ variables::variables(){
     player.location.x=320;//sets the starting x position of the player
     player.location.y=420;//sets the starting y position of the player
     player.map_location=1;//sets the starting map id of the player
-    player.inventory.addItemStacks(33);
+    player.inventory.addItemStacks((2+8)*4+2);
     player.type="EGYPTIAN WARRIOR";
 }

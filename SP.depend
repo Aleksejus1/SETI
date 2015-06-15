@@ -2844,7 +2844,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434384931 c:\programming\c++\sdl projects\sp [summer-project]\characterspace.h
+1434408558 c:\programming\c++\sdl projects\sp [summer-project]\characterspace.h
 	"space.h"
 
 1434324881 c:\programming\c++\sdl projects\sp [summer-project]\space.h
@@ -3215,7 +3215,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434382125 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1434407429 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3238,7 +3238,7 @@
 	"functions.h"
 	"map.h"
 
-1434332621 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
+1434407237 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3263,7 +3263,7 @@
 	"spell.h"
 	"stage.h"
 
-1434324705 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
+1434409508 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3579,7 +3579,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434386104 source:c:\programming\c++\sdl projects\sp [summer-project]\variables.cpp
+1434404506 source:c:\programming\c++\sdl projects\sp [summer-project]\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3970,7 +3970,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1434386298 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1434407221 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
