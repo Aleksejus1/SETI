@@ -2893,7 +2893,7 @@
 	<commdlg.h>
 	"item.h"
 
-1433345876 c:\programming\c++\sdl projects\sp [summer-project]\item.h
+1434489264 c:\programming\c++\sdl projects\sp [summer-project]\item.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3238,7 +3238,7 @@
 	"functions.h"
 	"map.h"
 
-1434407237 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
+1434489133 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3970,7 +3970,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1434407221 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1434489220 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3995,4 +3995,10 @@
 	"layer.h"
 	"spell.h"
 	"SDL2_rotozoom.h"
+
+1434488693 c:\programming\c++\sdl projects\sp [summer-project]\itemweapon.h
+	"item.h"
+
+1434488189 source:c:\programming\c++\sdl projects\sp [summer-project]\itemweapon.cpp
+	"itemWeapon.h"
 

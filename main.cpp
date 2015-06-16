@@ -99,7 +99,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             maps[maps.size()-1].createLayer("qpm\\bc3.png");
             maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
         }
-
+        f.giveItems(f.items[f.findItem("RegularSword")],1);
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
             if(f.mouseButton==2)f.mouseButton=0; //Reset mouse button
@@ -171,7 +171,6 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 	}//try to initialize if fails, get crash number
     return f.messages.wParam;
 }
-
 void createMap(std::string name, std::string id){
     map map_temp(f);
     map_temp.name=name;
@@ -180,7 +179,6 @@ void createMap(std::string name, std::string id){
         maps.push_back(map_temp);
     }
 }
-
 void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0){
     map map_temp(f);
     map_temp.name=name;
@@ -200,7 +198,6 @@ void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int 
         maps.push_back(map_temp);
     }
 }
-
 void interact(){
     if(f.buttons[f.findButton("E")].pressed==1&&maps[f.player.map_location].interactable.size()>0&&f.player.gathering==0){
         f.buttons[f.findButton("E")].pressed=2;
@@ -266,7 +263,6 @@ void interact(){
                 "selected="+f.toString(f.selectedId));
     }
 }
-
 void battle(){
     if(f.player.isInBattle==1){//initialize the battle
         //set player' location
@@ -315,7 +311,6 @@ void battle(){
 
     }
 }
-
 void gather(){
     if(f.player.gathering==1){//initialize gathering
         f.player.gatherTime=maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime;
@@ -342,7 +337,6 @@ void gather(){
         }
     }
 }
-
 void regrow(){
     for(int i=0; i<maps.size(); i++){
         for(int o=0; o<maps[i].gatherable.size(); o++){

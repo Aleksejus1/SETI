@@ -28,6 +28,7 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        void affectStat(std::string statName, float ammount);
         void createSurface(SDL_Surface** surfaceDestination, int width, int height);
         void renderUI();
         void giveItems(itemStack &itemsToGive);

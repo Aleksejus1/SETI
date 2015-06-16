@@ -29,6 +29,9 @@ class item
         friend bool operator==(item &a, item &b);
         std::string name="empty";
         std::string type="none";
+        float damage=0;
+        struct affect{std::string statName; float ammount;};
+        std::vector<affect> affectedStats;
 };
 
 #endif // ITEM_H

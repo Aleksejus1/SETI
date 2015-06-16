@@ -147,16 +147,20 @@ void functions::loadMedia(){
                     resizeImage(player.inventory.imageStatAgility,0,player.inventory.zoom,1);
                 loadImage(prePath+"abilities\\5"+endingPath,player.inventory.imageStatStrength);
                     resizeImage(player.inventory.imageStatStrength,0,player.inventory.zoom,1);
-                for(int i=0; i<3; i++){
+                for(int i=0; i<4; i++){
                     std::string color;
+                    int type;
                     switch(i){
-                        case 0: color="blue";   break;
-                        case 1: color="green";  break;
-                        case 2: color="orange"; break;
+                        case 0: color="grey";   type=1; break;
+                        case 1: color="blue";   type=0; break;
+                        case 2: color="green";  type=0; break;
+                        case 3: color="orange"; type=0; break;
                     }
                     characterSpace::bars bar;
-                    loadImage(prePath+"bars\\"+color+" gradient"+endingPath,bar.gradient);
-                        resizeImage(bar.gradient,0,player.inventory.zoom*2,1);
+                    if(type==0){
+                        loadImage(prePath+"bars\\"+color+" gradient"+endingPath,bar.gradient);
+                            resizeImage(bar.gradient,0,player.inventory.zoom*2,1);
+                    }
                     loadImage(prePath+"bars\\"+color+" left"+endingPath,bar.left);
                         resizeImage(bar.left,0,player.inventory.zoom*2,1);
                     loadImage(prePath+"bars\\"+color+" mid"+endingPath,bar.mid);
@@ -208,6 +212,7 @@ void functions::loadMedia(){
     if(true){//create items
         addItem("Poop","ingredient","qpm\\item_poop.png");
         addItem("Berry","consumable","qpm\\item_berry.png");
+        addItem("RegularSword","weapon","qpm\\regularSword.png"); items[items.size()-1].damage=5; affectStat("Strength",5); affectStat("Health",25);
     }
     if(true){//load Fonts
         //-------------------------------------------------------------------------------------
@@ -226,6 +231,11 @@ void functions::loadMedia(){
         TTF_SetFontStyle(font_lithosProForLevel,TTF_STYLE_BOLD);
         //-------------------------------------------------------------------------------------
     }
+}
+void functions::affectStat(std::string statName, float ammount){
+    item::affect affectedStat;
+    affectedStat.statName=statName; affectedStat.ammount=ammount;
+    items[items.size()-1].affectedStats.push_back(affectedStat);
 }
 void functions::createSurface(SDL_Surface** surfaceDestination, int width, int height){
     *surfaceDestination=SDL_CreateRGBSurface(0,
