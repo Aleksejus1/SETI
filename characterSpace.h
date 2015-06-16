@@ -19,6 +19,8 @@ class characterSpace: public space
         layer imageInventorySlot;
         layer imageStatHealth,imageStatAttack,imageStatStrength,imageStatAgility,imageStatInteligence;
         layer imageFull;
+        struct bars{layer gradient,left,mid,right,full;};
+        std::vector<bars> statsBar;
 
 };
 

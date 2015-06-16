@@ -85,9 +85,11 @@ void functions::loadMedia(){
         createImage("qpm\\progressBarInside.png","progressBarInside");
     }
     if(true){//create UI
-        createImage("qpm\\BattleUI.png","battleUI");
-        resizeImage(0,SCREEN_WIDTH,antialiasing,images[images.size()-1].image,false);
-        if(true){ //create character UI
+        if(true){//create Battle UI
+            createImage("qpm\\BattleUI.png","battleUI");
+            resizeImage(0,SCREEN_WIDTH,antialiasing,images[images.size()-1].image,false);
+        }
+        if(true){ //create Character UI
             loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
                 resizeImage(UI.characterUI,0,characterUiZoom,1);
             loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red);
@@ -109,7 +111,7 @@ void functions::loadMedia(){
             loadImage("Graphics\\Top Left UI\\empty_bar.png",UI.bar_empty);
                 resizeImage(UI.bar_empty,0,characterUiZoom,1);
         }
-        if(true){//create inventory interface
+        if(true){//create Inventory Interface
             if(true){//load images
                 std::string prePath="Graphics\\equipment ui slice\\";
                 std::string endingPath=".png";
@@ -145,6 +147,28 @@ void functions::loadMedia(){
                     resizeImage(player.inventory.imageStatAgility,0,player.inventory.zoom,1);
                 loadImage(prePath+"abilities\\5"+endingPath,player.inventory.imageStatStrength);
                     resizeImage(player.inventory.imageStatStrength,0,player.inventory.zoom,1);
+                for(int i=0; i<3; i++){
+                    std::string color;
+                    switch(i){
+                        case 0: color="blue";   break;
+                        case 1: color="green";  break;
+                        case 2: color="orange"; break;
+                    }
+                    characterSpace::bars bar;
+                    loadImage(prePath+"bars\\"+color+" gradient"+endingPath,bar.gradient);
+                        resizeImage(bar.gradient,0,player.inventory.zoom*2,1);
+                    loadImage(prePath+"bars\\"+color+" left"+endingPath,bar.left);
+                        resizeImage(bar.left,0,player.inventory.zoom*2,1);
+                    loadImage(prePath+"bars\\"+color+" mid"+endingPath,bar.mid);
+                        resizeImage(bar.mid,0,player.inventory.zoom*2,1);
+                    loadImage(prePath+"bars\\"+color+" right"+endingPath,bar.right);
+                        resizeImage(bar.right,0,player.inventory.zoom*2,1);
+                    createSurface(&bar.full.surface,bar.left.surface->w+bar.right.surface->w+444*player.inventory.zoom,bar.mid.surface->h);
+                    copySurface(bar.left.surface,bar.full.surface,bar.left.surface->clip_rect);
+                    copySurface(bar.right.surface,bar.full.surface,bar.right.surface->clip_rect,bar.full.surface->w-bar.right.surface->w,0);
+                    for(int i=0; i<bar.full.surface->w-bar.left.surface->w-bar.right.surface->w; i++) copySurface(bar.mid.surface,bar.full.surface,bar.mid.surface->clip_rect,bar.left.surface->w+i,0);
+                    player.inventory.statsBar.push_back(bar);
+                }
             }
             if(true){//calculate stuff
                 player.inventory.slotsInOneRow=4;
@@ -180,22 +204,27 @@ void functions::loadMedia(){
                 player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots)/(float)player.inventory.furthestPossibleSliderLocation;
             }
         }
-        font_calibriSize*=characterUiZoom;
-        font_lithosProSize*=characterUiZoom;
-        font_lithosProForLevelSize*=characterUiZoom;
     }
     if(true){//create items
         addItem("Poop","ingredient","qpm\\item_poop.png");
         addItem("Berry","consumable","qpm\\item_berry.png");
     }
     if(true){//load Fonts
+        //-------------------------------------------------------------------------------------
         font=TTF_OpenFont("ttf\\DroidSerif.ttf",fontSize);
         TTF_SetFontStyle(font,TTF_STYLE_BOLD);
+        //-------------------------------------------------------------------------------------
+        font_calibriSize*=characterUiZoom;
         font_calibri=TTF_OpenFont("ttf\\Calibri.ttf",font_calibriSize);
+        //-------------------------------------------------------------------------------------
+        font_lithosProSize*=characterUiZoom;
         font_lithosPro=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProSize);
         TTF_SetFontStyle(font_lithosPro,TTF_STYLE_BOLD);
+        //-------------------------------------------------------------------------------------
+        font_lithosProForLevelSize*=characterUiZoom;
         font_lithosProForLevel=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProForLevelSize);
         TTF_SetFontStyle(font_lithosProForLevel,TTF_STYLE_BOLD);
+        //-------------------------------------------------------------------------------------
     }
 }
 void functions::createSurface(SDL_Surface** surfaceDestination, int width, int height){
@@ -605,16 +634,38 @@ void functions::renderInventory(){
             }
             }
             if(true){//render Stats
-                copySurface(player.inventory.imageStatHealth.surface,player.inventory.imageFull.surface,player.inventory.imageStatHealth.surface->clip_rect,player.inventory.statTopLeftLocation.x,
-                            player.inventory.statTopLeftLocation.y);
-                copySurface(player.inventory.imageStatAttack.surface,player.inventory.imageFull.surface,player.inventory.imageStatAttack.surface->clip_rect,player.inventory.statTopLeftLocation.x,
-                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats);
-                copySurface(player.inventory.imageStatStrength.surface,player.inventory.imageFull.surface,player.inventory.imageStatStrength.surface->clip_rect,player.inventory.statTopLeftLocation.x,
-                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*2);
-                copySurface(player.inventory.imageStatAgility.surface,player.inventory.imageFull.surface,player.inventory.imageStatAgility.surface->clip_rect,player.inventory.statTopLeftLocation.x,
-                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*3);
-                copySurface(player.inventory.imageStatInteligence.surface,player.inventory.imageFull.surface,player.inventory.imageStatInteligence.surface->clip_rect,player.inventory.statTopLeftLocation.x,
-                            player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*4);
+                int locationY,statLevel,id,width;
+                layer* statLayer;
+                std::string statName;
+                for(int i=0; i<5; i++){
+                    switch(i){
+                        case 0: statLayer=&player.inventory.imageStatHealth;      statName="Health";   statLevel=40; break;
+                        case 1: statLayer=&player.inventory.imageStatAttack;      statName="Attack";   statLevel=60; break;
+                        case 2: statLayer=&player.inventory.imageStatStrength;    statName="Strength"; statLevel=25; break;
+                        case 3: statLayer=&player.inventory.imageStatAgility;     statName="Agility";  statLevel=31; break;
+                        case 4: statLayer=&player.inventory.imageStatInteligence; statName="Intel";    statLevel=20; break;
+                    }
+                    id=statLevel/100+1;
+                    locationY=player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*i;
+                    copySurface(statLayer->surface,player.inventory.imageFull.surface,statLayer->surface->clip_rect,player.inventory.statTopLeftLocation.x,locationY);
+                    message=TTF_RenderText_Blended(font_lithosPro,statName.c_str(),messageColor);
+                    copySurface(message,player.inventory.imageFull.surface,message->clip_rect,player.inventory.statTopLeftLocation.x+statLayer->surface->w*1.5,locationY);
+                    SDL_FreeSurface(message); message=NULL;
+                    message=TTF_RenderText_Blended(font_lithosPro,toString(statLevel).c_str(),messageColor);
+                    copySurface(message,player.inventory.imageFull.surface,message->clip_rect,player.inventory.statTopLeftLocation.x+statLayer->surface->w*9,locationY);
+                    SDL_FreeSurface(message); message=NULL;
+                    width=player.inventory.statsBar[id].full.surface->w*((float)statLevel/(float)100);
+                    copySurface(player.inventory.statsBar[id].full.surface,player.inventory.imageFull.surface,0,0,width,player.inventory.statsBar[id].full.surface->h,player.inventory.statTopLeftLocation.x+statLayer->surface->w*9,locationY+player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-statLayer->surface->h)/2)-player.inventory.statsBar[id].full.surface->h/2);
+                    copySurface(player.inventory.statsBar[id-1].full.surface,
+                                player.inventory.imageFull.surface,
+                                width,
+                                0,
+                                player.inventory.statsBar[id-1].full.surface->w-width,
+                                player.inventory.statsBar[id-1].full.surface->h,
+                                player.inventory.statTopLeftLocation.x+statLayer->surface->w*9+width,
+                                locationY+player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-statLayer->surface->h)/2)-player.inventory.statsBar[id-1].full.surface->h/2);
+                    copySurface(player.inventory.statsBar[id].gradient.surface,player.inventory.imageFull.surface,player.inventory.statsBar[id].gradient.surface->clip_rect,player.inventory.statTopLeftLocation.x+statLayer->surface->w*9+width,locationY+player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-statLayer->surface->h)/2)-player.inventory.statsBar[id].full.surface->h/2);
+                }
             }
             player.inventory.imageFull.texture=SDL_CreateTextureFromSurface(renderer,player.inventory.imageFull.surface);
         }
