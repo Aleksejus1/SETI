@@ -27,11 +27,12 @@ class item
         item();
         layer image;
         friend bool operator==(item &a, item &b);
-        std::string name="empty";
-        std::string type="none";
-        float damage=0;
+        std::string name;
+        std::string type;
+        float damage;
         struct affect{std::string statName; float ammount;};
         std::vector<affect> affectedStats;
+        void reset();
 };
 
 #endif // ITEM_H

@@ -21,5 +21,10 @@
 
 itemStack::itemStack()
 {
-    //ctor
+    reset();
+}
+
+void itemStack::reset(){
+    itemCount=0;
+    containingItem.reset();
 }

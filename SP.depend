@@ -2733,7 +2733,7 @@
 1434124412 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\characterspace.cpp
 	"characterSpace.h"
 
-1434126238 source:c:\programming\c++\sdl projects\sp [summer-project]\character.cpp
+1434534909 source:c:\programming\c++\sdl projects\sp [summer-project]\character.cpp
 	"character.h"
 	"entity.h"
 	"SDL.h"
@@ -2756,7 +2756,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434126478 c:\programming\c++\sdl projects\sp [summer-project]\character.h
+1434534618 c:\programming\c++\sdl projects\sp [summer-project]\character.h
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2844,7 +2844,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434454937 c:\programming\c++\sdl projects\sp [summer-project]\characterspace.h
+1434541528 c:\programming\c++\sdl projects\sp [summer-project]\characterspace.h
 	"space.h"
 
 1434324881 c:\programming\c++\sdl projects\sp [summer-project]\space.h
@@ -2871,7 +2871,7 @@
 	"layer.h"
 	"objects.h"
 
-1433278206 c:\programming\c++\sdl projects\sp [summer-project]\itemstack.h
+1434532383 c:\programming\c++\sdl projects\sp [summer-project]\itemstack.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2893,7 +2893,7 @@
 	<commdlg.h>
 	"item.h"
 
-1434489264 c:\programming\c++\sdl projects\sp [summer-project]\item.h
+1434532513 c:\programming\c++\sdl projects\sp [summer-project]\item.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2937,7 +2937,7 @@
 	"SDL_syswm.h"
 	"layer.h"
 
-1434124412 source:c:\programming\c++\sdl projects\sp [summer-project]\characterspace.cpp
+1434530118 source:c:\programming\c++\sdl projects\sp [summer-project]\characterspace.cpp
 	"characterSpace.h"
 
 1433013497 source:c:\programming\c++\sdl projects\sp [summer-project]\entity.cpp
@@ -3106,7 +3106,7 @@
 	"SDL_ttf.h"
 	"SDL_syswm.h"
 
-1433345893 source:c:\programming\c++\sdl projects\sp [summer-project]\item.cpp
+1434532980 source:c:\programming\c++\sdl projects\sp [summer-project]\item.cpp
 	"item.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3128,7 +3128,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433278215 source:c:\programming\c++\sdl projects\sp [summer-project]\itemstack.cpp
+1434532771 source:c:\programming\c++\sdl projects\sp [summer-project]\itemstack.cpp
 	"itemStack.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3193,7 +3193,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433343144 source:c:\programming\c++\sdl projects\sp [summer-project]\layer.cpp
+1434532985 source:c:\programming\c++\sdl projects\sp [summer-project]\layer.cpp
 	"layer.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3215,7 +3215,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434407429 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1434552522 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3237,8 +3237,11 @@
 	<commdlg.h>
 	"functions.h"
 	"map.h"
+	"SDL_opengl.h"
+	"GL\gl.h"
+	"GL\GLU.h"
 
-1434489133 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
+1434544187 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3262,8 +3265,10 @@
 	"variables.h"
 	"spell.h"
 	"stage.h"
+	"SDL_opengl.h"
+	"GL\GLU.h"
 
-1434409508 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
+1434555056 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3289,6 +3294,8 @@
 	"spell.h"
 	"item.h"
 	"userInterface.h"
+	"SDL_opengl.h"
+	"GL\GLU.h"
 
 1433671250 c:\programming\c++\sdl projects\sp [summer-project]\spell.h
 	"SDL.h"
@@ -3970,7 +3977,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1434489220 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1434553891 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -4001,4 +4008,18 @@
 
 1434488189 source:c:\programming\c++\sdl projects\sp [summer-project]\itemweapon.cpp
 	"itemWeapon.h"
+
+1394940798 c:\programming\c++\sdl\include\sdl2\sdl_opengl.h
+	"SDL_config.h"
+	<windows.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
 

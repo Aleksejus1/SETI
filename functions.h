@@ -23,11 +23,17 @@
 #include "variables.h"
 #include "spell.h"
 #include "stage.h"
+#include "SDL_opengl.h"
+#include "GL\GLU.h"
 
 class functions: public variables
 {
     public:
         functions(); //Initialization function
+        void affectStats(item* itemOfWhichEffectsToUse, bool trueForGivingStats_falseForRemovingStats);
+        void unequipItem(int equipmentId);
+        void equipItem(int itemSlotId);
+        void removeItem(int slotId, int ammount);
         void affectStat(std::string statName, float ammount);
         void createSurface(SDL_Surface** surfaceDestination, int width, int height);
         void renderUI();
@@ -90,6 +96,7 @@ class functions: public variables
         void addColor(int r, int g, int b, int a);//Adds a color to the color list used for zones/areas by giving the rgba values
         void addColor(int r, int g, int b);//Adds a color to the color list used for zones/areas by giving the rgb values, alpha value is 255 - [full] by default
         bool initialize();//Used to initialize SDL2 and its' modules
+        bool initGL();//Used to initialize OpenGL stuffs
         void close();//Used to close some important variables and also SDL2 and its' modules
         void error(int errorNumber);//Used to print out an error corresponding to the give value
         void error(std::string errorMessage);//Used to print out the given error message or simply any message

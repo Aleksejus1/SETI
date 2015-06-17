@@ -25,6 +25,9 @@
 #include <commdlg.h>
 #include "functions.h"
 #include "map.h"
+#include "SDL_opengl.h"
+#include "GL\gl.h"
+#include "GL\GLU.h"
 
 functions f; //Main way of accessing variables and functions in main.cpp
 std::vector<map> maps;//Holder for all existing maps in the game
@@ -102,6 +105,12 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         f.giveItems(f.items[f.findItem("RegularSword")],1);
         while( !f.quit ) { //Event cycle, does once every game tick
             f.mouseWheelMotion=0; //Reset mouse wheel motion
+            SDL_GetMouseState(&f.mouse.x,&f.mouse.y);
+            if(f.mouseButton==1)f.mouseButton=0;
+            if(f.leftMouseButton==1)f.leftMouseButton=0;
+            if(f.rightMouseButton==1)f.rightMouseButton=0;
+            if(f.leftMouseButtonUp==1)f.leftMouseButtonUp=0;
+            if(f.rightMouseButtonUp==1)f.rightMouseButtonUp=0;
             if(f.mouseButton==2)f.mouseButton=0; //Reset mouse button
             //read and assign user input events that happened since last activation of this cycle
             while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
@@ -128,11 +137,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     f.mouseWheelMotion=f.e.wheel.y;//Sets the mouse wheel value to it's corresponding one -1 to the used, 1 away from the used
                 }
                 else if(f.e.type==SDL_MOUSEBUTTONDOWN){//Checks if the mouse button was pressed
+                    if(f.e.button.button==SDL_BUTTON_LEFT) f.leftMouseButton=1;
+                    else if(f.e.button.button==SDL_BUTTON_RIGHT) f.rightMouseButton=1;
                     f.mouseButton=1;
+                    f.clickedOn="";
                 }
                 else if(f.e.type==SDL_MOUSEBUTTONUP){//Checks if the mouse button was unpressed
+                    if(f.e.button.button==SDL_BUTTON_LEFT) f.leftMouseButtonUp=1;
+                    else if(f.e.button.button==SDL_BUTTON_RIGHT) f.rightMouseButtonUp=1;
                     f.mouseButton=2;
-                    SDL_GetMouseState(&f.mouse.x,&f.mouse.y);
                 }
             }
             //finish handling user input
@@ -160,6 +173,202 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //render UI
             f.renderUI();
             f.renderInventory();
+            if(f.GLStage!=f.STAGE_SDL){
+                glClear(GL_COLOR_BUFFER_BIT);
+                if(f.GLStage==f.STAGE_VIEWPORT){
+                    glLoadIdentity();
+                    glTranslatef( f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,0.f);
+                    if(f.gViewportMode==f.VIEWPORT_MODE_FULL){//Fill the screen
+                    glViewport(0.f,0.f,f.SCREEN_WIDTH,f.SCREEN_HEIGHT);
+
+                    //Red quad
+                    glBegin(GL_QUADS);
+                        glColor3f(1.f,0.f,0.f);
+                        glVertex2f(-f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
+                        glVertex2f( f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
+                        glVertex2f( f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
+                        glVertex2f(-f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
+                    glEnd();
+                }
+                    else if(f.gViewportMode==f.VIEWPORT_MODE_HALF_CENTER){//Center viewport
+                        glViewport(f.SCREEN_WIDTH/4.f,f.SCREEN_HEIGHT/4.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);
+
+                        //Green quad
+                        glBegin(GL_QUADS);
+                            glColor3f(0.f,1.f,0.f);
+                            glVertex2f(-f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
+                            glVertex2f( f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
+                            glVertex2f( f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
+                            glVertex2f(-f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
+                        glEnd();
+                    }
+                    else if(f.gViewportMode==f.VIEWPORT_MODE_HALF_TOP){//Viewport at top
+                        glViewport(f.SCREEN_WIDTH/4.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);
+
+                        //Blue quad
+                        glBegin( GL_QUADS );
+                            glColor3f(0.f,0.f,1.f);
+                            glVertex2f(-f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
+                            glVertex2f( f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
+                            glVertex2f( f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
+                            glVertex2f(-f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
+                        glEnd();
+                    }
+                    else if(f.gViewportMode==f.VIEWPORT_MODE_QUAD){
+                        glViewport(0.f,0.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);//Bottom left red quad
+                        glBegin( GL_QUADS );
+                            glColor3f(1.f,0.f,0.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                        glEnd();
+
+                        glViewport(f.SCREEN_WIDTH/2.f,0.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);//Bottom right green quad
+                        glBegin( GL_QUADS );
+                            glColor3f(0.f,1.f,0.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                        glEnd();
+
+                        glViewport(0.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);//Top left blue quad
+                        glBegin(GL_QUADS);
+                            glColor3f(0.f,0.f,1.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                        glEnd();
+
+                        glViewport(f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f); //Top right yellow quad
+                        glBegin(GL_QUADS);
+                            glColor3f(1.f,1.f,0.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                        glEnd();
+                    }
+                    else if(f.gViewportMode==f.VIEWPORT_MODE_RADAR){//Full size quad
+                    glViewport(0.f,0.f,f.SCREEN_WIDTH,f.SCREEN_HEIGHT);
+                    glBegin(GL_QUADS);
+                        glColor3f(1.f,1.f,1.f);
+                        glVertex2f(-f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
+                        glVertex2f( f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
+                        glVertex2f( f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
+                        glVertex2f(-f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
+                        glColor3f(0.f,0.f,0.f);
+                        glVertex2f(-f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
+                        glVertex2f( f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
+                        glVertex2f( f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
+                        glVertex2f(-f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
+                    glEnd();
+
+                    //Radar quad
+                    glViewport(f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);
+                    glBegin(GL_QUADS);
+                        glColor3f(1.f,1.f,1.f);
+                        glVertex2f(-f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
+                        glVertex2f( f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
+                        glVertex2f( f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
+                        glVertex2f(-f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
+                        glColor3f(0.f,0.f,0.f);
+                        glVertex2f(-f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
+                        glVertex2f( f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
+                        glVertex2f( f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
+                        glVertex2f(-f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
+                    glEnd();
+                }
+                }
+                else if(f.GLStage==f.STAGE_COLOR_MODE){
+                    glMatrixMode(GL_MODELVIEW);
+                    glLoadIdentity();
+                    glTranslatef( f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,0.f);
+                    if(f.gColorMode==f.COLOR_MODE_CYAN){
+                        glBegin(GL_QUADS);//Solid Cyan
+                            glColor3f(0.f,1.f,1.f);
+                            glVertex2f(-50.f,-50.f);
+                            glVertex2f( 50.f,-50.f);
+                            glVertex2f( 50.f, 50.f);
+                            glVertex2f(-50.f, 50.f);
+                        glEnd();
+                    }
+                    else{//RYGB Mix
+                        glBegin(GL_QUADS);
+                            glColor3f(1.f,0.f,0.f); glVertex2f(-50.f,-50.f);
+                            glColor3f(1.f,1.f,0.f); glVertex2f( 50.f,-50.f);
+                            glColor3f(0.f,1.f,0.f); glVertex2f( 50.f, 50.f);
+                            glColor3f(0.f,0.f,1.f); glVertex2f(-50.f, 50.f);
+                        glEnd();
+                    }
+                }
+                else if(f.GLStage==f.STAGE_SCROLLING){
+                glMatrixMode(GL_MODELVIEW);//Take saved matrix off the stack and reset it
+                glPopMatrix();
+                glLoadIdentity();
+
+                glTranslatef(-f.gCameraX,-f.gCameraY,0.f);//Move camera to position
+                glPushMatrix();//Save default matrix again with camera translation
+
+                glMatrixMode(GL_MODELVIEW);
+                glPopMatrix();
+
+                //Save default matrix again
+                glPushMatrix();
+
+                //Move to center of the screen
+                glTranslatef(f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,0.f);
+
+                //Red quad
+                glBegin(GL_QUADS);
+                    glColor3f(1.f,0.f,0.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                glEnd();
+
+                //Move to the right of the screen
+                glTranslatef(f.SCREEN_WIDTH,0.f,0.f);
+
+                //Green quad
+                glBegin(GL_QUADS);
+                    glColor3f(0.f,1.f,0.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                glEnd();
+
+                //Move to the lower right of the screen
+                glTranslatef(0.f,f.SCREEN_HEIGHT,0.f);
+
+                //Blue quad
+                glBegin(GL_QUADS);
+                    glColor3f(0.f,0.f,1.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                glEnd();
+
+                //Move below the screen
+                glTranslatef(-f.SCREEN_WIDTH,0.f,0.f);
+
+                //Yellow quad
+                glBegin(GL_QUADS);
+                    glColor3f(1.f,1.f,0.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
+                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
+                glEnd();
+            }
+                SDL_GL_SwapWindow(f.window);
+            }
+            else
             //finish rendering UI elements
             //---------------------------------------
             //finish up this game tick
@@ -261,6 +470,52 @@ void interact(){
                 "["+f.toString(f.battleEnemies[3].location.x)+";"+f.toString(f.battleEnemies[3].location.y)+"]=3\n"+
                 "["+f.toString(f.battleEnemies[4].location.x)+";"+f.toString(f.battleEnemies[4].location.y)+"]=4\n"+
                 "selected="+f.toString(f.selectedId));
+    }
+    if(f.buttons[f.findButton("Q")].pressed==1){
+        f.buttons[f.findButton("Q")].pressed=0;
+        if(f.GLStage==f.STAGE_VIEWPORT){
+            f.gViewportMode++;
+            if(f.gViewportMode>f.VIEWPORT_MODE_RADAR){
+                f.gViewportMode=f.VIEWPORT_MODE_FULL;
+            }
+        }
+        else if(f.GLStage==f.STAGE_COLOR_MODE){
+            if(f.gColorMode==f.COLOR_MODE_CYAN) f.gColorMode=f.COLOR_MODE_MULTI;
+            else f.gColorMode=f.COLOR_MODE_CYAN;
+        }
+    }
+    if(f.buttons[f.findButton("R")].pressed==1){
+        f.buttons[f.findButton("R")].pressed=0;
+        if(f.GLStage==f.STAGE_COLOR_MODE){//Cycle through projection scales
+            if(f.gProjectionScale==1.f){//Zoom out
+                f.gProjectionScale=2.f;
+            }
+            else if(f.gProjectionScale==2.f){//Zoom in
+                f.gProjectionScale=0.5f;
+            }
+            else if(f.gProjectionScale==0.5f){//Regular zoom
+                f.gProjectionScale=1.f;
+            }
+
+            //Update projection matrix
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glOrtho(0.0,f.SCREEN_WIDTH*f.gProjectionScale,f.SCREEN_HEIGHT*f.gProjectionScale,0.0,1.0,-1.0);
+        }
+    }
+    if(f.GLStage==f.STAGE_SCROLLING){
+        if(f.buttons[f.findButton("W")].pressed==1){
+            f.gCameraY-=16.f;
+        }
+        if(f.buttons[f.findButton("A")].pressed==1){
+            f.gCameraX-=16.f;
+        }
+        if(f.buttons[f.findButton("S")].pressed==1){
+            f.gCameraY+=16.f;
+        }
+        if(f.buttons[f.findButton("D")].pressed==1){
+            f.gCameraX+=16.f;
+        }
     }
 }
 void battle(){

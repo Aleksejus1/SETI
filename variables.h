@@ -25,11 +25,36 @@
 #include "spell.h"
 #include "item.h"
 #include "userInterface.h"
+#include "SDL_opengl.h"
+#include "GL\GLU.h"
 
 class variables
 {
     public:
         variables(); //Initialization function
+        //-------------------------------------------------
+        enum ViewPortMode{
+            VIEWPORT_MODE_FULL,
+            VIEWPORT_MODE_HALF_CENTER,
+            VIEWPORT_MODE_HALF_TOP,
+            VIEWPORT_MODE_QUAD,
+            VIEWPORT_MODE_RADAR
+        };
+        enum stages{
+            STAGE_VIEWPORT,
+            STAGE_COLOR_MODE,
+            STAGE_SCROLLING,
+            STAGE_SDL
+        };
+        int GLStage=STAGE_SDL;
+        GLfloat gCameraX=0.f, gCameraY=0.f;
+        int gViewportMode=VIEWPORT_MODE_RADAR;
+        const int COLOR_MODE_CYAN=0;
+        const int COLOR_MODE_MULTI=1;
+        int gColorMode=COLOR_MODE_CYAN;
+        GLfloat gProjectionScale=1.f;
+        //-------------------------------------------------
+        SDL_GLContext GLContext;
         SDL_Renderer* renderer=NULL; //The main palette used for presenting the main application with pixel data
         SDL_Window* window=NULL; //Main application window
         SDL_SysWMinfo WindowInfo; //Application window information holder
@@ -43,8 +68,10 @@ class variables
         TTF_Font* font_lithosProForLevel=NULL;//font for the name of the class/rank and level in character UI
             float font_lithosProForLevelSize=50;
         float characterUiZoom=(float)1/(float)3;
-        SDL_Surface* message;
+        SDL_Surface *message,*message2;
         SDL_Color messageColor={255,255,255,255};
+        SDL_Color messageColorPressed={215,215,215,255};
+        SDL_Color additionColor={14,90,0,255};
         SDL_Color levelColor={185,0,4,255};
         userInterface UI;
         userInterface UI2;
@@ -65,6 +92,10 @@ class variables
         bool quit=false; //flag that controls the program
         bool bordersAreAThing=true; //you did not see this =.=
         int mouseButton=0;
+        int leftMouseButton=0;
+        int rightMouseButton=0;
+        int leftMouseButtonUp=0;
+        int rightMouseButtonUp=0;
         SDL_Point mouse;
         int selectedId=-1;
         int antialiasing=1;
@@ -84,6 +115,7 @@ class variables
         bool blend=false;
         SDL_Point screenStartPosition={128,130}; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window
+        std::string clickedOn;
         character player; //Player information holder
         MSG messages; //Some kind of weird windows thing that should be left alone
 };

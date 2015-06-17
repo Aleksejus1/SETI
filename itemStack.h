@@ -27,7 +27,8 @@ class itemStack
     public:
         itemStack();
         item containingItem;
-        int itemCount=0;
+        int itemCount;
+        void reset();
 };
 
 #endif // ITEMSTACK_H

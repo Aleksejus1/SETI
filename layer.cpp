@@ -30,9 +30,13 @@ void layer::free(){
 }
 
 void layer::freeSurface(){
-    SDL_FreeSurface(layer::surface); layer::surface=NULL;
+    if(layer::surface!=NULL){
+        SDL_FreeSurface(layer::surface); layer::surface=NULL;
+    }
 }
 
 void layer::freeTexture(){
-    SDL_DestroyTexture(layer::texture); layer::texture=NULL;
+    if(layer::texture!=NULL){
+        SDL_DestroyTexture(layer::texture); layer::texture=NULL;
+    }
 }

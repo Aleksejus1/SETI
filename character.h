@@ -33,11 +33,16 @@ class character: public entity
         std::string type;// class/rank of the player
         characterSpace inventory;
         int isInBattle=0;
+        struct stat{std::string statName; int levelBase; layer image; int levelAddition; int levelTotal;};
+        std::vector<stat> stats;
         int gathering=0;
         int gatherableId=-1;
         int gatherStartStage=0;
         float gatherTime=0;
         int gatherLevelRequired=0;
+        void addStat(std::string statName, int levelBase, int levelAddition);
+        int findStat(std::string statName);
+        void addStatAddition(int addition, std::string statName);
 };
 
 #endif // CHARACTER_H
