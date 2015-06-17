@@ -282,7 +282,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     glEnd();
                 }
                 }
-                else if(f.GLStage==f.STAGE_COLOR_MODE){
+                /*else if(f.GLStage==f.STAGE_COLOR_MODE){
                     glMatrixMode(GL_MODELVIEW);
                     glLoadIdentity();
                     glTranslatef( f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,0.f);
@@ -303,7 +303,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                             glColor3f(0.f,0.f,1.f); glVertex2f(-50.f, 50.f);
                         glEnd();
                     }
-                }
+                }*/
                 else if(f.GLStage==f.STAGE_SCROLLING){
                 glMatrixMode(GL_MODELVIEW);//Take saved matrix off the stack and reset it
                 glPopMatrix();
@@ -479,10 +479,10 @@ void interact(){
                 f.gViewportMode=f.VIEWPORT_MODE_FULL;
             }
         }
-        else if(f.GLStage==f.STAGE_COLOR_MODE){
+        /*else if(f.GLStage==f.STAGE_COLOR_MODE){
             if(f.gColorMode==f.COLOR_MODE_CYAN) f.gColorMode=f.COLOR_MODE_MULTI;
             else f.gColorMode=f.COLOR_MODE_CYAN;
-        }
+        }*/
     }
     if(f.buttons[f.findButton("R")].pressed==1){
         f.buttons[f.findButton("R")].pressed=0;
@@ -552,15 +552,13 @@ void battle(){
         for(int i = 0; i < 4; i++)
         {
              f.renderTexture(f.Spells[0].icon_active.texture,f.Spells[0].icon_active.surface->clip_rect, 615+i*57, 645);
-             if(f.pointInsideRect(615, 645, 615, 645, 50, 50)&&(f.mouseButton==1))
+             SDL_GetMouseState(&f.mouse.x, &f.mouse.y);
+             if(f.pointInsideRect(f.mouse.x, f.mouse.y, 615, 645, 50, 50)&&((f.leftMouseButton==1)||(f.leftMouseButton==2)))
              {
+                 f.leftMouseButton=2;
                  int *x,*y;
-                 //SDL_GetMouseState(x,y);
                  f.renderTexture(f.Spells[0].icon_cooldown.texture,f.Spells[0].icon_cooldown.surface->clip_rect, 615, 645);
-                 /*if(f.pointInsideRect(615, 645, 615, 645, 50, 50)&&f.mouseButton==2)
-                 {
-                     f.renderTexture(f.Spells[0].icon_cooldown.texture,f.Spells[0].icon_cooldown.surface->clip_rect, 615, 645);
-                 }*/
+
              }
         }
 

@@ -33,6 +33,8 @@ class variables
     public:
         variables(); //Initialization function
         //-------------------------------------------------
+        //const int COLOR_MODE_CYAN=0;
+        //const int COLOR_MODE_MULTI=1;
         enum ViewPortMode{
             VIEWPORT_MODE_FULL,
             VIEWPORT_MODE_HALF_CENTER,
@@ -49,9 +51,7 @@ class variables
         int GLStage=STAGE_SDL;
         GLfloat gCameraX=0.f, gCameraY=0.f;
         int gViewportMode=VIEWPORT_MODE_RADAR;
-        const int COLOR_MODE_CYAN=0;
-        const int COLOR_MODE_MULTI=1;
-        int gColorMode=COLOR_MODE_CYAN;
+        //int gColorMode=COLOR_MODE_CYAN;
         GLfloat gProjectionScale=1.f;
         //-------------------------------------------------
         SDL_GLContext GLContext;
