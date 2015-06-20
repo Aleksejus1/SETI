@@ -27,6 +27,8 @@ class itemStack
     public:
         itemStack();
         item containingItem;
+        layer itemCountLayer;
+        bool updateItem=true;
         int itemCount;
         void reset();
 };

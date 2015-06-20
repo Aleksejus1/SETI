@@ -42,6 +42,7 @@ void regrow();
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
         f.loadMedia();//Pre-load images and variables
+        if(f.GLStage==f.STAGE_SDL){
         if(true){//create maps
             createMap("Place holder", "error");
             createMap("The first map ever", "First");
@@ -62,11 +63,11 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
             maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Berry")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
             maps[maps.size()-1].addStage(-1,true,true,"qpm\\bush_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+                maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
             maps[maps.size()-1].addStage(1,false,false,"qpm\\bush_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+                maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
             maps[maps.size()-1].addStage(1,true,false,"qpm\\bush_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+                maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
 
             createMap("The second map", "Caves");
             maps[maps.size()-1].createLayer("qpm\\secret2.png");
@@ -79,17 +80,17 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
             maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
             maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
             maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_full2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
             maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
             maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
             maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
             maps[maps.size()-1].addStage(1,true,false,"qpm\\poop_empty2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            f.resizeImage(0,50,0,maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image,true);
+            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
         }
         f.ammountOfMaps=maps.size();
         if(true){//create battle zones
@@ -103,15 +104,10 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
         }
         f.giveItems(f.items[f.findItem("RegularSword")],1);
+        f.giveItems(f.items[f.findItem("RegularSword")],10,f.player.inventory.itemStacks[32]);
+        }
         while( !f.quit ) { //Event cycle, does once every game tick
-            f.mouseWheelMotion=0; //Reset mouse wheel motion
             SDL_GetMouseState(&f.mouse.x,&f.mouse.y);
-            if(f.mouseButton==1)f.mouseButton=0;
-            if(f.leftMouseButton==1)f.leftMouseButton=0;
-            if(f.rightMouseButton==1)f.rightMouseButton=0;
-            if(f.leftMouseButtonUp==1)f.leftMouseButtonUp=0;
-            if(f.rightMouseButtonUp==1)f.rightMouseButtonUp=0;
-            if(f.mouseButton==2)f.mouseButton=0; //Reset mouse button
             //read and assign user input events that happened since last activation of this cycle
             while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
                 if(f.e.type==SDL_QUIT){//If program tries to shut down
@@ -148,12 +144,14 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     f.mouseButton=2;
                 }
             }
+            interact();
             //finish handling user input
             //-------------------------------------
+            if(f.GLStage==f.STAGE_SDL){
             //render Map Details
-            for(Uint8 i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(maps[f.player.map_location].layers[i].texture,maps[f.player.map_location].layers[i].surface->clip_rect,maps[f.player.map_location].layers[i].location);
-            for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(maps[f.player.map_location].interactable[i].texture,maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].location);
-            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++) f.renderTexture(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.texture,maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->clip_rect,maps[f.player.map_location].gatherable[i].location.x,maps[f.player.map_location].gatherable[i].location.y);
+            for(Uint8 i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(&maps[f.player.map_location].layers[i],maps[f.player.map_location].layers[i].surface->clip_rect);
+            for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(&maps[f.player.map_location].interactable[i],maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].location.x,maps[f.player.map_location].interactable[i].location.y,maps[f.player.map_location].interactable[i].surface->w,maps[f.player.map_location].interactable[i].surface->h);
+            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++) f.renderTexture(&maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image,maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->clip_rect,maps[f.player.map_location].gatherable[i].location.x,maps[f.player.map_location].gatherable[i].location.y);
             //finish rendering map details
             //--------------------------------------
             //Allow user to control what's happening
@@ -163,217 +161,29 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                 f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
                 regrow();
             }
-            interact();
             //finish user actions
             //---------------------------------------
             //render render player character
-            f.renderTexture(f.player.image.texture,f.player.image.location,f.player.location.x,f.player.location.y);
+            f.renderTexture(&f.player.image,f.player.image.surface->clip_rect,f.player.location.x,f.player.location.y);
             //finish rendering player
             //---------------------------------------
             //render UI
             f.renderUI();
             f.renderInventory();
-            if(f.GLStage!=f.STAGE_SDL){
-                glClear(GL_COLOR_BUFFER_BIT);
-                if(f.GLStage==f.STAGE_VIEWPORT){
-                    glLoadIdentity();
-                    glTranslatef( f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,0.f);
-                    if(f.gViewportMode==f.VIEWPORT_MODE_FULL){//Fill the screen
-                    glViewport(0.f,0.f,f.SCREEN_WIDTH,f.SCREEN_HEIGHT);
-
-                    //Red quad
-                    glBegin(GL_QUADS);
-                        glColor3f(1.f,0.f,0.f);
-                        glVertex2f(-f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
-                        glVertex2f( f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
-                        glVertex2f( f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
-                        glVertex2f(-f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
-                    glEnd();
-                }
-                    else if(f.gViewportMode==f.VIEWPORT_MODE_HALF_CENTER){//Center viewport
-                        glViewport(f.SCREEN_WIDTH/4.f,f.SCREEN_HEIGHT/4.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);
-
-                        //Green quad
-                        glBegin(GL_QUADS);
-                            glColor3f(0.f,1.f,0.f);
-                            glVertex2f(-f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
-                            glVertex2f( f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
-                            glVertex2f( f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
-                            glVertex2f(-f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
-                        glEnd();
-                    }
-                    else if(f.gViewportMode==f.VIEWPORT_MODE_HALF_TOP){//Viewport at top
-                        glViewport(f.SCREEN_WIDTH/4.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);
-
-                        //Blue quad
-                        glBegin( GL_QUADS );
-                            glColor3f(0.f,0.f,1.f);
-                            glVertex2f(-f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
-                            glVertex2f( f.SCREEN_WIDTH/2.f,-f.SCREEN_HEIGHT/2.f);
-                            glVertex2f( f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
-                            glVertex2f(-f.SCREEN_WIDTH/2.f, f.SCREEN_HEIGHT/2.f);
-                        glEnd();
-                    }
-                    else if(f.gViewportMode==f.VIEWPORT_MODE_QUAD){
-                        glViewport(0.f,0.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);//Bottom left red quad
-                        glBegin( GL_QUADS );
-                            glColor3f(1.f,0.f,0.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                        glEnd();
-
-                        glViewport(f.SCREEN_WIDTH/2.f,0.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);//Bottom right green quad
-                        glBegin( GL_QUADS );
-                            glColor3f(0.f,1.f,0.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                        glEnd();
-
-                        glViewport(0.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);//Top left blue quad
-                        glBegin(GL_QUADS);
-                            glColor3f(0.f,0.f,1.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                        glEnd();
-
-                        glViewport(f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f); //Top right yellow quad
-                        glBegin(GL_QUADS);
-                            glColor3f(1.f,1.f,0.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                            glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                            glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                        glEnd();
-                    }
-                    else if(f.gViewportMode==f.VIEWPORT_MODE_RADAR){//Full size quad
-                    glViewport(0.f,0.f,f.SCREEN_WIDTH,f.SCREEN_HEIGHT);
-                    glBegin(GL_QUADS);
-                        glColor3f(1.f,1.f,1.f);
-                        glVertex2f(-f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
-                        glVertex2f( f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
-                        glVertex2f( f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
-                        glVertex2f(-f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
-                        glColor3f(0.f,0.f,0.f);
-                        glVertex2f(-f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
-                        glVertex2f( f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
-                        glVertex2f( f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
-                        glVertex2f(-f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
-                    glEnd();
-
-                    //Radar quad
-                    glViewport(f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f);
-                    glBegin(GL_QUADS);
-                        glColor3f(1.f,1.f,1.f);
-                        glVertex2f(-f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
-                        glVertex2f( f.SCREEN_WIDTH/8.f,-f.SCREEN_HEIGHT/8.f);
-                        glVertex2f( f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
-                        glVertex2f(-f.SCREEN_WIDTH/8.f, f.SCREEN_HEIGHT/8.f);
-                        glColor3f(0.f,0.f,0.f);
-                        glVertex2f(-f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
-                        glVertex2f( f.SCREEN_WIDTH/16.f,-f.SCREEN_HEIGHT/16.f);
-                        glVertex2f( f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
-                        glVertex2f(-f.SCREEN_WIDTH/16.f, f.SCREEN_HEIGHT/16.f);
-                    glEnd();
-                }
-                }
-                /*else if(f.GLStage==f.STAGE_COLOR_MODE){
-                    glMatrixMode(GL_MODELVIEW);
-                    glLoadIdentity();
-                    glTranslatef( f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,0.f);
-                    if(f.gColorMode==f.COLOR_MODE_CYAN){
-                        glBegin(GL_QUADS);//Solid Cyan
-                            glColor3f(0.f,1.f,1.f);
-                            glVertex2f(-50.f,-50.f);
-                            glVertex2f( 50.f,-50.f);
-                            glVertex2f( 50.f, 50.f);
-                            glVertex2f(-50.f, 50.f);
-                        glEnd();
-                    }
-                    else{//RYGB Mix
-                        glBegin(GL_QUADS);
-                            glColor3f(1.f,0.f,0.f); glVertex2f(-50.f,-50.f);
-                            glColor3f(1.f,1.f,0.f); glVertex2f( 50.f,-50.f);
-                            glColor3f(0.f,1.f,0.f); glVertex2f( 50.f, 50.f);
-                            glColor3f(0.f,0.f,1.f); glVertex2f(-50.f, 50.f);
-                        glEnd();
-                    }
-                }*/
-                else if(f.GLStage==f.STAGE_SCROLLING){
-                glMatrixMode(GL_MODELVIEW);//Take saved matrix off the stack and reset it
-                glPopMatrix();
-                glLoadIdentity();
-
-                glTranslatef(-f.gCameraX,-f.gCameraY,0.f);//Move camera to position
-                glPushMatrix();//Save default matrix again with camera translation
-
-                glMatrixMode(GL_MODELVIEW);
-                glPopMatrix();
-
-                //Save default matrix again
-                glPushMatrix();
-
-                //Move to center of the screen
-                glTranslatef(f.SCREEN_WIDTH/2.f,f.SCREEN_HEIGHT/2.f,0.f);
-
-                //Red quad
-                glBegin(GL_QUADS);
-                    glColor3f(1.f,0.f,0.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                glEnd();
-
-                //Move to the right of the screen
-                glTranslatef(f.SCREEN_WIDTH,0.f,0.f);
-
-                //Green quad
-                glBegin(GL_QUADS);
-                    glColor3f(0.f,1.f,0.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                glEnd();
-
-                //Move to the lower right of the screen
-                glTranslatef(0.f,f.SCREEN_HEIGHT,0.f);
-
-                //Blue quad
-                glBegin(GL_QUADS);
-                    glColor3f(0.f,0.f,1.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                glEnd();
-
-                //Move below the screen
-                glTranslatef(-f.SCREEN_WIDTH,0.f,0.f);
-
-                //Yellow quad
-                glBegin(GL_QUADS);
-                    glColor3f(1.f,1.f,0.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f,-f.SCREEN_HEIGHT/4.f);
-                    glVertex2f( f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                    glVertex2f(-f.SCREEN_WIDTH/4.f, f.SCREEN_HEIGHT/4.f);
-                glEnd();
-            }
-                SDL_GL_SwapWindow(f.window);
-            }
-            else
             //finish rendering UI elements
             //---------------------------------------
+            //SDL_RenderPresent(f.renderer); // update screen
+            SDL_GL_SwapWindow(f.window);
             //finish up this game tick
-            SDL_RenderPresent(f.renderer); // update screen
+            }
+            else{
+                glClear(GL_COLOR_BUFFER_BIT);
+                f.renderTexture(&f.imageOpenGL,f.imageOpenGL.surface->clip_rect,-f.imageOpenGL2.surface->w/3,0,f.imageOpenGL.surface->w/2,f.imageOpenGL.surface->h/2);
+                f.renderTexture(&f.imageOpenGL2,f.imageOpenGL2.surface->w/2,f.imageOpenGL2.surface->h/2,f.imageOpenGL2.surface->w/2,f.imageOpenGL2.surface->h/2,0,0);
+                SDL_GL_SwapWindow(f.window);
+            }
             SDL_Delay(f.delay); // control frame rate
+            f.reset();
             //end of game tick
         }
         f.close(); //Free resources and close SDL
@@ -414,11 +224,21 @@ void interact(){
         float check;
         int id=-1;
         for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++){
-            check=sqrt(pow(f.player.location.x+f.player.image.surface->w/2-
-                           maps[f.player.map_location].interactable[i].location.x-maps[f.player.map_location].interactable[i].surface->w/2,2)+
-                       pow(f.player.location.y+f.player.image.surface->h/2-
-                           maps[f.player.map_location].interactable[i].location.y-maps[f.player.map_location].interactable[i].surface->h/2,2));
-            if(check<f.player.image.surface->h/2&&check<smallestDistance){
+            check=sqrt(pow(f.player.location.x+f.player.image.w/2-
+                           maps[f.player.map_location].interactable[i].location.x-maps[f.player.map_location].interactable[i].w/2,2)+
+                       pow(f.player.location.y+f.player.image.h/2-
+                           maps[f.player.map_location].interactable[i].location.y-maps[f.player.map_location].interactable[i].h/2,2));
+            /*f.error(f.toString(check)+"=sqrt(pow("+
+                    f.toString(f.player.location.x)+"+"+
+                    f.toString(f.player.image.w)+"/2-"+
+                    f.toString(maps[f.player.map_location].interactable[i].location.x)+"-"+
+                    f.toString(maps[f.player.map_location].interactable[i].w)+"/2,2)+pow("+
+                    f.toString(f.player.location.y)+"+"+
+                    f.toString(f.player.image.h)+"/2-"+
+                    f.toString(maps[f.player.map_location].interactable[i].location.y)+"-"+
+                    f.toString(maps[f.player.map_location].interactable[i].h)+"/2,2)");
+                    */
+            if(check<f.player.image.h/2&&check<smallestDistance){
                 smallestDistance=check;
                 id=i;
             }
@@ -427,13 +247,23 @@ void interact(){
         else{
             for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++){
                 if(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].isItGatherable){
-                    check=sqrt(pow(f.player.location.x+f.player.image.surface->w/2-
+                    check=sqrt(pow(f.player.location.x+f.player.image.w/2-
                                    maps[f.player.map_location].gatherable[i].location.x-
-                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->w/2,2)+
-                               pow(f.player.location.y+f.player.image.surface->h/2-
+                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.w/2,2)+
+                               pow(f.player.location.y+f.player.image.h/2-
                                    maps[f.player.map_location].gatherable[i].location.y-
-                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->h/2,2));
-                    if(check<f.player.image.surface->h/2&&check<smallestDistance){
+                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.h/2,2));
+                    /*f.error(f.toString(check)+"=sqrt(pow("+
+                            f.toString(f.player.location.x)+"+"+
+                            f.toString(f.player.image.w)+"/2-"+
+                            f.toString(maps[f.player.map_location].gatherable[i].location.x)+"-"+
+                            f.toString(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.w)+"/2,2)+pow("+
+                            f.toString(f.player.location.y)+"+"+
+                            f.toString(f.player.image.h)+"/2-"+
+                            f.toString(maps[f.player.map_location].gatherable[i].location.y)+"-"+
+                            f.toString(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.h)+"/2,2)");
+                            */
+                    if(check<f.player.image.h/2&&check<smallestDistance){
                         smallestDistance=check;
                         id=i;
                     }
@@ -459,9 +289,9 @@ void interact(){
         f.quit=true;
     }
     if(f.buttons[f.findButton("G")].pressed==1){
-        f.player.healthPoints-=2; if(f.player.healthPoints<0) f.player.healthPoints=0;
-        f.player.manaPoints+=2; if(f.player.manaPoints>f.player.manaPointsMax) f.player.manaPoints=f.player.manaPointsMax;
-        f.player.experiencePoints+=100; if(f.player.experiencePoints>=f.player.experienceRequiredForNextLevel){f.player.experiencePoints-=f.player.experienceRequiredForNextLevel; f.player.level++;}
+        f.player.addHealth(-2);
+        f.player.addMana(2);
+        f.player.addExperience(100);
     }
     if(f.buttons[f.findButton("Z")].pressed==1){
         f.error("["+f.toString(f.battleEnemies[0].location.x)+";"+f.toString(f.battleEnemies[0].location.y)+"]=0\n"+
@@ -473,61 +303,21 @@ void interact(){
     }
     if(f.buttons[f.findButton("Q")].pressed==1){
         f.buttons[f.findButton("Q")].pressed=0;
-        if(f.GLStage==f.STAGE_VIEWPORT){
-            f.gViewportMode++;
-            if(f.gViewportMode>f.VIEWPORT_MODE_RADAR){
-                f.gViewportMode=f.VIEWPORT_MODE_FULL;
-            }
-        }
-        /*else if(f.GLStage==f.STAGE_COLOR_MODE){
-            if(f.gColorMode==f.COLOR_MODE_CYAN) f.gColorMode=f.COLOR_MODE_MULTI;
-            else f.gColorMode=f.COLOR_MODE_CYAN;
-        }*/
     }
     if(f.buttons[f.findButton("R")].pressed==1){
         f.buttons[f.findButton("R")].pressed=0;
-        if(f.GLStage==f.STAGE_COLOR_MODE){//Cycle through projection scales
-            if(f.gProjectionScale==1.f){//Zoom out
-                f.gProjectionScale=2.f;
-            }
-            else if(f.gProjectionScale==2.f){//Zoom in
-                f.gProjectionScale=0.5f;
-            }
-            else if(f.gProjectionScale==0.5f){//Regular zoom
-                f.gProjectionScale=1.f;
-            }
-
-            //Update projection matrix
-            glMatrixMode(GL_PROJECTION);
-            glLoadIdentity();
-            glOrtho(0.0,f.SCREEN_WIDTH*f.gProjectionScale,f.SCREEN_HEIGHT*f.gProjectionScale,0.0,1.0,-1.0);
-        }
-    }
-    if(f.GLStage==f.STAGE_SCROLLING){
-        if(f.buttons[f.findButton("W")].pressed==1){
-            f.gCameraY-=16.f;
-        }
-        if(f.buttons[f.findButton("A")].pressed==1){
-            f.gCameraX-=16.f;
-        }
-        if(f.buttons[f.findButton("S")].pressed==1){
-            f.gCameraY+=16.f;
-        }
-        if(f.buttons[f.findButton("D")].pressed==1){
-            f.gCameraX+=16.f;
-        }
     }
 }
 void battle(){
     if(f.player.isInBattle==1){//initialize the battle
         //set player' location
-            f.player.location.x=maps[f.player.map_location].platforms[2].x-f.player.image.surface->w/2;
-            f.player.location.y=maps[f.player.map_location].platforms[2].y-f.player.image.surface->h;
+            f.player.location.x=maps[f.player.map_location].platforms[2].x-f.player.image.w/2;
+            f.player.location.y=maps[f.player.map_location].platforms[2].y-f.player.image.h;
         //set allies location [allies not yet implemented into the game
         //set enemies locations
             for(Uint8 i=0; ((i<f.battleEnemies.size())&&(i<5)); i++){
-                f.battleEnemies[i].location.x=maps[f.player.map_location].platforms[i+5].x-f.battleEnemies[i].image.surface->w/2;
-                f.battleEnemies[i].location.y=maps[f.player.map_location].platforms[i+5].y-f.battleEnemies[i].image.surface->h;
+                f.battleEnemies[i].location.x=maps[f.player.map_location].platforms[i+5].x-f.battleEnemies[i].image.w/2;
+                f.battleEnemies[i].location.y=maps[f.player.map_location].platforms[i+5].y-f.battleEnemies[i].image.h;
             }
             f.player.isInBattle=2;
         //done initializing the battle
@@ -541,23 +331,23 @@ void battle(){
                        f.selectedId=i;
                 }
             }
-            f.renderTexture(f.images[base].image.texture,f.images[base].image.surface->clip_rect,f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2);
-            f.renderTexture(f.battleEnemies[i].image.texture,f.battleEnemies[i].image.surface->clip_rect,f.battleEnemies[i].location.x,f.battleEnemies[i].location.y);
+            f.renderTexture(&f.images[base].image,f.images[base].image.surface->clip_rect,f.battleEnemies[i].location.x+f.battleEnemies[i].image.w*f.battleEnemies[i].legCenter.x-f.images[base].image.w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.h*f.battleEnemies[i].legCenter.y-f.images[base].image.h/2);
+            f.renderTexture(&f.battleEnemies[i].image,f.battleEnemies[i].image.surface->clip_rect,f.battleEnemies[i].location.x,f.battleEnemies[i].location.y);
         }
         if(f.selectedId!=-1){
             if(f.movePoint(&(maps[f.player.map_location].platforms[f.selectedId+5]),3)) f.player.isInBattle=1;
         }
         int battleUI=f.findImage("battleUI");
-        f.renderTexture(f.images[battleUI].image.texture,f.images[battleUI].image.surface->clip_rect,0,(f.SCREEN_HEIGHT-f.images[battleUI].image.surface->h));
+        f.renderTexture(&f.images[battleUI].image,f.images[battleUI].image.surface->clip_rect,0,(f.SCREEN_HEIGHT-f.images[battleUI].image.h));
         for(int i = 0; i < 4; i++)
         {
-             f.renderTexture(f.Spells[0].icon_active.texture,f.Spells[0].icon_active.surface->clip_rect, 615+i*57, 645);
+             f.renderTexture(&f.Spells[0].icon_active,f.Spells[0].icon_active.surface->clip_rect, 615+i*57, 645);
              SDL_GetMouseState(&f.mouse.x, &f.mouse.y);
              if(f.pointInsideRect(f.mouse.x, f.mouse.y, 615, 645, 50, 50)&&((f.leftMouseButton==1)||(f.leftMouseButton==2)))
              {
                  f.leftMouseButton=2;
                  int *x,*y;
-                 f.renderTexture(f.Spells[0].icon_cooldown.texture,f.Spells[0].icon_cooldown.surface->clip_rect, 615, 645);
+                 f.renderTexture(&f.Spells[0].icon_cooldown,f.Spells[0].icon_cooldown.surface->clip_rect, 615, 645);
 
              }
         }
@@ -575,10 +365,8 @@ void gather(){
         if((1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime)>=(float)1/(f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)){
            maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.player.gatherStartStage+(int)(((1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime))/((float)1/(f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)));
         }
-        f.progressBar.surface=SDL_ConvertSurface(f.images[f.findImage("progressBarFrame")].image.surface,f.images[f.findImage("progressBarFrame")].image.surface->format,0);
-        f.copySurface(f.images[f.findImage("progressBarInside")].image.surface,f.progressBar.surface,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h);
-        f.renderSurface(f.progressBar.surface,f.progressBar.surface->clip_rect,(f.SCREEN_WIDTH-f.progressBar.surface->w)/2,f.SCREEN_HEIGHT-f.progressBar.surface->h-20);
-        f.progressBar.free();
+        f.renderTexture(&f.images[f.findImage("progressBarFrame")].image,f.images[f.findImage("progressBarFrame")].image.surface->clip_rect,(f.SCREEN_WIDTH-f.images[f.findImage("progressBarFrame")].image.surface->w)/2,f.SCREEN_HEIGHT-f.images[f.findImage("progressBarFrame")].image.surface->h-20);
+        f.renderTexture(&f.images[f.findImage("progressBarInside")].image,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h,(f.SCREEN_WIDTH-f.images[f.findImage("progressBarFrame")].image.surface->w)/2,f.SCREEN_HEIGHT-f.images[f.findImage("progressBarFrame")].image.surface->h-20);
         if(f.player.gatherTime<=0){
             f.player.gatherTime=0;
             for(Uint8 i=0; i<maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems.size(); i++){

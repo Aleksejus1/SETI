@@ -102,7 +102,8 @@ void map::createInteractable(std::string imagePath, int interactableLocationX, i
     if(f.loadImage(imagePath,interactable_temp)==0){
         interactable_temp.location.x=interactableLocationX;
         interactable_temp.location.y=interactableLocationY;
-        f.resizeImage(0,w,h,f.antialiasing,interactable_temp);
+        interactable_temp.setHeightZoom((float)h/(float)interactable_temp.surface->h);
+        interactable_temp.setWidthZoom((float)w/(float)interactable_temp.surface->w);
         map::interactable.push_back(interactable_temp);
     }
     else f.error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+f.toString(interactableLocationX)+"; y="+f.toString(interactableLocationY)+"; colidable="+f.toString(isInteractableColidable)+";]");
@@ -122,7 +123,8 @@ void map::createObject(std::string imagePath, int objectLocationX, int objectLoc
 void map::createLayer(std::string imagePath){
     layer layer_temp;
     if(f.loadImage(imagePath,layer_temp)==0){
-        f.resizeImage(0,f.SCREEN_WIDTH,f.SCREEN_HEIGHT,f.antialiasing,layer_temp);
+        layer_temp.setHeightZoom((float)f.SCREEN_HEIGHT/(float)layer_temp.surface->h);
+        layer_temp.setWidthZoom((float)f.SCREEN_WIDTH/(float)layer_temp.surface->w);
         map::layers.push_back(layer_temp);
     }
     else f.error("The program was unable to create a layer. [Info: imagePath="+imagePath+";");

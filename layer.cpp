@@ -19,9 +19,32 @@
 #include <sys/types.h>
 #include <commdlg.h>
 
-layer::layer()
-{
-    //ctor
+layer::layer(){
+    setZoom(1);
+    setWidthZoom(1);
+    setHeightZoom(1);
+}
+
+void layer::updateSize(){
+    if(surface!=NULL){
+        w=surface->w*zoom*zoomWidth;
+        h=surface->h*zoom*zoomHeight;
+    }
+}
+
+void layer::setZoom(float number){
+    zoom=number;
+    updateSize();
+}
+
+void layer::setWidthZoom(float number){
+    zoomWidth=number;
+    updateSize();
+}
+
+void layer::setHeightZoom(float number){
+    zoomHeight=number;
+    updateSize();
 }
 
 void layer::free(){
@@ -36,7 +59,8 @@ void layer::freeSurface(){
 }
 
 void layer::freeTexture(){
-    if(layer::texture!=NULL){
-        SDL_DestroyTexture(layer::texture); layer::texture=NULL;
+    if(textureOpenGL!=0){
+        glDeleteTextures(1,&textureOpenGL);
+        textureOpenGL=0;
     }
 }

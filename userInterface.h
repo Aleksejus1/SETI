@@ -20,16 +20,22 @@
 #include <sys/types.h>
 #include <commdlg.h>
 #include "layer.h"
+#include "SDL_opengl.h"
+#include "GL\gl.h"
+#include "GL\GLU.h"
 
 class userInterface
 {
     public:
         userInterface();
-        SDL_Surface* red;
-        SDL_Surface* blue;
-        SDL_Surface* grey;
-        SDL_Surface* green;
-        layer bar_red,bar_blue,bar_green,bar_grey,bar_empty,characterUI;
+        layer bar_empty,characterUI;
+        struct messageAndCount{layer message; float* countAmount; bool* update;};
+        messageAndCount level;
+        struct barAndUpdate : messageAndCount {layer bar;};
+        barAndUpdate bar_green;
+        struct bars : barAndUpdate {layer max_count; float* max_countAmount;};
+        bars bar_red,bar_blue,bar_grey;
+        bars* all[3];
 };
 
 #endif // USERINTERFACE_H

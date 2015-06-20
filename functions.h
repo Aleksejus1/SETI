@@ -30,6 +30,8 @@ class functions: public variables
 {
     public:
         functions(); //Initialization function
+        void reset();
+        GLuint convertSurfaceToOpenGLTexture(SDL_Surface* surface);
         void affectStats(item* itemOfWhichEffectsToUse, bool trueForGivingStats_falseForRemovingStats);
         void unequipItem(int equipmentId);
         void equipItem(int itemSlotId);
@@ -50,10 +52,6 @@ class functions: public variables
         bool pointInsideRect(int x, int y, int x2, int y2, int w, int h);
         int findImage(std::string imageIdInFormOfString);
         void createImage(std::string imagePath, std::string imageIdInFormOfString);
-        void resizeImage(double angle, int h_w, int smooth, layer &layerer, bool trueForHeight_falseForWidth);
-        void resizeImage(double angle, int w, int h, int smooth, layer &layerer);
-        void resizeImage(layer &layerer, double angle, double zoomx, double zoomy, int smooth);
-        void resizeImage(layer &layerer, double angle, double zoom, int smooth);
         void addEnemyId(std::string enemyName);
         int findEntity(std::string name);//Returns the id of an entity with the same name
         void renderInventory();//Presents renderer with all the necessary inventory pixel information
@@ -76,20 +74,15 @@ class functions: public variables
         void copySurface(SDL_Surface* sourceSurface, SDL_Surface* destinationSurface, int x1, int y1, int w1, int h1,int x2, int y2, int w2, int h2);
         void copySurface(SDL_Surface* sourceSurface, SDL_Surface* destinationSurface, SDL_Rect &sourceRect,int x, int y, int w, int h);
         void copySurface(SDL_Surface* sourceSurface, SDL_Surface* destinationSurface, SDL_Rect &sourceRect,int x, int y);
-        void renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect,SDL_Rect &destinationRect);//Same as texture below but requires a surface instead of a texture
-        void renderSurface(SDL_Surface* surface,SDL_Rect &sourceAndDestRect);
-        void renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect, bool fillScreen);
-        void renderSurface(SDL_Surface* surface,int x1, int y1, int w1, int h1,int x2, int y2);
-        void renderSurface(SDL_Surface* surface,int x1, int y1, int w1, int h1,int x2, int y2, int w2, int h2);
-        void renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect,int x, int y, int w, int h);
-        void renderSurface(SDL_Surface* surface,SDL_Rect &sourceRect,int x, int y);
-        void renderTexture(SDL_Texture* texture,SDL_Rect &sourceRect,SDL_Rect &destinationRect);//Render the texture from the given source rectangle to the given destination rectangle
-        void renderTexture(SDL_Texture* texture,SDL_Rect &sourceAndDestRect);//Render the texture from the given rectangle - to the given rectangle
-        void renderTexture(SDL_Texture* texture,SDL_Rect &sourceRect, bool fillScreen);//Render the texture from the given source rectangle to the whole screen if the second variable is true
-        void renderTexture(SDL_Texture* texture,int x1, int y1, int w1, int h1,int x2, int y2);//Render the texture from the given source coordinates and size of the texture to the given destination point [keeps the same size]
-        void renderTexture(SDL_Texture* texture,int x1, int y1, int w1, int h1,int x2, int y2, int w2, int h2);//Render the texture from the given coordinates and size of the texture to the given point and size
-        void renderTexture(SDL_Texture* texture,SDL_Rect &sourceRect,int x, int y, int w, int h);//Render the texture from the given source rectangle to the give point and size
-        void renderTexture(SDL_Texture* texture,SDL_Rect &sourceRect,int x, int y);//Render the texture from the given source rectangle to the given destination point [keeps the same size]
+        void renderTexture(layer* texture,SDL_Rect &sourceRect,SDL_Rect &destinationRect);//Render the texture from the given source rectangle to the given destination rectangle
+        void renderTexture(layer* texture,SDL_Rect &sourceAndDestRect);//Render the texture from the given rectangle - to the given rectangle
+        void renderTexture(layer* texture,int x, int y, int w, int h);//Render the texture from the given rectangle - to the given rectangle
+        void renderTexture(layer* texture,SDL_Rect &sourceRect, bool fillScreen);//Render the texture from the given source rectangle to the whole screen if the second variable is true
+        void renderTexture(layer* texture,int x1, int y1, int w1, int h1,int x2, int y2);//Render the texture from the given source coordinates and size of the texture to the given destination point [keeps the same size]
+        void renderTexture(layer* texture,int x1, int y1, int w1, int h1,int x2, int y2, int w2, int h2);//Render the texture from the given coordinates and size of the texture to the given point and size
+        void renderTexture(layer* texture,SDL_Rect &sourceRect,int x, int y, int w, int h);//Render the texture from the given source rectangle to the give point and size
+        void renderTexture(layer* texture,SDL_Rect &sourceRect,int x, int y);//Render the texture from the given source rectangle to the given destination point [keeps the same size]
+        void openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destRect);
         std::string toString(int number);//Return the string value of the given number
         std::string toString(double number);//Return the string value of the given number
         bool equalColors(SDL_Color a, SDL_Color b);//Checks if both colors are equal/same

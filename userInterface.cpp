@@ -19,7 +19,8 @@
 #include <sys/types.h>
 #include <commdlg.h>
 
-userInterface::userInterface()
-{
-    //ctor
+userInterface::userInterface(){
+    all[0]=&bar_red;
+    all[1]=&bar_blue;
+    all[2]=&bar_grey;
 }

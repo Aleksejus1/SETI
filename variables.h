@@ -27,33 +27,25 @@
 #include "userInterface.h"
 #include "SDL_opengl.h"
 #include "GL\GLU.h"
+#include <cstdlib>
 
 class variables
 {
     public:
         variables(); //Initialization function
-        //-------------------------------------------------
-        //const int COLOR_MODE_CYAN=0;
-        //const int COLOR_MODE_MULTI=1;
-        enum ViewPortMode{
-            VIEWPORT_MODE_FULL,
-            VIEWPORT_MODE_HALF_CENTER,
-            VIEWPORT_MODE_HALF_TOP,
-            VIEWPORT_MODE_QUAD,
-            VIEWPORT_MODE_RADAR
-        };
+        //-OpenGL------------------------------------------
+        layer imageOpenGL,imageOpenGL2;
         enum stages{
-            STAGE_VIEWPORT,
-            STAGE_COLOR_MODE,
-            STAGE_SCROLLING,
-            STAGE_SDL
+            STAGE_SDL,
+            STAGE_OPENGL
         };
         int GLStage=STAGE_SDL;
-        GLfloat gCameraX=0.f, gCameraY=0.f;
-        int gViewportMode=VIEWPORT_MODE_RADAR;
-        //int gColorMode=COLOR_MODE_CYAN;
-        GLfloat gProjectionScale=1.f;
         //-------------------------------------------------
+        enum renderTypes{
+            RENDER_MIPMAP,
+            RENDER_NEAREST
+        };
+        int RenderType=RENDER_MIPMAP;
         SDL_GLContext GLContext;
         SDL_Renderer* renderer=NULL; //The main palette used for presenting the main application with pixel data
         SDL_Window* window=NULL; //Main application window
@@ -68,7 +60,7 @@ class variables
         TTF_Font* font_lithosProForLevel=NULL;//font for the name of the class/rank and level in character UI
             float font_lithosProForLevelSize=50;
         float characterUiZoom=(float)1/(float)3;
-        SDL_Surface *message,*message2;
+        layer message,message2,messageSlash;
         SDL_Color messageColor={255,255,255,255};
         SDL_Color messageColorPressed={215,215,215,255};
         SDL_Color additionColor={14,90,0,255};
@@ -109,7 +101,7 @@ class variables
         int inventorySlotsPerRow=4; //Amount of slots in a single inventory row
         int distanceBetweenSlots=0; //Pixel distance between slots in the inventory
         int sections=0; //Amount of rows in the inventory
-        int sliderCountForOneRow=3;
+        int sliderCountForOneRow=5;
         float sliderSpeed=10; //Speed that the slider goes in;
         float tatssbatm=0; //Total Amount The Slider Should Be Able To Move - TATSSBATM
         bool blend=false;

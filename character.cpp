@@ -28,6 +28,48 @@ character::character(){
     addStat("Intel",   20,0);
 }
 
+void character::reset(){
+    if(updateExperience) updateExperience=false;
+    if(updateHealth)     updateHealth    =false;
+    if(updateMana)       updateMana      =false;
+    if(updateLevel)      updateLevel     =false;
+    if(updateType)       updateType      =false;
+}
+
+void character::setType(std::string name){
+    type=name;
+    updateType=true;
+}
+
+void character::addHealth(float amount){
+    healthPoints+=amount;
+    if(healthPoints<0) healthPoints=0;
+    else if(healthPoints>healthPointsMax) healthPoints=healthPointsMax;
+    updateHealth=true;
+}
+
+void character::addMana(float amount){
+    manaPoints+=amount;
+    if(manaPoints<0) manaPoints=0;
+    else if(manaPoints>manaPointsMax) manaPoints=manaPointsMax;
+    updateMana=true;
+}
+
+void character::addExperience(float amount){
+    experiencePoints+=amount;
+    if(experiencePoints>=experienceRequiredForNextLevel){
+        experiencePoints-=experienceRequiredForNextLevel;
+        level++;
+        updateLevel=true;
+    }
+    else if(experiencePoints<0){
+        experiencePoints+=experienceRequiredForNextLevel;
+        level--;
+        updateLevel=true;
+    }
+    updateExperience=true;
+}
+
 void character::addStat(std::string statName, int levelBase, int levelAddition){
     character::stat tempStat;
     tempStat.statName=statName;

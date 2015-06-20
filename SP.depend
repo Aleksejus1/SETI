@@ -2739,7 +2739,7 @@
 1434124412 source:c:\justino\programming\c++\sdl projects\sp [summer-project]\characterspace.cpp
 	"characterSpace.h"
 
-1434534909 source:c:\programming\c++\sdl projects\sp [summer-project]\character.cpp
+1434719663 source:c:\programming\c++\sdl projects\sp [summer-project]\character.cpp
 	"character.h"
 	"entity.h"
 	"SDL.h"
@@ -2762,7 +2762,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434534618 c:\programming\c++\sdl projects\sp [summer-project]\character.h
+1434817544 c:\programming\c++\sdl projects\sp [summer-project]\character.h
 	"entity.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -2785,7 +2785,7 @@
 	<commdlg.h>
 	"characterSpace.h"
 
-1433494125 c:\programming\c++\sdl projects\sp [summer-project]\entity.h
+1434797975 c:\programming\c++\sdl projects\sp [summer-project]\entity.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2829,7 +2829,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433343156 c:\programming\c++\sdl projects\sp [summer-project]\layer.h
+1434820615 c:\programming\c++\sdl projects\sp [summer-project]\layer.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -2849,8 +2849,11 @@
 	<sys/stat.h>
 	<sys/types.h>
 	<commdlg.h>
+	"SDL_opengl.h"
+	"GL\gl.h"
+	"GL\GLU.h"
 
-1434541528 c:\programming\c++\sdl projects\sp [summer-project]\characterspace.h
+1434720944 c:\programming\c++\sdl projects\sp [summer-project]\characterspace.h
 	"space.h"
 
 1434324881 c:\programming\c++\sdl projects\sp [summer-project]\space.h
@@ -2877,7 +2880,7 @@
 	"layer.h"
 	"objects.h"
 
-1434532383 c:\programming\c++\sdl projects\sp [summer-project]\itemstack.h
+1434803530 c:\programming\c++\sdl projects\sp [summer-project]\itemstack.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3199,7 +3202,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434532985 source:c:\programming\c++\sdl projects\sp [summer-project]\layer.cpp
+1434821896 source:c:\programming\c++\sdl projects\sp [summer-project]\layer.cpp
 	"layer.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3221,7 +3224,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434552522 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1434823282 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3247,7 +3250,7 @@
 	"GL\gl.h"
 	"GL\GLU.h"
 
-1434544187 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
+1434822298 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3274,7 +3277,7 @@
 	"SDL_opengl.h"
 	"GL\GLU.h"
 
-1434555056 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
+1434808937 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3302,6 +3305,7 @@
 	"userInterface.h"
 	"SDL_opengl.h"
 	"GL\GLU.h"
+	<cstdlib>
 
 1433671250 c:\programming\c++\sdl projects\sp [summer-project]\spell.h
 	"SDL.h"
@@ -3325,7 +3329,7 @@
 	<commdlg.h>
 	"layer.h"
 
-1433676589 c:\programming\c++\sdl projects\sp [summer-project]\userinterface.h
+1434796229 c:\programming\c++\sdl projects\sp [summer-project]\userinterface.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3346,6 +3350,9 @@
 	<sys/types.h>
 	<commdlg.h>
 	"layer.h"
+	"SDL_opengl.h"
+	"GL\gl.h"
+	"GL\GLU.h"
 
 1433322558 c:\programming\c++\sdl projects\sp [summer-project]\map.h
 	<tchar.h>
@@ -3418,7 +3425,7 @@
 	<commdlg.h>
 	"entity.h"
 
-1433322484 source:c:\programming\c++\sdl projects\sp [summer-project]\map.cpp
+1434665981 source:c:\programming\c++\sdl projects\sp [summer-project]\map.cpp
 	"map.h"
 	<tchar.h>
 	<windows.h>
@@ -3570,7 +3577,7 @@
 1433277659 source:c:\programming\c++\sdl projects\sp [summer-project]\stage.cpp
 	"stage.h"
 
-1433490271 source:c:\programming\c++\sdl projects\sp [summer-project]\userinterface.cpp
+1434720481 source:c:\programming\c++\sdl projects\sp [summer-project]\userinterface.cpp
 	"userInterface.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3592,7 +3599,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434404506 source:c:\programming\c++\sdl projects\sp [summer-project]\variables.cpp
+1434798708 source:c:\programming\c++\sdl projects\sp [summer-project]\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3983,7 +3990,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1434553891 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1434822932 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -4048,4 +4055,15 @@
 
 1434567307 source:d:\desktop\progr\sp--summer-project-\characterspace.cpp
 	"characterSpace.h"
+
+1434640150 c:\programming\c++\sdl projects\sp [summer-project]\ltexture.h
+	"SDL_opengl.h"
+	"GL\gl.h"
+	"GL\GLU.h"
+	<stdio.h>
+
+1356985328 source:c:\programming\c++\sdl projects\sp [summer-project]\ltexture.cpp
+	"LTexture.h"
+
+1215447208 c:\programming\c++\sdl\opengl\src\soil.h
 

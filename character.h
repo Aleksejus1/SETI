@@ -32,14 +32,20 @@ class character: public entity
         float experienceRequiredForNextLevel;
         std::string type;// class/rank of the player
         characterSpace inventory;
+        bool updateHealth=true, updateMana=true, updateExperience=true, updateLevel=true, updateType=true;
         int isInBattle=0;
-        struct stat{std::string statName; int levelBase; layer image; int levelAddition; int levelTotal;};
+        struct stat{std::string statName; int levelBase,levelAddition,levelTotal,width[2]={0,0}; layer image,statNameLayer,levelBaseLayer,levelAdditionLayer; bool update=true, updateAddition=true;};;
         std::vector<stat> stats;
         int gathering=0;
         int gatherableId=-1;
         int gatherStartStage=0;
         float gatherTime=0;
         int gatherLevelRequired=0;
+        void reset();
+        void setType(std::string name);
+        void addHealth(float amount);
+        void addMana(float amount);
+        void addExperience(float amount);
         void addStat(std::string statName, int levelBase, int levelAddition);
         int findStat(std::string statName);
         void addStatAddition(int addition, std::string statName);
