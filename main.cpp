@@ -28,8 +28,10 @@
 #include "SDL_opengl.h"
 #include "GL\gl.h"
 #include "GL\GLU.h"
+#include "functionsR.h"
 
-functions f; //Main way of accessing variables and functions in main.cpp
+functionsR fR;
+functions f(&fR); //Main way of accessing variables and functions in main.cpp
 std::vector<map> maps;//Holder for all existing maps in the game
 
 void createMap(std::string name, std::string id);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
@@ -40,6 +42,7 @@ void gather();
 void regrow();
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
+    fR.getF(&f);
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
         f.loadMedia();//Pre-load images and variables
         if(f.GLStage==f.STAGE_SDL){
@@ -104,7 +107,6 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
         }
         f.giveItems(f.items[f.findItem("RegularSword")],1);
-        f.giveItems(f.items[f.findItem("RegularSword")],10,f.player.inventory.itemStacks[32]);
         }
         while( !f.quit ) { //Event cycle, does once every game tick
             SDL_GetMouseState(&f.mouse.x,&f.mouse.y);

@@ -25,11 +25,15 @@
 #include "stage.h"
 #include "SDL_opengl.h"
 #include "GL\GLU.h"
+#include "variablesR.h"
 
-class functions: public variables
+class functionsR;
+
+class functions: public variables, public variablesR
 {
     public:
-        functions(); //Initialization function
+        functions(functionsR* fR); //Initialization function
+        functionsR* f;
         void reset();
         GLuint convertSurfaceToOpenGLTexture(SDL_Surface* surface);
         void affectStats(item* itemOfWhichEffectsToUse, bool trueForGivingStats_falseForRemovingStats);

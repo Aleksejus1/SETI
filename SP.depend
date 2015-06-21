@@ -3224,7 +3224,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434823282 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1434887191 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3249,8 +3249,9 @@
 	"SDL_opengl.h"
 	"GL\gl.h"
 	"GL\GLU.h"
+	"functionsR.h"
 
-1434822298 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
+1434885780 c:\programming\c++\sdl projects\sp [summer-project]\functions.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3276,8 +3277,9 @@
 	"stage.h"
 	"SDL_opengl.h"
 	"GL\GLU.h"
+	"variablesR.h"
 
-1434808937 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
+1434887330 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3599,7 +3601,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434798708 source:c:\programming\c++\sdl projects\sp [summer-project]\variables.cpp
+1434885582 source:c:\programming\c++\sdl projects\sp [summer-project]\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -3990,7 +3992,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1434822932 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1434886130 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -4015,6 +4017,7 @@
 	"layer.h"
 	"spell.h"
 	"SDL2_rotozoom.h"
+	"functionsR.h"
 
 1434488693 c:\programming\c++\sdl projects\sp [summer-project]\itemweapon.h
 	"item.h"
@@ -4066,4 +4069,15 @@
 	"LTexture.h"
 
 1215447208 c:\programming\c++\sdl\opengl\src\soil.h
+
+1434885531 c:\programming\c++\sdl projects\sp [summer-project]\variablesr.h
+
+1434886334 c:\programming\c++\sdl projects\sp [summer-project]\functionsr.h
+
+1434886329 source:c:\programming\c++\sdl projects\sp [summer-project]\functionsr.cpp
+	"functionsR.h"
+	"functions.h"
+
+1434885529 source:c:\programming\c++\sdl projects\sp [summer-project]\variablesr.cpp
+	"variablesR.h"
 

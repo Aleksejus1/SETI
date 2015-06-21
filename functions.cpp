@@ -22,8 +22,10 @@
 #include "layer.h"
 #include "spell.h"
 #include "SDL2_rotozoom.h"
+#include "functionsR.h"
 
-functions::functions(){
+functions::functions(functionsR* fR){
+    f=fR;
     addColor(0,0,0);
     addColor(255,0,0);
     addColor(0,255,0);
