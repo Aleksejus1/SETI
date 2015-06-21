@@ -46,6 +46,12 @@ class variables
             RENDER_NEAREST
         };
         int RenderType=RENDER_MIPMAP;
+        enum objects{
+            OBJECT_PLAYER,
+            OBJECT_SCREEN
+        };
+        int moveObject=OBJECT_PLAYER;
+        GLfloat rotationAngle=0.f;
         SDL_GLContext GLContext;
         SDL_Renderer* renderer=NULL; //The main palette used for presenting the main application with pixel data
         SDL_Window* window=NULL; //Main application window
@@ -88,7 +94,7 @@ class variables
         int rightMouseButton=0;
         int leftMouseButtonUp=0;
         int rightMouseButtonUp=0;
-        SDL_Point mouse;
+        SDL_Point mouse,offset={0,0};
         int selectedId=-1;
         int antialiasing=1;
         int ammountOfMaps=0; //holder for how many maps there are

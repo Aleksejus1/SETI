@@ -3224,7 +3224,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434887191 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
+1434892254 source:c:\programming\c++\sdl projects\sp [summer-project]\main.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3279,7 +3279,7 @@
 	"GL\GLU.h"
 	"variablesR.h"
 
-1434887330 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
+1434890012 c:\programming\c++\sdl projects\sp [summer-project]\variables.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3331,7 +3331,7 @@
 	<commdlg.h>
 	"layer.h"
 
-1434796229 c:\programming\c++\sdl projects\sp [summer-project]\userinterface.h
+1434893348 c:\programming\c++\sdl projects\sp [summer-project]\userinterface.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"
@@ -3992,7 +3992,7 @@
 	<mir_toolkit/mir_client_library.h>
 	"close_code.h"
 
-1434886130 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
+1434892196 source:c:\programming\c++\sdl projects\sp [summer-project]\functions.cpp
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"

@@ -97,7 +97,7 @@ void functions::loadMedia(){
             createImage("qpm\\BattleUI.png","battleUI");
             images[images.size()-1].image.setZoom((float)SCREEN_WIDTH/(float)images[images.size()-1].image.surface->w);
         }
-        if(true){ //create Character UI
+        if(true){//create Character UI
             loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
                 UI.characterUI.setZoom(characterUiZoom);
             loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red.bar);
@@ -207,6 +207,19 @@ void functions::loadMedia(){
                 player.inventory.slotLocationBottomY=player.inventory.slotLocationTopLeft.y+7*player.inventory.distanceBetweenSlots+player.inventory.imageInventorySlot.w;
                 player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots)/(float)player.inventory.furthestPossibleSliderLocation;
             }
+        }
+        if(true){//create Bot UI
+            loadImage("Graphics\\Bot UI\\bot_ui_frame.png",UI.botUI);
+                UI.botUI.setZoom(characterUiZoom);
+            for(int i=0; i<4; i++){
+                loadImage("Graphics\\Bot UI\\mock_up_button-"+toString(1)+".png",UI.botUIButtons[i].state[0]);
+                    UI.botUIButtons[i].state[0].setZoom(characterUiZoom);
+                loadImage("Graphics\\Bot UI\\mock_up_button-"+toString(1)+"_pressed.png",UI.botUIButtons[i].state[1]);
+                    UI.botUIButtons[i].state[1].setZoom(characterUiZoom);
+            }
+            UI.botUIButtonsTopLeftLocation.x=73*characterUiZoom;
+            UI.botUIButtonsTopLeftLocation.y=143*characterUiZoom;
+            UI.botUIDistanceBetweenButtons=202*characterUiZoom;
         }
     }
     if(true){//create items
@@ -337,6 +350,39 @@ void functions::createSurface(SDL_Surface** surfaceDestination, int width, int h
                        0xff000000);
 }
 void functions::renderUI(){
+    if(true){//render Bot UI
+        renderTexture(&UI.botUI,UI.botUI.surface->clip_rect,(SCREEN_WIDTH-UI.botUI.w)/2,SCREEN_HEIGHT-UI.botUI.h);
+        int x,y; layer* currentButton;
+        for(int i=0; i<4; i++){
+            currentButton=&UI.botUIButtons[i].state[UI.botUIButtons[i].currentState];
+            x=(SCREEN_WIDTH-UI.botUI.w)/2+UI.botUIButtonsTopLeftLocation.x+i*UI.botUIDistanceBetweenButtons;
+            y=SCREEN_HEIGHT-UI.botUI.h+UI.botUIButtonsTopLeftLocation.y;
+            renderTexture(currentButton,currentButton->surface->clip_rect,x,y);
+            if(leftMouseButton==1||leftMouseButtonUp==1){
+                if(pointInsideRect(mouse,x,y,currentButton->w,currentButton->h)){
+                    if(leftMouseButton==1) {
+                        clickedOn="botUIButton_"+toString(i);
+                        leftMouseButton=0;
+                        UI.botUIButtons[i].currentState=1;
+                    }
+                    else{
+                        if(clickedOn==("botUIButton_"+toString(i))){
+                            switch(i){
+                                case 0: error("open let's say: inventory"); break;
+                                case 1: error("open let's say: stats"); break;
+                                case 2: error("open let's say: quest log"); break;
+                                case 3: error("open let's say: the door to infinite universe"); break;
+                            }
+                            UI.botUIButtons[i].currentState=0;
+                            leftMouseButtonUp=0;
+                        }
+                    }
+                }
+                else if(leftMouseButtonUp==1&&clickedOn==("botUIButton_"+toString(i))) UI.botUIButtons[i].currentState=0;
+            }
+        }
+    }
+    if(true){//render Character UI
     renderTexture(&UI.characterUI,UI.characterUI.surface->clip_rect);
     for(int i=0; i<3; i++){//render health/mana/experience bars
         if(*UI.all[i]->update){
@@ -385,6 +431,7 @@ void functions::renderUI(){
             RenderType=RENDER_MIPMAP;
         }
         renderTexture(&UI.level.message,UI.level.message.surface->clip_rect,(UI.characterUI.w*(float)318/(float)1113)-UI.level.message.surface->w/2,(UI.characterUI.w*(float)360/(float)1113)-UI.level.message.surface->h/2);
+    }
     }
 }
 void functions::giveItems(itemStack &itemsToGive){
@@ -859,19 +906,14 @@ void functions::moveCharacter(bool withObstructions, SDL_Surface* surfaceOfObstr
     }
 }
 void functions::moveCharacter(){
+    SDL_Point* movedObject;
+    if(moveObject==OBJECT_PLAYER) movedObject=&player.location;
+    else if(moveObject==OBJECT_SCREEN) movedObject=&offset;
     if(player.isInBattle==0){
-        if(
-           buttons[
-
-           findButton("D")].pressed==1 ||
-           buttons[
-           findButton("Right")].pressed==1)
-
-            player.location.x+=
-            player.movementSpeed;
-        if(buttons[findButton("A")].pressed==1 || buttons[findButton("Left")].pressed==1)  player.location.x-=player.movementSpeed;
-        if(buttons[findButton("S")].pressed==1 || buttons[findButton("Down")].pressed==1)  player.location.y+=player.movementSpeed;
-        if(buttons[findButton("W")].pressed==1 || buttons[findButton("Up")].pressed==1)    player.location.y-=player.movementSpeed;
+        if(buttons[findButton("D")].pressed==1 || buttons[findButton("Right")].pressed==1) movedObject->x+=player.movementSpeed;
+        if(buttons[findButton("A")].pressed==1 || buttons[findButton("Left")].pressed==1)  movedObject->x-=player.movementSpeed;
+        if(buttons[findButton("S")].pressed==1 || buttons[findButton("Down")].pressed==1)  movedObject->y+=player.movementSpeed;
+        if(buttons[findButton("W")].pressed==1 || buttons[findButton("Up")].pressed==1)    movedObject->y-=player.movementSpeed;
     }
 }
 void functions::addSpell(std::string type, float damage, float manaCost, std::string base, std::string icon_active, std::string icon_cooldown, int x, int y){
@@ -998,9 +1040,6 @@ void functions::renderTexture(layer* texture,SDL_Rect &sourceRect,int x, int y){
 }
 void functions::openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destRect){
     if(texture->textureOpenGL!= 0){
-        glLoadIdentity();
-        glTranslatef(destRect->x,destRect->y,0.f);
-        glBindTexture(GL_TEXTURE_2D,texture->textureOpenGL);
         float point[8];
         point[0]=0.f;
         point[1]=point[0];
@@ -1015,6 +1054,12 @@ void functions::openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destR
         cornerX[1]=((float)(sourceRect->w)/(float)(texture->surface->w))+cornerX[0]; cornerX[2]=cornerX[1];
         cornerY[0]=(float)(sourceRect->y)/(float)(texture->surface->h);              cornerY[1]=cornerY[0];
         cornerY[2]=((float)(sourceRect->h)/(float)(texture->surface->h))+cornerY[0]; cornerY[3]=cornerY[2];
+        glLoadIdentity();
+        glTranslatef(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0.f);
+        glRotatef(rotationAngle,0.f,0.f,0.f);
+        glRotatef(rotationAngle,0.f,0.f,1.f);
+        glTranslatef(destRect->x+offset.x-SCREEN_WIDTH/2,destRect->y+offset.y-SCREEN_HEIGHT/2,0.f);
+        glBindTexture(GL_TEXTURE_2D,texture->textureOpenGL);
         glBegin(GL_QUADS);
             glTexCoord2f(cornerX[0],cornerY[0]);
                 glVertex2f(point[0],point[1]);

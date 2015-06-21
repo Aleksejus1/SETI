@@ -109,6 +109,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
         f.giveItems(f.items[f.findItem("RegularSword")],1);
         }
         while( !f.quit ) { //Event cycle, does once every game tick
+            glClear(GL_COLOR_BUFFER_BIT);
             SDL_GetMouseState(&f.mouse.x,&f.mouse.y);
             //read and assign user input events that happened since last activation of this cycle
             while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
@@ -304,10 +305,14 @@ void interact(){
                 "selected="+f.toString(f.selectedId));
     }
     if(f.buttons[f.findButton("Q")].pressed==1){
-        f.buttons[f.findButton("Q")].pressed=0;
+        //f.buttons[f.findButton("Q")].pressed=0;
+        f.rotationAngle+=360.f/f.FPS/4.f;
+        if(f.rotationAngle>360.f) f.rotationAngle-=360.f;
     }
     if(f.buttons[f.findButton("R")].pressed==1){
         f.buttons[f.findButton("R")].pressed=0;
+        if(f.moveObject==f.OBJECT_PLAYER) f.moveObject=f.OBJECT_SCREEN;
+        else f.moveObject=f.OBJECT_PLAYER;
     }
 }
 void battle(){
