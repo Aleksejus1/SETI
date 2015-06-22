@@ -50,15 +50,14 @@ class functions: public variables, public variablesR
         int findItem(std::string itemName);
         void addItem(std::string name, std::string type, std::string imagePath);
         bool movePoint(SDL_Point *point, int movementSpeed);
-        bool pointInsideRect(int x, int y, SDL_Rect &rect);
-        bool pointInsideRect(SDL_Point &point, SDL_Rect &rect);
-        bool pointInsideRect(SDL_Point &point, int x, int y, int w, int h);
-        bool pointInsideRect(int x, int y, int x2, int y2, int w, int h);
+        SDL_Point getPoint(int x, int y);
+        SDL_Rect getRect(int x, int y, int w, int h);
+        bool pointInsideRect(SDL_Point point, SDL_Rect rect);
         int findImage(std::string imageIdInFormOfString);
         void createImage(std::string imagePath, std::string imageIdInFormOfString);
         void addEnemyId(std::string enemyName);
         int findEntity(std::string name);//Returns the id of an entity with the same name
-        void renderInventory();//Presents renderer with all the necessary inventory pixel information
+        void renderInventory(bool manageClicks);//Presents renderer with all the necessary inventory pixel information
         void callEvent(std::string type, info &information);//Depending on the type given will call the representing even function
         void callEventEnter(info &information);//Event function used for entering different territories/maps
         void callEventBattle(info &information);//Event function used for entering battle

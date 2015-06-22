@@ -31,7 +31,7 @@ class space
         bool open=false;
         layer imageMain;
         int rowsInInventory;
-        SDL_Point slotLocationTopLeft;
+        SDL_Point slotLocationTopLeft,location;
         int slotLocationBottomY;
         int distanceBetweenSlots;
         std::vector<int> slotsLocationsX;

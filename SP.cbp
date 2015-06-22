@@ -62,6 +62,8 @@
 		<Unit filename="event.h" />
 		<Unit filename="functions.cpp" />
 		<Unit filename="functions.h" />
+		<Unit filename="functionsR.cpp" />
+		<Unit filename="functionsR.h" />
 		<Unit filename="gather.cpp" />
 		<Unit filename="gather.h" />
 		<Unit filename="info.cpp" />
@@ -95,6 +97,8 @@
 		<Unit filename="userInterface.h" />
 		<Unit filename="variables.cpp" />
 		<Unit filename="variables.h" />
+		<Unit filename="variablesR.cpp" />
+		<Unit filename="variablesR.h" />
 		<Unit filename="zone.cpp" />
 		<Unit filename="zone.h" />
 		<Extensions>

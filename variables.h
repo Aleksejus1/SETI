@@ -94,7 +94,7 @@ class variables
         int rightMouseButton=0;
         int leftMouseButtonUp=0;
         int rightMouseButtonUp=0;
-        SDL_Point mouse,offset={0,0};
+        SDL_Point mouse,offset={0,0},mouseOffsetFromMovableObject={0,0};
         int selectedId=-1;
         int antialiasing=1;
         int ammountOfMaps=0; //holder for how many maps there are
@@ -113,7 +113,7 @@ class variables
         bool blend=false;
         SDL_Point screenStartPosition={128,130}; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window
-        std::string clickedOn;
+        std::string clickedOn="";
         character player; //Player information holder
         MSG messages; //Some kind of weird windows thing that should be left alone
 };

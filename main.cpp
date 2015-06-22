@@ -139,7 +139,6 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
                     if(f.e.button.button==SDL_BUTTON_LEFT) f.leftMouseButton=1;
                     else if(f.e.button.button==SDL_BUTTON_RIGHT) f.rightMouseButton=1;
                     f.mouseButton=1;
-                    f.clickedOn="";
                 }
                 else if(f.e.type==SDL_MOUSEBUTTONUP){//Checks if the mouse button was unpressed
                     if(f.e.button.button==SDL_BUTTON_LEFT) f.leftMouseButtonUp=1;
@@ -172,7 +171,6 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //---------------------------------------
             //render UI
             f.renderUI();
-            f.renderInventory();
             //finish rendering UI elements
             //---------------------------------------
             //SDL_RenderPresent(f.renderer); // update screen
@@ -333,8 +331,8 @@ void battle(){
         int base=f.findImage("base");
         for(Uint8 i=0;((i<f.battleEnemies.size())&&(i<5)); i++){
             if(f.mouseButton==2){
-                if(f.pointInsideRect(f.mouse,f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2,f.images[base].image.surface->w,f.images[base].image.surface->h)||
-                   f.pointInsideRect(f.mouse,f.battleEnemies[i].location.x,f.battleEnemies[i].location.y,f.battleEnemies[i].image.surface->w,f.battleEnemies[i].image.surface->h)){
+                if(f.pointInsideRect(f.mouse,f.getRect(f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2,f.images[base].image.surface->w,f.images[base].image.surface->h))||
+                   f.pointInsideRect(f.mouse,f.getRect(f.battleEnemies[i].location.x,f.battleEnemies[i].location.y,f.battleEnemies[i].image.surface->w,f.battleEnemies[i].image.surface->h))){
                        f.selectedId=i;
                 }
             }
@@ -349,8 +347,7 @@ void battle(){
         for(int i = 0; i < 4; i++)
         {
              f.renderTexture(&f.Spells[0].icon_active,f.Spells[0].icon_active.surface->clip_rect, 615+i*57, 645);
-             SDL_GetMouseState(&f.mouse.x, &f.mouse.y);
-             if(f.pointInsideRect(f.mouse.x, f.mouse.y, 615, 645, 50, 50)&&((f.leftMouseButton==1)||(f.leftMouseButton==2)))
+             if(f.pointInsideRect(f.mouse,f.getRect(615, 645, 50, 50))&&((f.leftMouseButton==1)||(f.leftMouseButton==2)))
              {
                  f.leftMouseButton=2;
                  int *x,*y;

@@ -28,11 +28,11 @@ class userInterface
 {
     public:
         userInterface();
-        layer bar_empty,characterUI,botUI;
+        layer bar_empty,characterUI,botUI,topUIReflection;
         struct butt{layer state[2]; int currentState=0;};
-        int botUIDistanceBetweenButtons=0;
-        SDL_Point botUIButtonsTopLeftLocation={0,0};
-        butt botUIButtons[4];
+        int botUIDistanceBetweenButtons=0,topUIDistanceBetweenButtons[3]={0,0,0};
+        SDL_Point botUIButtonsTopLeftLocation={0,0},topUIButtonsTopLeftLocation={0,0};
+        butt botUIButtons[4],topUIButtons[3];
         struct messageAndCount{layer message; float* countAmount; bool* update;};
         messageAndCount level;
         struct barAndUpdate : messageAndCount {layer bar;};
