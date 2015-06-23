@@ -30,6 +30,8 @@ functions::functions(functionsR* fR){
     addColor(255,0,0);
     addColor(0,255,0);
     addColor(0,0,255);
+    createSurface(&consoleVariables.surface,CONSOLE_SCREEN_WIDTH/2,CONSOLE_SCREEN_HEIGHT/2);
+    createSurface(&consoleMessages.surface,CONSOLE_SCREEN_WIDTH,CONSOLE_SCREEN_HEIGHT/2);
 }
 
 void functions::loadMedia(){
@@ -286,6 +288,75 @@ void functions::loadMedia(){
     }
 }
 
+void functions::sendMessageToConsole(std::string message){
+    bool test=false;
+    for(int i=0; i<consoleMessages.textInfo.size(); i++){
+        if(consoleMessages.textInfo[i].substr(0,message.size())==message){
+            int temp=atoi(consoleMessages.textInfo[i].substr(message.size()+2,consoleMessages.textInfo[i].size()-message.size()).c_str())+1;
+            consoleMessages.textInfo[i]=consoleMessages.textInfo[i].substr(0,message.size());
+            consoleMessages.textInfo[i]+=" x"+toString(temp);
+            test=true;
+            consoleMessages.update=true;
+            i=consoleMessages.textInfo.size();
+        }
+    }
+    if(!test){
+        consoleMessages.textInfo.push_back(message+" x1");
+        if(consoleMessages.textInfo.size()>12) consoleMessages.textInfo.erase(consoleMessages.textInfo.begin(),consoleMessages.textInfo.begin()+1);
+        consoleMessages.update=true;
+    }
+}
+void functions::console(){
+    if(consoleShow){
+        SDL_RenderClear(consoleRenderer);
+        if(frame==FPS){
+            consoleVariables.update=true;
+            std::string temp;
+            consoleVariables.textInfo.clear();
+            temp="Player location: ["+toString(player.location.x)+";"+toString(player.location.y)+"]"; consoleVariables.textInfo.push_back(temp);
+        }
+        int width,height;
+        consoleMsg* consoleMsgP;
+        for(int i=0; i<2; i++){
+            switch(i){
+            case 0:
+                consoleMsgP=&consoleVariables;
+                consoleRect=getRect(0,0,consoleMsgP->surface->w,consoleMsgP->surface->h);
+                width=CONSOLE_SCREEN_WIDTH/2; height=CONSOLE_SCREEN_HEIGHT/2;
+            break;
+            case 1:
+                consoleMsgP=&consoleMessages;
+                consoleRect=getRect(0,consoleMsgP->surface->h,consoleMsgP->surface->w,consoleMsgP->surface->h);
+                width=CONSOLE_SCREEN_WIDTH; height=CONSOLE_SCREEN_HEIGHT/2;
+            break;
+            }
+            if(consoleMsgP->update){
+                consoleMsgP->update=false;
+                SDL_FreeSurface(consoleMsgP->surface); consoleMsgP->surface=NULL;
+                createSurface(&consoleMsgP->surface,width,height);
+                for(int o=0; o<consoleMsgP->textInfo.size(); o++){
+                    consoleSurface=TTF_RenderText_Blended(font,(consoleMsgP->textInfo[o]).c_str(),messageColor);
+                    switch(i){
+                        case 0: copySurface(consoleSurface,consoleMsgP->surface,consoleSurface->clip_rect,0,consoleSurface->h*o); break;
+                        case 1: copySurface(consoleSurface,consoleMsgP->surface,consoleSurface->clip_rect,0,consoleMsgP->surface->h-consoleSurface->h*(consoleMsgP->textInfo.size()-o)); break;
+                    }
+                    SDL_FreeSurface(consoleSurface); consoleSurface=NULL;
+                }
+                SDL_DestroyTexture(consoleMsgP->texture); consoleMsgP->texture=NULL;
+                consoleMsgP->texture=SDL_CreateTextureFromSurface(consoleRenderer,consoleMsgP->surface);
+            }
+            SDL_RenderCopy(consoleRenderer,consoleMsgP->texture,NULL,&consoleRect);
+        }
+        SDL_RenderPresent(consoleRenderer);
+    }
+    else{
+        if(consoleOnce[0]){
+            SDL_RenderClear(consoleRenderer);
+            SDL_RenderPresent(consoleRenderer);
+            consoleOnce[0]=false;
+        }
+    }
+}
 GLuint functions::convertSurfaceToOpenGLTexture(SDL_Surface* surface){
     GLuint texture;
     GLenum texture_format;
@@ -312,6 +383,7 @@ GLuint functions::convertSurfaceToOpenGLTexture(SDL_Surface* surface){
     return texture;
 };
 void functions::reset(){
+    frame++; if(frame>FPS) frame%=FPS;
     player.reset();
     if(mouseButton==2)    mouseButton       =false;
     else if(mouseButton)  mouseButton       =false;
@@ -375,6 +447,11 @@ void functions::createSurface(SDL_Surface** surfaceDestination, int width, int h
                        0x0000ff00,
                        0x00ff0000,
                        0xff000000);
+}
+SDL_Surface* functions::createSurface(int width, int height){
+    SDL_Surface* returnValue=NULL;
+    createSurface(&returnValue,width,height);
+    return returnValue;
 }
 void functions::renderUI(){
     renderInventory(true);//manage inventory clicks
@@ -969,6 +1046,7 @@ void functions::callEventEnter(info &information){
     player.map_location=information.intInfo[0];
     player.location.x=information.intInfo[1];
     player.location.y=information.intInfo[2];
+    sendMessageToConsole("Player went into map "+toString(player.map_location)+", to coordinates ["+toString(player.location.x)+";"+toString(player.location.y)+"]");
 }
 void functions::callEventBattle(info &information){
     battleZoneId=information.intInfo[0];
@@ -1409,7 +1487,8 @@ bool functions::initialize(){
 
     //Create window
     window = SDL_CreateWindow( screenName.c_str(), screenStartPosition.x, screenStartPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | fullscreen);
-    if(success&&window==NULL){ //error
+    console_window = SDL_CreateWindow( consoleScreenName.c_str(), screenStartPosition.x, screenStartPosition.y, CONSOLE_SCREEN_WIDTH, CONSOLE_SCREEN_HEIGHT, fullscreen);
+    if(success&&(window==NULL||console_window==NULL)){ //error
         error("Window could not be created! SDL Error: "+(*SDL_GetError()));
         success=false;
     }
@@ -1430,9 +1509,12 @@ bool functions::initialize(){
             SDL_VERSION(&WindowInfo.version);
             SDL_GetWindowWMInfo(window,&WindowInfo);
             hwnd=WindowInfo.info.win.window;
+            SDL_GetWindowWMInfo(console_window,&ConsoleWindowInfo);
+            console_hwnd=ConsoleWindowInfo.info.win.window;
             //Create renderer for window
             renderer=SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
-            if(renderer==NULL) { //error
+            consoleRenderer=SDL_CreateRenderer(console_window,-1,SDL_RENDERER_ACCELERATED);
+            if(renderer==NULL||consoleRenderer==NULL) { //error
                 error("Renderer could not be created! SDL Error: "+(*SDL_GetError()));
                 success=false;
             }

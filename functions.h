@@ -34,6 +34,8 @@ class functions: public variables, public variablesR
     public:
         functions(functionsR* fR); //Initialization function
         functionsR* f;
+        void sendMessageToConsole(std::string message);
+        void console();
         void reset();
         GLuint convertSurfaceToOpenGLTexture(SDL_Surface* surface);
         void affectStats(item* itemOfWhichEffectsToUse, bool trueForGivingStats_falseForRemovingStats);
@@ -42,6 +44,7 @@ class functions: public variables, public variablesR
         void removeItem(int slotId, int ammount);
         void affectStat(std::string statName, float ammount);
         void createSurface(SDL_Surface** surfaceDestination, int width, int height);
+        SDL_Surface* createSurface(int width, int height);
         void renderUI();
         void giveItems(itemStack &itemsToGive);
         void giveItems(item &itemToGive, int ammount);

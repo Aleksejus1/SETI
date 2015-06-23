@@ -175,6 +175,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //---------------------------------------
             //SDL_RenderPresent(f.renderer); // update screen
             SDL_GL_SwapWindow(f.window);
+            f.console();
             //finish up this game tick
             }
             else{
@@ -295,12 +296,9 @@ void interact(){
         f.player.addExperience(100);
     }
     if(f.buttons[f.findButton("Z")].pressed==1){
-        f.error("["+f.toString(f.battleEnemies[0].location.x)+";"+f.toString(f.battleEnemies[0].location.y)+"]=0\n"+
-                "["+f.toString(f.battleEnemies[1].location.x)+";"+f.toString(f.battleEnemies[1].location.y)+"]=1\n"+
-                "["+f.toString(f.battleEnemies[2].location.x)+";"+f.toString(f.battleEnemies[2].location.y)+"]=2\n"+
-                "["+f.toString(f.battleEnemies[3].location.x)+";"+f.toString(f.battleEnemies[3].location.y)+"]=3\n"+
-                "["+f.toString(f.battleEnemies[4].location.x)+";"+f.toString(f.battleEnemies[4].location.y)+"]=4\n"+
-                "selected="+f.toString(f.selectedId));
+        f.buttons[f.findButton("Z")].pressed=0;
+        f.consoleOnce[0]=true;
+        f.consoleShow=!f.consoleShow;
     }
     if(f.buttons[f.findButton("Q")].pressed==1){
         //f.buttons[f.findButton("Q")].pressed=0;

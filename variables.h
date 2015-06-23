@@ -33,6 +33,20 @@ class variables
 {
     public:
         variables(); //Initialization function
+        //-Console-----------------------------------------
+        struct consoleMsg{bool update=true; SDL_Surface* surface=NULL; SDL_Texture* texture=NULL; std::vector<std::string> textInfo;};
+        consoleMsg consoleVariables,consoleMessages;
+        bool consoleShow=false,consoleOnce[1];
+        SDL_Window* console_window=NULL; //Console window
+        std::string consoleScreenName="Console";
+        const int CONSOLE_SCREEN_WIDTH=500;
+        const int CONSOLE_SCREEN_HEIGHT=500;
+        SDL_SysWMinfo ConsoleWindowInfo; //Console window information holder
+        HWND console_hwnd; //Console window handler/owner
+        SDL_Renderer* consoleRenderer=NULL; //Console's palette used for presenting the console with pixel data
+        SDL_Surface *consoleSurface=NULL;
+        SDL_Texture* consoleTexture=NULL;
+        SDL_Rect consoleRect;
         //-OpenGL------------------------------------------
         layer imageOpenGL,imageOpenGL2;
         enum stages{
@@ -89,6 +103,7 @@ class variables
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
         bool bordersAreAThing=true; //you did not see this =.=
+        int frame=0; //current frame;
         int mouseButton=0;
         int leftMouseButton=0;
         int rightMouseButton=0;
