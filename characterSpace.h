@@ -19,7 +19,9 @@ class characterSpace: public space
         SDL_Point equipmentTopLeftLocation,statTopLeftLocation,closeLocation;
         layer closeButton;
         layer imageScrollBar,imageScrollBarFull,imageScrollBubble,imageScrollBubbleFull,imageScroll;
-        layer imageInventorySlot;
+        layer imageInventorySlot[2];
+        int pressedId=-1;
+        int doubleClick=-1;
         layer imageFull;
         struct bars{layer gradient,left,mid,right,full;};
         std::vector<bars> statsBar;
