@@ -4,109 +4,24 @@
     #define UNICODE
 #endif
 
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_syswm.h"
-#include <tchar.h>
-#include <windows.h>
-#include <stdio.h>
-#include <string>
-#include <memory.h>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <dirent.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <commdlg.h>
+#include "libs.h"
 #include "functions.h"
 #include "map.h"
-#include "SDL_opengl.h"
-#include "GL\gl.h"
-#include "GL\GLU.h"
-#include "functionsR.h"
 
-functionsR fR;
-functions f(&fR); //Main way of accessing variables and functions in main.cpp
-std::vector<map> maps;//Holder for all existing maps in the game
+functions f; //Main way of accessing variables and functions in main.cpp
 
 void createMap(std::string name, std::string id);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
-void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
+//void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
 void battle(); //render all enemies and other battle stuffs
 void gather();
 void regrow();
 
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nCmdShow){
-    fR.getF(&f);
 	if(f.initialize()){//Continue if succeeds to initiate SDL and other modules
         f.loadMedia();//Pre-load images and variables
         if(f.GLStage==f.STAGE_SDL){
-        if(true){//create maps
-            createMap("Place holder", "error");
-            createMap("The first map ever", "First");
-            maps[maps.size()-1].createLayer("qpm\\secret.png");
-            maps[maps.size()-1].createLayer("qpm\\bc.png");
-            maps[maps.size()-1].createLayer("qpm\\Roks.png");
-            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",600,400,false);
-            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,320,420);
-            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1000,400,false);
-            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(2,1080,480);
-            maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",300,440,50,50,false);
-            //f.addEnemyId("debug_1"); f.addEnemyId("debug_2"); f.addEnemyId("debug_3"); f.addEnemyId("debug_4"); f.addEnemyId("debug_5");
-            f.addEnemyId("Zombie"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie_mini"); f.addEnemyId("Zombie"); f.addEnemyId("Zombie");
-            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createBattleEvent(0,f.battleEnemiesIds);
-            maps[maps.size()-1].createInteractable("qpm\\battle_trigger.png",160,240,50,50,false);
-            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,320,420);
-            maps[maps.size()-1].createGatherable(500,320,false,1,0,"harvesting");
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
-            maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Berry")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].addStage(-1,true,true,"qpm\\bush_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-                maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-            maps[maps.size()-1].addStage(1,false,false,"qpm\\bush_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-                maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-            maps[maps.size()-1].addStage(1,true,false,"qpm\\bush_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-                maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-
-            createMap("The second map", "Caves");
-            maps[maps.size()-1].createLayer("qpm\\secret2.png");
-            maps[maps.size()-1].createLayer("qpm\\bc2.png");
-            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",300,440,false);
-            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,620,380);
-            maps[maps.size()-1].createInteractable("qpm\\caveEntrance.png",1060,500,false);
-            maps[maps.size()-1].interactable[maps[maps.size()-1].interactable.size()-1].events.createEnterEvent(1,1020,380);
-            maps[maps.size()-1].createGatherable(150,300,false,1,0,"shitGathering");
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].events.createGatherEvent(maps[maps.size()-1].gatherable.size()-1);
-            maps[maps.size()-1].addGatherableReturnItemStack(1,f.items[f.findItem("Poop")],maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].addStage(-1,true,true,"qpm\\poop_full.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_full2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_half2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-            maps[maps.size()-1].addStage(1,false,false,"qpm\\poop_empty.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-            maps[maps.size()-1].addStage(1,true,false,"qpm\\poop_empty2.png",maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1]);
-            maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.setZoom((float)50/(float)maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages[maps[maps.size()-1].gatherable[maps[maps.size()-1].gatherable.size()-1].stages.size()-1].image.surface->h);
-        }
-        f.ammountOfMaps=maps.size();
-        if(true){//create battle zones
-            createBattleZone("The third map", "Pyramids_So_Real",
-                             0,0,   0,0,   320,500,   0,0,   0,0,
-                             786,533,  797,675,  933,597,  1095,558,  1086,666
-                             //393,419,   431,456,   315,387,   387,483,   360,519
-                             );
-            maps[maps.size()-1].createLayer("qpm\\pyramids_secret.png");
-            maps[maps.size()-1].createLayer("qpm\\bc3.png");
-            maps[maps.size()-1].createLayer("qpm\\pyramids_transparent.png");
-        }
-        f.giveItems(f.items[f.findItem("RegularSword")],1);
+            f.giveItems(f.items[f.findItem("RegularSword")],1);
         }
         while( !f.quit ) { //Event cycle, does once every game tick
             glClear(GL_COLOR_BUFFER_BIT);
@@ -151,16 +66,16 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //-------------------------------------
             if(f.GLStage==f.STAGE_SDL){
             //render Map Details
-            for(Uint8 i=1; i<maps[f.player.map_location].layers.size(); i++) f.renderTexture(&maps[f.player.map_location].layers[i],maps[f.player.map_location].layers[i].surface->clip_rect);
-            for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++) f.renderTexture(&maps[f.player.map_location].interactable[i],maps[f.player.map_location].interactable[i].surface->clip_rect,maps[f.player.map_location].interactable[i].location.x,maps[f.player.map_location].interactable[i].location.y,maps[f.player.map_location].interactable[i].surface->w,maps[f.player.map_location].interactable[i].surface->h);
-            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++) f.renderTexture(&maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image,maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.surface->clip_rect,maps[f.player.map_location].gatherable[i].location.x,maps[f.player.map_location].gatherable[i].location.y);
+            for(Uint8 i=1; i<f.maps[f.player.map_location].layers.size(); i++) f.renderTexture(&f.maps[f.player.map_location].layers[i],f.maps[f.player.map_location].layers[i].surface->clip_rect);
+            for(Uint8 i=0; i<f.maps[f.player.map_location].interactable.size(); i++) f.renderTexture(&f.maps[f.player.map_location].interactable[i],f.maps[f.player.map_location].interactable[i].surface->clip_rect,f.maps[f.player.map_location].interactable[i].location.x,f.maps[f.player.map_location].interactable[i].location.y,f.maps[f.player.map_location].interactable[i].surface->w,f.maps[f.player.map_location].interactable[i].surface->h);
+            for(Uint8 i=0; i<f.maps[f.player.map_location].gatherable.size(); i++) f.renderTexture(&f.maps[f.player.map_location].gatherable[i].stages[f.maps[f.player.map_location].gatherable[i].currentStage].image,f.maps[f.player.map_location].gatherable[i].stages[f.maps[f.player.map_location].gatherable[i].currentStage].image.surface->clip_rect,f.maps[f.player.map_location].gatherable[i].location.x,f.maps[f.player.map_location].gatherable[i].location.y);
             //finish rendering map details
             //--------------------------------------
             //Allow user to control what's happening
             if(f.player.gathering!=0) gather();
             else if(f.player.isInBattle!=0) battle();
             else{
-                f.moveCharacter(f.bordersAreAThing,maps[f.player.map_location].layers[0].surface);
+                f.moveCharacter(f.bordersAreAThing,f.maps[f.player.map_location].layers[0].surface);
                 regrow();
             }
             //finish user actions
@@ -192,78 +107,51 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 	}//try to initialize if fails, get crash number
     return f.messages.wParam;
 }
-void createMap(std::string name, std::string id){
-    map map_temp(f);
-    map_temp.name=name;
-    map_temp.id=id;
-    for(int i=0; i<1; i++){
-        maps.push_back(map_temp);
-    }
-}
-void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0){
-    map map_temp(f);
-    map_temp.name=name;
-    map_temp.id=id;
-    SDL_Point location;
-    location.x=x1; location.y=y1; map_temp.platforms.push_back(location);
-    location.x=x2; location.y=y2; map_temp.platforms.push_back(location);
-    location.x=x3; location.y=y3; map_temp.platforms.push_back(location);
-    location.x=x4; location.y=y4; map_temp.platforms.push_back(location);
-    location.x=x5; location.y=y5; map_temp.platforms.push_back(location);
-    location.x=x6; location.y=y6; map_temp.platforms.push_back(location);
-    location.x=x7; location.y=y7; map_temp.platforms.push_back(location);
-    location.x=x8; location.y=y8; map_temp.platforms.push_back(location);
-    location.x=x9; location.y=y9; map_temp.platforms.push_back(location);
-    location.x=x0; location.y=y0; map_temp.platforms.push_back(location);
-    for(int i=0; i<1; i++){
-        maps.push_back(map_temp);
-    }
-}
 void interact(){
-    if(f.buttons[f.findButton("E")].pressed==1&&maps[f.player.map_location].interactable.size()>0&&f.player.gathering==0){
+    if(f.buttons[f.findButton("E")].pressed==1&&f.maps[f.player.map_location].interactable.size()>0&&f.player.gathering==0){
         f.buttons[f.findButton("E")].pressed=2;
         float smallestDistance=pow(10,3);
         float check;
         int id=-1;
-        for(Uint8 i=0; i<maps[f.player.map_location].interactable.size(); i++){
+        for(Uint8 i=0; i<f.maps[f.player.map_location].interactable.size(); i++){
             check=sqrt(pow(f.player.location.x+f.player.image.w/2-
-                           maps[f.player.map_location].interactable[i].location.x-maps[f.player.map_location].interactable[i].w/2,2)+
+                           f.maps[f.player.map_location].interactable[i].location.x-f.maps[f.player.map_location].interactable[i].w/2,2)+
                        pow(f.player.location.y+f.player.image.h/2-
-                           maps[f.player.map_location].interactable[i].location.y-maps[f.player.map_location].interactable[i].h/2,2));
+                           f.maps[f.player.map_location].interactable[i].location.y-f.maps[f.player.map_location].interactable[i].h/2,2));
             /*f.error(f.toString(check)+"=sqrt(pow("+
                     f.toString(f.player.location.x)+"+"+
                     f.toString(f.player.image.w)+"/2-"+
-                    f.toString(maps[f.player.map_location].interactable[i].location.x)+"-"+
-                    f.toString(maps[f.player.map_location].interactable[i].w)+"/2,2)+pow("+
+                    f.toString(f.maps[f.player.map_location].interactable[i].location.x)+"-"+
+                    f.toString(f.maps[f.player.map_location].interactable[i].w)+"/2,2)+pow("+
                     f.toString(f.player.location.y)+"+"+
                     f.toString(f.player.image.h)+"/2-"+
-                    f.toString(maps[f.player.map_location].interactable[i].location.y)+"-"+
-                    f.toString(maps[f.player.map_location].interactable[i].h)+"/2,2)");
+                    f.toString(f.maps[f.player.map_location].interactable[i].location.y)+"-"+
+                    f.toString(f.maps[f.player.map_location].interactable[i].h)+"/2,2)");
                     */
             if(check<f.player.image.h/2&&check<smallestDistance){
                 smallestDistance=check;
                 id=i;
             }
         }
-        if(id!=-1) f.callEvent(maps[f.player.map_location].interactable[id].events.type, maps[f.player.map_location].interactable[id].events.information);
+        if(id!=-1) f.callEvent(f.maps[f.player.map_location].interactable[id].events.type, f.maps[f.player.map_location].interactable[id].events.information);
         else{
-            for(Uint8 i=0; i<maps[f.player.map_location].gatherable.size(); i++){
-                if(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].isItGatherable){
+            for(Uint8 i=0; i<f.maps[f.player.map_location].gatherable.size(); i++){
+                if(f.maps[f.player.map_location].gatherable[i].stages[f.maps[f.player.map_location].gatherable[i].currentStage].isItGatherable){
                     check=sqrt(pow(f.player.location.x+f.player.image.w/2-
-                                   maps[f.player.map_location].gatherable[i].location.x-
-                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.w/2,2)+
+                                   f.maps[f.player.map_location].gatherable[i].location.x-
+                                   f.maps[f.player.map_location].gatherable[i].stages[f.maps[f.player.map_location].gatherable[i].currentStage].image.w/2,2)+
                                pow(f.player.location.y+f.player.image.h/2-
-                                   maps[f.player.map_location].gatherable[i].location.y-
-                                   maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.h/2,2));
+                                   f.maps[f.player.map_location].gatherable[i].location.y-
+                                   f.maps[f.player.map_location].gatherable[i].stages[f.maps[f.player.map_location].gatherable[i].currentStage].image.h/2,2));
                     /*f.error(f.toString(check)+"=sqrt(pow("+
                             f.toString(f.player.location.x)+"+"+
                             f.toString(f.player.image.w)+"/2-"+
-                            f.toString(maps[f.player.map_location].gatherable[i].location.x)+"-"+
-                            f.toString(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.w)+"/2,2)+pow("+
+                            f.toString(f.maps[f.player.map_location].gatherable[i].location.x)+"-"+
+                            f.toString(f.maps[f.player.map_location].gatherable[i].stages[f.maps[f.player.map_location].gatherable[i].currentStage].image.w)+"/2,2)+pow("+
                             f.toString(f.player.location.y)+"+"+
                             f.toString(f.player.image.h)+"/2-"+
-                            f.toString(maps[f.player.map_location].gatherable[i].location.y)+"-"+
-                            f.toString(maps[f.player.map_location].gatherable[i].stages[maps[f.player.map_location].gatherable[i].currentStage].image.h)+"/2,2)");
+                            f.toString(f.maps[f.player.map_location].gatherable[i].location.y)+"-"+
+                            f.toString(f.maps[f.player.map_location].gatherable[i].stages[f.maps[f.player.map_location].gatherable[i].currentStage].image.h)+"/2,2)");
                             */
                     if(check<f.player.image.h/2&&check<smallestDistance){
                         smallestDistance=check;
@@ -271,7 +159,7 @@ void interact(){
                     }
                 }
             }
-            if(id!=-1) f.callEvent(maps[f.player.map_location].gatherable[id].events.type, maps[f.player.map_location].gatherable[id].events.information);
+            if(id!=-1) f.callEvent(f.maps[f.player.map_location].gatherable[id].events.type, f.maps[f.player.map_location].gatherable[id].events.information);
         }
     }
     if(f.buttons[f.findButton("I")].pressed==1){
@@ -291,9 +179,10 @@ void interact(){
         f.quit=true;
     }
     if(f.buttons[f.findButton("G")].pressed==1){
-        f.player.addHealth(-2);
-        f.player.addMana(2);
-        f.player.addExperience(100);
+        f.buttons[f.findButton("G")].pressed=0;
+        if(f.buttons[f.findButton("Left Shift")].pressed==1) f.player.stats[0].levelBase--;
+        else f.player.stats[0].levelBase++;
+        f.player.stats[0].update=true;
     }
     if(f.buttons[f.findButton("Z")].pressed==1){
         f.buttons[f.findButton("Z")].pressed=0;
@@ -314,13 +203,13 @@ void interact(){
 void battle(){
     if(f.player.isInBattle==1){//initialize the battle
         //set player' location
-            f.player.location.x=maps[f.player.map_location].platforms[2].x-f.player.image.w/2;
-            f.player.location.y=maps[f.player.map_location].platforms[2].y-f.player.image.h;
+            f.player.location.x=f.maps[f.player.map_location].platforms[2].x-f.player.image.w/2;
+            f.player.location.y=f.maps[f.player.map_location].platforms[2].y-f.player.image.h;
         //set allies location [allies not yet implemented into the game
         //set enemies locations
             for(Uint8 i=0; ((i<f.battleEnemies.size())&&(i<5)); i++){
-                f.battleEnemies[i].location.x=maps[f.player.map_location].platforms[i+5].x-f.battleEnemies[i].image.w/2;
-                f.battleEnemies[i].location.y=maps[f.player.map_location].platforms[i+5].y-f.battleEnemies[i].image.h;
+                f.battleEnemies[i].location.x=f.maps[f.player.map_location].platforms[i+5].x-f.battleEnemies[i].image.w/2;
+                f.battleEnemies[i].location.y=f.maps[f.player.map_location].platforms[i+5].y-f.battleEnemies[i].image.h;
             }
             f.player.isInBattle=2;
         //done initializing the battle
@@ -338,7 +227,7 @@ void battle(){
             f.renderTexture(&f.battleEnemies[i].image,f.battleEnemies[i].image.surface->clip_rect,f.battleEnemies[i].location.x,f.battleEnemies[i].location.y);
         }
         if(f.selectedId!=-1){
-            if(f.movePoint(&(maps[f.player.map_location].platforms[f.selectedId+5]),3)) f.player.isInBattle=1;
+            if(f.movePoint(&(f.maps[f.player.map_location].platforms[f.selectedId+5]),3)) f.player.isInBattle=1;
         }
         int battleUI=f.findImage("battleUI");
         f.renderTexture(&f.images[battleUI].image,f.images[battleUI].image.surface->clip_rect,0,(f.SCREEN_HEIGHT-f.images[battleUI].image.h));
@@ -358,36 +247,36 @@ void battle(){
 }
 void gather(){
     if(f.player.gathering==1){//initialize gathering
-        f.player.gatherTime=maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime;
+        f.player.gatherTime=f.maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime;
         f.player.gathering=2;
-        f.player.gatherStartStage=maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage;
+        f.player.gatherStartStage=f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage;
     }
     if(f.player.gathering==2){//render and calculate the process bar of gathering
         f.player.gatherTime-=(float)(1)/f.FPS;
-        if((1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime)>=(float)1/(f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)){
-           maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.player.gatherStartStage+(int)(((1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime))/((float)1/(f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)));
+        if((1-f.player.gatherTime/f.maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime)>=(float)1/(f.findNextStage(f.maps[f.player.map_location].gatherable[f.player.gatherableId].stages,f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)){
+           f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.player.gatherStartStage+(int)(((1-f.player.gatherTime/f.maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime))/((float)1/(f.findNextStage(f.maps[f.player.map_location].gatherable[f.player.gatherableId].stages,f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)));
         }
         f.renderTexture(&f.images[f.findImage("progressBarFrame")].image,f.images[f.findImage("progressBarFrame")].image.surface->clip_rect,(f.SCREEN_WIDTH-f.images[f.findImage("progressBarFrame")].image.surface->w)/2,f.SCREEN_HEIGHT-f.images[f.findImage("progressBarFrame")].image.surface->h-20);
-        f.renderTexture(&f.images[f.findImage("progressBarInside")].image,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h,(f.SCREEN_WIDTH-f.images[f.findImage("progressBarFrame")].image.surface->w)/2,f.SCREEN_HEIGHT-f.images[f.findImage("progressBarFrame")].image.surface->h-20);
+        f.renderTexture(&f.images[f.findImage("progressBarInside")].image,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/f.maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h,(f.SCREEN_WIDTH-f.images[f.findImage("progressBarFrame")].image.surface->w)/2,f.SCREEN_HEIGHT-f.images[f.findImage("progressBarFrame")].image.surface->h-20);
         if(f.player.gatherTime<=0){
             f.player.gatherTime=0;
-            for(Uint8 i=0; i<maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems.size(); i++){
-                f.giveItems(maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems[i]);
+            for(Uint8 i=0; i<f.maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems.size(); i++){
+                f.giveItems(f.maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems[i]);
             }
-            maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.findNextStage(maps[f.player.map_location].gatherable[f.player.gatherableId].stages,f.player.gatherStartStage);
-            maps[f.player.map_location].gatherable[f.player.gatherableId].timeUntilRegrow=maps[f.player.map_location].gatherable[f.player.gatherableId].stages[maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage].timeUntilNextStage;
+            f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.findNextStage(f.maps[f.player.map_location].gatherable[f.player.gatherableId].stages,f.player.gatherStartStage);
+            f.maps[f.player.map_location].gatherable[f.player.gatherableId].timeUntilRegrow=f.maps[f.player.map_location].gatherable[f.player.gatherableId].stages[f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage].timeUntilNextStage;
             f.player.gathering=0;
         }
     }
 }
 void regrow(){
-    for(int i=0; i<maps.size(); i++){
-        for(int o=0; o<maps[i].gatherable.size(); o++){
-            if(maps[i].gatherable[o].currentStage!=0){
-                maps[i].gatherable[o].timeUntilRegrow-=(float)(1)/f.FPS;
-                if(maps[i].gatherable[o].timeUntilRegrow<=0){
-                    maps[i].gatherable[o].currentStage--;
-                    maps[i].gatherable[o].timeUntilRegrow=maps[i].gatherable[o].stages[maps[i].gatherable[o].currentStage].timeUntilNextStage;
+    for(int i=0; i<f.maps.size(); i++){
+        for(int o=0; o<f.maps[i].gatherable.size(); o++){
+            if(f.maps[i].gatherable[o].currentStage!=0){
+                f.maps[i].gatherable[o].timeUntilRegrow-=(float)(1)/f.FPS;
+                if(f.maps[i].gatherable[o].timeUntilRegrow<=0){
+                    f.maps[i].gatherable[o].currentStage--;
+                    f.maps[i].gatherable[o].timeUntilRegrow=f.maps[i].gatherable[o].stages[f.maps[i].gatherable[o].currentStage].timeUntilNextStage;
                 }
             }
         }

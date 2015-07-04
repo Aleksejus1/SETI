@@ -19,11 +19,13 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <commdlg.h>
+#include "functions.h"
 
-character::character(){
-    addStat("Health",  40,0);
-    addStat("Attack",  60,0);
-    addStat("Strength",25,0);
+character::character(functions* fp):
+inventory(fp){
+    addStat("Health",  0,0);
+    addStat("Attack",  160,0);
+    addStat("Strength",125,0);
     addStat("Agility", 31,0);
     addStat("Intel",   20,0);
 }
@@ -91,6 +93,5 @@ void character::addStatAddition(int addition, std::string statName){
     int statId=findStat(statName);
     if(statId!=-1){
         stats[statId].levelAddition+=addition;
-        stats[statId].levelTotal=stats[statId].levelBase+stats[statId].levelAddition;
     }
 }

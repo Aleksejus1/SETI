@@ -52,6 +52,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="SDL2_rotozoom.h" />
+		<Unit filename="Texolder.cpp" />
+		<Unit filename="Texolder.h" />
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
 		<Unit filename="characterSpace.cpp" />
@@ -62,8 +64,6 @@
 		<Unit filename="event.h" />
 		<Unit filename="functions.cpp" />
 		<Unit filename="functions.h" />
-		<Unit filename="functionsR.cpp" />
-		<Unit filename="functionsR.h" />
 		<Unit filename="gather.cpp" />
 		<Unit filename="gather.h" />
 		<Unit filename="info.cpp" />
@@ -78,6 +78,8 @@
 		<Unit filename="keyboard.h" />
 		<Unit filename="layer.cpp" />
 		<Unit filename="layer.h" />
+		<Unit filename="libs.cpp" />
+		<Unit filename="libs.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="map.cpp" />
 		<Unit filename="map.h" />
@@ -97,8 +99,6 @@
 		<Unit filename="userInterface.h" />
 		<Unit filename="variables.cpp" />
 		<Unit filename="variables.h" />
-		<Unit filename="variablesR.cpp" />
-		<Unit filename="variablesR.h" />
 		<Unit filename="zone.cpp" />
 		<Unit filename="zone.h" />
 		<Extensions>

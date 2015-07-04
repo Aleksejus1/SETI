@@ -4081,7 +4081,7 @@
 1434885529 source:c:\programming\c++\sdl projects\sp [summer-project]\variablesr.cpp
 	"variablesR.h"
 
-1435087560 source:c:\programming\c++\sdl projects\seti\character.cpp
+1435410129 source:c:\programming\c++\sdl projects\seti\character.cpp
 	"character.h"
 	"entity.h"
 	"SDL.h"
@@ -4103,193 +4103,49 @@
 	<sys/stat.h>
 	<sys/types.h>
 	<commdlg.h>
+	"functions.h"
 
-1434817544 c:\programming\c++\sdl projects\seti\character.h
+1436017696 c:\programming\c++\sdl projects\seti\character.h
+	"libs.h"
 	"entity.h"
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
 	"characterSpace.h"
 
-1434797975 c:\programming\c++\sdl projects\seti\entity.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008365 c:\programming\c++\sdl projects\seti\entity.h
+	"libs.h"
 	"skill.h"
 	"layer.h"
 
-1433014711 c:\programming\c++\sdl projects\seti\skill.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008594 c:\programming\c++\sdl projects\seti\skill.h
+	"libs.h"
 
-1434820615 c:\programming\c++\sdl projects\seti\layer.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
-	"SDL_opengl.h"
-	"GL\gl.h"
-	"GL\GLU.h"
+1436008215 c:\programming\c++\sdl projects\seti\layer.h
+	"libs.h"
 
-1435086610 c:\programming\c++\sdl projects\seti\characterspace.h
+1435410072 c:\programming\c++\sdl projects\seti\characterspace.h
 	"space.h"
+	"Texolder.h"
 
-1435004567 c:\programming\c++\sdl projects\seti\space.h
+1436017602 c:\programming\c++\sdl projects\seti\space.h
+	"libs.h"
 	"itemStack.h"
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
 	"layer.h"
 	"objects.h"
 
-1434803530 c:\programming\c++\sdl projects\seti\itemstack.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008512 c:\programming\c++\sdl projects\seti\itemstack.h
+	"libs.h"
 	"item.h"
 
-1434532513 c:\programming\c++\sdl projects\seti\item.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008494 c:\programming\c++\sdl projects\seti\item.h
+	"objects.h"
 	"layer.h"
 
-1433264743 c:\programming\c++\sdl projects\seti\objects.h
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
+1436008581 c:\programming\c++\sdl projects\seti\objects.h
+	"libs.h"
 	"layer.h"
 
-1434530118 source:c:\programming\c++\sdl projects\seti\characterspace.cpp
+1435410054 source:c:\programming\c++\sdl projects\seti\characterspace.cpp
 	"characterSpace.h"
+	"functions.h"
 
 1433013497 source:c:\programming\c++\sdl projects\seti\entity.cpp
 	"entity.h"
@@ -4335,203 +4191,48 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1433319434 c:\programming\c++\sdl projects\seti\event.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008376 c:\programming\c++\sdl projects\seti\event.h
+	"libs.h"
 	"info.h"
 
-1433073807 c:\programming\c++\sdl projects\seti\info.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008468 c:\programming\c++\sdl projects\seti\info.h
+	"libs.h"
 
-1435087794 source:c:\programming\c++\sdl projects\seti\functions.cpp
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436018983 source:c:\programming\c++\sdl projects\seti\functions.cpp
 	"functions.h"
-	"variables.h"
-	"layer.h"
-	"spell.h"
-	"SDL2_rotozoom.h"
-	"functionsR.h"
 
-1435081736 c:\programming\c++\sdl projects\seti\functions.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436015573 c:\programming\c++\sdl projects\seti\functions.h
+	"libs.h"
 	"layer.h"
 	"variables.h"
 	"spell.h"
+	"gather.h"
 	"stage.h"
-	"SDL_opengl.h"
-	"GL\GLU.h"
-	"variablesR.h"
 
-1435081076 c:\programming\c++\sdl projects\seti\variables.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436011145 c:\programming\c++\sdl projects\seti\variables.h
+	"libs.h"
 	"character.h"
 	"keyboard.h"
 	"info.h"
 	"spell.h"
 	"item.h"
 	"userInterface.h"
-	"SDL_opengl.h"
-	"GL\GLU.h"
-	<cstdlib>
+	"Texolder.h"
+	"map.h"
 
-1433082052 c:\programming\c++\sdl projects\seti\keyboard.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008519 c:\programming\c++\sdl projects\seti\keyboard.h
+	"libs.h"
 
-1433671250 c:\programming\c++\sdl projects\seti\spell.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008628 c:\programming\c++\sdl projects\seti\spell.h
+	"libs.h"
 	"layer.h"
 
-1435004567 c:\programming\c++\sdl projects\seti\userinterface.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008653 c:\programming\c++\sdl projects\seti\userinterface.h
+	"libs.h"
 	"layer.h"
-	"SDL_opengl.h"
-	"GL\gl.h"
-	"GL\GLU.h"
+	"Texolder.h"
 
-1433322511 c:\programming\c++\sdl projects\seti\stage.h
+1436008635 c:\programming\c++\sdl projects\seti\stage.h
 	"layer.h"
 
 1434885531 c:\programming\c++\sdl projects\seti\variablesr.h
@@ -4554,27 +4255,9 @@
 	"stage.h"
 	"itemStack.h"
 
-1433075421 c:\programming\c++\sdl projects\seti\interact.h
+1436008486 c:\programming\c++\sdl projects\seti\interact.h
+	"libs.h"
 	"objects.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
 	"event.h"
 
 1433073812 source:c:\programming\c++\sdl projects\seti\info.cpp
@@ -4710,130 +4393,29 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1435082495 source:c:\programming\c++\sdl projects\seti\main.cpp
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436018372 source:c:\programming\c++\sdl projects\seti\main.cpp
+	"libs.h"
 	"functions.h"
 	"map.h"
-	"SDL_opengl.h"
-	"GL\gl.h"
-	"GL\GLU.h"
-	"functionsR.h"
 
-1433322558 c:\programming\c++\sdl projects\seti\map.h
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436010826 c:\programming\c++\sdl projects\seti\map.h
+	"libs.h"
 	"interact.h"
 	"objects.h"
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
 	"zone.h"
-	"functions.h"
 	"mobSpawner.h"
 	"layer.h"
 	"gather.h"
 
-1433007697 c:\programming\c++\sdl projects\seti\zone.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008672 c:\programming\c++\sdl projects\seti\zone.h
+	"libs.h"
 
-1433014738 c:\programming\c++\sdl projects\seti\mobspawner.h
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
+1436008568 c:\programming\c++\sdl projects\seti\mobspawner.h
+	"libs.h"
 	"entity.h"
 
-1434665981 source:c:\programming\c++\sdl projects\seti\map.cpp
+1436010840 source:c:\programming\c++\sdl projects\seti\map.cpp
 	"map.h"
-	<tchar.h>
-	<windows.h>
-	<stdio.h>
-	<string>
-	<memory.h>
-	<fstream>
-	<sstream>
-	<iostream>
-	<vector>
-	<cmath>
-	<dirent.h>
-	<unistd.h>
-	<sys/stat.h>
-	<sys/types.h>
-	<commdlg.h>
-	"interact.h"
-	"objects.h"
-	"functions.h"
-	"variables.h"
-	"SDL.h"
-	"SDL_image.h"
-	"SDL_ttf.h"
-	"SDL_syswm.h"
-	"zone.h"
 
 1433014705 source:c:\programming\c++\sdl projects\seti\mobspawner.cpp
 	"mobSpawner.h"
@@ -4956,7 +4538,7 @@
 1433277659 source:c:\programming\c++\sdl projects\seti\stage.cpp
 	"stage.h"
 
-1434720481 source:c:\programming\c++\sdl projects\seti\userinterface.cpp
+1435396393 source:c:\programming\c++\sdl projects\seti\userinterface.cpp
 	"userInterface.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -4978,7 +4560,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434885582 source:c:\programming\c++\sdl projects\seti\variables.cpp
+1435410393 source:c:\programming\c++\sdl projects\seti\variables.cpp
 	"variables.h"
 	"SDL.h"
 	"SDL_image.h"
@@ -5027,4 +4609,42 @@
 	<sys/stat.h>
 	<sys/types.h>
 	<commdlg.h>
+
+1436008186 c:\programming\c++\sdl projects\seti\texolder.h
+	"libs.h"
+	"layer.h"
+
+1436018023 source:c:\programming\c++\sdl projects\seti\texolder.cpp
+	"Texolder.h"
+	"functions.h"
+	<algorithm>
+
+1436008107 c:\programming\c++\sdl projects\seti\libs.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_ttf.h"
+	"SDL_syswm.h"
+	<tchar.h>
+	<windows.h>
+	<stdio.h>
+	<string>
+	<memory.h>
+	<fstream>
+	<sstream>
+	<iostream>
+	<vector>
+	<cmath>
+	<dirent.h>
+	<unistd.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<commdlg.h>
+	"SDL2_rotozoom.h"
+	"SDL_opengl.h"
+	"GL\gl.h"
+	"GL\GLU.h"
+	<cstdlib>
+
+1436007842 source:c:\programming\c++\sdl projects\seti\libs.cpp
+	"libs.h"
 

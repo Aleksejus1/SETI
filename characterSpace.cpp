@@ -1,6 +1,8 @@
 #include "characterSpace.h"
+#include "functions.h"
 
-characterSpace::characterSpace(){
+characterSpace::characterSpace(functions* fp):
+txl(fp){
     for(int i=0; i<equipmentCount; i++){
         switch(i){
             case 0: equipmentAll[i]=&equipmentHandRight; equipmentAll[i]->typeName="weapon";    equipmentAll[i]->x=0; equipmentAll[i]->y=0; break;

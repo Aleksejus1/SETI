@@ -1,31 +1,24 @@
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_syswm.h"
-#include <tchar.h>
-#include <windows.h>
-#include <stdio.h>
-#include <string>
-#include <memory.h>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <dirent.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <commdlg.h>
 #include "functions.h"
-#include "variables.h"
-#include "layer.h"
-#include "spell.h"
-#include "SDL2_rotozoom.h"
-#include "functionsR.h"
 
-functions::functions(functionsR* fR){
-    f=fR;
+functions::functions():
+UI(this),
+player(this){
+    UI.all[0]->update=&player.updateHealth;     UI.all[0]->countAmount=&player.healthPoints;     UI.all[0]->max_countAmount=&player.healthPointsMax;
+    UI.all[1]->update=&player.updateMana;       UI.all[1]->countAmount=&player.manaPoints;       UI.all[1]->max_countAmount=&player.manaPointsMax;
+    UI.all[2]->update=&player.updateExperience; UI.all[2]->countAmount=&player.experiencePoints; UI.all[2]->max_countAmount=&player.experienceRequiredForNextLevel;
+    UI.bar_green.update=&player.updateType;
+    UI.level.update=&player.updateLevel; UI.level.countAmount=&player.level;
+    player.healthPointsMax=999.0;
+    player.addHealth(player.healthPointsMax-333);
+    player.manaPointsMax=820.0;
+    player.addMana(player.manaPointsMax-800);
+    player.experienceRequiredForNextLevel=100.0;
+    player.addExperience(125.0);
+    player.location.x=320;//sets the starting x position of the player
+    player.location.y=420;//sets the starting y position of the player
+    player.map_location=1;//sets the starting map id of the player
+    player.inventory.addItemStacks((2+8)*4+2);
+    player.setType("EGYPTIAN WARRIOR");
     addColor(0,0,0);
     addColor(255,0,0);
     addColor(0,255,0);
@@ -94,144 +87,203 @@ void functions::loadMedia(){
         createImage("qpm\\progressBarInside.png","progressBarInside");
     }
     if(true){//create UI
-        if(true){//create Battle UI
-            createImage("qpm\\BattleUI.png","battleUI");
-            images[images.size()-1].image.setZoom((float)SCREEN_WIDTH/(float)images[images.size()-1].image.surface->w);
+    if(true){//create Battle UI
+        createImage("qpm\\BattleUI.png","battleUI");
+        images[images.size()-1].image.setZoom((float)SCREEN_WIDTH/(float)images[images.size()-1].image.surface->w);
+    }
+    if(true){//create Character UI
+        loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
+            UI.characterUI.setZoom(characterUiZoom);
+        loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red.bar);
+            UI.bar_red.bar.setZoom(characterUiZoom);
+                UI.bar_red.bar.location.x=UI.characterUI.w*360/1113;
+                UI.bar_red.bar.location.y=UI.characterUI.h*192/471;
+        loadImage("Graphics\\Top Left UI\\blue_bar.png",UI.bar_blue.bar);
+            UI.bar_blue.bar.setZoom(characterUiZoom);
+                UI.bar_blue.bar.location.x=UI.characterUI.w*360/1113;
+                UI.bar_blue.bar.location.y=UI.characterUI.h*237/471;
+        loadImage("Graphics\\Top Left UI\\grey_bar.png",UI.bar_grey.bar);
+            UI.bar_grey.bar.setZoom(characterUiZoom);
+                UI.bar_grey.bar.location.x=UI.characterUI.w*360/1113;
+                UI.bar_grey.bar.location.y=UI.characterUI.h*281/471;
+        loadImage("Graphics\\Top Left UI\\green_bar.png",UI.bar_green.bar);
+            UI.bar_green.bar.setZoom(characterUiZoom);
+                UI.bar_green.bar.location.x=UI.characterUI.w*387/1113;
+                UI.bar_green.bar.location.y=UI.characterUI.h*343/471;
+        loadImage("Graphics\\Top Left UI\\empty_bar.png",UI.bar_empty);
+            UI.bar_empty.setZoom(characterUiZoom);
+    }
+    if(true){//create Inventory Interface
+        int scrollBarEndingY;
+        if(true){//set some values
+            player.inventory.slotsInOneRow=4;
+            player.inventory.rowsInInventory=player.inventory.itemStacks.size()/player.inventory.slotsInOneRow;
+            if(player.inventory.itemStacks.size()%player.inventory.slotsInOneRow!=0) player.inventory.rowsInInventory++;
+            player.inventory.distanceBetweenStats=player.inventory.zoom*144;
+            player.inventory.closeLocation.x=player.inventory.zoom*2120;
+            player.inventory.closeLocation.y=player.inventory.zoom*105;
+            player.inventory.statTopLeftLocation.x=player.inventory.zoom*215;
+            player.inventory.statTopLeftLocation.y=player.inventory.zoom*1516;
+            player.inventory.slotLocationTopLeft.x=player.inventory.zoom*1298;
+            player.inventory.slotLocationTopLeft.y=player.inventory.zoom*185;
+            player.inventory.distanceBetweenSlots=player.inventory.zoom*267;
+            player.inventory.distanceBetweenEquipmentSlots=player.inventory.zoom*264;
+            player.inventory.equipmentTopLeftLocation.x=player.inventory.zoom*297;
+            player.inventory.equipmentTopLeftLocation.y=player.inventory.zoom*181;
+            scrollBarEndingY=player.inventory.zoom*2251;
         }
-        if(true){//create Character UI
-            loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
-                UI.characterUI.setZoom(characterUiZoom);
-            loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red.bar);
-                UI.bar_red.bar.setZoom(characterUiZoom);
-                    UI.bar_red.bar.location.x=UI.characterUI.w*360/1113;
-                    UI.bar_red.bar.location.y=UI.characterUI.h*192/471;
-            loadImage("Graphics\\Top Left UI\\blue_bar.png",UI.bar_blue.bar);
-                UI.bar_blue.bar.setZoom(characterUiZoom);
-                    UI.bar_blue.bar.location.x=UI.characterUI.w*360/1113;
-                    UI.bar_blue.bar.location.y=UI.characterUI.h*237/471;
-            loadImage("Graphics\\Top Left UI\\grey_bar.png",UI.bar_grey.bar);
-                UI.bar_grey.bar.setZoom(characterUiZoom);
-                    UI.bar_grey.bar.location.x=UI.characterUI.w*360/1113;
-                    UI.bar_grey.bar.location.y=UI.characterUI.h*281/471;
-            loadImage("Graphics\\Top Left UI\\green_bar.png",UI.bar_green.bar);
-                UI.bar_green.bar.setZoom(characterUiZoom);
-                    UI.bar_green.bar.location.x=UI.characterUI.w*387/1113;
-                    UI.bar_green.bar.location.y=UI.characterUI.h*343/471;
-            loadImage("Graphics\\Top Left UI\\empty_bar.png",UI.bar_empty);
-                UI.bar_empty.setZoom(characterUiZoom);
-        }
-        if(true){//create Inventory Interface
-            if(true){//load images
-                std::string prePath="Graphics\\equipment ui slice\\";
-                std::string endingPath=".png";
-                for(int i=0; i<player.inventory.equipmentCount; i++){
-                    loadImage(prePath+player.inventory.equipmentAll[i]->typeName+endingPath,player.inventory.equipmentAll[i]->image);
-                        player.inventory.equipmentAll[i]->image.setZoom(player.inventory.zoom);
-                }
-                loadImage(prePath+"scroll_bubble"+endingPath,player.inventory.imageScrollBar);
-                    player.inventory.imageScrollBar.setZoom(player.inventory.zoom);
-                loadImage(prePath+"scroll_bar"+endingPath,player.inventory.imageScrollBubble);
-                    player.inventory.imageScrollBubble.setZoom(player.inventory.zoom);
-                loadImage(prePath+"inventory_slot"+endingPath,player.inventory.imageInventorySlot[0]);
-                    player.inventory.imageInventorySlot[0].setZoom(player.inventory.zoom);
-                loadImage(prePath+"inventory_slot_pressed"+endingPath,player.inventory.imageInventorySlot[1]);
-                    player.inventory.imageInventorySlot[1].setZoom(player.inventory.zoom);
-                loadImage(prePath+"main_body"+endingPath,player.inventory.imageMain);
-                    player.inventory.imageMain.setZoom(player.inventory.zoom);
-                for(int i=0; i<player.stats.size(); i++){
-                    loadImage(prePath+"abilities\\"+toString(i+1)+endingPath,player.stats[i].image);
-                        player.stats[i].image.setZoom(player.inventory.zoom);
-                }
-                for(int i=0; i<4; i++){
-                    std::string color;
-                    int type=0;
-                    switch(i){
-                        case 0: color="green";  type=1; break;
-                        case 1: color="grey";   type=1; break;
-                        case 2: color="blue";   break;
-                        case 3: color="orange"; break;
-                    }
-                    characterSpace::bars bar;
-                    int zoomMulti=2.5;
-                    if(type==0){
-                        loadImage(prePath+"bars\\"+color+" gradient"+endingPath,bar.gradient);
-                            bar.gradient.setZoom(player.inventory.zoom*zoomMulti);
-                        bar.gradient.textureOpenGL=convertSurfaceToOpenGLTexture(bar.gradient.surface);
-                    }
-                    loadImage(prePath+"bars\\"+color+" left"+endingPath,bar.left);
-                    loadImage(prePath+"bars\\"+color+" mid"+endingPath,bar.mid);
-                    loadImage(prePath+"bars\\"+color+" right"+endingPath,bar.right);
-                    createSurface(&bar.full.surface,bar.left.surface->w+bar.right.surface->w+444*player.inventory.zoom,bar.mid.surface->h);
-                    copySurface(bar.left.surface,bar.full.surface,bar.left.surface->clip_rect);
-                    copySurface(bar.right.surface,bar.full.surface,bar.right.surface->clip_rect,bar.full.surface->w-bar.right.surface->w,0);
-                    for(int i=0; i<bar.full.surface->w-bar.left.surface->w-bar.right.surface->w; i++) copySurface(bar.mid.surface,bar.full.surface,bar.mid.surface->clip_rect,bar.left.surface->w+i,0);
-                    bar.full.textureOpenGL=convertSurfaceToOpenGLTexture(bar.full.surface);
-                    bar.full.setHeightZoom(player.inventory.zoom*zoomMulti);
-                    if(i!=0) player.inventory.statsBar.push_back(bar);
-                    else player.inventory.additionBar=bar;
-                }
+        if(true){//load images
+            std::string prePath="Graphics\\equipment ui slice\\";
+            std::string endingPath=".png";
+            for(int i=0; i<player.inventory.equipmentCount; i++){
+                loadImage(prePath+player.inventory.equipmentAll[i]->typeName+endingPath,player.inventory.equipmentAll[i]->image);
+                    player.inventory.equipmentAll[i]->image.setZoom(player.inventory.zoom);
             }
-            if(true){//calculate stuff
-                player.inventory.slotsInOneRow=4;
-                player.inventory.rowsInInventory=player.inventory.itemStacks.size()/player.inventory.slotsInOneRow;
-                if(player.inventory.itemStacks.size()%player.inventory.slotsInOneRow!=0) player.inventory.rowsInInventory++;
-                player.inventory.distanceBetweenStats=player.inventory.zoom*144;
-                player.inventory.closeLocation.x=player.inventory.zoom*2120;
-                player.inventory.closeLocation.y=player.inventory.zoom*105;
-                player.inventory.statTopLeftLocation.x=player.inventory.zoom*215;
-                player.inventory.statTopLeftLocation.y=player.inventory.zoom*1516;
-                player.inventory.slotLocationTopLeft.x=player.inventory.zoom*1298;
-                player.inventory.slotLocationTopLeft.y=player.inventory.zoom*185;
-                player.inventory.distanceBetweenSlots=player.inventory.zoom*267;
-                player.inventory.distanceBetweenEquipmentSlots=player.inventory.zoom*264;
-                player.inventory.equipmentTopLeftLocation.x=player.inventory.zoom*297;
-                player.inventory.equipmentTopLeftLocation.y=player.inventory.zoom*181;
-                int scrollBarEndingY=player.inventory.zoom*2251;
-                createSurface(&player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->w,(scrollBarEndingY-player.inventory.slotLocationTopLeft.y));
-                for(int i=0; i<player.inventory.imageScrollBubbleFull.surface->h; i++) copySurface(player.inventory.imageScrollBubble.surface,player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->clip_rect,0,i);
-                player.inventory.imageScrollBubbleFull.textureOpenGL=convertSurfaceToOpenGLTexture(player.inventory.imageScrollBubbleFull.surface);
-                player.inventory.imageScrollBubbleFull.setWidthZoom(player.inventory.zoom);
-                int temp=8; int temp2;
-                if(player.inventory.rowsInInventory<=temp){
-                    temp=player.inventory.rowsInInventory;
-                    temp2=player.inventory.imageScrollBubbleFull.surface->h-1;
-                    sliderSpeed=0;
+            loadImage(prePath+"scroll_bubble"+endingPath,player.inventory.imageScrollBar);
+                player.inventory.imageScrollBar.setZoom(player.inventory.zoom);
+            loadImage(prePath+"scroll_bar"+endingPath,player.inventory.imageScrollBubble);
+                player.inventory.imageScrollBubble.setZoom(player.inventory.zoom);
+            loadImage(prePath+"inventory_slot"+endingPath,player.inventory.imageInventorySlot[0]);
+                player.inventory.imageInventorySlot[0].setZoom(player.inventory.zoom);
+            loadImage(prePath+"inventory_slot_pressed"+endingPath,player.inventory.imageInventorySlot[1]);
+                player.inventory.imageInventorySlot[1].setZoom(player.inventory.zoom);
+            loadImage(prePath+"main_body"+endingPath,player.inventory.imageMain);
+                player.inventory.imageMain.setZoom(player.inventory.zoom);
+            for(int i=0; i<(int)player.stats.size(); i++){
+                loadImage(prePath+"abilities\\"+toString(i+1)+endingPath,player.stats[i].image);
+                    player.stats[i].image.setZoom(player.inventory.zoom);
+            }
+            for(int i=0; i<4; i++){
+                std::string color;
+                int type=0;
+                switch(i){
+                    case 0: color="green";  type=1; break;
+                    case 1: color="grey";   type=1; break;
+                    case 2: color="blue";   break;
+                    case 3: color="orange"; break;
+                }
+                characterSpace::bars bar;
+                int zoomMulti=2.5;
+                if(type==0){
+                    loadImage(prePath+"bars\\"+color+" gradient"+endingPath,bar.gradient);
+                        bar.gradient.setZoom(player.inventory.zoom*zoomMulti);
+                    bar.gradient.textureOpenGL=convertSurfaceToOpenGLTexture(bar.gradient.surface);
+                }
+                loadImage(prePath+"bars\\"+color+" left"+endingPath,bar.left);
+                loadImage(prePath+"bars\\"+color+" mid"+endingPath,bar.mid);
+                loadImage(prePath+"bars\\"+color+" right"+endingPath,bar.right);
+                createSurface(&bar.full.surface,bar.left.surface->w+bar.right.surface->w+444,bar.mid.surface->h);
+                copySurface(bar.left.surface,bar.full.surface,bar.left.surface->clip_rect);
+                copySurface(bar.right.surface,bar.full.surface,bar.right.surface->clip_rect,bar.full.surface->w-bar.right.surface->w,0);
+                for(int i=0; i<bar.full.surface->w-bar.left.surface->w-bar.right.surface->w; i++) copySurface(bar.mid.surface,bar.full.surface,bar.mid.surface->clip_rect,bar.left.surface->w+i,0);
+                bar.full.textureOpenGL=convertSurfaceToOpenGLTexture(bar.full.surface);
+                bar.full.setHeightZoom(player.inventory.zoom*zoomMulti);
+                bar.full.setWidthZoom(player.inventory.zoom);
+                if(i!=0) player.inventory.statsBar.push_back(bar);
+                else player.inventory.additionBar=bar;
+            }
+            Texolder& txl=player.inventory.txl;
+            player.inventory.imageMain.from=player.inventory.imageMain.surface->clip_rect;
+            player.inventory.imageMain.to=getRect(player.inventory.location.x,player.inventory.location.y,player.inventory.imageMain.surface->w,player.inventory.imageMain.surface->h);
+            txl.addTexture(&player.inventory.imageMain,txl.addLayer("base"),"base",player.inventory.imageMain.from,player.inventory.imageMain.to);
+            txl.addLayer("slots");
+            for(int i=0; i<player.inventory.equipmentCount; i++){
+                player.inventory.equipmentAll[i]->image.from=player.inventory.equipmentAll[i]->image.surface->clip_rect;
+                player.inventory.equipmentAll[i]->image.to=getRect(player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x,player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y,player.inventory.equipmentAll[i]->image.surface->w,player.inventory.equipmentAll[i]->image.surface->h);
+                txl.addTexture(&player.inventory.equipmentAll[i]->image,txl.findLayer("slots"),player.inventory.equipmentAll[i]->typeName,player.inventory.equipmentAll[i]->image.from,player.inventory.equipmentAll[i]->image.to,"base");
+            }
+            txl.addLayer("items");
+            txl.addLayer("stats");
+            for(int i=0; i<(int)player.stats.size(); i++){
+                character::stat& ps=player.stats[i];
+                ps.image.from=ps.image.surface->clip_rect;
+                if(i!=0){
+                    ps.image.to=getRect(0,player.inventory.distanceBetweenStats,ps.image.surface->w,ps.image.surface->h);
+                    txl.addTexture(&ps.image,txl.findLayer("stats"),ps.statName+" image",ps.image.from,ps.image.to,player.stats[i-1].statName+" image");
                 }
                 else{
-                    temp2=player.inventory.imageScrollBubbleFull.surface->h/(player.inventory.rowsInInventory-temp+1);
-                    sliderSpeed=(player.inventory.imageScrollBubbleFull.surface->h-temp2)/(player.inventory.rowsInInventory-temp)/sliderCountForOneRow;
+                    ps.image.to=getRect(player.inventory.statTopLeftLocation.x,player.inventory.statTopLeftLocation.y,ps.image.surface->w,ps.image.surface->h);
+                    txl.addTexture(&ps.image,txl.findLayer("stats"),ps.statName+" image",ps.image.from,ps.image.to,"base");
                 }
-                createSurface(&player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->w,temp2);
-                for(int i=0; i<player.inventory.imageScrollBarFull.surface->h; i++) copySurface(player.inventory.imageScrollBar.surface,player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->clip_rect,0,i);
-                player.inventory.imageScrollBarFull.textureOpenGL=convertSurfaceToOpenGLTexture(player.inventory.imageScrollBarFull.surface);
-                player.inventory.imageScrollBarFull.setWidthZoom(player.inventory.zoom);
-                player.inventory.furthestPossibleSliderLocation=player.inventory.imageScrollBubbleFull.surface->h-player.inventory.imageScrollBarFull.surface->h;
-                for(int i=0; i<player.inventory.slotsInOneRow; i++) player.inventory.slotsLocationsX.push_back((player.inventory.slotLocationTopLeft.x+player.inventory.distanceBetweenSlots*i));
-                player.inventory.slotLocationBottomY=player.inventory.slotLocationTopLeft.y+7*player.inventory.distanceBetweenSlots+player.inventory.imageInventorySlot[0].w;
-                player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots)/(float)player.inventory.furthestPossibleSliderLocation;
+                ps.statNameLayer.from=getRect(0,0,0,0);
+                ps.statNameLayer.to=getRect(player.stats[i].image.w*1.5,0,0,0);
+                txl.addTexture(&ps.statNameLayer,txl.findLayer("stats"),ps.statName+" name",ps.statNameLayer.from,ps.statNameLayer.to,ps.statName+" image");
+                ps.levelBaseLayer.from=getRect(0,0,0,0);
+                ps.levelBaseLayer.to=getRect(player.stats[i].image.w*8,0,0,0);
+                txl.addTexture(&ps.levelBaseLayer,txl.findLayer("stats"),ps.statName+" level count",ps.levelBaseLayer.from,ps.levelBaseLayer.to,ps.statName+" name");
+                int id=player.stats[i].levelBase/100+1;
+                characterSpace::bars& pi=player.inventory.statsBar[id];
+                ps.mainBar.from=pi.full.surface->clip_rect;
+                ps.mainBar.to=getRect(0,0,0,pi.full.surface->h);
+                txl.addTexture(&pi.full,txl.findLayer("stats"),ps.statName+" bar main",ps.mainBar.from,ps.mainBar.to,ps.statName+" level count");
+                ps.additionBar.from=getRect(0,0,0,player.inventory.additionBar.full.surface->h);
+                ps.additionBar.to=getRect(ps.mainBar.from.w*pi.full.zoom*pi.full.zoomWidth,0,ps.additionBar.from.w,ps.additionBar.from.h);
+                txl.addTexture(&player.inventory.additionBar.full,txl.findLayer("stats"),ps.statName+" bar addition",ps.additionBar.from,ps.additionBar.to,ps.statName+" bar main");
             }
         }
-        if(true){//create Bot UI
-            loadImage("Graphics\\Bot UI\\bot_ui_frame.png",UI.botUI);
-                UI.botUI.setZoom(characterUiZoom);
-            std::string UIBotUIName;
-            for(int i=0; i<4; i++){
-                switch(i){
-                    case 0: UIBotUIName="inventory"; break;
-                    case 1: UIBotUIName="stats";     break;
-                    case 2: UIBotUIName="skills";    break;
-                    case 3: UIBotUIName="quests";    break;
-                }
-                loadImage("Graphics\\Bot UI\\icons\\"+UIBotUIName+" idle.png",UI.botUIButtons[i].state[0]);
-                    UI.botUIButtons[i].state[0].setZoom(characterUiZoom);
-                loadImage("Graphics\\Bot UI\\icons\\"+UIBotUIName+" pressed.png",UI.botUIButtons[i].state[1]);
-                    UI.botUIButtons[i].state[1].setZoom(characterUiZoom);
+        if(true){//calculate stuff
+            createSurface(&player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->w,(scrollBarEndingY-player.inventory.slotLocationTopLeft.y));
+            for(int i=0; i<player.inventory.imageScrollBubbleFull.surface->h; i++) copySurface(player.inventory.imageScrollBubble.surface,player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->clip_rect,0,i);
+            player.inventory.imageScrollBubbleFull.textureOpenGL=convertSurfaceToOpenGLTexture(player.inventory.imageScrollBubbleFull.surface);
+            player.inventory.imageScrollBubbleFull.setWidthZoom(player.inventory.zoom);
+            int temp=8; int temp2;
+            if(player.inventory.rowsInInventory<=temp){
+                temp=player.inventory.rowsInInventory;
+                temp2=player.inventory.imageScrollBubbleFull.surface->h-1;
+                sliderSpeed=0;
             }
-            UI.botUIButtonsTopLeftLocation.x=73*characterUiZoom;
-            UI.botUIButtonsTopLeftLocation.y=143*characterUiZoom;
-            UI.botUIDistanceBetweenButtons=202*characterUiZoom;
+            else{
+                temp2=player.inventory.imageScrollBubbleFull.surface->h/(player.inventory.rowsInInventory-temp+1);
+                sliderSpeed=(player.inventory.imageScrollBubbleFull.surface->h-temp2)/(player.inventory.rowsInInventory-temp)/sliderCountForOneRow;
+            }
+            createSurface(&player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->w,temp2);
+            for(int i=0; i<player.inventory.imageScrollBarFull.surface->h; i++) copySurface(player.inventory.imageScrollBar.surface,player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->clip_rect,0,i);
+            player.inventory.imageScrollBarFull.textureOpenGL=convertSurfaceToOpenGLTexture(player.inventory.imageScrollBarFull.surface);
+            player.inventory.imageScrollBarFull.setWidthZoom(player.inventory.zoom);
+            player.inventory.furthestPossibleSliderLocation=player.inventory.imageScrollBubbleFull.surface->h-player.inventory.imageScrollBarFull.surface->h;
+            for(int i=0; i<player.inventory.slotsInOneRow; i++) player.inventory.slotsLocationsX.push_back((player.inventory.slotLocationTopLeft.x+player.inventory.distanceBetweenSlots*i));
+            player.inventory.slotLocationBottomY=player.inventory.slotLocationTopLeft.y+7*player.inventory.distanceBetweenSlots+player.inventory.imageInventorySlot[0].w;
+            player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots)/(float)player.inventory.furthestPossibleSliderLocation;
         }
-        if(true){//create Top UI
+    }
+    if(true){//create Bot UI
+        UI.botUIButtonsTopLeftLocation.x=73*characterUiZoom;
+        UI.botUIButtonsTopLeftLocation.y=143*characterUiZoom;
+        UI.botUIDistanceBetweenButtons=202*characterUiZoom;
+        loadImage("Graphics\\Bot UI\\bot_ui_frame.png",UI.botUI);
+            UI.botUI.setZoom(characterUiZoom);
+        UI.botUI.from=UI.botUI.surface->clip_rect;
+        UI.botUI.to=getRect((SCREEN_WIDTH-UI.botUI.w)/2,SCREEN_HEIGHT-UI.botUI.h,UI.botUI.surface->w,UI.botUI.surface->h);
+        UI.botUItxl.addTexture(&UI.botUI,UI.botUItxl.addLayer("base"),"base",UI.botUI.from,UI.botUI.to);
+        std::string UIBotUIName;
+        UI.botUItxl.addLayer("icons");
+        for(int i=0; i<4; i++){
+            switch(i){
+                case 0: UIBotUIName="inventory"; break;
+                case 1: UIBotUIName="stats";     break;
+                case 2: UIBotUIName="skills";    break;
+                case 3: UIBotUIName="quests";    break;
+            }
+            loadImage("Graphics\\Bot UI\\icons\\"+UIBotUIName+" idle.png",UI.botUIButtons[i].state[0]);
+                UI.botUIButtons[i].state[0].setZoom(characterUiZoom);
+            UI.botUIButtons[i].state[0].from=UI.botUIButtons[i].state[0].surface->clip_rect;
+            UI.botUIButtons[i].state[0].to=getRect(UI.botUIButtonsTopLeftLocation.x+i*UI.botUIDistanceBetweenButtons,
+                                                   UI.botUIButtonsTopLeftLocation.y,
+                                                   UI.botUIButtons[i].state[0].surface->w,
+                                                   UI.botUIButtons[i].state[0].surface->h);
+            UI.botUItxl.addTexture(&UI.botUIButtons[i].state[0],
+                                   UI.botUItxl.findLayer("icons"),
+                                   UIBotUIName,
+                                   UI.botUIButtons[i].state[0].from,
+                                   UI.botUIButtons[i].state[0].to
+                                   ,"base"
+                                   );
+            loadImage("Graphics\\Bot UI\\icons\\"+UIBotUIName+" pressed.png",UI.botUIButtons[i].state[1]);
+                UI.botUIButtons[i].state[1].setZoom(characterUiZoom);
+        }
+
+    }
+    if(true){//create Top UI
             loadImage("Graphics\\top menu buttons\\reflection below.png",UI.topUIReflection);
                 UI.topUIReflection.setZoom(characterUiZoom);
             std::string UITopUIName;
@@ -283,6 +335,71 @@ void functions::loadMedia(){
         messageSlash.textureOpenGL=convertSurfaceToOpenGLTexture(messageSlash.surface);
         RenderType=RENDER_MIPMAP;
     }
+    if(true){//create maps
+        interact *interPnt; gather* gatherPnt; int mapId; stage* stagePnt;
+
+        createMap("Place holder", "error");
+
+        createMap("The first map ever", "First"); mapId=maps.size()-1;
+        createLayer(mapId,"qpm\\secret.png");
+        createLayer(mapId,"qpm\\bc.png");
+        createLayer(mapId,"qpm\\Roks.png");
+        interPnt=createInteractable(mapId,"qpm\\caveEntrance.png",600,400,false);
+        interPnt->events.createEnterEvent(2,320,420);
+        interPnt=createInteractable(mapId,"qpm\\caveEntrance.png",1000,400,false);
+        interPnt->events.createEnterEvent(2,1080,480);
+        interPnt=createInteractable(mapId,"qpm\\battle_trigger.png",300,440,50,50,false);
+        //addEnemyId("debug_1"); addEnemyId("debug_2"); addEnemyId("debug_3"); addEnemyId("debug_4"); addEnemyId("debug_5");
+        addEnemyId("Zombie"); addEnemyId("Zombie"); addEnemyId("Zombie_mini"); addEnemyId("Zombie"); addEnemyId("Zombie");
+        interPnt->events.createBattleEvent(0,battleEnemiesIds);
+        interPnt=createInteractable(mapId,"qpm\\battle_trigger.png",160,240,50,50,false);
+        interPnt->events.createEnterEvent(1,320,420);
+        gatherPnt=createGatherable(mapId,500,320,false,1,0,"harvesting");
+        gatherPnt->events.createGatherEvent(maps[mapId].gatherable.size()-1);
+        addGatherableReturnItemStack(1,items[findItem("Berry")],*gatherPnt);
+        stagePnt=addStage(-1,true,true,"qpm\\bush_full.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        stagePnt=addStage(1,false,false,"qpm\\bush_half.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        stagePnt=addStage(1,true,false,"qpm\\bush_empty.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+
+        createMap("The second map", "Caves"); mapId=maps.size()-1;
+        createLayer(mapId,"qpm\\secret2.png");
+        createLayer(mapId,"qpm\\bc2.png");
+        interPnt=createInteractable(mapId,"qpm\\caveEntrance.png",300,440,false);
+        interPnt->events.createEnterEvent(1,620,380);
+        interPnt=createInteractable(mapId,"qpm\\caveEntrance.png",1060,500,false);
+        interPnt->events.createEnterEvent(1,1020,380);
+        gatherPnt=createGatherable(mapId,150,300,false,1,0,"shitGathering");
+        gatherPnt->events.createGatherEvent(maps[mapId].gatherable.size()-1);
+        addGatherableReturnItemStack(1,items[findItem("Poop")],*gatherPnt);
+        stagePnt=addStage(-1,true,true,"qpm\\poop_full.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        stagePnt=addStage(1,false,false,"qpm\\poop_full2.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        stagePnt=addStage(1,false,false,"qpm\\poop_half.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        stagePnt=addStage(1,false,false,"qpm\\poop_half2.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        stagePnt=addStage(1,false,false,"qpm\\poop_empty.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        stagePnt=addStage(1,true,false,"qpm\\poop_empty2.png",*gatherPnt);
+            stagePnt->image.setZoom((float)50/(float)stagePnt->image.surface->h);
+        //ending point
+        ammountOfMaps=maps.size();
+    }
+    if(true){//create battle zones
+        int mapId;
+        createBattleZone("The third map", "Pyramids_So_Real",
+                         0,0,   0,0,   320,500,   0,0,   0,0,
+                         786,533,  797,675,  933,597,  1095,558,  1086,666
+                         //393,419,   431,456,   315,387,   387,483,   360,519
+                         ); mapId=maps.size()-1;
+        createLayer(mapId,"qpm\\pyramids_secret.png");
+        createLayer(mapId,"qpm\\bc3.png");
+        createLayer(mapId,"qpm\\pyramids_transparent.png");
+    }
     }
     else{
         loadImage("qpm\\poop_full.png",imageOpenGL);
@@ -290,9 +407,130 @@ void functions::loadMedia(){
     }
 }
 
+map* functions::createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0){
+    map &mapRef=*createMap(name,id);
+    SDL_Point location;
+    location.x=x1; location.y=y1; mapRef.platforms.push_back(location);
+    location.x=x2; location.y=y2; mapRef.platforms.push_back(location);
+    location.x=x3; location.y=y3; mapRef.platforms.push_back(location);
+    location.x=x4; location.y=y4; mapRef.platforms.push_back(location);
+    location.x=x5; location.y=y5; mapRef.platforms.push_back(location);
+    location.x=x6; location.y=y6; mapRef.platforms.push_back(location);
+    location.x=x7; location.y=y7; mapRef.platforms.push_back(location);
+    location.x=x8; location.y=y8; mapRef.platforms.push_back(location);
+    location.x=x9; location.y=y9; mapRef.platforms.push_back(location);
+    location.x=x0; location.y=y0; mapRef.platforms.push_back(location);
+    return &mapRef;
+}
+map* functions::createMap(std::string name, std::string id){
+    map map_temp;
+    map_temp.name=name;
+    map_temp.id=id;
+    maps.push_back(map_temp);
+    return &maps[maps.size()-1];
+}
+void functions::addGatherableReturnItemStack(int itemCount,item containingItem,gather &gatherableTypeVar){
+    itemStack itemStack_temp;
+    itemStack_temp.itemCount=itemCount;
+    itemStack_temp.containingItem=containingItem;
+    gatherableTypeVar.returnItems.push_back(itemStack_temp);
+}
+gather* functions::createGatherable(int mapId, int gatherableLocationX, int gatherableLocationY, bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName){
+    //also need to call createEvent function, addStage function, addGatherableReturnItemStack
+    gather gather_temp;
+    gather_temp.colidable=colidable;
+    gather_temp.gatherTime=gatherTime;
+    gather_temp.requiredLevel=requiredLevel;
+    gather_temp.requiredSkillName=requiredSkillName;
+    gather_temp.location.x=gatherableLocationX;
+    gather_temp.location.y=gatherableLocationY;
+    map &mapRef=maps[mapId];
+    mapRef.gatherable.push_back(gather_temp);
+    return &mapRef.gatherable[mapRef.gatherable.size()-1];
+}
+stage* functions::addStage(float timeUntilNextStage, bool isItAShortcutStage, bool isItGatherable, std::string imagePath,gather &gatherableTypeVar){
+    stage stage_temp;
+    if(loadImage(imagePath,stage_temp.image)==0){
+        stage_temp.timeUntilNextStage=timeUntilNextStage;
+        stage_temp.shortcut=isItAShortcutStage;
+        stage_temp.isItGatherable=isItGatherable;
+        gatherableTypeVar.stages.push_back(stage_temp);
+        return &gatherableTypeVar.stages[gatherableTypeVar.stages.size()-1];
+    }
+    else error("The program was unable to create an interactable. [Info: "+
+               toString(timeUntilNextStage)+"=timeUntilNextStage"+";\n"+
+               "isItAShortcutStage="+toString(isItAShortcutStage)+";\n"+
+               "imagePath="+imagePath+";\n"+
+               "]");
+    return NULL;
+}
+void functions::createZone(int mapId, std::string owner, std::string zoneName){
+    zone zone_temp;
+    map &mapRef=maps[mapId];
+    if(mapRef.layers.size()>0) {
+        zone_temp.id=getZoneId(mapRef.layers[0].surface);
+        if(zone_temp.id!=-1){
+            zone_temp.owner=owner;
+            zone_temp.name=zoneName;
+            zone_temp.color=getColor(zone_temp.id);
+            mapRef.zones.push_back(zone_temp);
+        }
+        else error("The program was unable to create a zone. [Info: owner="+owner+"; zoneName="+zoneName+";");
+    }
+    else error("The program was unable to create a zone, because the map has no layers;");
+}
+interact* functions::createInteractable(int mapId, std::string imagePath, int interactableLocationX, int interactableLocationY, bool isInteractableColidable){
+    interact interactable_temp;
+    if(loadImage(imagePath,interactable_temp)==0){
+        interactable_temp.colidable=isInteractableColidable;
+        interactable_temp.location.x=interactableLocationX;
+        interactable_temp.location.y=interactableLocationY;
+        map &mapRef=maps[mapId];
+        mapRef.interactable.push_back(interactable_temp);
+        return &mapRef.interactable[mapRef.interactable.size()-1];
+    }
+    else error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+toString(interactableLocationX)+"; y="+toString(interactableLocationY)+"; colidable="+toString(isInteractableColidable)+";]");
+    return NULL;
+}
+interact* functions::createInteractable(int mapId, std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable){
+    interact interactable_temp;
+    if(loadImage(imagePath,interactable_temp)==0){
+        interactable_temp.colidable=isInteractableColidable;
+        interactable_temp.location.x=interactableLocationX;
+        interactable_temp.location.y=interactableLocationY;
+        interactable_temp.setHeightZoom((float)h/(float)interactable_temp.surface->h);
+        interactable_temp.setWidthZoom((float)w/(float)interactable_temp.surface->w);
+        map &mapRef=maps[mapId];
+        mapRef.interactable.push_back(interactable_temp);
+        return &mapRef.interactable[mapRef.interactable.size()-1];
+    }
+    else error("The program was unable to create an interactable. [Info: imagePath="+imagePath+"; x="+toString(interactableLocationX)+"; y="+toString(interactableLocationY)+"; colidable="+toString(isInteractableColidable)+";]");
+    return NULL;
+}
+void functions::createObject(int mapId, std::string imagePath, int objectLocationX, int objectLocationY, bool isObjectColidable){
+    objects object_temp;
+    if(loadImage(imagePath,object_temp)==0){
+        object_temp.location.x=objectLocationX;
+        object_temp.location.y=objectLocationY;
+        object_temp.colidable=isObjectColidable;
+        map &mapRef=maps[mapId];
+        mapRef.object.push_back(object_temp);
+    }
+    else error("The program was unable to create an object. [Info: imagePath="+imagePath+"; objectLocationX="+toString(objectLocationX)+"; objectLocationY="+toString(objectLocationY)+"; isObjectColidable="+toString(isObjectColidable)+";");
+}
+void functions::createLayer(int mapId, std::string imagePath){
+    layer layer_temp;
+    if(loadImage(imagePath,layer_temp)==0){
+        layer_temp.setHeightZoom((float)SCREEN_HEIGHT/(float)layer_temp.surface->h);
+        layer_temp.setWidthZoom((float)SCREEN_WIDTH/(float)layer_temp.surface->w);
+        map &mapRef=maps[mapId];
+        mapRef.layers.push_back(layer_temp);
+    }
+    else error("The program was unable to create a layer. [Info: imagePath="+imagePath+";");
+}
 void functions::sendMessageToConsole(std::string message){
     bool test=false;
-    for(int i=0; i<consoleMessages.textInfo.size(); i++){
+    for(int i=0; i<(int)consoleMessages.textInfo.size(); i++){
         if(consoleMessages.textInfo[i].substr(0,message.size())==message){
             int temp=atoi(consoleMessages.textInfo[i].substr(message.size()+2,consoleMessages.textInfo[i].size()-message.size()).c_str())+1;
             consoleMessages.textInfo[i]=consoleMessages.textInfo[i].substr(0,message.size());
@@ -337,7 +575,7 @@ void functions::console(){
                 consoleMsgP->update=false;
                 SDL_FreeSurface(consoleMsgP->surface); consoleMsgP->surface=NULL;
                 createSurface(&consoleMsgP->surface,width,height);
-                for(int o=0; o<consoleMsgP->textInfo.size(); o++){
+                for(int o=0; o<(int)consoleMsgP->textInfo.size(); o++){
                     consoleSurface=TTF_RenderText_Blended(font,(consoleMsgP->textInfo[o]).c_str(),messageColor);
                     switch(i){
                         case 0: copySurface(consoleSurface,consoleMsgP->surface,consoleSurface->clip_rect,0,consoleSurface->h*o); break;
@@ -404,8 +642,8 @@ void functions::reset(){
 }
 void functions::affectStats(item* itemOfWhichEffectsToUse, bool trueForGivingStats_falseForRemovingStats){
     int multi=1; if(!trueForGivingStats_falseForRemovingStats) multi=-1;
-    for(int i=0; i<itemOfWhichEffectsToUse->affectedStats.size(); i++){//go through all the effects for stats in that item
-        for(int o=0; o<player.stats.size(); o++){//go through all the existing stats to see if this effect is for that specific stat
+    for(int i=0; i<(int)itemOfWhichEffectsToUse->affectedStats.size(); i++){//go through all the effects for stats in that item
+        for(int o=0; o<(int)player.stats.size(); o++){//go through all the existing stats to see if this effect is for that specific stat
             if(player.stats[o].statName==itemOfWhichEffectsToUse->affectedStats[i].statName){ //check if the effected stat and the checked stat are the same
                 player.stats[o].updateAddition=true;
                 player.addStatAddition(itemOfWhichEffectsToUse->affectedStats[i].ammount*multi,player.stats[o].statName);//if so then add the effected stat amount to the addition variable that let's the program know by how much the stat is increased from it's base value
@@ -436,7 +674,7 @@ void functions::equipItem(int itemSlotId){
 void functions::removeItem(int slotId, int ammount){
     player.inventory.itemStacks[slotId].itemCount-=ammount;
     if(player.inventory.itemStacks[slotId].itemCount<=0){
-        for(int i=slotId+1; i<player.inventory.itemStacks.size(); i++){
+        for(int i=slotId+1; i<(int)player.inventory.itemStacks.size(); i++){
             player.inventory.itemStacks[i-1]=player.inventory.itemStacks[i];
         }
     }
@@ -465,19 +703,14 @@ SDL_Surface* functions::createSurface(int width, int height){
 void functions::renderUI(){
     renderInventory(true);//manage inventory clicks
     if(true){//render Bot UI
-        renderTexture(&UI.botUI,UI.botUI.surface->clip_rect,(SCREEN_WIDTH-UI.botUI.w)/2,SCREEN_HEIGHT-UI.botUI.h);
-        int x,y; layer* currentButton;
         for(int i=0; i<4; i++){
-            currentButton=&UI.botUIButtons[i].state[UI.botUIButtons[i].currentState];
-            x=(SCREEN_WIDTH-UI.botUI.w)/2+UI.botUIButtonsTopLeftLocation.x+i*UI.botUIDistanceBetweenButtons;
-            y=SCREEN_HEIGHT-UI.botUI.h+UI.botUIButtonsTopLeftLocation.y;
-            renderTexture(currentButton,currentButton->surface->clip_rect,x,y);
             if(leftMouseButton==1||leftMouseButtonUp==1){
-                if(pointInsideRect(mouse,getRect(x,y,currentButton->w,currentButton->h))){
+                Texolder::TH &n=UI.botUItxl.texture[UI.botUItxl.findTexture(*(UI.botUItxl.findLayer("icons")))+i];
+                if(pointInsideRect(mouse,getRect(n.location.x,n.location.y,n.layerp->w,n.layerp->h))){
                     if(leftMouseButton==1) {
                         clickedOn="botUIButton_"+toString(i);
                         leftMouseButton=0;
-                        UI.botUIButtons[i].currentState=1;
+                        n.layerp=&UI.botUIButtons[i].state[1];
                     }
                     else{
                         if(clickedOn==("botUIButton_"+toString(i))){
@@ -495,18 +728,21 @@ void functions::renderUI(){
                                     error("open quests menu [needs to be created first]");
                                 break;
                             }
-                            UI.botUIButtons[i].currentState=0;
+                            n.layerp=&UI.botUIButtons[i].state[0];
                             leftMouseButtonUp=0;
                             clickedOn="";
                         }
                     }
                 }
-                else if(leftMouseButtonUp==1&&clickedOn==("botUIButton_"+toString(i))){
-                    UI.botUIButtons[i].currentState=0;
-                    clickedOn="";
+                else{
+                    if(leftMouseButtonUp==1&&clickedOn==("botUIButton_"+toString(i))){
+                        n.layerp=&UI.botUIButtons[i].state[0];
+                        clickedOn="";
+                    }
                 }
             }
         }
+        UI.botUItxl.renderTextures();
     }
     if(true){//render Character UI
     renderTexture(&UI.characterUI,UI.characterUI.surface->clip_rect);
@@ -632,131 +868,6 @@ void functions::renderUI(){
         renderInventory(false);
     }
 }
-void functions::giveItems(itemStack &itemsToGive){
-    for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){
-        if(player.inventory.itemStacks[i].containingItem==itemsToGive.containingItem){
-            player.inventory.itemStacks[i].itemCount+=itemsToGive.itemCount;
-            player.inventory.itemStacks[i].updateItem=true;
-            i=player.inventory.itemStacks.size();
-        }
-        else if(player.inventory.itemStacks[i].itemCount==0){
-            player.inventory.itemStacks[i]=itemsToGive;
-            i=player.inventory.itemStacks.size();
-        }
-    }
-    player.inventory.update=true;
-}
-void functions::giveItems(item &itemToGive, int ammount){
-    for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){
-        if(player.inventory.itemStacks[i].containingItem==itemToGive){
-            player.inventory.itemStacks[i].itemCount+=ammount;
-            player.inventory.itemStacks[i].updateItem=true;
-            i=player.inventory.itemStacks.size();
-        }
-        else if(player.inventory.itemStacks[i].itemCount==0){
-            player.inventory.itemStacks[i].itemCount=ammount;
-            player.inventory.itemStacks[i].containingItem=itemToGive;
-            player.inventory.itemStacks[i].updateItem=true;
-            i=player.inventory.itemStacks.size();
-        }
-    }
-    player.inventory.update=true;
-}
-void functions::giveItems(item &itemToGive, int ammount, itemStack &toWhere){
-    toWhere.itemCount=ammount;
-    toWhere.containingItem=itemToGive;
-    toWhere.updateItem=true;
-}
-int functions::findNextStage(std::vector<stage> &stages, int currentStage){
-    for(int i=currentStage+1; i<stages.size(); i++){
-        if(stages[i].shortcut){
-            return i;
-        }
-    }
-    return 0;
-}
-int functions::findItem(std::string itemName){
-    for(Uint8 i=0; i<items.size(); i++){
-        if(items[i].name==itemName){
-            return i;
-        }
-    }
-    error(itemName+" item was not found, fix the program you lazy programmer!");
-    return -1;
-}
-void functions::addItem(std::string name, std::string type, std::string imagePath){
-    item item_temp;
-    item_temp.name=name;
-    item_temp.type=type;
-    if(loadImage(imagePath,item_temp.image)==0){
-        item_temp.image.setWidthZoom((float)player.inventory.imageInventorySlot[0].w/(float)item_temp.image.surface->w);
-        item_temp.image.setHeightZoom((float)player.inventory.imageInventorySlot[0].h/(float)item_temp.image.surface->h);
-        items.push_back(item_temp);
-    }
-}
-bool functions::movePoint(SDL_Point *point, int movementSpeed){
-    bool change=false;
-    if(buttons[findButton("D")].pressed==1 || buttons[findButton("Right")].pressed==1) {point->x+=movementSpeed; change=true;}
-    if(buttons[findButton("A")].pressed==1 || buttons[findButton("Left")].pressed==1)  {point->x-=movementSpeed; change=true;}
-    if(buttons[findButton("S")].pressed==1 || buttons[findButton("Down")].pressed==1)  {point->y+=movementSpeed; change=true;}
-    if(buttons[findButton("W")].pressed==1 || buttons[findButton("Up")].pressed==1)    {point->y-=movementSpeed; change=true;}
-    return change;
-}
-SDL_Point functions::getPoint(int x, int y){
-    SDL_Point returnValue;
-    returnValue.x=x;
-    returnValue.y=y;
-    return returnValue;
-}
-SDL_Rect functions::getRect(int x, int y, int w, int h){
-    SDL_Rect returnValue;
-    returnValue.x=x;
-    returnValue.y=y;
-    returnValue.w=w;
-    returnValue.h=h;
-    return returnValue;
-}
-bool functions::pointInsideRect(SDL_Point point, SDL_Rect rect){
-    if(
-       point.x>=rect.x+offset.x
-        &&
-       point.x<=rect.x+rect.w+offset.x
-        &&
-       point.y>=rect.y+offset.y
-        &&
-       point.y<=rect.y+rect.h+offset.y
-      ) return true;
-    return false;
-}
-int functions::findImage(std::string imageIdInFormOfString){
-    for(Uint8 i=0; i<images.size(); i++){
-        if(images[i].id==imageIdInFormOfString){
-            return i;
-        }
-    }
-    error(imageIdInFormOfString+" image was not found, fix the program you lazy programmer!");
-    return -1;
-}
-void functions::createImage(std::string imagePath, std::string imageIdInFormOfString){
-    image image_temp;
-    image_temp.id=imageIdInFormOfString;
-    if(loadImage(imagePath,image_temp.image)==0){
-        images.push_back(image_temp);
-    }
-    else error("The program was unable to create an image. [Info: imagePath="+imagePath+";");
-}
-void functions::addEnemyId(std::string enemyName){
-    battleEnemiesIds.push_back(findEntity(enemyName));
-}
-int functions::findEntity(std::string name){
-    for(Uint8 i=0; i<entities.size(); i++){
-        if(entities[i].name==name){
-            return i;
-        }
-    }
-    error(name+" entity was not found, fix the program you lazy programmer!");
-    return -1;
-}
 void functions::renderInventory(bool manageClicks){
     if(player.inventory.open){
         if(manageClicks){
@@ -766,7 +877,7 @@ void functions::renderInventory(bool manageClicks){
             for(int y=0; y<player.inventory.rowsInInventory; y++){
                 slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
                 for(int x=0; x<player.inventory.slotsInOneRow; x++){
-                    if(y*player.inventory.slotsInOneRow+x+1<=player.inventory.itemStacks.size()){
+                    if(y*player.inventory.slotsInOneRow+x+1<=(int)player.inventory.itemStacks.size()){
                         slotLocation.x=player.inventory.slotsLocationsX[x];
                         slotLocation.w=player.inventory.imageInventorySlot[0].w;
                         if((int)slotsLocationY<(int)(player.inventory.slotLocationTopLeft.y)){ //render itemSlots that are clipping at top
@@ -911,13 +1022,13 @@ void functions::renderInventory(bool manageClicks){
             }
             else player.inventory.scrollBarOffset=0;
         }
-        renderTexture(&player.inventory.imageMain,player.inventory.imageMain.surface->clip_rect,player.inventory.location.x,player.inventory.location.y);
-        if(true){//render Item Slots
+        //renderTexture(&player.inventory.imageMain,player.inventory.imageMain.surface->clip_rect,player.inventory.location.x,player.inventory.location.y);
+        if(false){//render Item Slots
             int slotsLocationY,yFrom,hFrom,yTo,yFromTemp,hFromTemp,yTo2,yTo3,yFrom2,hFrom2;
             for(int y=0; y<player.inventory.rowsInInventory; y++){
                 slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
                 for(int x=0; x<player.inventory.slotsInOneRow; x++){
-                    if(y*player.inventory.slotsInOneRow+x+1<=player.inventory.itemStacks.size()&&slotsLocationY<player.inventory.slotLocationBottomY){
+                    if(y*player.inventory.slotsInOneRow+x+1<=(int)player.inventory.itemStacks.size()&&slotsLocationY<player.inventory.slotLocationBottomY){
                         if(slotsLocationY+player.inventory.imageInventorySlot[0].h>player.inventory.slotLocationTopLeft.y){
                             if((int)slotsLocationY<(int)(player.inventory.slotLocationTopLeft.y)){ //render info for itemSlots that are clipping at top
                                 yFrom=(player.inventory.slotLocationTopLeft.y-slotsLocationY)/player.inventory.zoom;
@@ -976,14 +1087,17 @@ void functions::renderInventory(bool manageClicks){
                 }
             }
         }
-        if(true){//render Scroll Bar
+        if(false){//render Scroll Bar
             renderTexture(&player.inventory.imageScrollBubbleFull,player.inventory.imageScrollBubbleFull.surface->clip_rect,2354*player.inventory.zoom+player.inventory.location.x,player.inventory.slotLocationTopLeft.y+player.inventory.location.y);
             renderTexture(&player.inventory.imageScrollBarFull,player.inventory.imageScrollBarFull.surface->clip_rect,2354*player.inventory.zoom+player.inventory.location.x,player.inventory.slotLocationTopLeft.y+player.inventory.scrollBarOffset+player.inventory.location.y);
         }
-        if(true){//render Equipment
+        if(false){//render Equipment
             for(int i=0; i<player.inventory.equipmentCount; i++){
                 if(player.inventory.equipmentAll[i]->item.itemCount==0){
-                    renderTexture(&player.inventory.equipmentAll[i]->image,player.inventory.equipmentAll[i]->image.surface->clip_rect,player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x+player.inventory.location.x,player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y+player.inventory.location.y);
+                    renderTexture(&player.inventory.equipmentAll[i]->image,
+                                  player.inventory.equipmentAll[i]->image.surface->clip_rect,
+                                  player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x+player.inventory.location.x,
+                                  player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y+player.inventory.location.y);
                 }
                 else{
                     renderTexture(&player.inventory.imageInventorySlot[0],player.inventory.imageInventorySlot[0].surface->clip_rect,player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x+player.inventory.location.x,player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y+player.inventory.location.y);
@@ -992,55 +1106,166 @@ void functions::renderInventory(bool manageClicks){
             }
         }
         if(true){//render Stats
-            int locationY,id,width;
-            for(int i=0; i<player.stats.size(); i++){
-                id=player.stats[i].levelBase/100+1;
-                if(player.stats[i].update){
-                    player.stats[i].update=false;
-                    player.stats[i].statNameLayer.free();
-                    player.stats[i].statNameLayer.surface=TTF_RenderText_Blended(font_lithosPro,player.stats[i].statName.c_str(),messageColor);
-                    player.stats[i].statNameLayer.textureOpenGL=convertSurfaceToOpenGLTexture(player.stats[i].statNameLayer.surface);
-                    player.stats[i].levelBaseLayer.free();
-                    player.stats[i].levelBaseLayer.surface=TTF_RenderText_Blended(font_lithosPro,toString(player.stats[i].levelBase).c_str(),messageColor);
-                    player.stats[i].levelBaseLayer.textureOpenGL=convertSurfaceToOpenGLTexture(player.stats[i].levelBaseLayer.surface);
-                    player.stats[i].width[0]=player.inventory.statsBar[id].full.surface->w*((float)player.stats[i].levelBase/(float)100);
+            int id;
+            for(int i=0; i<(int)player.stats.size(); i++){
+                character::stat& ps=player.stats[i];
+                Texolder& txl=player.inventory.txl;
+                id=ps.levelBase/100+1;
+                if(ps.update){
+                    Texolder::TH* thl; layer* layerp; std::string text,statName;
+                    ps.update=false;
+                    for(int o=0; o<2; o++){
+                        switch(o){
+                            case 0:
+                                layerp=&ps.statNameLayer;
+                                text=ps.statName;
+                                statName="name";
+                            break;
+                            case 1:
+                                layerp=&ps.levelBaseLayer;
+                                text=toString(ps.levelBase);
+                                statName="level count";
+                            break;
+                        }
+                        layerp->free();
+                        layerp->surface=TTF_RenderText_Blended(font_lithosPro,text.c_str(),messageColor);
+                        layerp->textureOpenGL=convertSurfaceToOpenGLTexture(layerp->surface);
+                        thl=&txl.texture[txl.findTexture(ps.statName+" "+statName)];
+                        thl->from=&layerp->surface->clip_rect; thl->to->w=layerp->surface->w; thl->to->h=layerp->surface->h;
+                        if(o==1){
+                            thl=&txl.texture[txl.findTexture(ps.statName+" bar main")];
+                            thl->layerp=&player.inventory.statsBar[id].full;
+                            txl.setTHy(*thl,player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-ps.levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id].full.h/2);
+                            ps.mainBar.from.w=player.inventory.statsBar[id].full.surface->w*((float)(ps.levelBase%100)/(float)100);
+                            ps.mainBar.to.w=ps.mainBar.from.w;
+                            ps.additionBar.from.x=ps.mainBar.from.w;
+                            characterSpace::bars& pi=player.inventory.statsBar[id];
+                            ps.additionBar.to.x=ps.mainBar.from.w*pi.full.zoom*pi.full.zoomWidth;
+                        }
+                    }
                 }
-                if(player.stats[i].updateAddition){
-                    player.stats[i].updateAddition=false;
-                    if(player.stats[i].levelAddition!=0){
-                        player.stats[i].levelAdditionLayer.free();
-                        player.stats[i].levelAdditionLayer.surface=TTF_RenderText_Blended(font_lithosPro,("+"+toString(player.stats[i].levelAddition)).c_str(),additionColor);
-                        player.stats[i].levelAdditionLayer.textureOpenGL=convertSurfaceToOpenGLTexture(player.stats[i].levelAdditionLayer.surface);
-                        player.stats[i].width[1]=player.inventory.additionBar.full.surface->w*((float)player.stats[i].levelAddition/(float)100);
+                if(ps.updateAddition){
+                    ps.updateAddition=false;
+                    if(ps.levelAddition!=0){
+                        ps.levelAdditionLayer.free();
+                        ps.levelAdditionLayer.surface=TTF_RenderText_Blended(font_lithosPro,("+"+toString(ps.levelAddition)).c_str(),additionColor);
+                        ps.levelAdditionLayer.textureOpenGL=convertSurfaceToOpenGLTexture(ps.levelAdditionLayer.surface);
+
+                        ps.levelAdditionLayer.from=ps.levelAdditionLayer.surface->clip_rect;
+                        ps.levelAdditionLayer.to=getRect(ps.levelBaseLayer.surface->w,0,ps.levelAdditionLayer.surface->w,ps.levelAdditionLayer.surface->h);
+                        txl.addTexture(&ps.levelAdditionLayer,txl.findLayer("stats"),ps.statName+" addition count",ps.levelAdditionLayer.from,ps.levelAdditionLayer.to,ps.statName+" level count");
+
+                        layer& layeRef=player.inventory.additionBar.full;
+                        Texolder::TH& THRef=txl.texture[txl.findTexture(ps.statName+" bar main")];
+                        ps.additionBar.from.w=ceil(layeRef.surface->w*((float)ps.levelAddition/(float)100));
+                        ps.additionBar.to.w=ps.additionBar.from.w;
+                        sendMessageToConsole("To=["+toString(ps.additionBar.to.x)+","+toString(ps.additionBar.to.y)+","+toString(ps.additionBar.to.w)+","+toString(ps.additionBar.to.h)+"]");
                     }
                     else{
-                        player.stats[i].width[1]=0;
+                        int found;
+                        found=txl.findTexture(ps.statName+" addition count"); if(found!=-1) txl.texture.erase(txl.texture.begin()+found);
+                        found=txl.findTexture(ps.statName+" bar addition"); if(found!=-1) txl.texture.erase(txl.texture.begin()+found);
                     }
                 }
+                /*
                 locationY=player.inventory.statTopLeftLocation.y+player.inventory.distanceBetweenStats*i;
-                renderTexture(&player.stats[i].image,player.stats[i].image.surface->clip_rect,player.inventory.statTopLeftLocation.x+player.inventory.location.x,locationY+player.inventory.location.y);
-                renderTexture(&player.stats[i].statNameLayer,player.stats[i].statNameLayer.surface->clip_rect,player.inventory.statTopLeftLocation.x+player.stats[i].image.w*1.5+player.inventory.location.x,locationY+player.inventory.location.y);
-                renderTexture(&player.stats[i].levelBaseLayer,player.stats[i].levelBaseLayer.surface->clip_rect,player.inventory.statTopLeftLocation.x+player.stats[i].image.w*9.5+player.inventory.location.x,locationY+player.inventory.location.y);
-                renderTexture(&player.inventory.statsBar[id].full,0,0,player.stats[i].width[0],player.inventory.statsBar[id].full.surface->h,player.inventory.statTopLeftLocation.x+player.stats[i].image.w*9.5+player.inventory.location.x,locationY+player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-player.stats[i].levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id].full.h/2+player.inventory.location.y);
-                if(player.stats[i].levelAddition!=0){
-                    renderTexture(&player.stats[i].levelAdditionLayer,player.stats[i].levelAdditionLayer.surface->clip_rect,player.inventory.statTopLeftLocation.x+player.stats[i].image.w*9.5+player.stats[i].levelBaseLayer.surface->w+player.inventory.location.x,locationY+player.inventory.location.y);
-                    renderTexture(&player.inventory.additionBar.full,player.stats[i].width[0],0,player.inventory.additionBar.full.w*((float)player.stats[i].levelAddition/(float)100),player.inventory.additionBar.full.surface->h,player.inventory.statTopLeftLocation.x+player.stats[i].image.w*9.5+player.stats[i].width[0]+player.inventory.location.x,locationY+player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-player.stats[i].levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id-1].full.h/2+player.inventory.location.y);
+                layer* layerp; SDL_Rect rectFrom; float x,y,np5=ps.image.w*9.5; int temp;
+                for(int o=0; o<8; o++){
+                    switch(o){
+                        case 0://render stat image
+                            layerp=&ps.image;
+                            rectFrom=getRect(0,0,layerp->surface->w,layerp->surface->h);
+                            x=0;
+                            y=0;
+                        break;
+                        case 1://render stat name
+                            layerp=&ps.statNameLayer;
+                            rectFrom=getRect(0,0,layerp->surface->w,layerp->surface->h);
+                            x=ps.image.w*1.5;
+                            y=0;
+                        break;
+                        case 2://render stat base level count
+                            layerp=&ps.levelBaseLayer;
+                            rectFrom=getRect(0,0,layerp->surface->w,layerp->surface->h);
+                            x=np5;
+                            y=0;
+                        break;
+                        case 3://render stat main bar
+                            layerp=&player.inventory.statsBar[id].full;
+                            rectFrom=getRect(0,0,
+                                             ps.width[0],
+                                             layerp->surface->h);
+                            x=np5;
+                            y=player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-ps.levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id].full.h/2;
+                        break;
+                        case 4://render stat level addition count
+                            if(ps.levelAddition!=0){
+                                layerp=&ps.levelAdditionLayer;
+                                rectFrom=getRect(0,0,layerp->surface->w,layerp->surface->h);
+                                x=np5+ps.levelBaseLayer.surface->w;
+                                y=0;
+                            }
+                        break;
+                        case 5://render stat level addition bar
+                            if(ps.levelAddition!=0){
+                                layerp=&player.inventory.additionBar.full;
+                                temp=ps.width[1];
+                                if(ps.width[0]+ps.width[1]>player.inventory.statsBar[id].full.surface->w) temp=player.inventory.statsBar[id].full.surface->w-ps.width[0];
+                                rectFrom=getRect(ps.width[0],0,
+                                                 temp,
+                                                 player.inventory.additionBar.full.surface->h);
+                                x=np5+ps.width[0]*player.inventory.zoom;
+                                y=player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-ps.levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id-1].full.h/2;
+                            }
+                        break;
+                        case 6://render stat background bar
+                            layerp=&player.inventory.statsBar[id-1].full;
+                            temp=ps.width[0]+ps.width[1];
+                            if(temp>player.inventory.statsBar[id].full.surface->w) temp=player.inventory.statsBar[id].full.surface->w;
+                            rectFrom=getRect(ps.width[0]+ps.width[1],0,
+                                             layerp->surface->w-temp,
+                                             layerp->surface->h);
+                            x=np5+(ps.width[0]+ps.width[1])*player.inventory.zoom;
+                            y=player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-ps.levelBaseLayer.surface->h)/2)-layerp->h/2;
+                        break;
+                        case 7://render stat main bar gradient
+                            layerp=&player.inventory.statsBar[id].gradient;
+                            rectFrom=getRect(0,0,layerp->surface->w,layerp->surface->h);
+                            x=np5+ps.width[0]*player.inventory.zoom;
+                            y=player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-ps.levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id].full.h/2;
+                        break;
+                    }
+                    x+=player.inventory.statTopLeftLocation.x+player.inventory.location.x;
+                    y+=locationY+player.inventory.location.y;
+                    if(o!=4&&o!=5){
+                        if(o==7){
+                            if(x<np5+player.inventory.statTopLeftLocation.x+player.inventory.location.x+player.inventory.statsBar[id].left.surface->w*player.inventory.zoom){}
+                            else if(x+layerp->w>
+                                    np5+
+                                    player.inventory.statTopLeftLocation.x+
+                                    player.inventory.location.x+
+                                    player.inventory.statsBar[id].full.w-
+                                    player.inventory.statsBar[id].left.surface->w
+                                    *player.inventory.zoom){
+                                rectFrom.w=np5+player.inventory.statTopLeftLocation.x+player.inventory.location.x+player.inventory.statsBar[id].full.w-player.inventory.statsBar[id].left.surface->w*player.inventory.zoom-x;
+                                renderTexture(layerp,rectFrom,floor(x),floor(y));
+                            }
+                            else renderTexture(layerp,rectFrom,floor(x),floor(y));
+                        }
+                        else renderTexture(layerp,rectFrom,floor(x),floor(y));
+                    }
+                    else if(ps.levelAddition!=0) renderTexture(layerp,rectFrom,floor(x),floor(y));
                 }
-                renderTexture(&player.inventory.statsBar[id-1].full,
-                              player.stats[i].width[0]+player.stats[i].width[1],
-                              0,
-                              player.inventory.statsBar[id-1].full.surface->w-player.stats[i].width[0]-player.stats[i].width[1],
-                              player.inventory.statsBar[id-1].full.surface->h,player.inventory.statTopLeftLocation.x+player.stats[i].image.w*9.5+player.stats[i].width[0]+player.stats[i].width[1]+player.inventory.location.x,
-                              locationY+player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-player.stats[i].levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id-1].full.h/2+player.inventory.location.y);
-                renderTexture(&player.inventory.statsBar[id].gradient,player.inventory.statsBar[id].gradient.surface->clip_rect,player.inventory.statTopLeftLocation.x+player.stats[i].image.w*9.5+player.stats[i].width[0]+player.inventory.location.x,locationY+player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-player.stats[i].levelBaseLayer.surface->h)/2)-player.inventory.statsBar[id].full.h/2+player.inventory.location.y);
+                */
             }
         }
-        if(true){//render Close button
+        if(false){//render Close button
             renderTexture(&player.inventory.closeButton,
                           player.inventory.closeButton.surface->clip_rect,
                           player.inventory.closeLocation.x+player.inventory.location.x,
                           player.inventory.closeLocation.y+player.inventory.location.y);
         }
+        player.inventory.txl.renderTextures();
     }
     }
     else if(manageClicks){
@@ -1058,7 +1283,7 @@ void functions::renderInventory(bool manageClicks){
             player.inventory.update=true;
             clickedOn="";
         }
-        else if(clickedOn!=""){
+        else if(clickedOn.substr(0,12)=="inventorySlot"){
             clickedOn="";
             player.inventory.pressedId=-1;
         }
@@ -1066,6 +1291,131 @@ void functions::renderInventory(bool manageClicks){
     else{
         player.inventory.pressedId=-1;
     }
+}
+void functions::giveItems(itemStack &itemsToGive){
+    for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){
+        if(player.inventory.itemStacks[i].containingItem==itemsToGive.containingItem){
+            player.inventory.itemStacks[i].itemCount+=itemsToGive.itemCount;
+            player.inventory.itemStacks[i].updateItem=true;
+            i=player.inventory.itemStacks.size();
+        }
+        else if(player.inventory.itemStacks[i].itemCount==0){
+            player.inventory.itemStacks[i]=itemsToGive;
+            i=player.inventory.itemStacks.size();
+        }
+    }
+    player.inventory.update=true;
+}
+void functions::giveItems(item &itemToGive, int ammount){
+    for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){
+        if(player.inventory.itemStacks[i].containingItem==itemToGive){
+            player.inventory.itemStacks[i].itemCount+=ammount;
+            player.inventory.itemStacks[i].updateItem=true;
+            i=player.inventory.itemStacks.size();
+        }
+        else if(player.inventory.itemStacks[i].itemCount==0){
+            player.inventory.itemStacks[i].itemCount=ammount;
+            player.inventory.itemStacks[i].containingItem=itemToGive;
+            player.inventory.itemStacks[i].updateItem=true;
+            i=player.inventory.itemStacks.size();
+        }
+    }
+    player.inventory.update=true;
+}
+void functions::giveItems(item &itemToGive, int ammount, itemStack &toWhere){
+    toWhere.itemCount=ammount;
+    toWhere.containingItem=itemToGive;
+    toWhere.updateItem=true;
+}
+int functions::findNextStage(std::vector<stage> &stages, int currentStage){
+    for(int i=currentStage+1; i<(int)stages.size(); i++){
+        if(stages[i].shortcut){
+            return i;
+        }
+    }
+    return 0;
+}
+int functions::findItem(std::string itemName){
+    for(Uint8 i=0; i<items.size(); i++){
+        if(items[i].name==itemName){
+            return i;
+        }
+    }
+    error(itemName+" item was not found, fix the program you lazy programmer!");
+    return -1;
+}
+void functions::addItem(std::string name, std::string type, std::string imagePath){
+    item item_temp;
+    item_temp.name=name;
+    item_temp.type=type;
+    if(loadImage(imagePath,item_temp.image)==0){
+        item_temp.image.setWidthZoom((float)player.inventory.imageInventorySlot[0].w/(float)item_temp.image.surface->w);
+        item_temp.image.setHeightZoom((float)player.inventory.imageInventorySlot[0].h/(float)item_temp.image.surface->h);
+        items.push_back(item_temp);
+    }
+}
+bool functions::movePoint(SDL_Point *point, int movementSpeed){
+    bool change=false;
+    if(buttons[findButton("D")].pressed==1 || buttons[findButton("Right")].pressed==1) {point->x+=movementSpeed; change=true;}
+    if(buttons[findButton("A")].pressed==1 || buttons[findButton("Left")].pressed==1)  {point->x-=movementSpeed; change=true;}
+    if(buttons[findButton("S")].pressed==1 || buttons[findButton("Down")].pressed==1)  {point->y+=movementSpeed; change=true;}
+    if(buttons[findButton("W")].pressed==1 || buttons[findButton("Up")].pressed==1)    {point->y-=movementSpeed; change=true;}
+    return change;
+}
+SDL_Point functions::getPoint(int x, int y){
+    SDL_Point returnValue;
+    returnValue.x=x;
+    returnValue.y=y;
+    return returnValue;
+}
+SDL_Rect functions::getRect(int x, int y, int w, int h){
+    SDL_Rect returnValue;
+    returnValue.x=x;
+    returnValue.y=y;
+    returnValue.w=w;
+    returnValue.h=h;
+    return returnValue;
+}
+bool functions::pointInsideRect(SDL_Point point, SDL_Rect rect){
+    if(
+       point.x>=rect.x+offset.x
+        &&
+       point.x<=rect.x+rect.w+offset.x
+        &&
+       point.y>=rect.y+offset.y
+        &&
+       point.y<=rect.y+rect.h+offset.y
+      ) return true;
+    return false;
+}
+int functions::findImage(std::string imageIdInFormOfString){
+    for(Uint8 i=0; i<images.size(); i++){
+        if(images[i].id==imageIdInFormOfString){
+            return i;
+        }
+    }
+    error(imageIdInFormOfString+" image was not found, fix the program you lazy programmer!");
+    return -1;
+}
+void functions::createImage(std::string imagePath, std::string imageIdInFormOfString){
+    image image_temp;
+    image_temp.id=imageIdInFormOfString;
+    if(loadImage(imagePath,image_temp.image)==0){
+        images.push_back(image_temp);
+    }
+    else error("The program was unable to create an image. [Info: imagePath="+imagePath+";");
+}
+void functions::addEnemyId(std::string enemyName){
+    battleEnemiesIds.push_back(findEntity(enemyName));
+}
+int functions::findEntity(std::string name){
+    for(Uint8 i=0; i<entities.size(); i++){
+        if(entities[i].name==name){
+            return i;
+        }
+    }
+    error(name+" entity was not found, fix the program you lazy programmer!");
+    return -1;
 }
 void functions::callEvent(std::string type, info &information){
     if(type=="Enter"){
@@ -1380,6 +1730,11 @@ std::string functions::toString(double number){
     ss << number;
     return ss.str();
 }
+std::string functions::toString(int* number){
+    std::stringstream ss;
+    ss << number;
+    return ss.str();
+}
 bool functions::equalColors(SDL_Color a, SDL_Color b){
     if(a.r==b.r&&a.g==b.g&&a.b==b.b&&a.a==b.a) return true;
     else return false;
@@ -1529,8 +1884,8 @@ bool functions::initialize(){
     if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"2")) error(1);
 
     //Create window
-    window = SDL_CreateWindow( screenName.c_str(), screenStartPosition.x, screenStartPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | fullscreen);
     console_window = SDL_CreateWindow( consoleScreenName.c_str(), screenStartPosition.x, screenStartPosition.y, CONSOLE_SCREEN_WIDTH, CONSOLE_SCREEN_HEIGHT, fullscreen);
+    window = SDL_CreateWindow( screenName.c_str(), screenStartPosition.x, screenStartPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | fullscreen);
     if(success&&(window==NULL||console_window==NULL)){ //error
         error("Window could not be created! SDL Error: "+(*SDL_GetError()));
         success=false;

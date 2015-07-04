@@ -1,36 +1,17 @@
 #ifndef VARIABLES_H
 #define VARIABLES_H
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_syswm.h"
-#include <tchar.h>
-#include <windows.h>
-#include <stdio.h>
-#include <string>
-#include <memory.h>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <dirent.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <commdlg.h>
+
+#include "libs.h"
 #include "character.h"
 #include "keyboard.h"
 #include "info.h"
 #include "spell.h"
 #include "item.h"
 #include "userInterface.h"
-#include "SDL_opengl.h"
-#include "GL\GLU.h"
-#include <cstdlib>
+#include "Texolder.h"
+#include "map.h"
 
-class variables
-{
+class variables{
     public:
         variables(); //Initialization function
         //-Console-----------------------------------------
@@ -54,13 +35,13 @@ class variables
             STAGE_OPENGL
         };
         int GLStage=STAGE_SDL;
-        //-------------------------------------------------
+        //-Other-------------------------------------------
         enum renderTypes{
             RENDER_MIPMAP,
             RENDER_NEAREST
         };
         int RenderType=RENDER_MIPMAP;
-        enum objects{
+        enum enumObjects{
             OBJECT_PLAYER,
             OBJECT_SCREEN
         };
@@ -85,9 +66,8 @@ class variables
         SDL_Color messageColorPressed={215,215,215,255};
         SDL_Color additionColor={14,90,0,255};
         SDL_Color levelColor={185,0,4,255};
-        userInterface UI;
-        userInterface UI2;
         HWND hwnd; //Main application window handler/owner
+        std::vector<map> maps;
         std::vector<int> battleEnemiesIds;//hold the ids' for the enemies that are being fought;
         std::vector<SDL_Color> obstructions; //Color holder for those colors which should be impossible to pass for the player [should be used for secret layer]
         std::vector<keyboard> buttons; //Button information holder, used to detect if the user is pressing a specific button on keyboard
@@ -129,8 +109,8 @@ class variables
         SDL_Point screenStartPosition={128,130}; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window
         std::string clickedOn="";
-        character player; //Player information holder
         MSG messages; //Some kind of weird windows thing that should be left alone
+        //-------------------------------------------------
 };
 
 #endif // VARIABLES_H

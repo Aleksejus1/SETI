@@ -1,39 +1,30 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_syswm.h"
-#include <tchar.h>
-#include <windows.h>
-#include <stdio.h>
-#include <string>
-#include <memory.h>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <dirent.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <commdlg.h>
+
+#include "libs.h"
 #include "layer.h"
 #include "variables.h"
 #include "spell.h"
+#include "gather.h"
 #include "stage.h"
-#include "SDL_opengl.h"
-#include "GL\GLU.h"
-#include "variablesR.h"
 
-class functionsR;
-
-class functions: public variables, public variablesR
-{
+class functions: public variables{
     public:
-        functions(functionsR* fR); //Initialization function
-        functionsR* f;
+        functions(); //Initialization function
+        //
+        userInterface UI;
+        character player; //Player information holder
+        //
+        map* createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
+        map* createMap(std::string name, std::string id);
+        void addGatherableReturnItemStack(int itemCount,item containingItem,gather &gatherableTypeVar);
+        gather* createGatherable(int mapId, int gatherableLocationX, int gatherableLocationY, bool colidable, float gatherTime, int requiredLevel, std::string requiredSkillName);
+        stage* addStage(float timeUntilNextStage, bool isItAShortcutStage, bool isItGatherable, std::string imagePath,gather &gatherableTypeVar);
+        void createZone(int mapId, std::string owner, std::string zoneName);
+        interact* createInteractable(int mapId, std::string imagePath, int interactableLocationX, int interactableLocationY, bool isInteractableColidable);
+        interact* createInteractable(int mapId, std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable);
+        void createObject(int mapId, std::string imagePath, int objectLocationX, int objectLocationY, bool isObjectColidable);
+        void createLayer(int mapId, std::string imagePath);
         void sendMessageToConsole(std::string message);
         void console();
         void reset();
@@ -91,6 +82,7 @@ class functions: public variables, public variablesR
         void openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destRect);
         std::string toString(int number);//Return the string value of the given number
         std::string toString(double number);//Return the string value of the given number
+        std::string toString(int* number);//Return the string value of the given number pointer
         bool equalColors(SDL_Color a, SDL_Color b);//Checks if both colors are equal/same
         void addColor(int r, int g, int b, int a);//Adds a color to the color list used for zones/areas by giving the rgba values
         void addColor(int r, int g, int b);//Adds a color to the color list used for zones/areas by giving the rgb values, alpha value is 255 - [full] by default

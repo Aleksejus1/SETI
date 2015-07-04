@@ -1,31 +1,15 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
+
+#include "libs.h"
 #include "entity.h"
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_syswm.h"
-#include <tchar.h>
-#include <windows.h>
-#include <stdio.h>
-#include <string>
-#include <memory.h>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <dirent.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <commdlg.h>
 #include "characterSpace.h"
 
-class character: public entity
-{
+class functions;
+
+class character: public entity{
     public:
-        character();
+        character(functions* fp);
         float experiencePoints;
         float baseMovementSpeed=1;
         float movementSpeed=baseMovementSpeed;
@@ -34,7 +18,8 @@ class character: public entity
         characterSpace inventory;
         bool updateHealth=true, updateMana=true, updateExperience=true, updateLevel=true, updateType=true;
         int isInBattle=0;
-        struct stat{std::string statName; int levelBase,levelAddition,levelTotal,width[2]={0,0}; layer image,statNameLayer,levelBaseLayer,levelAdditionLayer; bool update=true, updateAddition=true;};;
+        struct fo{SDL_Rect from,to;};
+        struct stat{fo mainBar,additionBar; std::string statName; int levelBase,levelAddition,levelTotal,width[2]={0,0}; layer image,statNameLayer,levelBaseLayer,levelAdditionLayer; bool update=true, updateAddition=true;};;
         std::vector<stat> stats;
         int gathering=0;
         int gatherableId=-1;

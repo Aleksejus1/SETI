@@ -1,33 +1,17 @@
 #ifndef USERINTERFACE_H
 #define USERINTERFACE_H
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_syswm.h"
-#include <tchar.h>
-#include <windows.h>
-#include <stdio.h>
-#include <string>
-#include <memory.h>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <dirent.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <commdlg.h>
-#include "layer.h"
-#include "SDL_opengl.h"
-#include "GL\gl.h"
-#include "GL\GLU.h"
 
-class userInterface
-{
+#include "libs.h"
+#include "layer.h"
+#include "Texolder.h"
+
+class functions;
+
+class userInterface{
     public:
-        userInterface();
+        userInterface(functions *fp);
+        functions *f;
+        Texolder botUItxl;
         layer bar_empty,characterUI,botUI,topUIReflection;
         struct butt{layer state[2]; int currentState=0;};
         int botUIDistanceBetweenButtons=0,topUIDistanceBetweenButtons[3]={0,0,0};

@@ -1,5 +1,6 @@
 #ifndef STAGE_H
 #define STAGE_H
+
 #include "layer.h"
 
 class stage

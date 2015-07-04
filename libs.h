@@ -1,4 +1,5 @@
-#include "userInterface.h"
+#ifndef LIBS_H
+#define LIBS_H
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -18,11 +19,15 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <commdlg.h>
+#include "SDL2_rotozoom.h"
+#include "SDL_opengl.h"
+#include "GL\gl.h"
+#include "GL\GLU.h"
+#include <cstdlib>
 
-userInterface::userInterface(functions *fp):
-botUItxl(fp){
-    f=fp;
-    all[0]=&bar_red;
-    all[1]=&bar_blue;
-    all[2]=&bar_grey;
-}
+class libs{
+    public:
+        libs();
+};
+
+#endif // LIBS_H
