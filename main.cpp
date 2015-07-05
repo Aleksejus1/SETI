@@ -65,6 +65,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //finish handling user input
             //-------------------------------------
             if(f.GLStage==f.STAGE_SDL){
+            if(f.currentMenu==f.MENU_GAME){
+
             //render Map Details
             for(Uint8 i=1; i<f.maps[f.player.map_location].layers.size(); i++) f.renderTexture(&f.maps[f.player.map_location].layers[i],f.maps[f.player.map_location].layers[i].surface->clip_rect);
             for(Uint8 i=0; i<f.maps[f.player.map_location].interactable.size(); i++) f.renderTexture(&f.maps[f.player.map_location].interactable[i],f.maps[f.player.map_location].interactable[i].surface->clip_rect,f.maps[f.player.map_location].interactable[i].location.x,f.maps[f.player.map_location].interactable[i].location.y,f.maps[f.player.map_location].interactable[i].surface->w,f.maps[f.player.map_location].interactable[i].surface->h);
@@ -82,12 +84,17 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             //---------------------------------------
             //render render player character
             f.renderTexture(&f.player.image,f.player.image.surface->clip_rect,f.player.location.x,f.player.location.y);
+
             //finish rendering player
             //---------------------------------------
             //render UI
             f.renderUI();
             //finish rendering UI elements
             //---------------------------------------
+            }
+            else if(f.currentMenu==f.MENU_START){
+                f.menuTxl.renderTextures();
+            }
             //SDL_RenderPresent(f.renderer); // update screen
             SDL_GL_SwapWindow(f.window);
             f.console();
@@ -108,6 +115,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
     return f.messages.wParam;
 }
 void interact(){
+    if(f.buttons[f.findButton("Esc")].pressed==1){
+        f.quit=true;
+    }
+    if(f.buttons[f.findButton("Z")].pressed==1){
+        f.buttons[f.findButton("Z")].pressed=0;
+        f.consoleOnce[0]=true;
+        f.consoleShow=!f.consoleShow;
+    }
+    if(f.currentMenu==f.MENU_GAME){
     if(f.buttons[f.findButton("E")].pressed==1&&f.maps[f.player.map_location].interactable.size()>0&&f.player.gathering==0){
         f.buttons[f.findButton("E")].pressed=2;
         float smallestDistance=pow(10,3);
@@ -175,19 +191,11 @@ void interact(){
         f.buttons[f.findButton("N")].pressed=2;
         f.bordersAreAThing=!f.bordersAreAThing;
     }
-    if(f.buttons[f.findButton("Esc")].pressed==1){
-        f.quit=true;
-    }
     if(f.buttons[f.findButton("G")].pressed==1){
         f.buttons[f.findButton("G")].pressed=0;
         if(f.buttons[f.findButton("Left Shift")].pressed==1) f.player.stats[0].levelBase--;
         else f.player.stats[0].levelBase++;
         f.player.stats[0].update=true;
-    }
-    if(f.buttons[f.findButton("Z")].pressed==1){
-        f.buttons[f.findButton("Z")].pressed=0;
-        f.consoleOnce[0]=true;
-        f.consoleShow=!f.consoleShow;
     }
     if(f.buttons[f.findButton("Q")].pressed==1){
         //f.buttons[f.findButton("Q")].pressed=0;
@@ -198,6 +206,48 @@ void interact(){
         f.buttons[f.findButton("R")].pressed=0;
         if(f.moveObject==f.OBJECT_PLAYER) f.moveObject=f.OBJECT_SCREEN;
         else f.moveObject=f.OBJECT_PLAYER;
+    }
+    }
+    else if(f.currentMenu==f.MENU_START){
+        if(f.leftMouseButton||f.leftMouseButtonUp){
+            Texolder& txl=f.menuTxl; SDL_Point location; Texolder::TH* THp; std::string buttonName; bool checkAlpha; variables::button* buttonp;
+            for(int i=0; i<4&&(f.leftMouseButton||f.leftMouseButtonUp); i++){
+                switch(i){
+                    case 0: buttonName="close";   checkAlpha=true;  buttonp=&f.menu.close;   break;
+                    case 1: buttonName="play";    checkAlpha=false; buttonp=&f.menu.play;    break;
+                    case 2: buttonName="options"; checkAlpha=false; buttonp=&f.menu.options; break;
+                    case 3: buttonName="about";   checkAlpha=false; buttonp=&f.menu.about;   break;
+                }
+                buttonName="button "+buttonName;
+                THp=&txl.texture[txl.findTexture(buttonName)];
+                location.x=txl.getLocationX(*THp); location.y=txl.getLocationY(*THp);
+                if(f.pointInsideRect(f.mouse,f.getRect(location.x,location.y,THp->to->w,THp->to->h))&&(!checkAlpha||f.getColorAlpha(f.getPixelColors(THp->layerp->surface,f.mouse.x-location.x,f.mouse.y-location.y))!=0)){
+                    if(f.leftMouseButtonUp&&f.clickedOn==buttonName){
+                        switch(i){
+                            case 0: f.quit=true; break;
+                            case 1: f.currentMenu=f.MENU_GAME; break;
+                            case 2: f.error("options"); break;
+                            case 3: f.error("about"); break;
+                        }
+                        f.leftMouseButtonUp=false;
+                        THp->layerp=&buttonp->button[0];
+                        f.clickedOn="";
+                    }
+                    if(f.leftMouseButton&&f.clickedOn==""){
+                        f.leftMouseButton=false;
+                        THp->layerp=&buttonp->button[1];
+                        f.clickedOn=buttonName;
+                    }
+                }
+                else{
+                    if(f.leftMouseButtonUp&&f.clickedOn==buttonName){
+                        f.leftMouseButtonUp=false;
+                        THp->layerp=&buttonp->button[0];
+                        f.clickedOn="";
+                    }
+                }
+            }
+        }
     }
 }
 void battle(){

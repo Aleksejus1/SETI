@@ -44,6 +44,7 @@ int* Texolder::findLayer(std::string layerName){
             return &n.id;
         }
     }
+    f->error("layer "+layerName+" does not exist. Fix the program!");
     return NULL;
 }
 int* Texolder::addLayer(std::string layerName){
@@ -59,6 +60,7 @@ int Texolder::findTexture(std::string textureName){
             return i;
         }
     }
+    f->error("texture "+textureName+" was not found. Fix the program!");
     return -1;
 }
 int Texolder::findTexture(int layerId){
@@ -67,6 +69,7 @@ int Texolder::findTexture(int layerId){
             return i;
         }
     }
+    f->error("texture with layer Id "+f->toString(layerId)+" does not exist. Fix the program!");
     return -1;
 }
 void Texolder::addTexture(layer* l, int* layerId, std::string name, SDL_Rect &from, SDL_Rect &to, std::string relativeTo){

@@ -35,7 +35,22 @@ class variables{
             STAGE_OPENGL
         };
         int GLStage=STAGE_SDL;
+        //-Menu--------------------------------------------
+        struct button{
+            layer button[2];
+        };
+        struct mnu{
+            button about,close,options,play;
+            layer background,gradient,logo;
+        };
+        mnu menu;
         //-Other-------------------------------------------
+        layer iconMain,iconDebug;
+        enum menus{
+            MENU_START,
+            MENU_GAME
+        };
+        int currentMenu=MENU_START;
         enum renderTypes{
             RENDER_MIPMAP,
             RENDER_NEAREST
@@ -106,7 +121,7 @@ class variables{
         float sliderSpeed=10; //Speed that the slider goes in;
         float tatssbatm=0; //Total Amount The Slider Should Be Able To Move - TATSSBATM
         bool blend=false;
-        SDL_Point screenStartPosition={128,130}; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
+        SDL_Point screenStartPosition={(1680-SCREEN_WIDTH)/2,(1050-SCREEN_HEIGHT)/2}; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window
         std::string clickedOn="";
         MSG messages; //Some kind of weird windows thing that should be left alone

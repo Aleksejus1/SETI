@@ -14,7 +14,9 @@ class functions: public variables{
         //
         userInterface UI;
         character player; //Player information holder
+        Texolder menuTxl;
         //
+        int getColorAlpha(SDL_Color color);
         map* createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
         map* createMap(std::string name, std::string id);
         void addGatherableReturnItemStack(int itemCount,item containingItem,gather &gatherableTypeVar);

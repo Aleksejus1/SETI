@@ -2,7 +2,8 @@
 
 functions::functions():
 UI(this),
-player(this){
+player(this),
+menuTxl(this){
     UI.all[0]->update=&player.updateHealth;     UI.all[0]->countAmount=&player.healthPoints;     UI.all[0]->max_countAmount=&player.healthPointsMax;
     UI.all[1]->update=&player.updateMana;       UI.all[1]->countAmount=&player.manaPoints;       UI.all[1]->max_countAmount=&player.manaPointsMax;
     UI.all[2]->update=&player.updateExperience; UI.all[2]->countAmount=&player.experiencePoints; UI.all[2]->max_countAmount=&player.experienceRequiredForNextLevel;
@@ -201,8 +202,8 @@ void functions::loadMedia(){
             txl.addTexture(&pi.full,txl.findLayer("stats"),ps.statName+" bar main",ps.mainBar.from,ps.mainBar.to,ps.statName+" level count");
             txl.addTexture(&player.inventory.additionBar.full,txl.findLayer("stats"),ps.statName+" bar addition",ps.additionBar.from,ps.additionBar.to,ps.statName+" bar main");
             txl.addTexture(&ps.levelAdditionLayer,txl.findLayer("stats"),ps.statName+" addition count",ps.levelAdditionLayer.from,ps.levelAdditionLayer.to,ps.statName+" level count");
-            txl.addTexture(&pib.full,txl.findLayer("stats"),ps.statName+" bar background",ps.backgroundBar.from,ps.backgroundBar.to,ps.statName+" bar addition");
             txl.addTexture(&pi.gradient,txl.findLayer("stats"),ps.statName+" bar gradient",ps.gradientBar.from,ps.gradientBar.to,ps.statName+" bar addition");
+            txl.addTexture(&pib.full,txl.findLayer("stats"),ps.statName+" bar background",ps.backgroundBar.from,ps.backgroundBar.to,ps.statName+" bar addition");
             ps.gradientBar.from=pi.gradient.surface->clip_rect;
             ps.gradientBar.to=ps.gradientBar.from;
             ps.backgroundBar.from=pib.full.surface->clip_rect;
@@ -420,6 +421,47 @@ void functions::loadMedia(){
         createLayer(mapId,"qpm\\bc3.png");
         createLayer(mapId,"qpm\\pyramids_transparent.png");
     }
+    if(true){//create menu
+        std::string pathStart="Graphics\\menu slices\\",pathEnd=".png",path; layer *layerr; variables::button* buttonp;
+        for(int i=0; i<7; i++){
+            switch(i){
+                case 0: path="close"; buttonp=&menu.close; break;
+                case 1: path="play"; buttonp=&menu.play; break;
+                case 2: path="options"; buttonp=&menu.options; break;
+                case 3: path="about"; buttonp=&menu.about; break;
+                case 4: path="background"; layerr=&menu.background; break;
+                case 5: path="logo"; layerr=&menu.logo; break;
+                case 6: path="top_gradient"; layerr=&menu.gradient; break;
+            }
+            if(i<4){
+                loadImage(pathStart+path+"_idle"+pathEnd,buttonp->button[0]);
+                loadImage(pathStart+path+"_press"+pathEnd,buttonp->button[1]);
+            }
+            else loadImage(pathStart+path+pathEnd,*layerr);
+        }
+        menuTxl.addLayer("base"); menuTxl.addLayer("other"); menuTxl.addLayer("logo"); menuTxl.addLayer("buttons");
+        menuTxl.addTexture(&menu.background,menuTxl.findLayer("base"),"background",menu.background.from,menu.background.to);
+        menuTxl.addTexture(&menu.logo,menuTxl.findLayer("logo"),"logo",menu.logo.from,menu.logo.to,"background");
+        menuTxl.addTexture(&menu.close.button[0],menuTxl.findLayer("buttons"),"button close",menu.close.button[0].from,menu.close.button[0].to,"background");
+        menuTxl.addTexture(&menu.play.button[0],menuTxl.findLayer("buttons"),"button play",menu.play.button[0].from,menu.play.button[0].to,"logo");
+        menuTxl.addTexture(&menu.options.button[0],menuTxl.findLayer("buttons"),"button options",menu.options.button[0].from,menu.options.button[0].to,"button play");
+        menuTxl.addTexture(&menu.about.button[0],menuTxl.findLayer("buttons"),"button about",menu.about.button[0].from,menu.about.button[0].to,"button options");
+        menuTxl.addTexture(&menu.gradient,menuTxl.findLayer("other"),"gradient",menu.gradient.from,menu.gradient.to,"background");
+        menu.background.from=getRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
+        menu.background.to=getRect(0,0,menu.background.from.w,menu.background.from.h);
+        menu.gradient.from=menu.gradient.surface->clip_rect;
+        menu.gradient.to=getRect(0,0,menu.gradient.from.w,menu.gradient.from.h);
+        menu.logo.from=menu.logo.surface->clip_rect;
+        menu.logo.to=getRect((SCREEN_WIDTH-menu.logo.from.w)/2,(SCREEN_HEIGHT-menu.logo.from.h)/2,menu.logo.w,menu.logo.h);
+        menu.close.button[0].from=menu.close.button[0].surface->clip_rect;
+        menu.close.button[0].to=getRect(SCREEN_WIDTH-menu.close.button[0].from.w,0,menu.close.button[0].from.w,menu.close.button[0].from.h);
+        menu.play.button[0].from=menu.play.button[0].surface->clip_rect;
+        menu.play.button[0].to=getRect((menu.logo.surface->w-menu.play.button[0].surface->w)/2,menu.logo.surface->h-50,menu.play.button[0].from.w,menu.play.button[0].from.h);
+        menu.options.button[0].from=menu.options.button[0].surface->clip_rect;
+        menu.options.button[0].to=getRect((menu.play.button[0].surface->w-menu.options.button[0].surface->w)/2,menu.play.button[0].surface->h+10,menu.options.button[0].from.w,menu.options.button[0].from.h);
+        menu.about.button[0].from=menu.about.button[0].surface->clip_rect;
+        menu.about.button[0].to=getRect((menu.options.button[0].surface->w-menu.about.button[0].surface->w)/2,menu.options.button[0].surface->h+10,menu.about.button[0].from.w,menu.about.button[0].from.h);
+    }
     }
     else{
         loadImage("qpm\\poop_full.png",imageOpenGL);
@@ -427,6 +469,9 @@ void functions::loadMedia(){
     }
 }
 
+int functions::getColorAlpha(SDL_Color color){
+    return color.a;
+}
 map* functions::createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0){
     map &mapRef=*createMap(name,id);
     SDL_Point location;
@@ -651,7 +696,7 @@ void functions::reset(){
             player.inventory.doubleClick=-1;
         }
     }
-    player.reset();
+    if(currentMenu==MENU_GAME) player.reset();
     if(mouseButton==2)    mouseButton       =false;
     else if(mouseButton)  mouseButton       =false;
     if(leftMouseButton)   leftMouseButton   =false;
@@ -1194,6 +1239,8 @@ void functions::renderInventory(bool manageClicks){
                     ps.backgroundBar.to.w=ps.backgroundBar.from.w;
                     thl=&txl.texture[txl.findTexture(ps.statName+" bar background")];
                     thl->layerp=&player.inventory.statsBar[id-1].full;
+                    thl=&txl.texture[txl.findTexture(ps.statName+" bar gradient")];
+                    thl->layerp=&player.inventory.statsBar[id].gradient;
                 }
             }
         }
@@ -1824,8 +1871,9 @@ bool functions::initialize(){
     if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"2")) error(1);
 
     //Create window
-    console_window = SDL_CreateWindow( consoleScreenName.c_str(), 1680+50, 0+50, CONSOLE_SCREEN_WIDTH, CONSOLE_SCREEN_HEIGHT, fullscreen);
     window = SDL_CreateWindow( screenName.c_str(), screenStartPosition.x, screenStartPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | fullscreen);
+    SDL_SetWindowBordered(console_window,SDL_FALSE);
+    console_window = SDL_CreateWindow( consoleScreenName.c_str(), 1680+(1280-CONSOLE_SCREEN_WIDTH)/2, (1024-CONSOLE_SCREEN_HEIGHT)/2, CONSOLE_SCREEN_WIDTH, CONSOLE_SCREEN_HEIGHT, fullscreen);
     if(success&&(window==NULL||console_window==NULL)){ //error
         error("Window could not be created! SDL Error: "+(*SDL_GetError()));
         success=false;
@@ -1867,6 +1915,12 @@ bool functions::initialize(){
                     if(TTF_Init()<0) {//error
                         error("SDL_ttf could not initialize! SDL_ttf Error: "+(*SDL_GetError()));
                         success = false;
+                    }
+                    else{
+                        loadImage("Graphics\\menu slices\\favicon_seti.png",iconMain);
+                        loadImage("Graphics\\menu slices\\debug_icon.png",iconDebug);
+                        SDL_SetWindowIcon(console_window,iconDebug.surface);
+                        SDL_SetWindowIcon(window,iconMain.surface);
                     }
                 }
             }

@@ -4198,10 +4198,10 @@
 1436008468 c:\programming\c++\sdl projects\seti\info.h
 	"libs.h"
 
-1436112134 source:c:\programming\c++\sdl projects\seti\functions.cpp
+1436126032 source:c:\programming\c++\sdl projects\seti\functions.cpp
 	"functions.h"
 
-1436015573 c:\programming\c++\sdl projects\seti\functions.h
+1436121782 c:\programming\c++\sdl projects\seti\functions.h
 	"libs.h"
 	"layer.h"
 	"variables.h"
@@ -4209,7 +4209,7 @@
 	"gather.h"
 	"stage.h"
 
-1436011145 c:\programming\c++\sdl projects\seti\variables.h
+1436126097 c:\programming\c++\sdl projects\seti\variables.h
 	"libs.h"
 	"character.h"
 	"keyboard.h"
@@ -4393,7 +4393,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1436018372 source:c:\programming\c++\sdl projects\seti\main.cpp
+1436126129 source:c:\programming\c++\sdl projects\seti\main.cpp
 	"libs.h"
 	"functions.h"
 	"map.h"
@@ -4614,7 +4614,7 @@
 	"libs.h"
 	"layer.h"
 
-1436095732 source:c:\programming\c++\sdl projects\seti\texolder.cpp
+1436121488 source:c:\programming\c++\sdl projects\seti\texolder.cpp
 	"Texolder.h"
 	"functions.h"
 	<algorithm>
@@ -4647,4 +4647,6 @@
 
 1436007842 source:c:\programming\c++\sdl projects\seti\libs.cpp
 	"libs.h"
+
+1436118168 source:c:\programming\c++\sdl projects\seti\resource.rc
 
