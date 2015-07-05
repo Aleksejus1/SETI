@@ -28,6 +28,7 @@
 class libs{
     public:
         libs();
+        struct fo{SDL_Rect from,to;};
 };
 
 #endif // LIBS_H

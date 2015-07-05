@@ -6,19 +6,31 @@ Texolder::Texolder(functions* fp){
     f=fp;
 }
 
+int Texolder::getLocationX(TH& THRef){
+    int ret=THRef.to->x;
+    if(THRef.relativeTo!="") ret+=getLocationX(texture[findTexture(THRef.relativeTo)]);
+    return ret;
+}
+int Texolder::getLocationY(TH& THRef){
+    int ret=THRef.to->y;
+    if(THRef.relativeTo!="") ret+=getLocationY(texture[findTexture(THRef.relativeTo)]);
+    return ret;
+}
 void Texolder::renderTextures(){
     if(!sorted) sortTextures();
     for(TH &n : texture){
-        if(n.which) n.texolderp->renderTextures();
-        else{
-            if(n.relativeTo!=""){
-                SDL_Rect to=*n.to;
-                TH &relative=texture[findTexture(n.relativeTo)];
-                to.x+=relative.location.x;
-                to.y+=relative.location.y;
-                f->renderTexture(n.layerp,*n.from,to);
+        if(n.render){
+            if(n.which) n.texolderp->renderTextures();
+            else{
+                if(n.relativeTo!=""){
+                    SDL_Rect to=*n.to;
+                    TH &relative=texture[findTexture(n.relativeTo)];
+                    to.x+=getLocationX(relative);
+                    to.y+=getLocationY(relative);
+                    f->renderTexture(n.layerp,*n.from,to);
+                }
+                else f->renderTexture(n.layerp,*n.from,*n.to);
             }
-            else f->renderTexture(n.layerp,*n.from,*n.to);
         }
     }
 }
@@ -32,6 +44,7 @@ int* Texolder::findLayer(std::string layerName){
             return &n.id;
         }
     }
+    return NULL;
 }
 int* Texolder::addLayer(std::string layerName){
     LH tempL;
@@ -56,12 +69,6 @@ int Texolder::findTexture(int layerId){
     }
     return -1;
 }
-void Texolder::setTHx(TH& thl, int x){
-    thl.location.x-=thl.to->x; thl.to->x=x; thl.location.x+=thl.to->x;
-}
-void Texolder::setTHy(TH& thl, int y){
-    thl.location.y-=thl.to->y; thl.to->y=y; thl.location.x+=thl.to->y;
-}
 void Texolder::addTexture(layer* l, int* layerId, std::string name, SDL_Rect &from, SDL_Rect &to, std::string relativeTo){
     sorted=false;
     TH tempTH;
@@ -72,14 +79,6 @@ void Texolder::addTexture(layer* l, int* layerId, std::string name, SDL_Rect &fr
     tempTH.from=&from;
     tempTH.to=&to;
     tempTH.relativeTo=relativeTo;
-    if(relativeTo!=""){
-        tempTH.location.x=tempTH.to->x+texture[findTexture(tempTH.relativeTo)].location.x;
-        tempTH.location.y=tempTH.to->y+texture[findTexture(tempTH.relativeTo)].location.y;
-    }
-    else{
-        tempTH.location.x=tempTH.to->x;
-        tempTH.location.y=tempTH.to->y;
-    }
     texture.push_back(tempTH);
 }
 void Texolder::addTexture(Texolder* t, int* layerId, std::string name, SDL_Rect &from, SDL_Rect &to, std::string relativeTo){
@@ -92,13 +91,5 @@ void Texolder::addTexture(Texolder* t, int* layerId, std::string name, SDL_Rect 
     tempTH.from=&from;
     tempTH.to=&to;
     tempTH.relativeTo=relativeTo;
-    if(relativeTo!=""){
-        tempTH.location.x=tempTH.to->x+texture[findTexture(tempTH.relativeTo)].location.x;
-        tempTH.location.y=tempTH.to->y+texture[findTexture(tempTH.relativeTo)].location.y;
-    }
-    else{
-        tempTH.location.x=tempTH.to->x;
-        tempTH.location.y=tempTH.to->y;
-    }
     texture.push_back(tempTH);
 }

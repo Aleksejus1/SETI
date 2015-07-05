@@ -18,8 +18,7 @@ class character: public entity{
         characterSpace inventory;
         bool updateHealth=true, updateMana=true, updateExperience=true, updateLevel=true, updateType=true;
         int isInBattle=0;
-        struct fo{SDL_Rect from,to;};
-        struct stat{fo mainBar,additionBar; std::string statName; int levelBase,levelAddition,levelTotal,width[2]={0,0}; layer image,statNameLayer,levelBaseLayer,levelAdditionLayer; bool update=true, updateAddition=true;};;
+        struct stat{libs::fo mainBar,additionBar,backgroundBar,gradientBar; std::string statName; int levelBase,levelAddition,levelTotal,width[2]={0,0},additionBarWidth; layer image,statNameLayer,levelBaseLayer,levelAdditionLayer; bool update=true, updateAddition=true;};;
         std::vector<stat> stats;
         int gathering=0;
         int gatherableId=-1;

@@ -4105,7 +4105,7 @@
 	<commdlg.h>
 	"functions.h"
 
-1436017696 c:\programming\c++\sdl projects\seti\character.h
+1436110249 c:\programming\c++\sdl projects\seti\character.h
 	"libs.h"
 	"entity.h"
 	"characterSpace.h"
@@ -4125,13 +4125,13 @@
 	"space.h"
 	"Texolder.h"
 
-1436017602 c:\programming\c++\sdl projects\seti\space.h
+1436111531 c:\programming\c++\sdl projects\seti\space.h
 	"libs.h"
 	"itemStack.h"
 	"layer.h"
 	"objects.h"
 
-1436008512 c:\programming\c++\sdl projects\seti\itemstack.h
+1436111500 c:\programming\c++\sdl projects\seti\itemstack.h
 	"libs.h"
 	"item.h"
 
@@ -4198,7 +4198,7 @@
 1436008468 c:\programming\c++\sdl projects\seti\info.h
 	"libs.h"
 
-1436018983 source:c:\programming\c++\sdl projects\seti\functions.cpp
+1436112134 source:c:\programming\c++\sdl projects\seti\functions.cpp
 	"functions.h"
 
 1436015573 c:\programming\c++\sdl projects\seti\functions.h
@@ -4489,7 +4489,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1434126603 source:c:\programming\c++\sdl projects\seti\space.cpp
+1436112230 source:c:\programming\c++\sdl projects\seti\space.cpp
 	"space.h"
 	"itemStack.h"
 	"SDL.h"
@@ -4610,16 +4610,16 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1436008186 c:\programming\c++\sdl projects\seti\texolder.h
+1436095709 c:\programming\c++\sdl projects\seti\texolder.h
 	"libs.h"
 	"layer.h"
 
-1436018023 source:c:\programming\c++\sdl projects\seti\texolder.cpp
+1436095732 source:c:\programming\c++\sdl projects\seti\texolder.cpp
 	"Texolder.h"
 	"functions.h"
 	<algorithm>
 
-1436008107 c:\programming\c++\sdl projects\seti\libs.h
+1436110217 c:\programming\c++\sdl projects\seti\libs.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_ttf.h"

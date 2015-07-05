@@ -20,40 +20,34 @@
 #include <sys/types.h>
 #include <commdlg.h>
 
-space::space()
-{
+space::space(){
     //ctor
 }
 
 void space::addItemStack(){
-    itemStack itemStack_temp;
+    is itemStack_temp;
     space::itemStacks.push_back(itemStack_temp);
 }
-
 void space::addItemStack(int itemCount, item itemToPut){
-    itemStack itemStack_temp;
-    itemStack_temp.containingItem=itemToPut;
-    itemStack_temp.itemCount=itemCount;
+    is itemStack_temp;
+    itemStack_temp.is.containingItem=itemToPut;
+    itemStack_temp.is.itemCount=itemCount;
     space::itemStacks.push_back(itemStack_temp);
 }
-
 void space::addItemStacks(int ammount){
-    itemStack itemStack_temp;
+    is itemStack_temp;
     for(int i=0; i<ammount; i++) space::itemStacks.push_back(itemStack_temp);
 }
-
 void space::addItemStacks(int ammount, int itemCount, item itemToPut){
-    itemStack itemStack_temp;
-    itemStack_temp.containingItem=itemToPut;
-    itemStack_temp.itemCount=itemCount;
+    is itemStack_temp;
+    itemStack_temp.is.containingItem=itemToPut;
+    itemStack_temp.is.itemCount=itemCount;
     for(int i=0; i<ammount; i++) space::itemStacks.push_back(itemStack_temp);
 }
-
 void space::setItemStack(int itemStackId, int itemCount){
-    space::itemStacks[itemStackId].itemCount=itemCount;
+    space::itemStacks[itemStackId].is.itemCount=itemCount;
 }
-
 void space::setItemStack(int itemStackId, int itemCount, item itemToSet){
-    space::itemStacks[itemStackId].itemCount=itemCount;
-    space::itemStacks[itemStackId].containingItem=itemToSet;
+    space::itemStacks[itemStackId].is.itemCount=itemCount;
+    space::itemStacks[itemStackId].is.containingItem=itemToSet;
 }

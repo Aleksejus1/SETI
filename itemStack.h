@@ -5,8 +5,7 @@
 #include "item.h"
 
 
-class itemStack
-{
+class itemStack{
     public:
         itemStack();
         item containingItem;

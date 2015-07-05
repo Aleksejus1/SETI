@@ -9,7 +9,8 @@
 class space{
     public:
         space();
-        std::vector<itemStack> itemStacks;
+        struct is{libs::fo location; itemStack is;};
+        std::vector<is> itemStacks;
         bool open=false;
         layer imageMain;
         int rowsInInventory;
