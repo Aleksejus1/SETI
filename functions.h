@@ -16,6 +16,8 @@ class functions: public variables{
         character player; //Player information holder
         Texolder menuTxl;
         //
+        void spawnFlameParticle();
+        void renderFlameParticles();
         int getColorAlpha(SDL_Color color);
         map* createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
         map* createMap(std::string name, std::string id);
@@ -27,7 +29,7 @@ class functions: public variables{
         interact* createInteractable(int mapId, std::string imagePath, int interactableLocationX, int interactableLocationY, int w, int h, bool isInteractableColidable);
         void createObject(int mapId, std::string imagePath, int objectLocationX, int objectLocationY, bool isObjectColidable);
         void createLayer(int mapId, std::string imagePath);
-        void sendMessageToConsole(std::string message);
+        void sendMessageToConsole(std::string message, int wait=0);
         void console();
         void reset();
         GLuint convertSurfaceToOpenGLTexture(SDL_Surface* surface);

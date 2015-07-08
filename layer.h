@@ -9,7 +9,7 @@ class layer{
         SDL_Surface* surface=NULL;
         GLuint textureOpenGL=0;
         SDL_Rect from,to;
-        float zoom=0,zoomWidth=0,zoomHeight=0;
+        float zoom=0.f,zoomWidth=0.f,zoomHeight=0.f,r=1.f,g=1.f,b=1.f,a=1.f;
         SDL_Point location;
         int w=0,h=0;
         void updateSize();

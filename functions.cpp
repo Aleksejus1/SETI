@@ -4,28 +4,39 @@ functions::functions():
 UI(this),
 player(this),
 menuTxl(this){
-    UI.all[0]->update=&player.updateHealth;     UI.all[0]->countAmount=&player.healthPoints;     UI.all[0]->max_countAmount=&player.healthPointsMax;
-    UI.all[1]->update=&player.updateMana;       UI.all[1]->countAmount=&player.manaPoints;       UI.all[1]->max_countAmount=&player.manaPointsMax;
-    UI.all[2]->update=&player.updateExperience; UI.all[2]->countAmount=&player.experiencePoints; UI.all[2]->max_countAmount=&player.experienceRequiredForNextLevel;
-    UI.bar_green.update=&player.updateType;
-    UI.level.update=&player.updateLevel; UI.level.countAmount=&player.level;
-    player.healthPointsMax=999.0;
-    player.addHealth(player.healthPointsMax-333);
-    player.manaPointsMax=820.0;
-    player.addMana(player.manaPointsMax-800);
-    player.experienceRequiredForNextLevel=100.0;
-    player.addExperience(125.0);
-    player.location.x=320;//sets the starting x position of the player
-    player.location.y=420;//sets the starting y position of the player
-    player.map_location=1;//sets the starting map id of the player
-    player.inventory.addItemStacks((2+8)*4+2);
-    player.setType("EGYPTIAN WARRIOR");
-    addColor(0,0,0);
-    addColor(255,0,0);
-    addColor(0,255,0);
-    addColor(0,0,255);
-    createSurface(&consoleVariables.surface,CONSOLE_SCREEN_WIDTH/2,CONSOLE_SCREEN_HEIGHT/2);
-    createSurface(&consoleMessages.surface,CONSOLE_SCREEN_WIDTH,CONSOLE_SCREEN_HEIGHT/2);
+    if(true){//stuff
+        UI.all[0]->update=&player.updateHealth;     UI.all[0]->countAmount=&player.healthPoints;     UI.all[0]->max_countAmount=&player.healthPointsMax;
+        UI.all[1]->update=&player.updateMana;       UI.all[1]->countAmount=&player.manaPoints;       UI.all[1]->max_countAmount=&player.manaPointsMax;
+        UI.all[2]->update=&player.updateExperience; UI.all[2]->countAmount=&player.experiencePoints; UI.all[2]->max_countAmount=&player.experienceRequiredForNextLevel;
+        UI.bar_green.update=&player.updateType;
+        UI.level.update=&player.updateLevel; UI.level.countAmount=&player.level;
+        player.healthPointsMax=999.0;
+        player.addHealth(player.healthPointsMax-333);
+        player.manaPointsMax=820.0;
+        player.addMana(player.manaPointsMax-800);
+        player.experienceRequiredForNextLevel=100.0;
+        player.addExperience(125.0);
+        player.location.x=320;//sets the starting x position of the player
+        player.location.y=420;//sets the starting y position of the player
+        player.map_location=1;//sets the starting map id of the player
+        player.inventory.addItemStacks((2+8)*4+2);
+        player.setType("EGYPTIAN WARRIOR");
+        addColor(0,0,0);
+        addColor(255,0,0);
+        addColor(0,255,0);
+        addColor(0,0,255);
+        createSurface(&consoleVariables.surface,CONSOLE_SCREEN_WIDTH/2,CONSOLE_SCREEN_HEIGHT/2);
+        createSurface(&consoleMessages.surface,CONSOLE_SCREEN_WIDTH,CONSOLE_SCREEN_HEIGHT/2);
+    }
+    if(true){//flame particle stuff
+        menu.chanceToCreateFlameEachFrame=FPS/10;
+        menu.flameStartLine.from=0;
+        menu.flameStartLine.width=SCREEN_WIDTH*1/3;
+        menu.flameEndLine.from=0;
+        menu.flameEndLine.width=SCREEN_WIDTH*5/8;
+        menu.flameLifeTime.from=600;//1600;
+        menu.flameLifeTime.width=1400;
+    }
 }
 
 void functions::loadMedia(){
@@ -49,6 +60,7 @@ void functions::loadMedia(){
         addButton("Z",SDLK_z);
         addButton("Q",SDLK_q);
         addButton("R",SDLK_r);
+        addButton("Tab",SDLK_TAB);
     }
     if(GLStage==STAGE_SDL){
     if(true){//create player
@@ -188,6 +200,26 @@ void functions::loadMedia(){
         txl.addTexture(&player.inventory.imageMain,txl.findLayer("base"),"base",player.inventory.imageMain.from,player.inventory.imageMain.to);
         player.inventory.imageMain.from=player.inventory.imageMain.surface->clip_rect;
         player.inventory.imageMain.to=getRect(player.inventory.location.x,player.inventory.location.y,player.inventory.imageMain.surface->w,player.inventory.imageMain.surface->h);
+        std::string relative;
+        for(int i=0; i<(int)player.inventory.itemStacks.size(); i++){
+            space::is& itemStackRef=player.inventory.itemStacks[i];
+            itemStackRef.location.to=getRect(0,0,player.inventory.imageInventorySlot[0].surface->w,player.inventory.imageInventorySlot[0].surface->h);
+            if(i==0){
+                itemStackRef.location.to.x=player.inventory.slotLocationTopLeft.x;
+                itemStackRef.location.to.y=player.inventory.slotLocationTopLeft.y;
+                relative="base";
+            }
+            else if(i%player.inventory.slotsInOneRow==0){
+                itemStackRef.location.to.y=player.inventory.distanceBetweenSlots;
+                relative="slot "+toString(i-player.inventory.slotsInOneRow);
+            }
+            else{
+                itemStackRef.location.to.x=player.inventory.distanceBetweenSlots;
+                relative="slot "+toString(i-1);
+            }
+            txl.addTexture(&player.inventory.imageInventorySlot[0],txl.findLayer("items"),"slot "+toString(i),itemStackRef.location.from,itemStackRef.location.to,relative);
+            itemStackRef.location.from=player.inventory.imageInventorySlot[0].surface->clip_rect;
+        }
         for(int i=0; i<player.inventory.equipmentCount; i++){
             txl.addTexture(&player.inventory.equipmentAll[i]->image,txl.findLayer("slots"),player.inventory.equipmentAll[i]->typeName,player.inventory.equipmentAll[i]->image.from,player.inventory.equipmentAll[i]->image.to,"base");
             player.inventory.equipmentAll[i]->image.from=player.inventory.equipmentAll[i]->image.surface->clip_rect;
@@ -220,26 +252,7 @@ void functions::loadMedia(){
             ps.mainBar.from=pi.full.surface->clip_rect;
             ps.mainBar.to=getRect(0,0,0,pi.full.surface->h);
         }
-        std::string relative;
-        for(int i=0; i<(int)player.inventory.itemStacks.size(); i++){
-            space::is& itemStackRef=player.inventory.itemStacks[i];
-            itemStackRef.location.to=getRect(0,0,player.inventory.imageInventorySlot[0].surface->w,player.inventory.imageInventorySlot[0].surface->h);
-            if(i==0){
-                itemStackRef.location.to.x=player.inventory.slotLocationTopLeft.x;
-                itemStackRef.location.to.y=player.inventory.slotLocationTopLeft.y;
-                relative="base";
-            }
-            else if(i%player.inventory.slotsInOneRow==0){
-                itemStackRef.location.to.y=player.inventory.distanceBetweenSlots;
-                relative="slot "+toString(i-player.inventory.slotsInOneRow);
-            }
-            else{
-                itemStackRef.location.to.x=player.inventory.distanceBetweenSlots;
-                relative="slot "+toString(i-1);
-            }
-            txl.addTexture(&player.inventory.imageInventorySlot[0],txl.findLayer("items"),"slot "+toString(i),itemStackRef.location.from,itemStackRef.location.to,relative);
-            itemStackRef.location.from=player.inventory.imageInventorySlot[0].surface->clip_rect;
-        }
+        txl.sortTextures();
         }
     }
     if(true){//calculate stuff
@@ -423,7 +436,7 @@ void functions::loadMedia(){
     }
     if(true){//create menu
         std::string pathStart="Graphics\\menu slices\\",pathEnd=".png",path; layer *layerr; variables::button* buttonp;
-        for(int i=0; i<7; i++){
+        for(int i=0; i<8; i++){
             switch(i){
                 case 0: path="close"; buttonp=&menu.close; break;
                 case 1: path="play"; buttonp=&menu.play; break;
@@ -432,6 +445,7 @@ void functions::loadMedia(){
                 case 4: path="background"; layerr=&menu.background; break;
                 case 5: path="logo"; layerr=&menu.logo; break;
                 case 6: path="top_gradient"; layerr=&menu.gradient; break;
+                case 7: path="flame"; layerr=&menu.flameParticle; break;
             }
             if(i<4){
                 loadImage(pathStart+path+"_idle"+pathEnd,buttonp->button[0]);
@@ -469,6 +483,53 @@ void functions::loadMedia(){
     }
 }
 
+void functions::spawnFlameParticle(){
+    fl newFlame;
+    newFlame.startPoint=getPoint(rand()%menu.flameStartLine.width+menu.flameStartLine.from,SCREEN_HEIGHT);
+    newFlame.endPoint=getPoint(rand()%menu.flameEndLine.width+menu.flameEndLine.from,newFlame.endPoint.y=-rand()%SCREEN_HEIGHT*4/5+SCREEN_HEIGHT*3/5);
+    if(rand()%2){
+        newFlame.startPoint.x+=SCREEN_WIDTH*2/3;
+        newFlame.endPoint.x+=SCREEN_WIDTH*3/8;
+    }
+    newFlame.lifetime=rand()%menu.flameLifeTime.width+menu.flameLifeTime.from;
+    newFlame.creationTimeStamp=timeStamp;
+    newFlame.oscillationInitialAmplitude=rand()%20+90;
+    newFlame.oscillationEndingAmplitude=rand()%7+3;
+    newFlame.oscillationSpeed=rand()%30+20;
+    newFlame.direction=rand()%2;
+    newFlame.initialSize=4.f/5.f;
+    newFlame.endingSize=1.f/5.f;
+    menu.flames.push_back(newFlame);
+}
+void functions::renderFlameParticles(){
+    if(rand()%(menu.chanceToCreateFlameEachFrame)==0) spawnFlameParticle();
+    //for(int i=0; i<10; i++) spawnFlameParticle();
+    for(int i=0; i<(int)menu.flames.size(); i++){
+        fl &flame=menu.flames[i];
+        flame.delta=(float)(timeStamp-flame.creationTimeStamp)/(float)flame.lifetime;
+        //flame.delta=sqrt(flame.delta);
+        if(flame.delta>1||(1-sqrt(flame.delta))*7.f/8.f<0){
+            menu.flames.erase(menu.flames.begin()+i,menu.flames.begin()+i+1);
+            i--;
+        }
+        else{
+            flame.location.x=flame.startPoint.x*(1-flame.delta)+flame.endPoint.x*flame.delta;
+            flame.location.y=flame.startPoint.y*(1-flame.delta)+flame.endPoint.y*flame.delta;
+            if(flame.direction){
+                flame.location.x+=cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
+                flame.location.y+=sin(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
+            }
+            else{
+                flame.location.x+=sin(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
+                flame.location.y+=cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
+            }
+            //int opacity=flame.delta-
+            menu.flameParticle.a=(1-sqrt(flame.delta))*7.f/8.f;
+            menu.flameParticle.setZoom(flame.initialSize*(1-flame.delta)+flame.endingSize*flame.delta);
+            renderTexture(&menu.flameParticle,menu.flameParticle.surface->clip_rect,flame.location.x,flame.location.y);
+        }
+    }
+}
 int functions::getColorAlpha(SDL_Color color){
     return color.a;
 }
@@ -593,7 +654,7 @@ void functions::createLayer(int mapId, std::string imagePath){
     }
     else error("The program was unable to create a layer. [Info: imagePath="+imagePath+";");
 }
-void functions::sendMessageToConsole(std::string message){
+void functions::sendMessageToConsole(std::string message, int wait){
     bool test=false;
     for(int i=0; i<(int)consoleMessages.textInfo.size(); i++){
         if(consoleMessages.textInfo[i].substr(0,message.size())==message){
@@ -610,6 +671,8 @@ void functions::sendMessageToConsole(std::string message){
         if(consoleMessages.textInfo.size()>12) consoleMessages.textInfo.erase(consoleMessages.textInfo.begin(),consoleMessages.textInfo.begin()+1);
         consoleMessages.update=true;
     }
+    console();
+    SDL_Delay(wait);
 }
 void functions::console(){
     if(consoleShow){
@@ -689,6 +752,7 @@ GLuint functions::convertSurfaceToOpenGLTexture(SDL_Surface* surface){
     return texture;
 };
 void functions::reset(){
+    timeStamp++;
     frame++; if(frame>FPS) frame%=FPS;
     if(player.inventory.doubleClick>-1){
         player.inventory.doubleClick++;
@@ -1088,7 +1152,44 @@ void functions::renderInventory(bool manageClicks){
         else player.inventory.scrollBarOffset=0;
     }
     //renderTexture(&player.inventory.imageMain,player.inventory.imageMain.surface->clip_rect,player.inventory.location.x,player.inventory.location.y);
-    if(false){//render Item Slots
+    if(true){//render Item Slots
+        Texolder& txl=player.inventory.txl;
+        Texolder::TH *THp;
+        int found=txl.findTexture(*txl.findLayer("items")),yLocation;
+        txl.texture[found].to->y=player.inventory.slotLocationTopLeft.y-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
+        for(int i=0; i<player.inventory.itemStacks.size(); i+=player.inventory.slotsInOneRow){
+            THp=&txl.texture[i+found];
+            yLocation=txl.getLocationY(*THp);
+            bool render=true;
+            if(yLocation<(player.inventory.slotLocationTopLeft.y)){ //render info for itemSlots that are clipping at top
+                if(yLocation+THp->layerp->h<(player.inventory.slotLocationTopLeft.y)){ if(buttons[findButton("Tab")].pressed) error(THp->name+" outside top");
+                    render=false;
+                }
+                else{ if(buttons[findButton("Tab")].pressed) error(THp->name+" clip top");
+
+                }
+            }
+            else if(yLocation+THp->layerp->h>player.inventory.slotLocationBottomY){//render info for itemSlots that are clipping at bottom
+                if(yLocation>player.inventory.slotLocationBottomY){ if(buttons[findButton("Tab")].pressed) error(THp->name+" outside bot");
+                    render=false;
+                }
+                else{ if(buttons[findButton("Tab")].pressed) error(THp->name+" clip bot");
+                    /*
+                    yFrom=0;
+                    hFrom=(player.inventory.slotLocationBottomY-yLocation)/player.inventory.zoom;
+                    yTo=yLocation;
+                    */
+                }
+            }
+            else{ if(buttons[findButton("Tab")].pressed) error(THp->name+" inside");
+            }
+            for(int o=0; o<player.inventory.slotsInOneRow; o++){
+                if(i+o<(int)player.inventory.itemStacks.size()){
+                    txl.texture[i+o+found].render=render;
+                }
+            }
+        }
+        /*
         int slotsLocationY,yFrom,hFrom,yTo,yFromTemp,hFromTemp,yTo2,yTo3,yFrom2,hFrom2;
         for(int y=0; y<player.inventory.rowsInInventory; y++){
             slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
@@ -1151,6 +1252,7 @@ void functions::renderInventory(bool manageClicks){
                 }
             }
         }
+        */
     }
     if(false){//render Scroll Bar
         renderTexture(&player.inventory.imageScrollBubbleFull,player.inventory.imageScrollBubbleFull.surface->clip_rect,2354*player.inventory.zoom+player.inventory.location.x,player.inventory.slotLocationTopLeft.y+player.inventory.location.y);
@@ -1673,7 +1775,7 @@ void functions::renderTexture(layer* texture,SDL_Rect &sourceRect,int x, int y){
     openGLRender(texture,&sourceRect,&destinationRect);
 }
 void functions::openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destRect){
-    if(texture->textureOpenGL!= 0){
+    if(texture->textureOpenGL!=0){
         float point[8];
         point[0]=0.f;
         point[1]=point[0];
@@ -1694,6 +1796,7 @@ void functions::openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destR
         glRotatef(rotationAngle,0.f,0.f,1.f);
         glTranslatef(destRect->x+offset.x-SCREEN_WIDTH/2,destRect->y+offset.y-SCREEN_HEIGHT/2,0.f);
         glBindTexture(GL_TEXTURE_2D,texture->textureOpenGL);
+        glColor4f(texture->r,texture->g,texture->b,texture->a);
         glBegin(GL_QUADS);
             glTexCoord2f(cornerX[0],cornerY[0]);
                 glVertex2f(point[0],point[1]);
@@ -1705,7 +1808,6 @@ void functions::openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destR
                 glVertex2f(point[6],point[7]);
         glEnd();
     }
-    //else error("can't render a layer because texture->textureOpenGL==0");
 }
 std::string functions::toString(int number){
     std::stringstream ss;

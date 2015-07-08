@@ -13,6 +13,8 @@ class Texolder{
         std::vector<TH> texture;
         struct LH{int id; std::string name;};
         struct sortByLayerId{inline bool operator()(const TH& check1, const TH& check2){return(*(check1.layerId)<*(check2.layerId));}};
+        void setLocationX(TH& THRef, int coordinate);
+        void setLocationY(TH& THRef, int coordinate);
         int getLocationX(TH& THRef);
         int getLocationY(TH& THRef);
         void renderTextures();

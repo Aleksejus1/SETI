@@ -6,6 +6,12 @@ Texolder::Texolder(functions* fp){
     f=fp;
 }
 
+void Texolder::setLocationX(TH& THRef, int coordinate){
+    THRef.to->x+=coordinate-getLocationX(THRef);
+}
+void Texolder::setLocationY(TH& THRef, int coordinate){
+    THRef.to->y+=coordinate-getLocationY(THRef);
+}
 int Texolder::getLocationX(TH& THRef){
     int ret=THRef.to->x;
     if(THRef.relativeTo!="") ret+=getLocationX(texture[findTexture(THRef.relativeTo)]);
@@ -35,7 +41,18 @@ void Texolder::renderTextures(){
     }
 }
 void Texolder::sortTextures(){
-    std::sort(texture.begin(),texture.end(),sortByLayerId());
+    int i,j,texLength=texture.size(); TH temp; bool flag=true;
+    for(i=1;(i<=texLength)&&flag;i++){
+        flag=false;
+        for(j=0;j<(texLength-1);j++){
+            if(*texture[j+1].layerId<*texture[j].layerId){
+                temp=texture[j];
+                texture[j]=texture[j+1];
+                texture[j+1]=temp;
+                flag=true;
+            }
+        }
+    }
     sorted=true;
 }
 int* Texolder::findLayer(std::string layerName){

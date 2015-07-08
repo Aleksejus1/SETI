@@ -94,6 +94,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
             }
             else if(f.currentMenu==f.MENU_START){
                 f.menuTxl.renderTextures();
+                f.renderFlameParticles();
             }
             //SDL_RenderPresent(f.renderer); // update screen
             SDL_GL_SwapWindow(f.window);

@@ -4118,7 +4118,7 @@
 1436008594 c:\programming\c++\sdl projects\seti\skill.h
 	"libs.h"
 
-1436008215 c:\programming\c++\sdl projects\seti\layer.h
+1436210865 c:\programming\c++\sdl projects\seti\layer.h
 	"libs.h"
 
 1435410072 c:\programming\c++\sdl projects\seti\characterspace.h
@@ -4198,10 +4198,10 @@
 1436008468 c:\programming\c++\sdl projects\seti\info.h
 	"libs.h"
 
-1436126032 source:c:\programming\c++\sdl projects\seti\functions.cpp
+1436217190 source:c:\programming\c++\sdl projects\seti\functions.cpp
 	"functions.h"
 
-1436121782 c:\programming\c++\sdl projects\seti\functions.h
+1436208144 c:\programming\c++\sdl projects\seti\functions.h
 	"libs.h"
 	"layer.h"
 	"variables.h"
@@ -4209,7 +4209,7 @@
 	"gather.h"
 	"stage.h"
 
-1436126097 c:\programming\c++\sdl projects\seti\variables.h
+1436216200 c:\programming\c++\sdl projects\seti\variables.h
 	"libs.h"
 	"character.h"
 	"keyboard.h"
@@ -4393,7 +4393,7 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1436126129 source:c:\programming\c++\sdl projects\seti\main.cpp
+1436207627 source:c:\programming\c++\sdl projects\seti\main.cpp
 	"libs.h"
 	"functions.h"
 	"map.h"
@@ -4610,11 +4610,11 @@
 	<sys/types.h>
 	<commdlg.h>
 
-1436095709 c:\programming\c++\sdl projects\seti\texolder.h
+1436183414 c:\programming\c++\sdl projects\seti\texolder.h
 	"libs.h"
 	"layer.h"
 
-1436121488 source:c:\programming\c++\sdl projects\seti\texolder.cpp
+1436183383 source:c:\programming\c++\sdl projects\seti\texolder.cpp
 	"Texolder.h"
 	"functions.h"
 	<algorithm>

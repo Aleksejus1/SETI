@@ -35,15 +35,6 @@ class variables{
             STAGE_OPENGL
         };
         int GLStage=STAGE_SDL;
-        //-Menu--------------------------------------------
-        struct button{
-            layer button[2];
-        };
-        struct mnu{
-            button about,close,options,play;
-            layer background,gradient,logo;
-        };
-        mnu menu;
         //-Other-------------------------------------------
         layer iconMain,iconDebug;
         enum menus{
@@ -98,6 +89,7 @@ class variables{
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
         bool bordersAreAThing=true; //you did not see this =.=
+        int timeStamp=0;
         int frame=0; //current frame;
         int mouseButton=0;
         int leftMouseButton=0;
@@ -125,6 +117,25 @@ class variables{
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window
         std::string clickedOn="";
         MSG messages; //Some kind of weird windows thing that should be left alone
+        //-Menu--------------------------------------------
+        struct chance{int from,width;};
+        struct button{
+            layer button[2];
+        };
+        struct fl{
+            SDL_Point startPoint,endPoint,location;
+            bool direction;
+            int lifetime,creationTimeStamp;
+            float delta,initialSize,endingSize,oscillationSpeed,oscillationInitialAmplitude,oscillationEndingAmplitude;
+        };
+        struct mnu{
+            int chanceToCreateFlameEachFrame;
+            chance flameStartLine,flameEndLine,flameLifeTime;
+            button about,close,options,play;
+            layer background,gradient,logo,flameParticle;
+            std::vector<fl> flames;
+        };
+        mnu menu;
         //-------------------------------------------------
 };
 
