@@ -40,7 +40,8 @@ menuTxl(this){
 }
 
 void functions::loadMedia(){
-    if(true){//add buttons
+	//add buttons
+	if(true){
         addButton("Always false",SDLK_d);
         addButton("D",SDLK_d);
         addButton("A",SDLK_a);
@@ -63,21 +64,25 @@ void functions::loadMedia(){
         addButton("Tab",SDLK_TAB);
 	}
     if(GLStage==STAGE_SDL){
-    if(true){//create player
+	//create player
+    if(true){
         loadImage("qpm\\player.png",player.image);
 	}
-	if(true){//add obstructions
+	//add obstructions
+	if(true){
         addObstruction(0,0,10,255);
         addObstruction(0,0,200,255);
 	}
-	if(true){//add spells/attacks
+	//add spells/attacks
+	if(true){
         addSpell("Spell", 1337, 0, "qpm\\1st spell.png", "qpm\\icon_active.png", "qpm\\icon_cooldown.png", 50,50);
         Spells[0].icon_active.setWidthZoom((float)50/(float)Spells[0].icon_active.surface->w);
         Spells[0].icon_active.setHeightZoom((float)50/(float)Spells[0].icon_active.surface->h);
         Spells[0].icon_cooldown.setWidthZoom((float)50/(float)Spells[0].icon_cooldown.surface->w);
         Spells[0].icon_cooldown.setHeightZoom((float)50/(float)Spells[0].icon_cooldown.surface->h);
 	}
-	if(true){//create entities/mobs
+	//create entities/mobs
+	if(true){
         addEntity(20.0,1,0.0,"Zombie","qpm\\Zombie.png",184,478);
         entities[entities.size()-1].image.setZoom((float)player.image.surface->h/(float)entities[entities.size()-1].image.surface->w);
         addEntity(20.0,1,0.0,"Zombie_mini","qpm\\Zombie.png",184,478);
@@ -93,18 +98,22 @@ void functions::loadMedia(){
         addEntity(20.0,1,0.0,"debug_5","qpm\\debug_5.png",147,488);
         entities[entities.size()-1].image.setZoom((float)player.image.surface->w/(float)entities[entities.size()-1].image.surface->h);
 	}
-	if(true){//create images
+	//create images
+	if(true){
         createImage("qpm\\base.png","base");
         images[images.size()-1].image.setZoom(0.35f);
         createImage("qpm\\progressBarFrame.png","progressBarFrame");
         createImage("qpm\\progressBarInside.png","progressBarInside");
 	}
-    if(true){//create UI
-    if(true){//create Battle UI
+	//create UI
+    if(true){
+	//create Battle UI
+    if(true){
         createImage("qpm\\BattleUI.png","battleUI");
         images[images.size()-1].image.setZoom((float)SCREEN_WIDTH/(float)images[images.size()-1].image.surface->w);
 	}
-	if(true){//create Character UI
+	//create Character UI
+	if(true){
         loadImage("Graphics\\Top Left UI\\ui_character_v1.png",UI.characterUI);
             UI.characterUI.setZoom(characterUiZoom);
         loadImage("Graphics\\Top Left UI\\red_bar.png",UI.bar_red.bar);
@@ -126,9 +135,11 @@ void functions::loadMedia(){
         loadImage("Graphics\\Top Left UI\\empty_bar.png",UI.bar_empty);
             UI.bar_empty.setZoom(characterUiZoom);
 	}
-	if(true){//create Inventory Interface
+	//create Inventory Interface
+	if(true){
     int scrollBarEndingY;
-    if(true){//set some values
+	//set some values
+    if(true){
         player.inventory.slotsInOneRow=4;
         player.inventory.rowsInInventory=player.inventory.itemStacks.size()/player.inventory.slotsInOneRow;
         if(player.inventory.itemStacks.size()%player.inventory.slotsInOneRow!=0) player.inventory.rowsInInventory++;
@@ -145,7 +156,8 @@ void functions::loadMedia(){
         player.inventory.equipmentTopLeftLocation.y=(int)(player.inventory.zoom*181);
         scrollBarEndingY=(int)(player.inventory.zoom*2251);
 	}
-	if(true){//load images
+	//load images
+	if(true){
 		std::string prePath = "Graphics\\equipment ui slice\\", endingPath = ".png", text; layer* layeRef; Texolder& txl = player.inventory.txl;
 		for(int i=0; i<player.inventory.equipmentCount; i++){
             loadImage(prePath+player.inventory.equipmentAll[i]->typeName+endingPath,player.inventory.equipmentAll[i]->image);
@@ -195,8 +207,9 @@ void functions::loadMedia(){
             if(i!=0) player.inventory.statsBar.push_back(bar);
             else player.inventory.additionBar=bar;
 		}
-		if(true){//create Texolder stuff
-		txl.addLayer("base"); txl.addLayer("slots"); txl.addLayer("items"); txl.addLayer("stats");
+		//create Texolder stuff
+		if(true){
+			txl.addLayer("base"); txl.addLayer("slots"); txl.addLayer("items"); txl.addLayer("stats"); txl.addLayer("stats2");
 		txl.addTexture(&player.inventory.imageMain, txl.findLayer("base"), "base", player.inventory.imageMain.from, player.inventory.imageMain.to);
 		player.inventory.imageMain.from = player.inventory.imageMain.surface->clip_rect;
 		player.inventory.imageMain.to = getRect(player.inventory.location.x, player.inventory.location.y, player.inventory.imageMain.surface->w, player.inventory.imageMain.surface->h);
@@ -234,7 +247,7 @@ void functions::loadMedia(){
             txl.addTexture(&pi.full,txl.findLayer("stats"),ps.statName+" bar main",ps.mainBar.from,ps.mainBar.to,ps.statName+" level count");
             txl.addTexture(&player.inventory.additionBar.full,txl.findLayer("stats"),ps.statName+" bar addition",ps.additionBar.from,ps.additionBar.to,ps.statName+" bar main");
             txl.addTexture(&ps.levelAdditionLayer,txl.findLayer("stats"),ps.statName+" addition count",ps.levelAdditionLayer.from,ps.levelAdditionLayer.to,ps.statName+" level count");
-            txl.addTexture(&pi.gradient,txl.findLayer("stats"),ps.statName+" bar gradient",ps.gradientBar.from,ps.gradientBar.to,ps.statName+" bar addition");
+            txl.addTexture(&pi.gradient,txl.findLayer("stats2"),ps.statName+" bar gradient",ps.gradientBar.from,ps.gradientBar.to,ps.statName+" bar addition");
             txl.addTexture(&pib.full,txl.findLayer("stats"),ps.statName+" bar background",ps.backgroundBar.from,ps.backgroundBar.to,ps.statName+" bar addition");
             ps.gradientBar.from=pi.gradient.surface->clip_rect;
             ps.gradientBar.to=ps.gradientBar.from;
@@ -255,7 +268,8 @@ void functions::loadMedia(){
 		txl.sortTextures();
         }
 	}
-	if(true){//calculate stuff
+	//calculate stuff
+	if(true){
             createSurface(&player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->w,(scrollBarEndingY-player.inventory.slotLocationTopLeft.y));
             for(int i=0; i<player.inventory.imageScrollBubbleFull.surface->h; i++) copySurface(player.inventory.imageScrollBubble.surface,player.inventory.imageScrollBubbleFull.surface,player.inventory.imageScrollBubble.surface->clip_rect,0,i);
             player.inventory.imageScrollBubbleFull.textureOpenGL=convertSurfaceToOpenGLTexture(player.inventory.imageScrollBubbleFull.surface);
@@ -280,7 +294,8 @@ void functions::loadMedia(){
             player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots)/(float)player.inventory.furthestPossibleSliderLocation;
         }
 	}
-	if(true){//create Bot UI
+	//create Bot UI
+	if(true){
         UI.botUIButtonsTopLeftLocation.x=73*characterUiZoom;
         UI.botUIButtonsTopLeftLocation.y=143*characterUiZoom;
         UI.botUIDistanceBetweenButtons=202*characterUiZoom;
@@ -317,7 +332,8 @@ void functions::loadMedia(){
         }
 
 	}
-	if(true){//create Top UI
+	//create Top UI
+	if(true){
             loadImage("Graphics\\top menu buttons\\reflection below.png",UI.topUIReflection);
                 UI.topUIReflection.setZoom(characterUiZoom);
             std::string UITopUIName;
@@ -339,12 +355,14 @@ void functions::loadMedia(){
             UI.topUIButtonsTopLeftLocation.y=0;
         }
 	}
-	if(true){//create items
+	//create items
+	if(true){
         addItem("Poop","ingredient","qpm\\item_poop.png");
         addItem("Berry",player.inventory.equipmentHandRight.typeName,"qpm\\item_berry.png");
         addItem("RegularSword",player.inventory.equipmentHandRight.typeName,"qpm\\regularSword.png"); items[items.size()-1].damage=5; affectStat("Strength",5); affectStat("Health",25);
 	}
-	if(true){//load Fonts
+	//load Fonts
+	if(true){
         //-------------------------------------------------------------------------------------
         font=TTF_OpenFont("ttf\\DroidSerif.ttf",fontSize);
         TTF_SetFontStyle(font,TTF_STYLE_BOLD);
@@ -361,7 +379,8 @@ void functions::loadMedia(){
         TTF_SetFontStyle(font_lithosProForLevel,TTF_STYLE_BOLD);
         //-------------------------------------------------------------------------------------
 	}
-	if(true){//load messages
+	//load messages
+	if(true){
         RenderType=RENDER_NEAREST;
         player.inventory.closeButton.surface=TTF_RenderText_Blended(font_lithosPro,"close X",messageColor);
         player.inventory.closeButton.textureOpenGL=convertSurfaceToOpenGLTexture(player.inventory.closeButton.surface);
@@ -369,7 +388,8 @@ void functions::loadMedia(){
         messageSlash.textureOpenGL=convertSurfaceToOpenGLTexture(messageSlash.surface);
         RenderType=RENDER_MIPMAP;
 	}
-	if(true){//create maps
+	//create maps
+	if(true){
         interact *interPnt; gather* gatherPnt; int mapId; stage* stagePnt;
 
         createMap("Place holder", "error");
@@ -423,7 +443,8 @@ void functions::loadMedia(){
         //ending point
         ammountOfMaps=maps.size();
 	}
-	if(true){//create battle zones
+	//create battle zones
+	if(true){
         int mapId;
         createBattleZone("The third map", "Pyramids_So_Real",
                          0,0,   0,0,   320,500,   0,0,   0,0,
@@ -434,9 +455,10 @@ void functions::loadMedia(){
         createLayer(mapId,"qpm\\bc3.png");
         createLayer(mapId,"qpm\\pyramids_transparent.png");
 	}
-	if(true){//create menu
+	//create menu
+	if(true){
         std::string pathStart="Graphics\\menu slices\\",pathEnd=".png",path; layer *layerr; variables::buttn* buttonp;
-        for(int i=0; i<8; i++){
+        for(int i=0; i<9; i++){
             switch(i){
                 case 0: path="close"; buttonp=&menu.close; break;
                 case 1: path="play"; buttonp=&menu.play; break;
@@ -444,8 +466,10 @@ void functions::loadMedia(){
                 case 3: path="about"; buttonp=&menu.about; break;
                 case 4: path="background"; layerr=&menu.background; break;
                 case 5: path="logo"; layerr=&menu.logo; break;
-                case 6: path="top_gradient"; layerr=&menu.gradient; break;
-                case 7: path="flame"; layerr=&menu.flameParticle; break;
+				case 6: path = "top_gradient"; layerr = &menu.gradient; break;
+				case 7: path = "flame 1"; layerr = &menu.flameParticle[0]; break;
+				//case 8: path = "flame 2"; layerr = &menu.flameParticle[1]; break;
+				case 8: path = "flame 3"; layerr = &menu.flameParticle[1]; break;
             }
             if(i<4){
                 loadImage(pathStart+path+"_idle"+pathEnd,buttonp->button[0]);
@@ -484,21 +508,25 @@ void functions::loadMedia(){
 }
 
 void functions::spawnFlameParticle(){
-    fl newFlame;
+	fl newFlame;
     newFlame.startPoint=getPoint(rand()%menu.flameStartLine.width+menu.flameStartLine.from,SCREEN_HEIGHT);
     newFlame.endPoint=getPoint(rand()%menu.flameEndLine.width+menu.flameEndLine.from,newFlame.endPoint.y=-rand()%SCREEN_HEIGHT*4/5+SCREEN_HEIGHT*3/5);
     if(rand()%2){
         newFlame.startPoint.x+=SCREEN_WIDTH*2/3;
         newFlame.endPoint.x+=SCREEN_WIDTH*3/8;
     }
-    newFlame.lifetime=rand()%menu.flameLifeTime.width+menu.flameLifeTime.from;
-    newFlame.creationTimeStamp=timeStamp;
-    newFlame.oscillationInitialAmplitude=rand()%20+90;
-    newFlame.oscillationEndingAmplitude=rand()%7+3;
-    newFlame.oscillationSpeed=rand()%30+20;
-    newFlame.direction=rand()%2;
-    newFlame.initialSize=4.f/5.f;
-    newFlame.endingSize=1.f/5.f;
+	newFlame.lifetime = rand() % menu.flameLifeTime.width + menu.flameLifeTime.from;
+	newFlame.creationTimeStamp = timeStamp;
+	newFlame.oscillationInitialAmplitude = rand() % 20 + 90;
+	newFlame.oscillationEndingAmplitude = rand() % 7 + 3;
+	newFlame.oscillationSpeed = rand() % 30 + 20;
+	newFlame.direction = rand() % 2;
+	newFlame.initialSize = 1.f / 10.f;
+	newFlame.endingSize = 1.f / 40.f;
+	newFlame.flameId = rand() % 2;
+	newFlame.r -= rand() % 25;
+	newFlame.g = newFlame.r - rand() % 25;
+	newFlame.b = newFlame.r - rand() % 25;
     menu.flames.push_back(newFlame);
 }
 void functions::renderFlameParticles(){
@@ -524,9 +552,12 @@ void functions::renderFlameParticles(){
                 flame.location.y+=cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
             }
             //int opacity=flame.delta-
-            menu.flameParticle.a=(1-sqrt(flame.delta))*7.f/8.f;
-            menu.flameParticle.setZoom(flame.initialSize*(1-flame.delta)+flame.endingSize*flame.delta);
-            renderTexture(&menu.flameParticle,menu.flameParticle.surface->clip_rect,flame.location.x,flame.location.y);
+			menu.flameParticle[flame.flameId].a = (1 - sqrt(flame.delta))*7.f / 8.f;
+			menu.flameParticle[flame.flameId].r = flame.r / 255.f;
+			menu.flameParticle[flame.flameId].g = flame.g / 255.f;
+			menu.flameParticle[flame.flameId].b = flame.b / 255.f;
+			menu.flameParticle[flame.flameId].setZoom(flame.initialSize*(1 - flame.delta) + flame.endingSize*flame.delta);
+			renderTexture(&menu.flameParticle[flame.flameId], menu.flameParticle[flame.flameId].surface->clip_rect, flame.location.x, flame.location.y);
         }
     }
 }
@@ -834,7 +865,7 @@ void functions::renderUI(){
         for(int i=0; i<4; i++){
             if(leftMouseButton==1||leftMouseButtonUp==1){
                 Texolder::TH &n=UI.botUItxl.texture[UI.botUItxl.findTexture(*(UI.botUItxl.findLayer("icons")))+i];
-                if(pointInsideRect(mouse,getRect(UI.botUItxl.getLocationX(n),UI.botUItxl.getLocationY(n),n.layerp->w,n.layerp->h))){
+				if (pointInsideRect(mouse, getRect(UI.botUItxl.getLocationX(&n), UI.botUItxl.getLocationY(&n), n.layerp->w, n.layerp->h))){
                     if(leftMouseButton==1) {
                         clickedOn="botUIButton_"+toString(i);
                         leftMouseButton=0;
@@ -1151,14 +1182,15 @@ void functions::renderInventory(bool manageClicks){
         else player.inventory.scrollBarOffset=0;
     }
     //renderTexture(&player.inventory.imageMain,player.inventory.imageMain.surface->clip_rect,player.inventory.location.x,player.inventory.location.y);
-    if(true){//render Item Slots
+	//render Item Slots
+    if(true){
         Texolder& txl=player.inventory.txl;
         Texolder::TH *THp;
         int found=txl.findTexture(*txl.findLayer("items")),yLocation;
         txl.texture[found].to->y=player.inventory.slotLocationTopLeft.y-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
         for(int i=0; i<(int)player.inventory.itemStacks.size(); i+=player.inventory.slotsInOneRow){
             THp=&txl.texture[i+found];
-            yLocation=txl.getLocationY(*THp);
+            yLocation=txl.getLocationY(THp);
             bool render=true;
             if(yLocation<(player.inventory.slotLocationTopLeft.y)){ //render info for itemSlots that are clipping at top
                 if(yLocation+THp->layerp->h<(player.inventory.slotLocationTopLeft.y)){ if(buttons[findButton("Tab")].pressed) error(THp->name+" outside top");
@@ -1253,11 +1285,13 @@ void functions::renderInventory(bool manageClicks){
         }
         */
     }
-    if(false){//render Scroll Bar
+	//render Scroll Bar
+    if(false){
         renderTexture(&player.inventory.imageScrollBubbleFull,player.inventory.imageScrollBubbleFull.surface->clip_rect,2354*player.inventory.zoom+player.inventory.location.x,player.inventory.slotLocationTopLeft.y+player.inventory.location.y);
         renderTexture(&player.inventory.imageScrollBarFull,player.inventory.imageScrollBarFull.surface->clip_rect,2354*player.inventory.zoom+player.inventory.location.x,player.inventory.slotLocationTopLeft.y+player.inventory.scrollBarOffset+player.inventory.location.y);
     }
-    if(false){//render Equipment
+	//render Equipment
+    if(false){
         for(int i=0; i<player.inventory.equipmentCount; i++){
             if(player.inventory.equipmentAll[i]->item.itemCount==0){
                 renderTexture(&player.inventory.equipmentAll[i]->image,
@@ -1271,7 +1305,8 @@ void functions::renderInventory(bool manageClicks){
             }
         }
     }
-    if(true){//render Stats
+	//render Stats
+    if(true){
     for(int i=0; i<(int)player.stats.size(); i++){
         character::stat& ps=player.stats[i];
         Texolder& txl=player.inventory.txl;
@@ -1347,7 +1382,8 @@ void functions::renderInventory(bool manageClicks){
         }
     }
     }
-    if(false){//render Close button
+	//render Close button
+    if(false){
         renderTexture(&player.inventory.closeButton,
                       player.inventory.closeButton.surface->clip_rect,
                       player.inventory.closeLocation.x+player.inventory.location.x,

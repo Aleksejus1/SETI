@@ -7,36 +7,38 @@ Texolder::Texolder(functions* fp){
 }
 
 void Texolder::setLocationX(TH& THRef, int coordinate){
-    THRef.to->x+=coordinate-getLocationX(THRef);
+	THRef.to->x += coordinate - getLocationX(&THRef);
 }
 void Texolder::setLocationY(TH& THRef, int coordinate){
-    THRef.to->y+=coordinate-getLocationY(THRef);
+	THRef.to->y += coordinate - getLocationY(&THRef);
 }
-int Texolder::getLocationX(TH& THRef){
-    int ret=THRef.to->x;
-    if(THRef.relativeTo!="") ret+=getLocationX(texture[findTexture(THRef.relativeTo)]);
-    return ret;
+int Texolder::getLocationX(TH* THRef){
+	if (THRef->locationUpdateTimeStamp.x != f->timeStamp){
+		THRef->locationUpdateTimeStamp.x = f->timeStamp;
+		THRef->location.x = THRef->to->x;
+		if (THRef->relativeTo != nullptr) THRef->location.x += getLocationX(THRef->relativeTo);
+	}
+	return THRef->location.x;
 }
-int Texolder::getLocationY(TH& THRef){
-    int ret=THRef.to->y;
-    if(THRef.relativeTo!="") ret+=getLocationY(texture[findTexture(THRef.relativeTo)]);
-    return ret;
+int Texolder::getLocationY(TH* THRef){
+	if (THRef->locationUpdateTimeStamp.y != f->timeStamp){
+		THRef->locationUpdateTimeStamp.y = f->timeStamp;
+		THRef->location.y = THRef->to->y;
+		if (THRef->relativeTo != nullptr) THRef->location.y += getLocationY(THRef->relativeTo);
+	}
+	return THRef->location.y;
 }
 void Texolder::renderTextures(){
-    if(!sorted) sortTextures();
-    for(TH &n : texture){
-        if(n.render){
-            if(n.which) n.texolderp->renderTextures();
-            else{
-                if(n.relativeTo!=""){
-                    SDL_Rect to=*n.to;
-                    TH &relative=texture[findTexture(n.relativeTo)];
-                    to.x+=getLocationX(relative);
-                    to.y+=getLocationY(relative);
-                    f->renderTexture(n.layerp,*n.from,to);
-                }
-                else f->renderTexture(n.layerp,*n.from,*n.to);
-            }
+	if (!sorted) sortTextures();
+	for (int i = 0; i < (int)texture.size(); i++){
+		if (texture[i].render){
+			if (!texture[i].which){
+				if (texture[i].relativeTo != nullptr){
+					f->renderTexture(texture[i].layerp, *texture[i].from, getLocationX(&texture[i]), getLocationY(&texture[i]), texture[i].to->w, texture[i].to->h);
+				}
+				else f->renderTexture(texture[i].layerp, *texture[i].from, *texture[i].to);
+			}
+			else texture[i].texolderp->renderTextures();
         }
     }
 }
@@ -53,6 +55,10 @@ void Texolder::sortTextures(){
             }
         }
     }
+	for (int i = 0; i < texLength; i++){
+		if (texture[i].relativeToS != "") texture[i].relativeTo = &texture[findTexture(texture[i].relativeToS)];
+		else texture[i].relativeTo = nullptr;
+	}
     sorted=true;
 }
 int* Texolder::findLayer(std::string layerName){
@@ -90,26 +96,22 @@ int Texolder::findTexture(int layerId){
     return -1;
 }
 void Texolder::addTexture(layer* l, int* layerId, std::string name, SDL_Rect &from, SDL_Rect &to, std::string relativeTo){
-    sorted=false;
-    TH tempTH;
-    tempTH.layerp=l;
-    tempTH.which=false;
-    tempTH.layerId=layerId;
-    tempTH.name=name;
-    tempTH.from=&from;
-    tempTH.to=&to;
-    tempTH.relativeTo=relativeTo;
-    texture.push_back(tempTH);
+	TH tempTH; texture.push_back(tempTH); TH &cTexture = texture[texture.size() - 1];
+	cTexture.layerp = l;
+	cTexture.which = false;
+	additionBase(layerId, name, from, to, relativeTo);
 }
 void Texolder::addTexture(Texolder* t, int* layerId, std::string name, SDL_Rect &from, SDL_Rect &to, std::string relativeTo){
-    sorted=false;
-    TH tempTH;
-    tempTH.texolderp=t;
-    tempTH.which=true;
-    tempTH.layerId=layerId;
-    tempTH.name=name;
-    tempTH.from=&from;
-    tempTH.to=&to;
-    tempTH.relativeTo=relativeTo;
-    texture.push_back(tempTH);
+	TH tempTH; texture.push_back(tempTH); TH &cTexture = texture[texture.size() - 1];
+	cTexture.texolderp = t;
+	cTexture.which = true;
+	additionBase(layerId, name, from, to, relativeTo);
+}
+void Texolder::additionBase(int* layerId, std::string name, SDL_Rect &from, SDL_Rect &to, std::string relativeTo){
+	sorted = false; TH &cTexture = texture[texture.size() - 1];
+	cTexture.layerId = layerId;
+	cTexture.name = name;
+	cTexture.from = &from;
+	cTexture.to = &to;
+	cTexture.relativeToS = relativeTo;
 }

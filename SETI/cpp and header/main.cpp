@@ -221,7 +221,7 @@ void interact(){
                 }
                 buttonName="button "+buttonName;
                 THp=&txl.texture[txl.findTexture(buttonName)];
-                location.x=txl.getLocationX(*THp); location.y=txl.getLocationY(*THp);
+                location.x=txl.getLocationX(THp); location.y=txl.getLocationY(THp);
                 if(f.pointInsideRect(f.mouse,f.getRect(location.x,location.y,THp->to->w,THp->to->h))&&(!checkAlpha||f.getColorAlpha(f.getPixelColors(THp->layerp->surface,f.mouse.x-location.x,f.mouse.y-location.y))!=0)){
                     if(f.leftMouseButtonUp&&f.clickedOn==buttonName){
                         switch(i){

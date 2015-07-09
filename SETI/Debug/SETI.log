@@ -1,91 +1,52 @@
-﻿Build started 7/8/2015 11:23:54 PM.
-     1>Project "C:\Programming\C++\SDL projects\Project SETI [SP]\SETI\SETI.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Programming\C++\sdl\include\SDL2 /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "cpp and header\Texolder.cpp" "cpp and header\functions.cpp"
-         functions.cpp
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(249): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(271): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(277): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(284): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(285): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(286): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(335): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(336): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(337): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(353): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(357): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(360): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(497): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(498): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(499): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(500): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(517): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(518): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(520): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(521): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(524): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(525): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(778): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(892): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(906): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(907): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(914): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(915): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(924): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(932): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1007): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1018): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1101): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1159): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1258): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1259): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1290): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1331): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1336): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1338): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1544): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1649): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1650): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1651): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1652): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1794): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1797): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1902): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1976): warning C4806: '|' : unsafe operation: no value of type 'bool' promoted to type 'SDL_WindowFlags' can equal the given constant
-     1>c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(2035): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
-         Texolder.cpp
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Programming\C++\SDL projects\Project SETI [SP]\Debug\SETI.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86" /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x64" /LIBPATH:C:\Programming\C++\sdl\lib SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib OpenGL32.Lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Programming\C++\SDL projects\Project SETI [SP]\Debug\SETI.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Programming\C++\SDL projects\Project SETI [SP]\Debug\SETI.lib" /MACHINE:X86 Debug\resource.res
-         Debug\bar.obj
-         Debug\character.obj
-         Debug\characterSpace.obj
-         Debug\entity.obj
-         Debug\event.obj
-         Debug\functions.obj
-         Debug\gather.obj
-         Debug\info.obj
-         Debug\interact.obj
-         Debug\item.obj
-         Debug\itemStack.obj
-         Debug\keyboard.obj
-         Debug\layer.obj
-         Debug\libs.obj
-         Debug\main.obj
-         Debug\map.obj
-         Debug\mobSpawner.obj
-         Debug\objects.obj
-         Debug\skill.obj
-         Debug\space.obj
-         Debug\spell.obj
-         Debug\stage.obj
-         Debug\Texolder.obj
-         Debug\userInterface.obj
-         Debug\variables.obj
-         Debug\zone.obj
-         SETI.vcxproj -> C:\Programming\C++\SDL projects\Project SETI [SP]\Debug\SETI.exe
-     1>Done Building Project "C:\Programming\C++\SDL projects\Project SETI [SP]\SETI\SETI.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:04.56
+﻿  functions.cpp
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(262): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(285): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(291): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(299): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(300): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(301): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(351): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(352): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(353): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(371): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(375): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(378): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(520): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(521): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(522): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(523): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(544): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(545): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(547): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(548): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(551): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(552): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(808): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(922): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(936): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(937): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(944): warning C4305: '-=' : truncation from 'double' to 'float'
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(945): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(954): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(962): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1037): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1048): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1131): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1190): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1290): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1291): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1324): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1365): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1370): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1372): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1579): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1684): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1685): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1686): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1687): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1829): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1832): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(1937): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(2011): warning C4806: '|' : unsafe operation: no value of type 'bool' promoted to type 'SDL_WindowFlags' can equal the given constant
+c:\programming\c++\sdl projects\project seti [sp]\seti\cpp and header\functions.cpp(2070): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+  SETI.vcxproj -> C:\Programming\C++\SDL projects\Project SETI [SP]\Debug\SETI.exe

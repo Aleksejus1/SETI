@@ -41,7 +41,7 @@ class variables{
             MENU_START,
             MENU_GAME
         };
-        int currentMenu=MENU_START;
+        int currentMenu=MENU_GAME;
         enum renderTypes{
             RENDER_MIPMAP,
             RENDER_NEAREST
@@ -86,7 +86,7 @@ class variables{
         bool fullscreen=false; //flag that defines whether or not the application should be launched in full-screen mode
         bool quit=false; //flag that controls the program
         bool bordersAreAThing=true; //you did not see this =.=
-        int timeStamp=0;
+        int timeStamp=0; //current time for program
         int frame=0; //current frame;
         int mouseButton=0;
         int leftMouseButton=0;
@@ -122,14 +122,14 @@ class variables{
         struct fl{
             SDL_Point startPoint,endPoint,location;
             bool direction;
-            int lifetime,creationTimeStamp;
-            float delta,initialSize,endingSize,oscillationSpeed,oscillationInitialAmplitude,oscillationEndingAmplitude;
+			int lifetime, creationTimeStamp, flameId;
+			float delta, initialSize, endingSize, oscillationSpeed, oscillationInitialAmplitude, oscillationEndingAmplitude, r = 255.f, g = 255.f, b = 255.f;
         };
         struct mnu{
             int chanceToCreateFlameEachFrame;
             chance flameStartLine,flameEndLine,flameLifeTime;
             buttn about,close,options,play;
-            layer background,gradient,logo,flameParticle;
+            layer background,gradient,logo,flameParticle[3];
             std::vector<fl> flames;
         };
         mnu menu;
