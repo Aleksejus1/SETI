@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource\resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpp and header\bar.h" />
+    <ClInclude Include="cpp and header\character.h" />
+    <ClInclude Include="cpp and header\characterSpace.h" />
+    <ClInclude Include="cpp and header\entity.h" />
+    <ClInclude Include="cpp and header\event.h" />
+    <ClInclude Include="cpp and header\functions.h" />
+    <ClInclude Include="cpp and header\gather.h" />
+    <ClInclude Include="cpp and header\info.h" />
+    <ClInclude Include="cpp and header\interact.h" />
+    <ClInclude Include="cpp and header\item.h" />
+    <ClInclude Include="cpp and header\itemStack.h" />
+    <ClInclude Include="cpp and header\keyboard.h" />
+    <ClInclude Include="cpp and header\layer.h" />
+    <ClInclude Include="cpp and header\libs.h" />
+    <ClInclude Include="cpp and header\map.h" />
+    <ClInclude Include="cpp and header\mobSpawner.h" />
+    <ClInclude Include="cpp and header\objects.h" />
+    <ClInclude Include="cpp and header\resource.h" />
+    <ClInclude Include="cpp and header\SDL2_rotozoom.h" />
+    <ClInclude Include="cpp and header\skill.h" />
+    <ClInclude Include="cpp and header\space.h" />
+    <ClInclude Include="cpp and header\spell.h" />
+    <ClInclude Include="cpp and header\stage.h" />
+    <ClInclude Include="cpp and header\Texolder.h" />
+    <ClInclude Include="cpp and header\userInterface.h" />
+    <ClInclude Include="cpp and header\variables.h" />
+    <ClInclude Include="cpp and header\zone.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cpp and header\bar.cpp" />
+    <ClCompile Include="cpp and header\character.cpp" />
+    <ClCompile Include="cpp and header\characterSpace.cpp" />
+    <ClCompile Include="cpp and header\entity.cpp" />
+    <ClCompile Include="cpp and header\event.cpp" />
+    <ClCompile Include="cpp and header\functions.cpp" />
+    <ClCompile Include="cpp and header\gather.cpp" />
+    <ClCompile Include="cpp and header\info.cpp" />
+    <ClCompile Include="cpp and header\interact.cpp" />
+    <ClCompile Include="cpp and header\item.cpp" />
+    <ClCompile Include="cpp and header\itemStack.cpp" />
+    <ClCompile Include="cpp and header\keyboard.cpp" />
+    <ClCompile Include="cpp and header\layer.cpp" />
+    <ClCompile Include="cpp and header\libs.cpp" />
+    <ClCompile Include="cpp and header\main.cpp" />
+    <ClCompile Include="cpp and header\map.cpp" />
+    <ClCompile Include="cpp and header\mobSpawner.cpp" />
+    <ClCompile Include="cpp and header\objects.cpp" />
+    <ClCompile Include="cpp and header\skill.cpp" />
+    <ClCompile Include="cpp and header\space.cpp" />
+    <ClCompile Include="cpp and header\spell.cpp" />
+    <ClCompile Include="cpp and header\stage.cpp" />
+    <ClCompile Include="cpp and header\Texolder.cpp" />
+    <ClCompile Include="cpp and header\userInterface.cpp" />
+    <ClCompile Include="cpp and header\variables.cpp" />
+    <ClCompile Include="cpp and header\zone.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FB5956C5-1730-427B-90B1-25E07A1EEBAD}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SETI</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Programming\C++\sdl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Programming\C++\sdl\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Programming\C++\sdl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Programming\C++\sdl\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Programming\C++\sdl\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;OpenGL32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x86;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;C:\Programming\C++\sdl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Programming\C++\sdl\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x86;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;C:\Programming\C++\sdl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;OpenGL32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

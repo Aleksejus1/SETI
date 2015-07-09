@@ -19,4 +19,3 @@ class spell
 };
 
 #endif // SPELL_H
-
