@@ -10,8 +10,6 @@
 
 functions f; //Main way of accessing variables and functions in main.cpp
 
-void createMap(std::string name, std::string id);//Adds a new map to the maps variable, requires a long identifier "name" and a short one "id"
-//void createBattleZone(std::string name, std::string id,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4,int x5,int y5,int x6,int y6,int x7,int y7,int x8,int y8,int x9,int y9,int x0,int y0);
 void interact();//checks for any key-presses that are being searched for and does the corresponding actions
 void battle(); //render all enemies and other battle stuffs
 void gather();
@@ -22,6 +20,7 @@ int main(int argc, char **argv){
         f.loadMedia();//Pre-load images and variables
         if(f.GLStage==f.STAGE_SDL){
             f.giveItems(f.items[f.findItem("RegularSword")],1);
+			f.giveItems(f.items[f.findItem("RegularSword")], 1, f.player.inventory.itemStacks[37].ist);
         }
         while( !f.quit ) { //Event cycle, does once every game tick
             glClear(GL_COLOR_BUFFER_BIT);
@@ -97,7 +96,7 @@ int main(int argc, char **argv){
                 f.renderFlameParticles();
             }
             //SDL_RenderPresent(f.renderer); // update screen
-            SDL_GL_SwapWindow(f.window);
+			SDL_GL_SwapWindow(f.window);
             f.console();
             //finish up this game tick
             }
@@ -269,13 +268,13 @@ void battle(){
         int base=f.findImage("base");
         for(Uint8 i=0;((i<f.battleEnemies.size())&&(i<5)); i++){
             if(f.mouseButton==2){
-                if(f.pointInsideRect(f.mouse,f.getRect(f.battleEnemies[i].location.x+f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x-f.images[base].image.surface->w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y-f.images[base].image.surface->h/2,f.images[base].image.surface->w,f.images[base].image.surface->h))||
-                   f.pointInsideRect(f.mouse,f.getRect(f.battleEnemies[i].location.x,f.battleEnemies[i].location.y,f.battleEnemies[i].image.surface->w,f.battleEnemies[i].image.surface->h))){
+				if (f.pointInsideRect(f.mouse, f.getRect((int)(f.battleEnemies[i].location.x + f.battleEnemies[i].image.surface->w*f.battleEnemies[i].legCenter.x - f.images[base].image.surface->w / 2), (int)(f.battleEnemies[i].location.y + f.battleEnemies[i].image.surface->h*f.battleEnemies[i].legCenter.y - f.images[base].image.surface->h / 2), f.images[base].image.surface->w, f.images[base].image.surface->h)) || 
+					f.pointInsideRect(f.mouse, f.getRect(f.battleEnemies[i].location.x, f.battleEnemies[i].location.y, f.battleEnemies[i].image.surface->w, f.battleEnemies[i].image.surface->h))){
                        f.selectedId=i;
                 }
             }
-            f.renderTexture(&f.images[base].image,f.images[base].image.surface->clip_rect,f.battleEnemies[i].location.x+f.battleEnemies[i].image.w*f.battleEnemies[i].legCenter.x-f.images[base].image.w/2,f.battleEnemies[i].location.y+f.battleEnemies[i].image.h*f.battleEnemies[i].legCenter.y-f.images[base].image.h/2);
-            f.renderTexture(&f.battleEnemies[i].image,f.battleEnemies[i].image.surface->clip_rect,f.battleEnemies[i].location.x,f.battleEnemies[i].location.y);
+			f.renderTexture(&f.images[base].image,f.images[base].image.surface->clip_rect,(int)(f.battleEnemies[i].location.x + f.battleEnemies[i].image.w*f.battleEnemies[i].legCenter.x - f.images[base].image.w / 2),(int)(f.battleEnemies[i].location.y + f.battleEnemies[i].image.h*f.battleEnemies[i].legCenter.y - f.images[base].image.h / 2));
+			f.renderTexture(&f.battleEnemies[i].image, f.battleEnemies[i].image.surface->clip_rect, f.battleEnemies[i].location.x, f.battleEnemies[i].location.y);
         }
         if(f.selectedId!=-1){
             if(f.movePoint(&(f.maps[f.player.map_location].platforms[f.selectedId+5]),3)) f.player.isInBattle=1;
@@ -304,7 +303,7 @@ void gather(){
            f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage=f.player.gatherStartStage+(int)(((1-f.player.gatherTime/f.maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime))/((float)1/(f.findNextStage(f.maps[f.player.map_location].gatherable[f.player.gatherableId].stages,f.maps[f.player.map_location].gatherable[f.player.gatherableId].currentStage)-f.player.gatherStartStage)));
         }
         f.renderTexture(&f.images[f.findImage("progressBarFrame")].image,f.images[f.findImage("progressBarFrame")].image.surface->clip_rect,(f.SCREEN_WIDTH-f.images[f.findImage("progressBarFrame")].image.surface->w)/2,f.SCREEN_HEIGHT-f.images[f.findImage("progressBarFrame")].image.surface->h-20);
-        f.renderTexture(&f.images[f.findImage("progressBarInside")].image,0,0,f.images[f.findImage("progressBarInside")].image.surface->w*(1-f.player.gatherTime/f.maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime),f.images[f.findImage("progressBarInside")].image.surface->h,(f.SCREEN_WIDTH-f.images[f.findImage("progressBarFrame")].image.surface->w)/2,f.SCREEN_HEIGHT-f.images[f.findImage("progressBarFrame")].image.surface->h-20);
+		f.renderTexture(&f.images[f.findImage("progressBarInside")].image, 0, 0, (int)(f.images[f.findImage("progressBarInside")].image.surface->w*(1 - f.player.gatherTime / f.maps[f.player.map_location].gatherable[f.player.gatherableId].gatherTime)), f.images[f.findImage("progressBarInside")].image.surface->h, (f.SCREEN_WIDTH - f.images[f.findImage("progressBarFrame")].image.surface->w) / 2, f.SCREEN_HEIGHT - f.images[f.findImage("progressBarFrame")].image.surface->h - 20);
         if(f.player.gatherTime<=0){
             f.player.gatherTime=0;
             for(Uint8 i=0; i<f.maps[f.player.map_location].gatherable[f.player.gatherableId].returnItems.size(); i++){

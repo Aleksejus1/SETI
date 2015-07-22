@@ -7,10 +7,10 @@ Texolder::Texolder(functions* fp){
 }
 
 void Texolder::setLocationX(TH& THRef, int coordinate){
-	THRef.to->x += coordinate - getLocationX(&THRef);
+	THRef.to->x = THRef.to->x - getLocationX(&THRef) + coordinate;
 }
 void Texolder::setLocationY(TH& THRef, int coordinate){
-	THRef.to->y += coordinate - getLocationY(&THRef);
+	THRef.to->y = THRef.to->y - getLocationY(&THRef) + coordinate;
 }
 int Texolder::getLocationX(TH* THRef){
 	if (THRef->locationUpdateTimeStamp.x != f->timeStamp){

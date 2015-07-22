@@ -36,7 +36,8 @@ void layer::free(){
 
 void layer::freeSurface(){
     if(layer::surface!=NULL){
-        SDL_FreeSurface(layer::surface); layer::surface=NULL;
+        SDL_FreeSurface(layer::surface);
+		layer::surface = nullptr;
     }
 }
 

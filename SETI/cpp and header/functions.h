@@ -16,6 +16,14 @@ class functions: public variables{
         character player; //Player information holder
         Texolder menuTxl;
         //
+		void swapItemStacks(itemStack& itemStack1, itemStack& itemStack2);
+		void clipLayer(layer &layeRef, SDL_Rect boundary);
+		void clip(SDL_Rect boundary, SDL_Rect rectToClip, SDL_Rect &surfaceResult, SDL_Point &locationResult);
+		int convertNumbersByRelativity(int numberToConvert, int relativeNumberToConvertTo, int relativeNumberToConvertFrom);
+		void createTexture(layer &layeRef);
+		void writeMessage(std::string message, layer& layeRef);
+		void renderItem(itemStack &item, SDL_Rect &from, SDL_Point location, int renderType=0);//renderType - 0=default, 1=only item, 2=only item count
+		void renderSlots(space &Space);
         void spawnFlameParticle();
         void renderFlameParticles();
         int getColorAlpha(SDL_Color color);
@@ -34,9 +42,10 @@ class functions: public variables{
         void reset();
         GLuint convertSurfaceToOpenGLTexture(SDL_Surface* surface);
         void affectStats(item* itemOfWhichEffectsToUse, bool trueForGivingStats_falseForRemovingStats);
-        void unequipItem(int equipmentId);
-        void equipItem(int itemSlotId);
-        void removeItem(int slotId, int ammount);
+        void unequipItem(int equipmentId, int toSlot=-1);
+		bool equipItem(itemStack& item, space* inventory=nullptr, int slotId=NULL);
+		void removeItem(int slotId, int ammount, space& inventory);
+		void removeItem(itemStack& item, int ammount, space& inventory);
         void affectStat(std::string statName, float ammount);
         void createSurface(SDL_Surface** surfaceDestination, int width, int height);
         SDL_Surface* createSurface(int width, int height);
@@ -49,6 +58,7 @@ class functions: public variables{
         void addItem(std::string name, std::string type, std::string imagePath);
         bool movePoint(SDL_Point *point, int movementSpeed);
         SDL_Point getPoint(int x, int y);
+		SDL_Rect getRect(SDL_Point location, int w, int h);
         SDL_Rect getRect(int x, int y, int w, int h);
         bool pointInsideRect(SDL_Point point, SDL_Rect rect);
         int findImage(std::string imageIdInFormOfString);
@@ -57,6 +67,7 @@ class functions: public variables{
         int findEntity(std::string name);//Returns the id of an entity with the same name
         void renderInventory(bool manageClicks);//Presents renderer with all the necessary inventory pixel information
         void callEvent(std::string type, info &information);//Depending on the type given will call the representing even function
+		void callEventEquip(info &information);
         void callEventEnter(info &information);//Event function used for entering different territories/maps
         void callEventBattle(info &information);//Event function used for entering battle
         void callEventGather(info &information);//Event function used for initiating a gathering process
@@ -99,11 +110,11 @@ class functions: public variables{
         int getZoneId(SDL_Surface* secretLayer);//Return the value of the corresponding zone id based on the players' current location and the given server layer. If fails to find a color between zone colors, returns -1
         SDL_Color getColor(int id);//Return the SDL_Color value of the zone based on the given zone id
         Uint32 getPixel(SDL_Surface *surface, int x, int y);//Return a Uint32 value pixel holder in the given coordinate of the given surface
-        void getPixelColors(SDL_Surface* surface, double x, double y, SDL_Color &colorHolder);//Places the color of the given surface at the given coordinates to the given color holder
-        SDL_Color getPixelColors(SDL_Surface* surface, double x, double y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
+		void getPixelColors(SDL_Surface* surface, int x, int y, SDL_Color &colorHolder);//Places the color of the given surface at the given coordinates to the given color holder
+		SDL_Color getPixelColors(SDL_Surface* surface, int x, int y);//Returns a SDL_Color value of the color of the given surface at the given coordinates
         void addButton(std::string name, SDL_Keycode key);//Adds a button to the button check list, name corresponds its' shortcut name, and the second variable is the SDL_Keycode variable which always looks like this: SDLK_
         void addSpell(std::string type, float damage, float manaCost, std::string base, std::string icon_active, std::string icon_cooldown, int x, int y); //Adds spell to ...
-        void addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY); //Adds entities in-game
+        void addEntity(float healthPoints,float level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY); //Adds entities in-game
 };
 
 #endif // FUNCTIONS_H

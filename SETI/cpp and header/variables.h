@@ -41,7 +41,7 @@ class variables{
             MENU_START,
             MENU_GAME
         };
-        int currentMenu=MENU_GAME;
+		int currentMenu = MENU_GAME;
         enum renderTypes{
             RENDER_MIPMAP,
             RENDER_NEAREST
@@ -61,11 +61,11 @@ class variables{
         TTF_Font* font=NULL;//font for regular numbers [for now only used in inventory]
             int fontSize=14;
         TTF_Font* font_calibri=NULL;//font for bars' numbers
-            float font_calibriSize=36;
+            int font_calibriSize=36;
         TTF_Font* font_lithosPro=NULL;//font for the name of the class/rank and level in character UI
-            float font_lithosProSize=36;
+		int font_lithosProSize = 36;
         TTF_Font* font_lithosProForLevel=NULL;//font for the name of the class/rank and level in character UI
-            float font_lithosProForLevelSize=50;
+		int font_lithosProForLevelSize = 50;
         float characterUiZoom=(float)1/(float)3;
         layer message,message2,messageSlash;
 		SDL_Color messageColor,messageColorPressed,additionColor,levelColor;
@@ -95,6 +95,7 @@ class variables{
         int rightMouseButtonUp=0;
 		SDL_Point mouse, offset, mouseOffsetFromMovableObject,
 				  screenStartPosition; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
+		int doubleLeftClick=-1;
         int selectedId=-1;
         int antialiasing=1;
         int ammountOfMaps=0; //holder for how many maps there are
@@ -104,8 +105,6 @@ class variables{
         int SCREEN_WIDTH=1280; //Application screen width in pixels
         int SCREEN_HEIGHT=720; //Application screen height in pixels
         int mouseWheelMotion=0; //Holder of mouse wheel interaction
-        int inventorySlotsPerRow=4; //Amount of slots in a single inventory row
-        int distanceBetweenSlots=0; //Pixel distance between slots in the inventory
         int sections=0; //Amount of rows in the inventory
         int sliderCountForOneRow=5;
         float sliderSpeed=10; //Speed that the slider goes in;
@@ -113,6 +112,8 @@ class variables{
         bool blend=false;
         std::string screenName="SP [Summer-Project]"; //The name of the applications' main window
         std::string clickedOn="";
+		struct mo{ layer* layerp = nullptr; std::string objectName = ""; itemStack* ist; SDL_Rect From; int slotId; space* inventory; };//movable object
+		mo drag;
         MSG messages; //Some kind of weird windows thing that should be left alone
         //-Menu--------------------------------------------
         struct chance{int from,width;};
@@ -121,8 +122,8 @@ class variables{
         };
         struct fl{
             SDL_Point startPoint,endPoint,location;
-            bool direction;
-			int lifetime, creationTimeStamp, flameId;
+            bool direction,rotationDirection;
+			int lifetime, creationTimeStamp, flameId, rotationSpeed;
 			float delta, initialSize, endingSize, oscillationSpeed, oscillationInitialAmplitude, oscillationEndingAmplitude, r = 255.f, g = 255.f, b = 255.f;
         };
         struct mnu{

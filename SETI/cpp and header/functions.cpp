@@ -9,7 +9,7 @@ menuTxl(this){
         UI.all[1]->update=&player.updateMana;       UI.all[1]->countAmount=&player.manaPoints;       UI.all[1]->max_countAmount=&player.manaPointsMax;
         UI.all[2]->update=&player.updateExperience; UI.all[2]->countAmount=&player.experiencePoints; UI.all[2]->max_countAmount=&player.experienceRequiredForNextLevel;
         UI.bar_green.update=&player.updateType;
-        UI.level.update=&player.updateLevel; UI.level.countAmount=&player.level;
+		UI.level.update = &player.updateLevel; UI.level.countAmount = &player.level;
         player.healthPointsMax=999.0;
         player.addHealth(player.healthPointsMax-333);
         player.manaPointsMax=820.0;
@@ -19,7 +19,10 @@ menuTxl(this){
         player.location.x=320;//sets the starting x position of the player
         player.location.y=420;//sets the starting y position of the player
         player.map_location=1;//sets the starting map id of the player
-        player.inventory.addItemStacks((2+8)*4+2);
+        player.inventory.addItemStacks(
+			(2+8)*4+2
+			//10
+			);
         player.setType("EGYPTIAN WARRIOR");
         addColor(0,0,0);
         addColor(255,0,0);
@@ -40,6 +43,7 @@ menuTxl(this){
 }
 
 void functions::loadMedia(){
+	player.inventory.location = getPoint(50,50);
 	//add buttons
 	if(true){
         addButton("Always false",SDLK_d);
@@ -59,8 +63,9 @@ void functions::loadMedia(){
         addButton("N",SDLK_n);
         addButton("Esc",SDLK_ESCAPE);
         addButton("Z",SDLK_z);
-        addButton("Q",SDLK_q);
-        addButton("R",SDLK_r);
+		addButton("Q", SDLK_q);
+		addButton("R", SDLK_r);
+		addButton("P", SDLK_p);
         addButton("Tab",SDLK_TAB);
 	}
     if(GLStage==STAGE_SDL){
@@ -140,6 +145,7 @@ void functions::loadMedia(){
     int scrollBarEndingY;
 	//set some values
     if(true){
+		player.inventory.name = "Player Inventory";
         player.inventory.slotsInOneRow=4;
         player.inventory.rowsInInventory=player.inventory.itemStacks.size()/player.inventory.slotsInOneRow;
         if(player.inventory.itemStacks.size()%player.inventory.slotsInOneRow!=0) player.inventory.rowsInInventory++;
@@ -148,8 +154,8 @@ void functions::loadMedia(){
         player.inventory.closeLocation.y=(int)(player.inventory.zoom*105);
         player.inventory.statTopLeftLocation.x=(int)(player.inventory.zoom*215);
         player.inventory.statTopLeftLocation.y=(int)(player.inventory.zoom*1516);
-        player.inventory.slotLocationTopLeft.x=(int)(player.inventory.zoom*1298);
-        player.inventory.slotLocationTopLeft.y=(int)(player.inventory.zoom*185);
+        player.inventory.slotLocationTopLeftBase.x=(int)(player.inventory.zoom*1298);
+		player.inventory.slotLocationTopLeftBase.y = (int)(player.inventory.zoom * 185);
         player.inventory.distanceBetweenSlots=(int)(player.inventory.zoom*267);
         player.inventory.distanceBetweenEquipmentSlots=(int)(player.inventory.zoom*264);
         player.inventory.equipmentTopLeftLocation.x=(int)(player.inventory.zoom*297);
@@ -209,35 +215,17 @@ void functions::loadMedia(){
 		}
 		//create Texolder stuff
 		if(true){
-			txl.addLayer("base"); txl.addLayer("slots"); txl.addLayer("items"); txl.addLayer("stats"); txl.addLayer("stats2");
+		txl.addLayer("base"); txl.addLayer("slots"); txl.addLayer("items"); txl.addLayer("stats"); txl.addLayer("stats2");
 		txl.addTexture(&player.inventory.imageMain, txl.findLayer("base"), "base", player.inventory.imageMain.from, player.inventory.imageMain.to);
 		player.inventory.imageMain.from = player.inventory.imageMain.surface->clip_rect;
 		player.inventory.imageMain.to = getRect(player.inventory.location.x, player.inventory.location.y, player.inventory.imageMain.surface->w, player.inventory.imageMain.surface->h);
-		std::string relative;
-        for(int i=0; i<(int)player.inventory.itemStacks.size(); i++){
-            space::is& itemStackRef=player.inventory.itemStacks[i];
-            itemStackRef.location.to=getRect(0,0,player.inventory.imageInventorySlot[0].surface->w,player.inventory.imageInventorySlot[0].surface->h);
-            if(i==0){
-                itemStackRef.location.to.x=player.inventory.slotLocationTopLeft.x;
-                itemStackRef.location.to.y=player.inventory.slotLocationTopLeft.y;
-                relative="base";
-            }
-            else if(i%player.inventory.slotsInOneRow==0){
-                itemStackRef.location.to.y=player.inventory.distanceBetweenSlots;
-                relative="slot "+toString(i-player.inventory.slotsInOneRow);
-            }
-            else{
-                itemStackRef.location.to.x=player.inventory.distanceBetweenSlots;
-                relative="slot "+toString(i-1);
-            }
-            txl.addTexture(&player.inventory.imageInventorySlot[0],txl.findLayer("items"),"slot "+toString(i),itemStackRef.location.from,itemStackRef.location.to,relative);
-            itemStackRef.location.from=player.inventory.imageInventorySlot[0].surface->clip_rect;
-        }
+		/*
 		for (int i = 0; i<player.inventory.equipmentCount; i++){
             txl.addTexture(&player.inventory.equipmentAll[i]->image,txl.findLayer("slots"),player.inventory.equipmentAll[i]->typeName,player.inventory.equipmentAll[i]->image.from,player.inventory.equipmentAll[i]->image.to,"base");
             player.inventory.equipmentAll[i]->image.from=player.inventory.equipmentAll[i]->image.surface->clip_rect;
             player.inventory.equipmentAll[i]->image.to=getRect(player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x,player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y,player.inventory.equipmentAll[i]->image.surface->w,player.inventory.equipmentAll[i]->image.surface->h);
         }
+		*/
 		for (int i = 0; i<(int)player.stats.size(); i++){
             character::stat& ps=player.stats[i]; int id=player.stats[i].levelBase/100+1; characterSpace::bars& pi=player.inventory.statsBar[id]; characterSpace::bars& pib=player.inventory.statsBar[id-1];
             if(i==0) txl.addTexture(&ps.image,txl.findLayer("stats"),ps.statName+" image",ps.image.from,ps.image.to,"base");
@@ -259,7 +247,7 @@ void functions::loadMedia(){
             if(i==0) ps.image.to=getRect(player.inventory.statTopLeftLocation.x,player.inventory.statTopLeftLocation.y,ps.image.surface->w,ps.image.surface->h);
             else ps.image.to=getRect(0,player.inventory.distanceBetweenStats,ps.image.surface->w,ps.image.surface->h);
             ps.statNameLayer.from=getRect(0,0,0,0);
-            ps.statNameLayer.to=getRect(player.stats[i].image.w*1.5,0,0,0);
+            ps.statNameLayer.to=getRect((int)(player.stats[i].image.w*1.5),0,0,0);
             ps.levelBaseLayer.from=getRect(0,0,0,0);
             ps.levelBaseLayer.to=getRect(player.stats[i].image.w*8,0,0,0);
             ps.mainBar.from=pi.full.surface->clip_rect;
@@ -282,7 +270,7 @@ void functions::loadMedia(){
             }
             else{
                 temp2=player.inventory.imageScrollBubbleFull.surface->h/(player.inventory.rowsInInventory-temp+1);
-                sliderSpeed=(player.inventory.imageScrollBubbleFull.surface->h-temp2)/(player.inventory.rowsInInventory-temp)/sliderCountForOneRow;
+				sliderSpeed = (float)(player.inventory.imageScrollBubbleFull.surface->h - temp2) / (player.inventory.rowsInInventory - temp) / sliderCountForOneRow;
             }
             createSurface(&player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->w,temp2);
             for(int i=0; i<player.inventory.imageScrollBarFull.surface->h; i++) copySurface(player.inventory.imageScrollBar.surface,player.inventory.imageScrollBarFull.surface,player.inventory.imageScrollBar.surface->clip_rect,0,i);
@@ -290,15 +278,16 @@ void functions::loadMedia(){
             player.inventory.imageScrollBarFull.setWidthZoom(player.inventory.zoom);
             player.inventory.furthestPossibleSliderLocation=player.inventory.imageScrollBubbleFull.surface->h-player.inventory.imageScrollBarFull.surface->h;
             for(int i=0; i<player.inventory.slotsInOneRow; i++) player.inventory.slotsLocationsX.push_back((player.inventory.slotLocationTopLeft.x+player.inventory.distanceBetweenSlots*i));
-            player.inventory.slotLocationBottomY=player.inventory.slotLocationTopLeft.y+7*player.inventory.distanceBetweenSlots+player.inventory.imageInventorySlot[0].w;
+			player.inventory.slotBoundary.w = (player.inventory.slotsInOneRow - 1)*player.inventory.distanceBetweenSlots + player.inventory.imageInventorySlot[0].w;
+			player.inventory.slotBoundary.h = 7 * player.inventory.distanceBetweenSlots + player.inventory.imageInventorySlot[0].w;
             player.inventory.ratioBetweenBarAndSlots=(float)((player.inventory.rowsInInventory-temp)*player.inventory.distanceBetweenSlots)/(float)player.inventory.furthestPossibleSliderLocation;
         }
 	}
 	//create Bot UI
 	if(true){
-        UI.botUIButtonsTopLeftLocation.x=73*characterUiZoom;
-        UI.botUIButtonsTopLeftLocation.y=143*characterUiZoom;
-        UI.botUIDistanceBetweenButtons=202*characterUiZoom;
+		UI.botUIButtonsTopLeftLocation.x = (int)(73 * characterUiZoom);
+		UI.botUIButtonsTopLeftLocation.y = (int)(143 * characterUiZoom);
+		UI.botUIDistanceBetweenButtons = (int)(202 * characterUiZoom);
         loadImage("Graphics\\Bot UI\\bot_ui_frame.png",UI.botUI);
             UI.botUI.setZoom(characterUiZoom);
         UI.botUItxl.addLayer("base"); UI.botUItxl.addLayer("icons");
@@ -348,9 +337,9 @@ void functions::loadMedia(){
                 loadImage("Graphics\\top menu buttons\\"+UITopUIName+" click.png",UI.topUIButtons[i].state[1]);
                     UI.topUIButtons[i].state[1].setZoom(characterUiZoom);
             }
-            UI.topUIDistanceBetweenButtons[0]=0*characterUiZoom;
-            UI.topUIDistanceBetweenButtons[1]=177*characterUiZoom;
-            UI.topUIDistanceBetweenButtons[2]=214*characterUiZoom+UI.topUIDistanceBetweenButtons[1];
+			UI.topUIDistanceBetweenButtons[0] = (int)(0 * characterUiZoom);
+			UI.topUIDistanceBetweenButtons[1] = (int)(177 * characterUiZoom);
+			UI.topUIDistanceBetweenButtons[2] = (int)(214 * characterUiZoom + UI.topUIDistanceBetweenButtons[1]);
             UI.topUIButtonsTopLeftLocation.x=SCREEN_WIDTH-UI.topUIDistanceBetweenButtons[2]-UI.topUIButtons[0].state[0].w;
             UI.topUIButtonsTopLeftLocation.y=0;
         }
@@ -367,11 +356,11 @@ void functions::loadMedia(){
         font=TTF_OpenFont("ttf\\DroidSerif.ttf",fontSize);
         TTF_SetFontStyle(font,TTF_STYLE_BOLD);
         //-------------------------------------------------------------------------------------
-        font_calibriSize*=characterUiZoom;
+		font_calibriSize = (int)(font_calibriSize*characterUiZoom);
         font_calibri=TTF_OpenFont("ttf\\Calibri.ttf",font_calibriSize);
         TTF_SetFontStyle(font_calibri,TTF_STYLE_BOLD);
         //-------------------------------------------------------------------------------------
-        font_lithosProSize*=characterUiZoom;
+		font_lithosProSize = (int)(font_lithosProSize*characterUiZoom);
         font_lithosPro=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProSize);
         TTF_SetFontStyle(font_lithosPro,TTF_STYLE_BOLD);
         //-------------------------------------------------------------------------------------
@@ -467,9 +456,9 @@ void functions::loadMedia(){
                 case 4: path="background"; layerr=&menu.background; break;
                 case 5: path="logo"; layerr=&menu.logo; break;
 				case 6: path = "top_gradient"; layerr = &menu.gradient; break;
-				case 7: path = "flame 1"; layerr = &menu.flameParticle[0]; break;
+				case 7: path = "flame 7"; layerr = &menu.flameParticle[0]; layerr->rotate = true; break;
+				case 8: path = "flame 7"; layerr = &menu.flameParticle[1]; layerr->rotate = true; break;
 				//case 8: path = "flame 2"; layerr = &menu.flameParticle[1]; break;
-				case 8: path = "flame 3"; layerr = &menu.flameParticle[1]; break;
             }
             if(i<4){
                 loadImage(pathStart+path+"_idle"+pathEnd,buttonp->button[0]);
@@ -507,6 +496,237 @@ void functions::loadMedia(){
 	}
 }
 
+void functions::swapItemStacks(itemStack& itemStack1, itemStack& itemStack2){
+	itemStack isTemp;
+	isTemp = itemStack2;
+	itemStack2 = itemStack1;
+	itemStack1 = isTemp;
+}
+void functions::clipLayer(layer &layeRef, SDL_Rect boundary){
+	clip(boundary, getRect(layeRef.location, layeRef.w, layeRef.h), layeRef.from, layeRef.location);
+	layeRef.from = getRect(
+		(int)(layeRef.from.x / layeRef.zoom / layeRef.zoomWidth),
+		(int)(layeRef.from.y / layeRef.zoom / layeRef.zoomHeight),
+		(int)(layeRef.from.w / layeRef.zoom / layeRef.zoomWidth),
+		(int)(layeRef.from.h / layeRef.zoom / layeRef.zoomHeight));
+}
+void functions::clip(SDL_Rect boundary, SDL_Rect rectToClip, SDL_Rect &surfaceResult, SDL_Point &locationResult){
+	surfaceResult = getRect(0, 0, rectToClip.w, rectToClip.h);
+	if (rectToClip.x < boundary.x){ //clip left
+		surfaceResult.x = boundary.x - rectToClip.x;
+		surfaceResult.w = rectToClip.w - surfaceResult.x;
+	}
+	if (rectToClip.x + rectToClip.w > boundary.x + boundary.w){//clip right
+		surfaceResult.w = boundary.x + boundary.w - rectToClip.x;
+	}
+	if (rectToClip.y < boundary.y){ //clip top
+		surfaceResult.y = boundary.y - rectToClip.y;
+		surfaceResult.h = rectToClip.h - surfaceResult.y;
+	}
+	if (rectToClip.y + rectToClip.h > boundary.y + boundary.h){//clip bot
+		surfaceResult.h = boundary.y + boundary.h - rectToClip.y;
+	}
+	locationResult = getPoint(rectToClip.x + surfaceResult.x, rectToClip.y + surfaceResult.y);
+}
+int functions::convertNumbersByRelativity(int numberToConvert, int relativeNumberToConvertTo, int relativeNumberToConvertFrom){
+	return (numberToConvert*relativeNumberToConvertTo / relativeNumberToConvertFrom);
+}
+void functions::createTexture(layer &layeRef){
+	layeRef.textureOpenGL = convertSurfaceToOpenGLTexture(layeRef.surface);
+}
+void functions::writeMessage(std::string message, layer& layeRef){
+	layeRef.free();
+	layeRef.surface = TTF_RenderText_Blended(font, message.c_str(), messageColor);
+	layeRef.updateSize();
+	createTexture(layeRef);
+}
+void functions::renderItem(itemStack &item, SDL_Rect &from, SDL_Point location, int renderType){
+	if (item.itemCount > 0){
+		if (item.updateItem){
+			item.updateItem = false;
+			writeMessage(toString(item.itemCount), item.itemCountLayer);
+		}
+		from.y = convertNumbersByRelativity(from.y, item.containingItem.image.surface->w, from.w);
+		from.h = convertNumbersByRelativity(from.h, item.containingItem.image.surface->w, from.w);
+		from.w = item.containingItem.image.surface->w;
+		if (renderType!=2) renderTexture(&item.containingItem.image, from, location.x, location.y);
+		item.itemCountLayer.location.x = location.x - (int)(from.x*item.containingItem.image.zoom*item.containingItem.image.zoomWidth) + item.containingItem.image.w - item.itemCountLayer.surface->w;
+		item.itemCountLayer.location.y = location.y - (int)(from.y*item.containingItem.image.zoom*item.containingItem.image.zoomHeight) + item.containingItem.image.h - item.itemCountLayer.surface->h;
+		clipLayer(item.itemCountLayer,player.inventory.slotBoundary);
+		if (item.itemCountLayer.from.h>=0&&item.itemCountLayer.from.h<=item.itemCountLayer.h&&renderType!=1) renderTexture(&item.itemCountLayer, item.itemCountLayer.from, item.itemCountLayer.location.x, item.itemCountLayer.location.y);
+	}
+}
+SDL_Point operator*(const SDL_Point& point1, const int& int2){
+	SDL_Point retPoint;
+	retPoint.x = point1.x * int2;
+	retPoint.y = point1.y * int2;
+	return retPoint;
+}
+SDL_Point operator+(const SDL_Point& point1, const SDL_Point& point2){
+	SDL_Point ret;
+	ret.x = point1.x + point2.x;
+	ret.y = point1.y + point2.y;
+	return ret;
+}
+SDL_Point operator-(const SDL_Point& point1, const SDL_Point& point2){
+	return point1+point2*(-1);
+}
+bool operator==(const layer& layer1, const layer& layer2){
+	if (layer1.textureOpenGL == layer2.textureOpenGL &&
+		layer1.surface == layer2.surface &&
+		layer1.zoomWidth == layer2.zoomWidth &&
+		layer1.zoom == layer2.zoom &&
+		layer1.zoomHeight == layer2.zoomHeight &&
+		layer1.r == layer2.r &&
+		layer1.g == layer2.g &&
+		layer1.b == layer2.b &&
+		layer1.a == layer2.a)
+		return true;
+	return false;
+}
+bool operator!=(const layer& layer1, const layer& layer2){
+	return(!(layer1 == layer2));
+}
+bool operator==(const item& item1, const item& item2){
+	if (item1.name == item2.name&&
+		item1.damage == item2.damage &&
+		item1.image == item2.image &&
+		item1.type == item2.type &&
+		item1.affectedStats.size() == item2.affectedStats.size()){
+		for (Uint8 i = 0; i < item1.affectedStats.size(); i++){
+			if (item1.affectedStats[i].ammount != item2.affectedStats[i].ammount ||
+				item1.affectedStats[i].statName != item2.affectedStats[i].statName)
+				return false;
+		}
+		return true;
+	}
+	return false;
+}
+bool operator!=(const item& item1, const item& item2){
+	return(!(item1 == item2));
+}
+void functions::renderSlots(space &Space){
+	bool pressed = false, stop = false;
+	if (Space.pressedId == -1) stop = true;
+	Space.slotLocationTopLeft = Space.slotLocationTopLeftBase + Space.location;
+	Space.slotBoundary.x = Space.slotLocationTopLeftBase.x + Space.location.x;
+	Space.slotBoundary.y = Space.slotLocationTopLeftBase.y + Space.location.y;
+	layer* layerp; int itemId;
+	for (int y = 0; y < Space.rowsInInventory; y ++){
+		for (int x = 0; x < Space.slotsInOneRow; x++){
+			itemId = y*Space.slotsInOneRow + x;
+			if (y == Space.rowsInInventory - 1 && itemId == Space.itemStacks.size()){
+				x = Space.slotsInOneRow;
+			}
+			else{
+				if (!stop && itemId == Space.pressedId) pressed = true;
+				layerp = &player.inventory.imageInventorySlot[pressed];
+				layerp->location.x = Space.slotLocationTopLeft.x + x*Space.distanceBetweenSlots;
+				layerp->location.y = Space.slotLocationTopLeft.y + y*Space.distanceBetweenSlots - (int)(Space.scrollBarOffset*Space.ratioBetweenBarAndSlots);
+				clipLayer(*layerp, Space.slotBoundary);
+				if (layerp->from.h > 0) {
+					renderTexture(layerp, layerp->from, layerp->location.x, layerp->location.y);
+					if (leftMouseButton||leftMouseButtonUp){
+						SDL_Rect slotRect = getRect(layerp->location, (int)(layerp->from.w*layerp->zoom*layerp->zoomWidth), (int)(layerp->from.h*layerp->zoom*layerp->zoomHeight));
+						if (pointInsideRect(mouse, slotRect)){
+							if (leftMouseButtonUp){
+								if (clickedOn == Space.name + " slot " + toString(itemId)){
+									if (doubleLeftClick == -1) doubleLeftClick = FPS / 2;
+									else{
+										doubleLeftClick = -1;
+										if (Space.name == "Player Inventory"){
+											if (equipItem(Space.itemStacks[itemId].ist,&Space,itemId) && Space.itemStacks[itemId].ist.itemCount == 0) Space.pressedId = -1;
+										}
+									}
+									Space.pressedId = itemId;
+								clearClicked:
+									if (drag.objectName == Space.name + " slot " + toString(itemId)){//finish draging
+										drag.objectName = "";
+										if (player.inventory.open){
+											int itemId2;
+											SDL_Rect slotRect2;
+											characterSpace& Space2 = player.inventory;
+											for (int y2 = 0; y2 < Space2.rowsInInventory; y2++){
+												for (int x2 = 0; x2 < Space2.slotsInOneRow; x2++){
+													itemId2 = y2*Space2.slotsInOneRow + x2;
+													if (y2 == Space2.rowsInInventory - 1 && itemId2 == Space2.itemStacks.size()){
+														x2 = Space2.slotsInOneRow;
+													}
+													else{
+														layer tempLayer = player.inventory.imageInventorySlot[0];
+														tempLayer.location.x = Space2.slotLocationTopLeft.x + x2*Space2.distanceBetweenSlots;
+														tempLayer.location.y = Space2.slotLocationTopLeft.y + y2*Space2.distanceBetweenSlots - (int)(Space2.scrollBarOffset*Space2.ratioBetweenBarAndSlots);
+														clipLayer(tempLayer, Space2.slotBoundary);
+														if (tempLayer.from.h > 0){
+															slotRect2 = getRect(tempLayer.location,(int)(tempLayer.from.w*tempLayer.zoom*tempLayer.zoomWidth),(int)(tempLayer.from.h*tempLayer.zoom*tempLayer.zoomHeight));
+															if (pointInsideRect(mouse, slotRect2)){//swap items [held item with the item in this inventory item slot]
+																if(drag.ist->containingItem!=Space2.itemStacks[itemId2].ist.containingItem) swapItemStacks(*drag.ist, Space2.itemStacks[itemId2].ist);
+																else if(drag.ist!=&Space2.itemStacks[itemId2].ist){
+																	Space2.itemStacks[itemId2].ist.itemCount += drag.ist->itemCount;
+																	Space2.itemStacks[itemId2].ist.updateItem = true;
+																	Space2.update = true;
+																	drag.ist->reset();
+																}
+																Space.pressedId = itemId2;
+																goto exitThisSearch;
+															}
+														}
+													}
+												}
+											}
+											SDL_Rect& equipmentSlotRect = slotRect2;
+											characterSpace::equipment* pie;
+											SDL_Point equipStartPoint = Space2.location + Space2.equipmentTopLeftLocation;
+											for (int i = 0; i < player.inventory.equipmentCount; i++){
+												pie = Space2.equipmentAll[i];
+												if (drag.ist->containingItem.type == pie->typeName){
+													equipmentSlotRect = getRect(
+														equipStartPoint.x + pie->x*Space2.distanceBetweenEquipmentSlots,
+														equipStartPoint.y + pie->y*Space2.distanceBetweenEquipmentSlots,
+														pie->image.w,pie->image.h);
+													if (pointInsideRect(mouse, equipmentSlotRect)){//swap items [held item with the item in this equipment item slot]
+														equipItem(*drag.ist,drag.inventory,drag.slotId);
+														goto exitThisSearch;
+													}
+												}
+											}
+										}
+									}
+									exitThisSearch:
+									clickedOn = "";
+									leftMouseButtonUp = false;
+								}
+							}
+							else if (leftMouseButton){
+								if (Space.itemStacks[itemId].ist.itemCount > 0){
+									if (clickedOn == ""){
+										clickedOn = Space.name + " slot " + toString(itemId);
+										leftMouseButton = false;
+									}
+									drag.objectName = clickedOn;
+									drag.ist = &Space.itemStacks[itemId].ist;
+									drag.slotId = itemId;
+									drag.inventory = &Space;
+									drag.From = layerp->from;
+									mouseOffsetFromMovableObject = mouse - layerp->location;
+								}
+							}
+						}
+						else{
+							if (leftMouseButtonUp&&clickedOn == Space.name + " slot " + toString(itemId)) goto clearClicked;
+						}
+					}
+					int itemRenderType=0;
+					if (drag.objectName == Space.name + " slot " + toString(itemId)){
+						itemRenderType = 2;
+					}
+					renderItem(Space.itemStacks[itemId].ist, layerp->from, layerp->location, itemRenderType);
+				}
+				if (pressed) { pressed = false; stop = true; }
+			}
+		}
+	}
+}
 void functions::spawnFlameParticle(){
 	fl newFlame;
     newFlame.startPoint=getPoint(rand()%menu.flameStartLine.width+menu.flameStartLine.from,SCREEN_HEIGHT);
@@ -517,16 +737,18 @@ void functions::spawnFlameParticle(){
     }
 	newFlame.lifetime = rand() % menu.flameLifeTime.width + menu.flameLifeTime.from;
 	newFlame.creationTimeStamp = timeStamp;
-	newFlame.oscillationInitialAmplitude = rand() % 20 + 90;
-	newFlame.oscillationEndingAmplitude = rand() % 7 + 3;
-	newFlame.oscillationSpeed = rand() % 30 + 20;
-	newFlame.direction = rand() % 2;
-	newFlame.initialSize = 1.f / 10.f;
-	newFlame.endingSize = 1.f / 40.f;
+	newFlame.oscillationInitialAmplitude = (float)(rand() % 20 + 90);
+	newFlame.oscillationEndingAmplitude = (float)(rand() % 7 + 3);
+	newFlame.oscillationSpeed = (float)(rand() % 30 + 20);
+	newFlame.direction = (rand() % 2)==1;
+	newFlame.initialSize = 1.f / (float)(rand()%5+8);
+	newFlame.endingSize = newFlame.initialSize / 4.f;
 	newFlame.flameId = rand() % 2;
-	newFlame.r -= rand() % 25;
-	newFlame.g = newFlame.r - rand() % 25;
-	newFlame.b = newFlame.r - rand() % 25;
+	newFlame.rotationDirection = (rand() % 2)==1;
+	newFlame.rotationSpeed = rand() % 300 + 150;
+	//newFlame.r -= rand() % 25;
+	//newFlame.g = newFlame.r - rand() % 25;
+	//newFlame.b = newFlame.r - rand() % 25;
     menu.flames.push_back(newFlame);
 }
 void functions::renderFlameParticles(){
@@ -541,24 +763,26 @@ void functions::renderFlameParticles(){
             i--;
         }
         else{
-            flame.location.x=flame.startPoint.x*(1-flame.delta)+flame.endPoint.x*flame.delta;
-            flame.location.y=flame.startPoint.y*(1-flame.delta)+flame.endPoint.y*flame.delta;
+			flame.location.x = (int)(flame.startPoint.x*(1 - flame.delta) + flame.endPoint.x*flame.delta);
+			flame.location.y = (int)(flame.startPoint.y*(1 - flame.delta) + flame.endPoint.y*flame.delta);
             if(flame.direction){
-                flame.location.x+=cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
-                flame.location.y+=sin(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
+				flame.location.x += (int)(cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1 - flame.delta) + flame.oscillationEndingAmplitude*flame.delta));
+				flame.location.y += (int)(sin(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1 - flame.delta) + flame.oscillationEndingAmplitude*flame.delta));
             }
             else{
-                flame.location.x+=sin(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
-                flame.location.y+=cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1-flame.delta)+flame.oscillationEndingAmplitude*flame.delta);
+				flame.location.x += (int)(sin(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1 - flame.delta) + flame.oscillationEndingAmplitude*flame.delta));
+				flame.location.y += (int)(cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1 - flame.delta) + flame.oscillationEndingAmplitude*flame.delta));
             }
             //int opacity=flame.delta-
 			menu.flameParticle[flame.flameId].a = (1 - sqrt(flame.delta))*7.f / 8.f;
 			menu.flameParticle[flame.flameId].r = flame.r / 255.f;
 			menu.flameParticle[flame.flameId].g = flame.g / 255.f;
 			menu.flameParticle[flame.flameId].b = flame.b / 255.f;
+			menu.flameParticle[flame.flameId].rotation = (timeStamp - flame.creationTimeStamp) % flame.rotationSpeed * 360 / (float)flame.rotationSpeed;
+			if (flame.rotationDirection) menu.flameParticle[flame.flameId].rotation *= -1;
 			menu.flameParticle[flame.flameId].setZoom(flame.initialSize*(1 - flame.delta) + flame.endingSize*flame.delta);
 			renderTexture(&menu.flameParticle[flame.flameId], menu.flameParticle[flame.flameId].surface->clip_rect, flame.location.x, flame.location.y);
-        }
+		}
     }
 }
 int functions::getColorAlpha(SDL_Color color){
@@ -784,10 +1008,10 @@ GLuint functions::convertSurfaceToOpenGLTexture(SDL_Surface* surface){
 void functions::reset(){
     timeStamp++;
     frame++; if(frame>FPS) frame%=FPS;
-    if(player.inventory.doubleClick>-1){
-        player.inventory.doubleClick++;
-        if(player.inventory.doubleClick>=FPS){
-            player.inventory.doubleClick=-1;
+    if(doubleLeftClick>-1){
+		doubleLeftClick++;
+		if (doubleLeftClick >= FPS){
+			doubleLeftClick = -1;
         }
     }
     if(currentMenu==MENU_GAME) player.reset();
@@ -805,39 +1029,88 @@ void functions::affectStats(item* itemOfWhichEffectsToUse, bool trueForGivingSta
         for(int o=0; o<(int)player.stats.size(); o++){//go through all the existing stats to see if this effect is for that specific stat
             if(player.stats[o].statName==itemOfWhichEffectsToUse->affectedStats[i].statName){ //check if the effected stat and the checked stat are the same
                 player.stats[o].updateAddition=true;
-                player.addStatAddition(itemOfWhichEffectsToUse->affectedStats[i].ammount*multi,player.stats[o].statName);//if so then add the effected stat amount to the addition variable that let's the program know by how much the stat is increased from it's base value
+                player.addStatAddition((int)(itemOfWhichEffectsToUse->affectedStats[i].ammount*multi),player.stats[o].statName);//if so then add the effected stat amount to the addition variable that let's the program know by how much the stat is increased from it's base value
                 o=player.stats.size();
             }
         }
     }
 }
-void functions::unequipItem(int equipmentId){
-    giveItems(player.inventory.equipmentAll[equipmentId]->item);//copy the item from your equipment slot to you inventory
+void functions::unequipItem(int equipmentId, int toSlot){
+	if (toSlot == -1) giveItems(player.inventory.equipmentAll[equipmentId]->item);//copy the item from your equipment slot to you inventory
+	else{
+		if (player.inventory.itemStacks[toSlot].ist.itemCount>0){
+			if (player.inventory.itemStacks[toSlot].ist.containingItem == player.inventory.equipmentAll[equipmentId]->item.containingItem){
+				giveItems(player.inventory.equipmentAll[equipmentId]->item.containingItem, player.inventory.equipmentAll[equipmentId]->item.itemCount + player.inventory.itemStacks[toSlot].ist.itemCount, player.inventory.itemStacks[toSlot].ist);
+				goto unequipItemAffectStats;
+			}
+			else{
+				if (!equipItem(player.inventory.itemStacks[toSlot].ist)) unequipItem(equipmentId);
+				goto quitUnequipingItem;
+			}
+		}
+		else giveItems(player.inventory.equipmentAll[equipmentId]->item.containingItem, player.inventory.equipmentAll[equipmentId]->item.itemCount, player.inventory.itemStacks[toSlot].ist);//copy the item from your equipment slot to you inventory
+	}
+	unequipItemAffectStats:
     affectStats(&player.inventory.equipmentAll[equipmentId]->item.containingItem,false);//remove the stat effects that were given by this item
     player.inventory.equipmentAll[equipmentId]->item.reset();//remove the item from your equipment slot
+	quitUnequipingItem:
+	player.inventory.update=true;
 }
-void functions::equipItem(int itemSlotId){
+bool functions::equipItem(itemStack& item, space* inventory, int slotId){
     for(int i=0; i<player.inventory.equipmentCount; i++){//find in which equipment slot this item should be put
-        if(player.inventory.itemStacks[itemSlotId].ist.containingItem.type==player.inventory.equipmentAll[i]->typeName){//see if this equipment slot is the one to be used
+		if (item.containingItem.type == player.inventory.equipmentAll[i]->typeName){//see if this equipment slot is the one to be used
+			itemStack itemHolder = item;
+			itemHolder.itemCount = 1;
+			if (inventory == nullptr) removeItem(item, 1, player.inventory);//remove the item from the inventory
+			else removeItem(slotId, 1, *inventory);
             if(player.inventory.equipmentAll[i]->item.itemCount!=0){//if there is already an item equipped there
                 unequipItem(i);//take off that item
             }
-			player.inventory.equipmentAll[i]->item.containingItem = player.inventory.itemStacks[itemSlotId].ist.containingItem;//copy the item from players' inventory to the equipment slot
+			player.inventory.equipmentAll[i]->item.containingItem = itemHolder.containingItem;//copy the item from players' inventory to the equipment slot
             player.inventory.equipmentAll[i]->item.itemCount=1;//make sure that there is only one item in the equipment slot
-            removeItem(itemSlotId,1);//remove the item from the inventory
             affectStats(&player.inventory.equipmentAll[i]->item.containingItem,true);
-            i=player.inventory.equipmentCount;//end the search
+			return true;
         }
     }
+	return false;
 }
-void functions::removeItem(int slotId, int ammount){
-	player.inventory.itemStacks[slotId].ist.itemCount -= ammount;
-	if (player.inventory.itemStacks[slotId].ist.itemCount <= 0){
-        for(int i=slotId+1; i<(int)player.inventory.itemStacks.size(); i++){
-            player.inventory.itemStacks[i-1]=player.inventory.itemStacks[i];
-        }
-    }
-    player.inventory.update=true;
+void functions::removeItem(int slotId, int ammount, space& inventory){
+	itemStack &currentIS = inventory.itemStacks[slotId].ist;
+	if (currentIS.itemCount>0){
+		if (currentIS.itemCount < ammount){
+			currentIS.itemCount = 0;
+		}
+		else {
+			currentIS.itemCount -= ammount;
+		}
+		currentIS.updateItem = true;
+		if (currentIS.itemCount == 0){
+			currentIS.reset();
+			if (inventory.pressedId == slotId) inventory.pressedId = -1;
+		}
+		if (inventory.name == "Player Inventory") player.inventory.update = true;
+	}
+}
+void functions::removeItem(itemStack& item, int ammount, space& inventory){
+	itemStack *currentIS;
+	for (int i = 0; i < (int)inventory.itemStacks.size(); i++){
+		currentIS = &inventory.itemStacks[i].ist;
+		if (item.itemCount>0 && item.containingItem == currentIS->containingItem){
+			if (currentIS->itemCount < ammount){
+				ammount -= currentIS->itemCount;
+				currentIS->itemCount = 0;
+			}
+			else {
+				currentIS->itemCount -= ammount;
+				ammount = 0;
+			}
+			if (currentIS->itemCount <= 0 && inventory.pressedId == i) inventory.pressedId = -1;
+			currentIS->updateItem = true;
+			if (inventory.name == "Player Inventory") player.inventory.update = true;
+			if (ammount == 0) goto stopRemovingItems;
+		}
+	}
+	stopRemovingItems:;
 }
 void functions::affectStat(std::string statName, float ammount){
     item::affect affectedStat;
@@ -919,7 +1192,7 @@ void functions::renderUI(){
             RenderType=RENDER_MIPMAP;
         }
         renderTexture(&UI.bar_empty,UI.bar_empty.surface->clip_rect,UI.all[i]->bar.location.x,UI.all[i]->bar.location.y);//render empty
-        renderTexture(&UI.all[i]->bar,0,0,UI.all[i]->bar.surface->w*(*UI.all[i]->countAmount)/(*UI.all[i]->max_countAmount),UI.all[i]->bar.surface->h,UI.all[i]->bar.location.x,UI.all[i]->bar.location.y);//render full
+        renderTexture(&UI.all[i]->bar,0,0,(int)(UI.all[i]->bar.surface->w*(*UI.all[i]->countAmount)/(*UI.all[i]->max_countAmount)),UI.all[i]->bar.surface->h,UI.all[i]->bar.location.x,UI.all[i]->bar.location.y);//render full
         renderTexture(&messageSlash,messageSlash.surface->clip_rect,UI.all[i]->bar.location.x+(UI.bar_empty.w-messageSlash.surface->w)/2,UI.all[i]->bar.location.y+(UI.bar_empty.h-messageSlash.surface->h)/2);//render slash
         renderTexture(&UI.all[i]->max_count,UI.all[i]->max_count.surface->clip_rect,UI.all[i]->bar.location.x+(UI.bar_empty.w+messageSlash.surface->w)/2,UI.all[i]->bar.location.y+(UI.bar_empty.h-messageSlash.surface->h)/2);//render max
         renderTexture(&UI.all[i]->message,UI.all[i]->message.surface->clip_rect,UI.all[i]->bar.location.x+(UI.bar_empty.w-messageSlash.surface->w)/2-UI.all[i]->message.surface->w,UI.all[i]->bar.location.y+(UI.bar_empty.h-messageSlash.surface->h)/2);//render current
@@ -933,15 +1206,15 @@ void functions::renderUI(){
             UI.bar_green.message.textureOpenGL=convertSurfaceToOpenGLTexture(UI.bar_green.message.surface);
             RenderType=RENDER_MIPMAP;
         }
-        renderTexture(&UI.bar_green.bar,0,0,UI.bar_green.message.surface->w/characterUiZoom,UI.bar_green.bar.surface->h,UI.bar_green.bar.location.x,UI.bar_green.bar.location.y);
-        renderTexture(&UI.bar_green.message,UI.bar_green.message.surface->clip_rect,UI.bar_green.bar.location.x,UI.bar_green.bar.location.y+(UI.bar_green.bar.h-UI.bar_green.message.surface->h+12*characterUiZoom)/2);
+        renderTexture(&UI.bar_green.bar,0,0,(int)(UI.bar_green.message.surface->w/characterUiZoom),UI.bar_green.bar.surface->h,UI.bar_green.bar.location.x,UI.bar_green.bar.location.y);
+        renderTexture(&UI.bar_green.message,UI.bar_green.message.surface->clip_rect,UI.bar_green.bar.location.x,(int)(UI.bar_green.bar.location.y+(UI.bar_green.bar.h-UI.bar_green.message.surface->h+12*characterUiZoom)/2));
     }
     if(true){//render player Level
         if(*UI.level.update){
             UI.level.message.free();
             UI.level.message.surface=TTF_RenderText_Blended(font_lithosProForLevel,toString(*UI.level.countAmount).c_str(),levelColor);
             while((UI.level.message.surface->h>84*UI.characterUI.h/(float)1113)||(UI.level.message.surface->w>84*UI.characterUI.w/(float)1113)){
-                font_lithosProForLevelSize-=0.1;
+                font_lithosProForLevelSize-=1;
                 font_lithosProForLevel=TTF_OpenFont("ttf\\LithosPro.otf",font_lithosProForLevelSize);
                 TTF_SetFontStyle(font_lithosProForLevel,TTF_STYLE_BOLD);
                 UI.level.message.freeSurface();
@@ -951,7 +1224,7 @@ void functions::renderUI(){
             UI.level.message.textureOpenGL=convertSurfaceToOpenGLTexture(UI.level.message.surface);
             RenderType=RENDER_MIPMAP;
         }
-        renderTexture(&UI.level.message,UI.level.message.surface->clip_rect,(UI.characterUI.w*(float)318/(float)1113)-UI.level.message.surface->w/2,(UI.characterUI.w*(float)360/(float)1113)-UI.level.message.surface->h/2);
+        renderTexture(&UI.level.message,UI.level.message.surface->clip_rect,(int)((UI.characterUI.w*(float)318/(float)1113)-UI.level.message.surface->w/2),(int)((UI.characterUI.w*(float)360/(float)1113)-UI.level.message.surface->h/2));
     }
     }
     if(true){//render Top UI
@@ -959,7 +1232,7 @@ void functions::renderUI(){
         renderTexture(&UI.topUIReflection,
                       UI.topUIReflection.surface->clip_rect,
                       UI.topUIButtonsTopLeftLocation.x,
-                      UI.topUIButtonsTopLeftLocation.y+UI.topUIButtons[0].state[0].h+5*characterUiZoom);
+                      (int)(UI.topUIButtonsTopLeftLocation.y+UI.topUIButtons[0].state[0].h+5*characterUiZoom));
         for(int i=0; i<3; i++){
             currentLayer=&UI.topUIButtons[i].state[UI.topUIButtons[i].currentState];
             renderTexture(currentLayer,currentLayer->surface->clip_rect,
@@ -969,7 +1242,7 @@ void functions::renderUI(){
         for(int i=2; i>=0; i--){
             if(leftMouseButton||leftMouseButtonUp){
                 if(pointInsideRect(mouse,getRect(UI.topUIButtonsTopLeftLocation.x+UI.topUIDistanceBetweenButtons[i],UI.topUIButtonsTopLeftLocation.y,UI.topUIButtons[i].state[UI.topUIButtons[i].currentState].w,UI.topUIButtons[i].state[UI.topUIButtons[i].currentState].h))){
-                    SDL_Color currentColor=getPixelColors(UI.topUIButtons[i].state[UI.topUIButtons[i].currentState].surface,(mouse.x-(UI.topUIButtonsTopLeftLocation.x+UI.topUIDistanceBetweenButtons[i]))/characterUiZoom,(mouse.y-UI.topUIButtonsTopLeftLocation.y)/characterUiZoom);
+					SDL_Color currentColor = getPixelColors(UI.topUIButtons[i].state[UI.topUIButtons[i].currentState].surface, (int)((mouse.x - (UI.topUIButtonsTopLeftLocation.x + UI.topUIDistanceBetweenButtons[i])) / characterUiZoom), (int)((mouse.y - UI.topUIButtonsTopLeftLocation.y) / characterUiZoom));
                     if(currentColor.a!=0){
                         if(leftMouseButton){
                             clickedOn="topUIButton_"+toString(i);
@@ -1026,15 +1299,17 @@ void functions::renderUI(){
     if(true){//render Inventory
         renderInventory(false);
     }
+	if (drag.objectName != "") renderItem(*drag.ist, drag.From, mouse - mouseOffsetFromMovableObject, 1);
 }
 void functions::renderInventory(bool manageClicks){
-    if(player.inventory.open){
-    if(manageClicks){
+	characterSpace &pi = player.inventory;//player.inventory
+	if (pi.open){
+    if(false&&manageClicks){
     if(leftMouseButton||rightMouseButton||leftMouseButtonUp||rightMouseButtonUp){
         int slotsLocationY;
         SDL_Rect slotLocation;
         for(int y=0; y<player.inventory.rowsInInventory; y++){
-            slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
+			slotsLocationY = (int)((player.inventory.slotLocationTopLeft.y + player.inventory.distanceBetweenSlots*y) - player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots);
             for(int x=0; x<player.inventory.slotsInOneRow; x++){
                 if(y*player.inventory.slotsInOneRow+x+1<=(int)player.inventory.itemStacks.size()){
                     slotLocation.x=player.inventory.slotsLocationsX[x];
@@ -1043,9 +1318,9 @@ void functions::renderInventory(bool manageClicks){
                         slotLocation.y=player.inventory.slotLocationTopLeft.y;
                         slotLocation.h=player.inventory.imageInventorySlot[0].h-(player.inventory.slotLocationTopLeft.y-slotsLocationY);
                     }
-                    else if((int)(slotsLocationY+player.inventory.imageInventorySlot[0].h)>(int)(player.inventory.slotLocationBottomY)){ //render itemSlots that are clipping at bottom
+					else if ((int)(slotsLocationY + player.inventory.imageInventorySlot[0].h)>(int)(player.inventory.slotBoundary.y + player.inventory.slotBoundary.h)){ //render itemSlots that are clipping at bottom
                         slotLocation.y=slotsLocationY;
-                        slotLocation.h=(player.inventory.slotLocationBottomY-slotLocation.y)/player.inventory.zoom;
+						slotLocation.h = (int)((player.inventory.slotBoundary.y + player.inventory.slotBoundary.h - slotLocation.y) / player.inventory.zoom);
                     }
                     else{
                         slotLocation.y=slotsLocationY;
@@ -1065,7 +1340,7 @@ void functions::renderInventory(bool manageClicks){
                             sendMessageToConsole("pressed Id is now equal to "+toString(player.inventory.pressedId));
                         }
                         if(rightMouseButton||equip){
-                            equipItem(y*player.inventory.slotsInOneRow+x);
+                            equipItem(pi.itemStacks[y*player.inventory.slotsInOneRow+x].ist);
                             rightMouseButton=false;
                             player.inventory.pressedId=-1;
                         }
@@ -1128,8 +1403,8 @@ void functions::renderInventory(bool manageClicks){
             }
         }
         if(leftMouseButton){
-            if(clickedOn==""&&pointInsideRect(mouse,getRect(player.inventory.location.x+85*player.inventory.zoom,player.inventory.location.y+13*player.inventory.zoom,2358*player.inventory.zoom,177*player.inventory.zoom))){
-                SDL_Color tempColor=getPixelColors(player.inventory.imageMain.surface,(mouse.x-player.inventory.location.x)/player.inventory.zoom,(mouse.y-player.inventory.location.y)/player.inventory.zoom);
+			if (clickedOn == ""&&pointInsideRect(mouse, getRect(player.inventory.location.x + (int)(85 * player.inventory.zoom), player.inventory.location.y + (int)(13 * player.inventory.zoom), (int)(2358 * player.inventory.zoom), (int)(177 * player.inventory.zoom)))){
+				SDL_Color tempColor = getPixelColors(player.inventory.imageMain.surface, (int)((mouse.x - player.inventory.location.x) / player.inventory.zoom), (int)((mouse.y - player.inventory.location.y) / player.inventory.zoom));
                 if(tempColor.a!=0&&(tempColor.r+tempColor.g+tempColor.b)!=0){
                     clickedOn="moveInventory";
                     mouseOffsetFromMovableObject.x=mouse.x-player.inventory.location.x;
@@ -1159,11 +1434,13 @@ void functions::renderInventory(bool manageClicks){
             mouseOffsetFromMovableObject.x=0;
             mouseOffsetFromMovableObject.y=0;
             clickedOn="";
-        }
+		}
+		player.inventory.imageMain.to.x = player.inventory.location.x;
+		player.inventory.imageMain.to.y = player.inventory.location.y;
     }
     if(leftMouseButton){
         if(pointInsideRect(mouse,getRect(player.inventory.location.x,player.inventory.location.y,player.inventory.imageMain.w,player.inventory.imageMain.h))){
-            SDL_Color tempColor=getPixelColors(player.inventory.imageMain.surface,(mouse.x-player.inventory.location.x)/player.inventory.zoom,(mouse.y-player.inventory.location.y)/player.inventory.zoom);
+			SDL_Color tempColor = getPixelColors(player.inventory.imageMain.surface, (int)((mouse.x - player.inventory.location.x) / player.inventory.zoom), (int)((mouse.y - player.inventory.location.y) / player.inventory.zoom));
             if(tempColor.a!=0&&(tempColor.r+tempColor.g+tempColor.b)!=0){
                 leftMouseButton=false;
             }
@@ -1177,133 +1454,16 @@ void functions::renderInventory(bool manageClicks){
             if(possibleSliderLocation<player.inventory.furthestPossibleSliderLocation){
                 player.inventory.scrollBarOffset-=mouseWheelMotion*sliderSpeed;
             }
-            else player.inventory.scrollBarOffset=player.inventory.furthestPossibleSliderLocation;
+            else player.inventory.scrollBarOffset=(float)(player.inventory.furthestPossibleSliderLocation);
         }
         else player.inventory.scrollBarOffset=0;
     }
     //renderTexture(&player.inventory.imageMain,player.inventory.imageMain.surface->clip_rect,player.inventory.location.x,player.inventory.location.y);
 	//render Item Slots
-    if(true){
-        Texolder& txl=player.inventory.txl;
-        Texolder::TH *THp;
-        int found=txl.findTexture(*txl.findLayer("items")),yLocation;
-        txl.texture[found].to->y=player.inventory.slotLocationTopLeft.y-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
-        for(int i=0; i<(int)player.inventory.itemStacks.size(); i+=player.inventory.slotsInOneRow){
-            THp=&txl.texture[i+found];
-            yLocation=txl.getLocationY(THp);
-            bool render=true;
-            if(yLocation<(player.inventory.slotLocationTopLeft.y)){ //render info for itemSlots that are clipping at top
-                if(yLocation+THp->layerp->h<(player.inventory.slotLocationTopLeft.y)){ if(buttons[findButton("Tab")].pressed) error(THp->name+" outside top");
-                    render=false;
-                }
-                else{ if(buttons[findButton("Tab")].pressed) error(THp->name+" clip top");
-
-                }
-            }
-            else if(yLocation+THp->layerp->h>player.inventory.slotLocationBottomY){//render info for itemSlots that are clipping at bottom
-                if(yLocation>player.inventory.slotLocationBottomY){ if(buttons[findButton("Tab")].pressed) error(THp->name+" outside bot");
-                    render=false;
-                }
-                else{ if(buttons[findButton("Tab")].pressed) error(THp->name+" clip bot");
-                    /*
-                    yFrom=0;
-                    hFrom=(player.inventory.slotLocationBottomY-yLocation)/player.inventory.zoom;
-                    yTo=yLocation;
-                    */
-                }
-            }
-            else{ if(buttons[findButton("Tab")].pressed) error(THp->name+" inside");
-            }
-            for(int o=0; o<player.inventory.slotsInOneRow; o++){
-                if(i+o<(int)player.inventory.itemStacks.size()){
-                    txl.texture[i+o+found].render=render;
-                }
-            }
-        }
-        /*
-        int slotsLocationY,yFrom,hFrom,yTo,yFromTemp,hFromTemp,yTo2,yTo3,yFrom2,hFrom2;
-        for(int y=0; y<player.inventory.rowsInInventory; y++){
-            slotsLocationY=(player.inventory.slotLocationTopLeft.y+player.inventory.distanceBetweenSlots*y)-player.inventory.scrollBarOffset*player.inventory.ratioBetweenBarAndSlots;
-            for(int x=0; x<player.inventory.slotsInOneRow; x++){
-                if(y*player.inventory.slotsInOneRow+x+1<=(int)player.inventory.itemStacks.size()&&slotsLocationY<player.inventory.slotLocationBottomY){
-                    if(slotsLocationY+player.inventory.imageInventorySlot[0].h>player.inventory.slotLocationTopLeft.y){
-                        if((int)slotsLocationY<(int)(player.inventory.slotLocationTopLeft.y)){ //render info for itemSlots that are clipping at top
-                            yFrom=(player.inventory.slotLocationTopLeft.y-slotsLocationY)/player.inventory.zoom;
-                            hFrom=player.inventory.imageInventorySlot[0].surface->h-(yFrom);
-                            yTo=player.inventory.slotLocationTopLeft.y;
-                        }
-                        else if((int)(slotsLocationY+player.inventory.imageInventorySlot[0].h)>(int)(player.inventory.slotLocationBottomY)){//render info for itemSlots that are clipping at bottom
-                            yFrom=0;
-                            hFrom=(player.inventory.slotLocationBottomY-slotsLocationY)/player.inventory.zoom;
-                            yTo=slotsLocationY;
-                        }
-                        else{//render info for regular itemSlots
-                            yFrom=0;
-                            hFrom=player.inventory.imageInventorySlot[0].surface->h;
-                            yTo=slotsLocationY;
-                        }
-                        if(player.inventory.pressedId==y*inventorySlotsPerRow+x) renderTexture(&player.inventory.imageInventorySlot[1],0,yFrom,player.inventory.imageInventorySlot[0].surface->w,hFrom,player.inventory.slotsLocationsX[x]+player.inventory.location.x,yTo+player.inventory.location.y);
-                        else renderTexture(&player.inventory.imageInventorySlot[0],0,yFrom,player.inventory.imageInventorySlot[0].surface->w,hFrom,player.inventory.slotsLocationsX[x]+player.inventory.location.x,yTo+player.inventory.location.y);
-                        if(player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCount>0){//if there's an item in this slot then : render that item
-                            if(player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.updateItem){
-                                player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.free();
-                                player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface=TTF_RenderText_Blended(font,toString(player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCount).c_str(),messageColor);
-                                RenderType=RENDER_NEAREST;
-                                player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.textureOpenGL=convertSurfaceToOpenGLTexture(player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface);
-                                RenderType=RENDER_MIPMAP;
-                            }
-                            yFromTemp=yFrom*player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.containingItem.image.surface->h/player.inventory.imageInventorySlot[0].surface->h;
-                            hFromTemp=hFrom*player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.containingItem.image.surface->h/player.inventory.imageInventorySlot[0].surface->h;
-                            renderTexture(&player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.containingItem.image,0,yFromTemp,player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.containingItem.image.surface->w,hFromTemp,player.inventory.slotsLocationsX[x]+player.inventory.location.x,yTo+player.inventory.location.y);
-                            yTo2=yTo+((player.inventory.imageInventorySlot[0].surface->h-yFrom)*player.inventory.zoom-player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface->h);
-                            if(yTo2<player.inventory.slotLocationBottomY){
-                                if((int)yTo2<(int)(player.inventory.slotLocationTopLeft.y)){
-                                    yFrom2=(player.inventory.slotLocationTopLeft.y-yTo2);
-                                    hFrom2=player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface->h-yFrom2;
-                                    yTo3=player.inventory.slotLocationTopLeft.y;
-                                }
-                                else if((int)(yTo2+player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface->h)>(int)(player.inventory.slotLocationBottomY)){
-                                    yFrom2=0;
-                                    hFrom2=player.inventory.slotLocationBottomY-yTo2;
-                                    yTo3=yTo2;
-                                }
-                                else{
-                                    yFrom2=0;
-                                    hFrom2=player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface->h;
-                                    yTo3=yTo2;
-                                }
-                                renderTexture(&player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer,0,yFrom2,player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface->w,hFrom2,player.inventory.slotsLocationsX[x]+(player.inventory.imageInventorySlot[0].w-player.inventory.itemStacks[y*inventorySlotsPerRow+x].is.itemCountLayer.surface->w)+player.inventory.location.x,yTo3+player.inventory.location.y);
-                            }
-                        }
-                    }
-                }
-                else{
-                    x=player.inventory.slotsInOneRow;
-                    y=player.inventory.rowsInInventory;
-                }
-            }
-        }
-        */
-    }
 	//render Scroll Bar
     if(false){
-        renderTexture(&player.inventory.imageScrollBubbleFull,player.inventory.imageScrollBubbleFull.surface->clip_rect,2354*player.inventory.zoom+player.inventory.location.x,player.inventory.slotLocationTopLeft.y+player.inventory.location.y);
-        renderTexture(&player.inventory.imageScrollBarFull,player.inventory.imageScrollBarFull.surface->clip_rect,2354*player.inventory.zoom+player.inventory.location.x,player.inventory.slotLocationTopLeft.y+player.inventory.scrollBarOffset+player.inventory.location.y);
-    }
-	//render Equipment
-    if(false){
-        for(int i=0; i<player.inventory.equipmentCount; i++){
-            if(player.inventory.equipmentAll[i]->item.itemCount==0){
-                renderTexture(&player.inventory.equipmentAll[i]->image,
-                              player.inventory.equipmentAll[i]->image.surface->clip_rect,
-                              player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x+player.inventory.location.x,
-                              player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y+player.inventory.location.y);
-            }
-            else{
-                renderTexture(&player.inventory.imageInventorySlot[0],player.inventory.imageInventorySlot[0].surface->clip_rect,player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x+player.inventory.location.x,player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y+player.inventory.location.y);
-                renderTexture(&player.inventory.equipmentAll[i]->item.containingItem.image,player.inventory.equipmentAll[i]->item.containingItem.image.surface->clip_rect,player.inventory.equipmentTopLeftLocation.x+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->x+player.inventory.location.x,player.inventory.equipmentTopLeftLocation.y+player.inventory.distanceBetweenEquipmentSlots*player.inventory.equipmentAll[i]->y+player.inventory.location.y);
-            }
-        }
+		renderTexture(&player.inventory.imageScrollBubbleFull, player.inventory.imageScrollBubbleFull.surface->clip_rect, (int)(2354 * player.inventory.zoom + player.inventory.location.x), player.inventory.slotLocationTopLeft.y + player.inventory.location.y);
+		renderTexture(&player.inventory.imageScrollBarFull, player.inventory.imageScrollBarFull.surface->clip_rect, (int)(2354 * player.inventory.zoom + player.inventory.location.x), player.inventory.slotLocationTopLeft.y + (int)player.inventory.scrollBarOffset + player.inventory.location.y);
     }
 	//render Stats
     if(true){
@@ -1321,7 +1481,7 @@ void functions::renderInventory(bool manageClicks){
                 ps.levelAdditionLayer.textureOpenGL=convertSurfaceToOpenGLTexture(ps.levelAdditionLayer.surface);
                 txl.texture[txl.findTexture(ps.statName+" bar addition")].render=true;
                 layer& layeRef=player.inventory.additionBar.full;
-                ps.additionBarWidth=ceil(layeRef.surface->w*((float)ps.levelAddition/(float)100));
+				ps.additionBarWidth = (int)(ceil(layeRef.surface->w*((float)ps.levelAddition / (float)100)));
             }
             else{
                 Texolder::TH* thl; std::string text;
@@ -1362,14 +1522,14 @@ void functions::renderInventory(bool manageClicks){
                     thl=&txl.texture[txl.findTexture(ps.statName+" bar main")];
                     thl->layerp=&player.inventory.statsBar[id].full;
                     thl->to->y=player.inventory.distanceBetweenStats-((player.inventory.distanceBetweenStats-layerp->surface->h)/2)-thl->layerp->h/2;
-                    ps.mainBar.from.w=thl->layerp->surface->w*((float)(ps.levelBase%100)/(float)100); ps.mainBar.to.w=ps.mainBar.from.w;
+					ps.mainBar.from.w = (int)(thl->layerp->surface->w*((float)(ps.levelBase % 100) / (float)100)); ps.mainBar.to.w = ps.mainBar.from.w;
                     ps.additionBar.from.x=ps.mainBar.from.w;
                     ps.additionBar.from.w=thl->layerp->surface->w-ps.additionBar.from.x;
                     if(ps.additionBar.from.w>ps.additionBarWidth) ps.additionBar.from.w=ps.additionBarWidth;
                     ps.additionBar.to.w=ps.additionBar.from.w;
-                    ps.additionBar.to.x=ps.additionBar.from.x*thl->layerp->zoom*thl->layerp->zoomWidth;
+					ps.additionBar.to.x = (int)(ps.additionBar.from.x*thl->layerp->zoom*thl->layerp->zoomWidth);
                     ps.backgroundBar.from.x=ps.additionBar.from.w;
-                    ps.backgroundBar.to.x=ps.backgroundBar.from.x*thl->layerp->zoom*thl->layerp->zoomWidth;
+					ps.backgroundBar.to.x = (int)(ps.backgroundBar.from.x*thl->layerp->zoom*thl->layerp->zoomWidth);
                     ps.backgroundBar.from.w=thl->layerp->surface->w-ps.additionBarWidth-ps.mainBar.from.w;
                     if(ps.backgroundBar.from.w<0) ps.backgroundBar.from.w=0;
                     ps.backgroundBar.to.w=ps.backgroundBar.from.w;
@@ -1389,7 +1549,87 @@ void functions::renderInventory(bool manageClicks){
                       player.inventory.closeLocation.x+player.inventory.location.x,
                       player.inventory.closeLocation.y+player.inventory.location.y);
     }
-    player.inventory.txl.renderTextures();
+	pi.txl.renderTextures();
+	renderSlots(pi);
+	//render Equipment
+	if (true){
+		int x, y;
+		SDL_Point equipLocStart = pi.equipmentTopLeftLocation + pi.location;
+		SDL_Rect slotRect = getRect(0, 0, pi.equipmentAll[0]->image.w, pi.equipmentAll[0]->image.h);
+		for (int i = 0; i<pi.equipmentCount; i++){
+			x = pi.distanceBetweenEquipmentSlots*pi.equipmentAll[i]->x + equipLocStart.x;
+			y = pi.distanceBetweenEquipmentSlots*pi.equipmentAll[i]->y + equipLocStart.y;
+			if (pi.equipmentAll[i]->item.itemCount == 0){
+				renderTexture(&pi.equipmentAll[i]->image, pi.equipmentAll[i]->image.surface->clip_rect, x, y);
+			}
+			else{
+				if (leftMouseButton || leftMouseButtonUp){
+					slotRect.x = x; slotRect.y = y;
+					if (pointInsideRect(mouse, slotRect)){
+						if (leftMouseButtonUp){
+							if (clickedOn == "Equipment slot " + toString(i)){
+								if (doubleLeftClick == -1) doubleLeftClick = FPS / 2;
+								else{
+									doubleLeftClick = -1;
+									unequipItem(i);
+								}
+							clearEquipClicked:
+								if (drag.objectName == "Equipment slot " + toString(i)){//finish draging
+									drag.objectName = "";
+									if (player.inventory.open){
+										int itemId2;
+										SDL_Rect slotRect2;
+										characterSpace& Space2 = player.inventory;
+										for (int y2 = 0; y2 < Space2.rowsInInventory; y2++){
+											for (int x2 = 0; x2 < Space2.slotsInOneRow; x2++){
+												itemId2 = y2*Space2.slotsInOneRow + x2;
+												if (y2 == Space2.rowsInInventory - 1 && itemId2 == Space2.itemStacks.size()){
+													x2 = Space2.slotsInOneRow;
+												}
+												else{
+													layer tempLayer = player.inventory.imageInventorySlot[0];
+													tempLayer.location.x = Space2.slotLocationTopLeft.x + x2*Space2.distanceBetweenSlots;
+													tempLayer.location.y = Space2.slotLocationTopLeft.y + y2*Space2.distanceBetweenSlots - (int)(Space2.scrollBarOffset*Space2.ratioBetweenBarAndSlots);
+													clipLayer(tempLayer, Space2.slotBoundary);
+													if (tempLayer.from.h > 0){
+														slotRect2 = getRect(tempLayer.location, (int)(tempLayer.from.w*tempLayer.zoom*tempLayer.zoomWidth), (int)(tempLayer.from.h*tempLayer.zoom*tempLayer.zoomHeight));
+														if (pointInsideRect(mouse, slotRect2)){//swap items [held item with the item in this inventory item slot]
+															unequipItem(i, itemId2);
+															goto exitThisEquipSearch;
+														}
+													}
+												}
+											}
+										}
+									}
+								exitThisEquipSearch:;
+								}
+								leftMouseButtonUp = false;
+								clickedOn = "";
+							}
+						}
+						else if (leftMouseButton){
+							if (clickedOn == ""){
+								clickedOn = "Equipment slot " + toString(i);
+								leftMouseButton = false;
+							}
+							if (pi.equipmentAll[i]->item.itemCount > 0){
+								drag.objectName = clickedOn;
+								drag.ist = &pi.equipmentAll[i]->item;
+								drag.From = drag.ist->containingItem.image.surface->clip_rect;
+								mouseOffsetFromMovableObject = mouse - getPoint(x, y);
+							}
+						}
+					}
+					else{
+						if (leftMouseButtonUp&&clickedOn == "Equipment slot " + toString(i)) goto clearEquipClicked;
+					}
+				}
+				renderTexture(&pi.imageInventorySlot[0], pi.imageInventorySlot[0].surface->clip_rect, x, y);
+				if (drag.objectName != "Equipment slot " + toString(i)) renderTexture(&pi.equipmentAll[i]->item.containingItem.image, pi.equipmentAll[i]->item.containingItem.image.surface->clip_rect, x, y);
+			}
+		}
+	}
     }
     }
     else if(manageClicks){
@@ -1416,40 +1656,33 @@ void functions::renderInventory(bool manageClicks){
         player.inventory.pressedId=-1;
     }
 }
+void functions::giveItems(item &itemToGive, int ammount, itemStack &toWhere){
+	toWhere.itemCount = ammount;
+	toWhere.containingItem = itemToGive;
+	toWhere.updateItem = true;
+	player.inventory.update = true;
+}
 void functions::giveItems(itemStack &itemsToGive){
     for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){
 		if (player.inventory.itemStacks[i].ist.containingItem == itemsToGive.containingItem){
-			player.inventory.itemStacks[i].ist.itemCount += itemsToGive.itemCount;
-			player.inventory.itemStacks[i].ist.updateItem = true;
-            i=player.inventory.itemStacks.size();
+			giveItems(itemsToGive.containingItem, player.inventory.itemStacks[i].ist.itemCount + itemsToGive.itemCount, player.inventory.itemStacks[i].ist);
+			goto doneGivingItems1;
         }
-		else if (player.inventory.itemStacks[i].ist.itemCount == 0){
+	}
+	for (Uint8 i = 0; i < player.inventory.itemStacks.size(); i++){
+		if (player.inventory.itemStacks[i].ist.itemCount == 0){
 			player.inventory.itemStacks[i].ist = itemsToGive;
-            i=player.inventory.itemStacks.size();
-        }
-    }
+			goto doneGivingItems1;
+		}
+	}
+	doneGivingItems1:
     player.inventory.update=true;
 }
 void functions::giveItems(item &itemToGive, int ammount){
-    for(Uint8 i=0; i<player.inventory.itemStacks.size(); i++){
-		if (player.inventory.itemStacks[i].ist.containingItem == itemToGive){
-			player.inventory.itemStacks[i].ist.itemCount += ammount;
-			player.inventory.itemStacks[i].ist.updateItem = true;
-            i=player.inventory.itemStacks.size();
-        }
-		else if (player.inventory.itemStacks[i].ist.itemCount == 0){
-			player.inventory.itemStacks[i].ist.itemCount = ammount;
-			player.inventory.itemStacks[i].ist.containingItem = itemToGive;
-			player.inventory.itemStacks[i].ist.updateItem = true;
-            i=player.inventory.itemStacks.size();
-        }
-    }
-    player.inventory.update=true;
-}
-void functions::giveItems(item &itemToGive, int ammount, itemStack &toWhere){
-    toWhere.itemCount=ammount;
-    toWhere.containingItem=itemToGive;
-    toWhere.updateItem=true;
+	itemStack temp;
+	temp.containingItem = itemToGive;
+	temp.itemCount = ammount;
+	giveItems(temp);
 }
 int functions::findNextStage(std::vector<stage> &stages, int currentStage){
     for(int i=currentStage+1; i<(int)stages.size(); i++){
@@ -1492,13 +1725,16 @@ SDL_Point functions::getPoint(int x, int y){
     returnValue.y=y;
     return returnValue;
 }
+SDL_Rect functions::getRect(SDL_Point location, int w, int h){
+	return getRect(location.x,location.y,w,h);
+}
 SDL_Rect functions::getRect(int x, int y, int w, int h){
-    SDL_Rect returnValue;
-    returnValue.x=x;
-    returnValue.y=y;
-    returnValue.w=w;
-    returnValue.h=h;
-    return returnValue;
+	SDL_Rect returnValue;
+	returnValue.x = x;
+	returnValue.y = y;
+	returnValue.w = w;
+	returnValue.h = h;
+	return returnValue;
 }
 bool functions::pointInsideRect(SDL_Point point, SDL_Rect rect){
     if(
@@ -1573,7 +1809,7 @@ void functions::callEventBattle(info &information){
     player.isInBattle=1;
     player.map_location=ammountOfMaps+battleZoneId;
 }
-void functions::addEntity(float healthPoints,int level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY){
+void functions::addEntity(float healthPoints,float level,float manaPoints,std::string name, std::string imagePath, double legCenterX, double legCenterY){
     entity entity_temp;
     entity_temp.healthPoints=healthPoints;
     entity_temp.level=level;
@@ -1681,10 +1917,10 @@ void functions::moveCharacter(){
     if(moveObject==OBJECT_PLAYER) movedObject=&player.location;
     else if(moveObject==OBJECT_SCREEN) movedObject=&offset;
     if(player.isInBattle==0){
-        if(buttons[findButton("D")].pressed==1 || buttons[findButton("Right")].pressed==1) movedObject->x+=player.movementSpeed;
-        if(buttons[findButton("A")].pressed==1 || buttons[findButton("Left")].pressed==1)  movedObject->x-=player.movementSpeed;
-        if(buttons[findButton("S")].pressed==1 || buttons[findButton("Down")].pressed==1)  movedObject->y+=player.movementSpeed;
-        if(buttons[findButton("W")].pressed==1 || buttons[findButton("Up")].pressed==1)    movedObject->y-=player.movementSpeed;
+		if (buttons[findButton("D")].pressed == 1 || buttons[findButton("Right")].pressed == 1) movedObject->x += (int)(player.movementSpeed);
+		if (buttons[findButton("A")].pressed == 1 || buttons[findButton("Left")].pressed == 1)  movedObject->x -= (int)(player.movementSpeed);
+		if (buttons[findButton("S")].pressed == 1 || buttons[findButton("Down")].pressed == 1)  movedObject->y += (int)(player.movementSpeed);
+		if (buttons[findButton("W")].pressed == 1 || buttons[findButton("Up")].pressed == 1)    movedObject->y -= (int)(player.movementSpeed);
     }
 }
 void functions::addSpell(std::string type, float damage, float manaCost, std::string base, std::string icon_active, std::string icon_cooldown, int x, int y){
@@ -1826,10 +2062,15 @@ void functions::openGLRender(layer* texture,SDL_Rect* sourceRect,SDL_Rect* destR
         cornerY[0]=(float)(sourceRect->y)/(float)(texture->surface->h);              cornerY[1]=cornerY[0];
         cornerY[2]=((float)(sourceRect->h)/(float)(texture->surface->h))+cornerY[0]; cornerY[3]=cornerY[2];
         glLoadIdentity();
-        glTranslatef(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0.f);
+		glTranslatef((GLfloat)(SCREEN_WIDTH / 2), (GLfloat)(SCREEN_HEIGHT / 2), 0.f);
         glRotatef(rotationAngle,0.f,0.f,0.f);
         glRotatef(rotationAngle,0.f,0.f,1.f);
-        glTranslatef(destRect->x+offset.x-SCREEN_WIDTH/2,destRect->y+offset.y-SCREEN_HEIGHT/2,0.f);
+		glTranslatef((GLfloat)(destRect->x + offset.x - SCREEN_WIDTH / 2), (GLfloat)(destRect->y + offset.y - SCREEN_HEIGHT / 2), 0.f);
+		if (texture->rotate){
+			glTranslatef(sourceRect->w / 2 * texture->zoom * texture->zoomWidth, sourceRect->h / 2 * texture->zoom * texture->zoomHeight, 0.f);
+			glRotatef(texture->rotation, 0.f, 0.f, 1.f);
+			glTranslatef(-sourceRect->w / 2 * texture->zoom * texture->zoomWidth, -sourceRect->h / 2 * texture->zoom * texture->zoomHeight, 0.f);
+		}
         glBindTexture(GL_TEXTURE_2D,texture->textureOpenGL);
         glColor4f(texture->r,texture->g,texture->b,texture->a);
         glBegin(GL_QUADS);
@@ -1927,7 +2168,7 @@ Uint32 functions::getPixel(SDL_Surface *surface, int x, int y){
         return 0;       /* shouldn't happen, but avoids warnings */
     }
 }
-void functions::getPixelColors(SDL_Surface* surface, double x, double y, SDL_Color &colorHolder){
+void functions::getPixelColors(SDL_Surface* surface, int x, int y, SDL_Color &colorHolder){
     SDL_PixelFormat *format;
 	Uint32 temp, pixel;
 	Uint8 color[4];
@@ -1962,7 +2203,7 @@ void functions::getPixelColors(SDL_Surface* surface, double x, double y, SDL_Col
     colorHolder.b=color[2];
     colorHolder.a=color[3];
 }
-SDL_Color functions::getPixelColors(SDL_Surface* surface, double x, double y){
+SDL_Color functions::getPixelColors(SDL_Surface* surface, int x, int y){
     SDL_Color colorHolder;
     getPixelColors(surface,x,y,colorHolder);
     return colorHolder;
@@ -2008,6 +2249,7 @@ bool functions::initialize(){
     if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"2")) error(1);
 
     //Create window
+	#pragma warning(disable : 4806)
     window = SDL_CreateWindow( screenName.c_str(), screenStartPosition.x, screenStartPosition.y, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | fullscreen);
 	SDL_SetWindowBordered(console_window,SDL_FALSE);
     console_window = SDL_CreateWindow( consoleScreenName.c_str(), 1680+(1280-CONSOLE_SCREEN_WIDTH)/2, (1024-CONSOLE_SCREEN_HEIGHT)/2, CONSOLE_SCREEN_WIDTH, CONSOLE_SCREEN_HEIGHT, fullscreen);
@@ -2067,7 +2309,7 @@ bool functions::initialize(){
 }
 bool functions::initGL(){
     //Set the viewport
-    glViewport( 0.f, 0.f, SCREEN_WIDTH, SCREEN_HEIGHT );
+    glViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
     //Initialize Projection Matrix
     glMatrixMode( GL_PROJECTION );
