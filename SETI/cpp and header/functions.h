@@ -16,6 +16,7 @@ class functions: public variables{
         character player; //Player information holder
         Texolder menuTxl;
         //
+		void menuPulse();
 		void swapItemStacks(itemStack& itemStack1, itemStack& itemStack2);
 		void clipLayer(layer &layeRef, SDL_Rect boundary);
 		void clip(SDL_Rect boundary, SDL_Rect rectToClip, SDL_Rect &surfaceResult, SDL_Point &locationResult);

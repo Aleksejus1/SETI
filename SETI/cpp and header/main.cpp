@@ -92,9 +92,11 @@ int main(int argc, char **argv){
             //---------------------------------------
             }
             else if(f.currentMenu==f.MENU_START){
+				f.menuPulse();
                 f.menuTxl.renderTextures();
                 f.renderFlameParticles();
             }
+			f.renderTexture(&f.cursorImage, f.cursorImage.surface->clip_rect, f.mouse.x, f.mouse.y);
             //SDL_RenderPresent(f.renderer); // update screen
 			SDL_GL_SwapWindow(f.window);
             f.console();
