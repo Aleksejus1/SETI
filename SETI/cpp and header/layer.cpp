@@ -2,6 +2,9 @@
 #include "libs.h"
 
 layer::layer(){
+	offset = { 0, 0 };
+	from = { 0, 0, 0, 0 };
+	to = { 0, 0, 0, 0 };
     setZoom(1);
     setWidthZoom(1);
     setHeightZoom(1);

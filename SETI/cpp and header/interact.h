@@ -8,7 +8,6 @@
 class interact: public objects
 {
     public:
-        interact();
         event events;
 };
 

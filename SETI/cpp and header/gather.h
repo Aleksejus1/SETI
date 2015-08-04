@@ -4,10 +4,8 @@
 #include "stage.h"
 #include "itemStack.h"
 
-class gather: public interact
-{
+class gather: public interact{
     public:
-        gather();
         std::vector<stage> stages;
         std::vector<itemStack> returnItems; //item returned when gathered
         std::string requiredSkillName;//skill type id which's level is used to determine if player can gather

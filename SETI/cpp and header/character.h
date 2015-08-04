@@ -19,11 +19,12 @@ class character: public entity{
         bool updateHealth=true, updateMana=true, updateExperience=true, updateLevel=true, updateType=true;
         int isInBattle=0;
 		struct stat{ libs::fo mainBar, additionBar, backgroundBar, gradientBar;
-					 std::string statName; 
+					 std::string name; 
 					 int levelBase, levelAddition, levelTotal, additionBarWidth, width[2];
 					 layer image, statNameLayer, levelBaseLayer, levelAdditionLayer;
-					 bool update = true, updateAddition = true; };
-        std::vector<stat> stats;
+					 bool updateAddition = true, updateName = true, updateLevelBaseLayer=true;
+		};
+		std::vector<stat> stats[3];//0-Combat 1-STAT#2 2-STAT#3
         int gathering=0;
         int gatherableId=-1;
         int gatherStartStage=0;

@@ -34,7 +34,7 @@ void Texolder::renderTextures(){
 		if (texture[i].render){
 			if (!texture[i].which){
 				if (texture[i].relativeTo != nullptr){
-					f->renderTexture(texture[i].layerp, *texture[i].from, getLocationX(&texture[i]), getLocationY(&texture[i]), texture[i].to->w, texture[i].to->h);
+					f->renderTexture(texture[i].layerp, *texture[i].from, f->getRect(getLocationX(&texture[i]), getLocationY(&texture[i]), texture[i].to->w, texture[i].to->h));
 				}
 				else f->renderTexture(texture[i].layerp, *texture[i].from, *texture[i].to);
 			}

@@ -56,17 +56,17 @@ void character::addExperience(float amount){
 
 void character::addStat(std::string statName, int levelBase, int levelAddition){
     character::stat tempStat;
-    tempStat.statName=statName;
+    tempStat.name=statName;
     tempStat.levelBase=levelBase;
     tempStat.levelAddition=0;
     tempStat.levelBase=levelBase;
-    stats.push_back(tempStat);
+    stats[0].push_back(tempStat);
     addStatAddition(levelAddition,statName);
 }
 
 int character::findStat(std::string statName){
-    for(int i=0; i<(int)stats.size(); i++){
-        if(stats[i].statName==statName) return i;
+	for (int i = 0; i<(int)stats[0].size(); i++){
+		if (stats[0][i].name == statName) return i;
     }
     return -1;
 }
@@ -74,6 +74,6 @@ int character::findStat(std::string statName){
 void character::addStatAddition(int addition, std::string statName){
     int statId=findStat(statName);
     if(statId!=-1){
-        stats[statId].levelAddition+=addition;
+        stats[0][statId].levelAddition+=addition;
     }
 }
