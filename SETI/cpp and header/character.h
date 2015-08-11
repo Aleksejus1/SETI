@@ -4,6 +4,7 @@
 #include "libs.h"
 #include "entity.h"
 #include "characterSpace.h"
+#include "quest.h"
 
 class functions;
 
@@ -24,6 +25,7 @@ class character: public entity{
 					 layer image, statNameLayer, levelBaseLayer, levelAdditionLayer;
 					 bool updateAddition = true, updateName = true, updateLevelBaseLayer=true;
 		};
+		std::vector<quest> quests;
 		std::vector<stat> stats[3];//0-Combat 1-STAT#2 2-STAT#3
         int gathering=0;
         int gatherableId=-1;

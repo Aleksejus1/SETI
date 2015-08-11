@@ -29,7 +29,8 @@ int main(int argc, char **argv){
 	SDL_GetMouseState(&f.mouse.x, &f.mouse.y);
     while( !f.quit ) { //Event cycle, does once every game tick
         //read and assign user input events that happened since last activation of this cycle
-        while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
+		f.milisecond = SDL_GetTicks();
+		while(SDL_PollEvent(&f.e)!=0){//Go through all events accumulated in the previous tick
             if(f.e.type==SDL_QUIT){//If program tries to shut down
                 f.quit = true;//Exit the game loop
             }
@@ -72,7 +73,7 @@ int main(int argc, char **argv){
         if(f.currentMenu==f.MENU_GAME){
 
         //render Map Details
-		for (int i = 1; i < f.maps[f.player.map_location].layers.size(); i++){
+		for (Uint8 i = 1; i < f.maps[f.player.map_location].layers.size(); i++){
 			layer &n = f.maps[f.player.map_location].layers[i];
 			f.renderTexture(&n, n.surface->clip_rect);
 		}
@@ -100,14 +101,14 @@ int main(int argc, char **argv){
         //---------------------------------------
         }
         else if(f.currentMenu==f.MENU_START){
-			f.menuPulse();
+			f.renderMenuPulse();
             f.menuTxl.renderTextures();
-            f.renderFlameParticles();
-        }
+			f.renderFlameParticles();
+		}
+		f.controlMusic();
 		f.renderTexture(&f.cursorImage, f.cursorImage.surface->clip_rect, f.mouse);
         //SDL_RenderPresent(f.renderer); // update screen
 		SDL_GL_SwapWindow(f.window);
-        f.console();
         //finish up this game tick
         }
         else{
@@ -116,8 +117,10 @@ int main(int argc, char **argv){
             f.renderTexture(&f.imageOpenGL2,f.getRect(f.imageOpenGL2.surface->w/2,f.imageOpenGL2.surface->h/2,f.imageOpenGL2.surface->w/2,f.imageOpenGL2.surface->h/2),f.getPoint(0,0));
             SDL_GL_SwapWindow(f.window);
         }
-        SDL_Delay(f.delay); // control frame rate
-        //end of game tick
+		f.milisecondOffset = (float)(SDL_GetTicks() - f.milisecond);
+		if (f.milisecondOffset > f.delay) f.milisecondOffset = f.delay;
+		SDL_Delay((Uint32)(f.delay - f.milisecondOffset)); // control frame rate
+        /*end of game tick*/
 		f.reset();//initialize the new frame
     }
     f.close(); //Free resources and close SDL
@@ -127,11 +130,6 @@ int main(int argc, char **argv){
 void interact_(){
     if(f.buttons[f.findButton("Esc")].pressed==1){
         f.quit=true;
-    }
-    if(f.buttons[f.findButton("Z")].pressed==1){
-        f.buttons[f.findButton("Z")].pressed=0;
-        f.consoleOnce[0]=true;
-        f.consoleShow=!f.consoleShow;
     }
     if(f.currentMenu==f.MENU_GAME){
     if(f.buttons[f.findButton("E")].pressed==1&&f.maps[f.player.map_location].interactable.size()>0&&f.player.gathering==0){
@@ -196,6 +194,10 @@ void interact_(){
 	if (f.buttons[f.findButton("O")].pressed == 1){
 		f.buttons[f.findButton("O")].pressed = 2;
 		f.UI.TabStats.open = !f.UI.TabStats.open;
+	}
+	if (f.buttons[f.findButton("P")].pressed == 1){
+		f.buttons[f.findButton("P")].pressed = 2;
+		f.UI.TabQuests.open = !f.UI.TabQuests.open;
 	}
     if(f.buttons[f.findButton("Left Shift")].pressed==1){
         f.player.movementSpeed=f.player.baseMovementSpeed*4;

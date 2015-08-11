@@ -101,6 +101,12 @@
     <ClInclude Include="cpp and header\zone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cpp and header\quest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp and header\task.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cpp and header\bar.cpp">
@@ -179,6 +185,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cpp and header\zone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp and header\quest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp and header\task.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

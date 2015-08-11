@@ -7,26 +7,45 @@ class functions;
 
 class characterSpace: public space{
     public:
-        characterSpace(functions* fp);
-        Texolder txl;
-        float zoom=(float)1/(float)5;
-        struct equipment{itemStack item; std::string typeName; layer image; int x; int y;};
-		libs::fo slotBase;
-        int equipmentCount=7;
-        equipment equipmentHandRight,equipmentHead,equipmentNeck,equipmentBody,equipmentLegs,equipmentHandLeft,equipmentFeet;
-        equipment* equipmentAll[7];
-        bool update;
-        int furthestPossibleSliderLocation;
-        int distanceBetweenEquipmentSlots,distanceBetweenStats;
-        SDL_Point equipmentTopLeftLocation,statTopLeftLocation,closeLocation;
-        layer closeButton;
-        layer imageScrollBar,imageScrollBarFull,imageScrollBubble,imageScrollBubbleFull,imageScroll;
-        layer imageInventorySlot[2];
-        int doubleClick=-1;
-        layer imageFull;
-        struct bars{layer gradient,left,mid,right,full;};
-        std::vector<bars> statsBar;
-        bars additionBar;
+		characterSpace(functions* fp);
+		Texolder			
+			txl;
+		float				
+			zoom = (float)1 / (float)5;
+		struct equipment{ itemStack item; std::string typeName; layer image; int x; int y; } 
+			equipmentHandRight,
+			equipmentHandLeft,
+			equipmentHead, 
+			equipmentNeck, 
+			equipmentBody, 
+			equipmentLegs, 
+			equipmentFeet,
+			*equipmentAll[7];
+		libs::fo			
+			slotBase;
+		bool				
+			update;
+		int					
+			furthestPossibleSliderLocation = 0,
+			distanceBetweenEquipmentSlots = 0,
+			distanceBetweenStats = 0,
+			scrollBubbleHeight = 0,
+			scrollBarHeight = 0,
+			equipmentCount = 7,
+			doubleClick = -1,
+			sliderWidth = 0;
+		SDL_Point			
+			equipmentTopLeftLocation, 
+			statTopLeftLocation, 
+			closeLocation;
+		layer				
+			closeButton,
+			imageInventorySlot[2],
+			imageFull;
+		struct bars{ layer gradient, left, mid, right, full; }
+			additionBar;
+		std::vector<bars>	
+			statsBar;
 
 };
 
