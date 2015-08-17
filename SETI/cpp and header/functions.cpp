@@ -71,10 +71,10 @@ bool operator==(const layer& layer1, const layer& layer2){
 		layer1.zoomWidth == layer2.zoomWidth &&
 		layer1.zoom == layer2.zoom &&
 		layer1.zoomHeight == layer2.zoomHeight &&
-		layer1.r == layer2.r &&
-		layer1.g == layer2.g &&
-		layer1.b == layer2.b &&
-		layer1.a == layer2.a)
+		layer1.color.r == layer2.color.r &&
+		layer1.color.g == layer2.color.g &&
+		layer1.color.b == layer2.color.b &&
+		layer1.color.a == layer2.color.a)
 		return true;
 	return false;
 }
@@ -164,6 +164,7 @@ void functions::loadMedia(){
 	addButton("+",				SDLK_KP_PLUS);
 	addButton("-",				SDLK_KP_MINUS);
 	addButton("Enter",			SDLK_RETURN);
+	addButton("NUM_Enter",		SDLK_KP_ENTER);
     if(GLStage==STAGE_SDL) {
 	//extra					  
 	loadImage("Graphics\\empty.png", empty);
@@ -278,12 +279,12 @@ void functions::loadMedia(){
 	if (pi.itemStacks.size() % pi.slotsInOneRow != 0) pi.rowsInInventory++;
 	pi.distanceBetweenSlots			=	(int)(pi.zoom * 267);
 	pi.distanceBetweenEquipmentSlots=	(int)(pi.zoom * 264);
-	pi.scrollBubbleHeight			=	400;
-	pi.sliderWidth					=	5;
+	pi.scrollBar.initialize(400, 5, 8, (float)pi.rowsInInventory, (float)pi.distanceBetweenSlots, 5.f);
 	pi.distanceBetweenStats			=	(int)(pi.zoom * 144);
 	pi.closeLocation				= { (int)(pi.zoom * 2120),	(int)(pi.zoom * 105)	};
 	pi.statTopLeftLocation			= { (int)(pi.zoom * 215),	(int)(pi.zoom * 1516)	};
 	pi.slotLocationTopLeftBase		= { (int)(pi.zoom * 1298),	(int)(pi.zoom * 185)	};
+	pi.scrollBar.location			= { (int)(pi.zoom * 2354),	pi.slotLocationTopLeftBase.y };
 	pi.equipmentTopLeftLocation		= { (int)(pi.zoom * 297),	(int)(pi.zoom * 181)	};
 	//load images                   
 	std::string prePath = "Graphics\\equipment ui slice\\", endingPath = ".png", text; layer* layeRef; Texolder& txl = pi.txl;
@@ -335,22 +336,9 @@ void functions::loadMedia(){
         else pi.additionBar=bar;
 	}
 	//calculate stuff               
-	int slotRows = 8;//max ammount of full slots you can see at once
-	pi.scrollBarHeight = pi.scrollBubbleHeight;
-	if (pi.rowsInInventory <= slotRows){
-		slotRows = pi.rowsInInventory;
-		pi.scrollBarHeight = pi.scrollBubbleHeight - 1;
-		sliderSpeed = 0;
-	}
-	else{
-		pi.scrollBarHeight = pi.scrollBubbleHeight / (pi.rowsInInventory - slotRows + 1);
-		sliderSpeed = (float)(pi.scrollBubbleHeight - pi.scrollBarHeight) / (pi.rowsInInventory - slotRows) / sliderCountForOneRow;
-	}
-	pi.furthestPossibleSliderLocation = pi.scrollBubbleHeight - pi.scrollBarHeight;
 	for (int i = 0; i<pi.slotsInOneRow; i++) pi.slotsLocationsX.push_back((pi.slotLocationTopLeft.x + pi.distanceBetweenSlots*i));
 	pi.slotBoundary.w = (pi.slotsInOneRow - 1)*pi.distanceBetweenSlots + pi.imageInventorySlot[0].w;
 	pi.slotBoundary.h = 7 * pi.distanceBetweenSlots + pi.imageInventorySlot[0].w;
-	pi.ratioBetweenBarAndSlots = (float)((pi.rowsInInventory - slotRows)*pi.distanceBetweenSlots) / (float)pi.furthestPossibleSliderLocation;
     //create Bot UI              
 		UI.botUIButtonsTopLeftLocation.x = (int)(73 * characterUiZoom);
 		UI.botUIButtonsTopLeftLocation.y = (int)(143 * characterUiZoom);
@@ -483,7 +471,6 @@ void functions::loadMedia(){
 	//create Quests Tab		  
 	userInterface::QuestsTab &TQ = UI.TabQuests;
 	//TQ.sliderSpeed = (float)(player.inventory.imageScrollBubbleFull.surface->h - temp2) / (player.inventory.rowsInInventory - temp) / sliderCountForOneRow;
-	TQ.zoom = 2.f / 5.f;
 	loadImage("Graphics\\rest of ui\\quests\\quests.png", TQ.imageMain);
 	TQ.imageMain.z = LAYER_UI;
 	TQ.imageMain.setZoom(TQ.zoom);
@@ -892,10 +879,10 @@ void functions::renderFlameParticles(){
 				flame.location.y += (int)(cos(flame.delta*flame.oscillationSpeed)*(flame.oscillationInitialAmplitude*(1 - flame.delta) + flame.oscillationEndingAmplitude*flame.delta));
 			}
 			//int opacity=flame.delta-
-			menu.flameParticle[flame.flameId].a = (1 - sqrt(flame.delta))*7.f / 8.f;
-			menu.flameParticle[flame.flameId].r = flame.r / 255.f;
-			menu.flameParticle[flame.flameId].g = flame.g / 255.f;
-			menu.flameParticle[flame.flameId].b = flame.b / 255.f;
+			menu.flameParticle[flame.flameId].color.a = (1 - sqrt(flame.delta))*7.f / 8.f;
+			menu.flameParticle[flame.flameId].color.r = flame.r / 255.f;
+			menu.flameParticle[flame.flameId].color.g = flame.g / 255.f;
+			menu.flameParticle[flame.flameId].color.b = flame.b / 255.f;
 			menu.flameParticle[flame.flameId].rotation = (timeStamp - flame.creationTimeStamp) % flame.rotationSpeed * 360 / (float)flame.rotationSpeed;
 			if (flame.rotationDirection) menu.flameParticle[flame.flameId].rotation *= -1;
 			menu.flameParticle[flame.flameId].setZoom(flame.initialSize*(1 - flame.delta) + flame.endingSize*flame.delta);
@@ -909,8 +896,8 @@ void functions::renderMenuPulse(){
 		menu.pulseTimeStamp = timeStamp;
 		menu.pulseLength = (rand() % (FPS * 2) + FPS) * 2;
 	}
-	menu.pulse.a = (float)(timeStamp - menu.pulseTimeStamp) / (float)menu.pulseLength;
-	if (menu.pulseState) menu.pulse.a = menu.pulseMaxAlpha - menu.pulse.a;
+	menu.pulse.color.a = (float)(timeStamp - menu.pulseTimeStamp) / (float)menu.pulseLength;
+	if (menu.pulseState) menu.pulse.color.a = menu.pulseMaxAlpha - menu.pulse.color.a;
 }
 /*UI*/				   
 void functions::renderUI(){
@@ -1081,12 +1068,12 @@ void functions::renderInventory(bool manageClicks){
 		pi.closeButton.setZoom(pi.zoom);
 		if (manageClicks){
 			if (mouseWheelMotion != 0){//process mouse wheel action [move scroll bar]
-				float possibleSliderLocation = player.inventory.scrollBarOffset - mouseWheelMotion*sliderSpeed;
+				float possibleSliderLocation = player.inventory.scrollBar.barOffset - mouseWheelMotion*pi.scrollBar.speed;
 				if (possibleSliderLocation>0){
-					if (possibleSliderLocation<player.inventory.furthestPossibleSliderLocation) player.inventory.scrollBarOffset = possibleSliderLocation;
-					else player.inventory.scrollBarOffset = (float)(player.inventory.furthestPossibleSliderLocation);
+					if (possibleSliderLocation<player.inventory.scrollBar.furthestPossibleSliderLocation) player.inventory.scrollBar.barOffset = possibleSliderLocation;
+					else player.inventory.scrollBar.barOffset = (float)(player.inventory.scrollBar.furthestPossibleSliderLocation);
 				}
-				else player.inventory.scrollBarOffset = 0;
+				else player.inventory.scrollBar.barOffset = 0;
 			}
 			if (leftMouseButton || leftMouseButtonUp){
 				if (pointInsideRect(mouse, getRect(pi.closeLocation + player.inventory.location, pi.closeButton.w, pi.closeButton.h))){
@@ -1123,28 +1110,10 @@ void functions::renderInventory(bool manageClicks){
 			//render Main Textures
 			renderTexture(&pi.imageMain, pi.imageMain.surface->clip_rect, pi.location);
 			//render Scroll Bar   
-			int sliderLocationX = (int)(2354 * pi.zoom + pi.location.x);
-			openGLRenderSquare(	colorfSliderBC, 
-								LAYER_UI,
-								getRect(
-								sliderLocationX,
-								pi.slotLocationTopLeftBase.y + pi.location.y,
-								pi.sliderWidth,
-								pi.scrollBubbleHeight
-										)
-								);
-			openGLRenderSquare(	colorfSliderBar, 
-								LAYER_UI,
-								getRect(
-								sliderLocationX,
-								pi.slotLocationTopLeftBase.y + pi.location.y + (int)pi.scrollBarOffset,
-								pi.sliderWidth,
-								pi.scrollBarHeight
-										)
-								);
+			renderScrollBar(pi.scrollBar,pi.location);
 			//render Close button 
-			if (clickedOn == "closeInventory") pi.closeButton.a = 0.8f;
-			else pi.closeButton.a = 1.f;
+			if (clickedOn == "closeInventory") pi.closeButton.color.a = 0.8f;
+			else pi.closeButton.color.a = 1.f;
 			renderTexture(&player.inventory.closeButton,
 				player.inventory.closeButton.surface->clip_rect,
 				player.inventory.closeLocation + player.inventory.location);
@@ -1209,7 +1178,7 @@ void functions::renderSlots(space &Space, bool manageClicks){
 				if (!stop && itemId == Space.pressedId) pressed = true;
 				layerp = &player.inventory.imageInventorySlot[pressed];
 				layerp->offset.x = Space.slotLocationTopLeft.x + x*Space.distanceBetweenSlots;
-				layerp->offset.y = Space.slotLocationTopLeft.y + y*Space.distanceBetweenSlots - (int)(Space.scrollBarOffset*Space.ratioBetweenBarAndSlots);
+				layerp->offset.y = Space.slotLocationTopLeft.y + y*Space.distanceBetweenSlots - (int)(Space.scrollBar.barOffset *Space.scrollBar.ratioBetweenBarAndOther);
 				clipLayer(*layerp, Space.slotBoundary);
 				if (layerp->from.h > 0) {
 					if (!manageClicks) renderTexture(layerp, layerp->from, layerp->offset);
@@ -1243,7 +1212,7 @@ void functions::renderSlots(space &Space, bool manageClicks){
 													else{
 														layer tempLayer = player.inventory.imageInventorySlot[0];
 														tempLayer.offset.x = Space2.slotLocationTopLeft.x + x2*Space2.distanceBetweenSlots;
-														tempLayer.offset.y = Space2.slotLocationTopLeft.y + y2*Space2.distanceBetweenSlots - (int)(Space2.scrollBarOffset*Space2.ratioBetweenBarAndSlots);
+														tempLayer.offset.y = Space2.slotLocationTopLeft.y + y2*Space2.distanceBetweenSlots - (int)(Space2.scrollBar.barOffset*Space2.scrollBar.ratioBetweenBarAndOther);
 														clipLayer(tempLayer, Space2.slotBoundary);
 														if (tempLayer.from.h > 0){
 															slotRect2 = getRect(tempLayer.offset, (int)(tempLayer.from.w*tempLayer.zoom*tempLayer.zoomWidth), (int)(tempLayer.from.h*tempLayer.zoom*tempLayer.zoomHeight));
@@ -1407,9 +1376,9 @@ void functions::renderStats(bool manageClicks){
 		}
 		for (int i = 0; i<3; i++){
 			layer &image = UT.category[i].image;
-			if (UT.currentSubTab == i) image.a = 1.f;
-			else image.a = 0.6f;
-			if (clickedOn == "Stats Tab " + UT.category[i].name) image.a += 0.2f;
+			if (UT.currentSubTab == i) image.color.a = 1.f;
+			else image.color.a = 0.6f;
+			if (clickedOn == "Stats Tab " + UT.category[i].name) image.color.a += 0.2f;
 			renderTexture(&image, image.surface->clip_rect, getPoint(image.to.x + UT.imageMain.to.x, UT.catsTopYLocation + UT.imageMain.to.y));
 			if (leftMouseButton || leftMouseButtonUp){
 				if (pointInsideRect(mouse, getRect(image.to.x + UT.imageMain.to.x, UT.catsTopYLocation + UT.imageMain.to.y, image.w, image.h))){
@@ -1435,8 +1404,8 @@ void functions::renderStats(bool manageClicks){
 			(int)(UT.imageMain.to.y + UT.closeButtonOffsetFromTopRight.y * UT.imageMain.zoom),
 			player.inventory.closeButton.w,
 			player.inventory.closeButton.h);
-		if (clickedOn == "Tab Stats Close") player.inventory.closeButton.a = 0.6f;
-		else player.inventory.closeButton.a = 0.8f;
+		if (clickedOn == "Tab Stats Close") player.inventory.closeButton.color.a = 0.6f;
+		else player.inventory.closeButton.color.a = 0.8f;
 		renderTexture(&player.inventory.closeButton, player.inventory.closeButton.surface->clip_rect, getPoint(UT.closeButtonLocation.x, UT.closeButtonLocation.y));
 		if (manageClicks){
 			if (leftMouseButton && clickedOn == ""){
@@ -1476,11 +1445,11 @@ void functions::renderStats(bool manageClicks){
 		}
 	}
 }
-int functions::renderQuest(quest &Quest, SDL_Point location, bool manageClicks){
+float functions::renderQuest(quest &Quest, SDL_Point location, bool manageClicks){
 	std::string questId = "Quest " + Quest.getName();
 	userInterface::QuestsTab &Q = UI.TabQuests; //Quests tab
-	SDL_Rect outlineRect = getRect(location, (int)(Q.QRectW*Q.zoom), (int)(Q.QRectH*Q.zoom)),
-			 renderArea = getRect(0, (int)(Q.questsRenderArea.y*Q.zoom) + Q.location.y, SCREEN_WIDTH, (int)(Q.questsRenderArea.h*Q.zoom));
+	SDL_Rectf outlineRect = { location, Q.QRectW*Q.zoom, Q.QRectH*Q.zoom },
+			  renderArea = { 0.f, Q.questsRenderArea.y*Q.zoom + Q.location.y, (float)SCREEN_WIDTH, Q.questsRenderArea.h*Q.zoom };
 	SDL_Colorf squareColor = { 125.f, 125.f, 255.f, 0.f };
 	if(Q.clickedQuest == questId){
 		if (!manageClicks){
@@ -1498,9 +1467,9 @@ int functions::renderQuest(quest &Quest, SDL_Point location, bool manageClicks){
 		}
 	}
 	outlineRect.h += Quest.additionalHeight;
-	SDL_Rect outlineRectHolder = outlineRect;	SDL_Point holderP;	SDL_Rect holderR;
+	SDL_Rectf outlineRectHolder = outlineRect;	SDL_Point holderP;	SDL_Rect holderR;
 	clip(renderArea, outlineRect, holderR, holderP); outlineRect = { holderP.x, holderP.y, holderR.w, holderR.h };
-	if (pointInsideRect(mouse, outlineRect)){
+	if (pointInsideRect(mouse, getRect(outlineRect))){
 		if (manageClicks){
 			if (leftMouseButton && clickedOn == ""){
 				clickedOn = questId;
@@ -1538,31 +1507,32 @@ int functions::renderQuest(quest &Quest, SDL_Point location, bool manageClicks){
 		clip(renderArea, getRect(sDesc.offset, sDesc.from.w, sDesc.from.h), sDesc.from, sDesc.offset);
 		if (clickedOn == questId) squareColor.a += 25.f;
 		
-		openGLRenderSquare(squareColor.r / 255.f, squareColor.g / 255.f, squareColor.b / 255.f, squareColor.a / 255.f, Quest.icon.z, outlineRect);
+		openGLRenderSquare({ squareColor.r / 255.f, squareColor.g / 255.f, squareColor.b / 255.f, squareColor.a / 255.f }, Quest.icon.z, getRect(outlineRect));
 
 		SDL_Rect iconRect = getRect(qIO.x + location.x, qIO.y + location.y + (int)(Quest.additionalHeight / 2), WH, WH);
-		clip(renderArea, iconRect, holderR, holderP); iconRect = { holderP.x, holderP.y, holderR.w, holderR.h };
-		renderTexture(&Quest.icon, getRect(0, 0, (int)(iconRect.w*Quest.icon.surface->w / WH), (int)(iconRect.h*Quest.icon.surface->h / WH)), iconRect);
+		clip(renderArea, iconRect, holderR, holderP);
+		iconRect = { holderP.x, holderP.y, holderR.w, holderR.h };
+		renderTexture(&Quest.icon, getRect((int)(holderR.x*Quest.icon.surface->w / WH), (int)(holderR.y*Quest.icon.surface->h / WH), (int)(iconRect.w*Quest.icon.surface->w / WH), (int)(iconRect.h*Quest.icon.surface->h / WH)), iconRect);
 
 		renderTexture(&sDesc, sDesc.from, sDesc.offset);
 	}
-	return outlineRect.h;
+	return outlineRectHolder.h;
 }
 void functions::renderQuestsTab(bool manageClicks){
 	userInterface::QuestsTab &Q = UI.TabQuests; //Quests tab
 	if (Q.open){
 		if (manageClicks){
-			if (false&&mouseWheelMotion != 0){//process mouse wheel action [move scroll bar]
-				float possibleSliderLocation = Q.scrollBarOffset - mouseWheelMotion*Q.sliderSpeed;
+			if (mouseWheelMotion != 0){//process mouse wheel action [move scroll bar]
+				float possibleSliderLocation = Q.ScrollBar.barOffset - mouseWheelMotion*Q.ScrollBar.speed;
 				if (possibleSliderLocation>0){
-					if (possibleSliderLocation<Q.furthestPossibleSliderLocation)Q.scrollBarOffset = possibleSliderLocation;
-					else Q.scrollBarOffset = (float)(Q.furthestPossibleSliderLocation);
+					if (possibleSliderLocation<Q.ScrollBar.furthestPossibleSliderLocation)Q.ScrollBar.barOffset = possibleSliderLocation;
+					else Q.ScrollBar.barOffset = (float)(Q.ScrollBar.furthestPossibleSliderLocation);
 				}
-				else player.inventory.scrollBarOffset = 0;
+				else Q.ScrollBar.barOffset = 0;
 			}
-			SDL_Point questLocation = Q.location + Q.questsRenderArea*Q.zoom; int lastHeights = 0;
+			SDL_Point questLocation = Q.location + Q.questsRenderArea*Q.zoom; float lastHeights = 0;
 			for (Uint8 i = 0; i < player.quests.size(); i++){
-				lastHeights += renderQuest(player.quests[i], getPoint(questLocation.x, (int)(questLocation.y + i*Q.distanceBetweenQuests*Q.zoom + lastHeights)),manageClicks);
+				lastHeights += renderQuest(player.quests[i], getPoint(questLocation.x, (int)(questLocation.y + i*Q.distanceBetweenQuests*Q.zoom + (Q.ScrollBar.barOffset * Q.ScrollBar.ratioBetweenBarAndOther * -1) + lastHeights)), manageClicks);
 			}
 			if (leftMouseButton&&clickedOn == ""){
 				if (pointInsideRect(mouse, Q.closeButtonLocation)){
@@ -1602,35 +1572,21 @@ void functions::renderQuestsTab(bool manageClicks){
 				Q.location.y + (int)(Q.closeButtonOffsetFromTopRight.y*Q.zoom),
 				player.inventory.closeButton.w,
 				player.inventory.closeButton.h);
-			if (clickedOn == "Tab Quests Close") player.inventory.closeButton.a = 0.8f;
-			else player.inventory.closeButton.a = 1.0f;
+			if (clickedOn == "Tab Quests Close") player.inventory.closeButton.color.a = 0.8f;
+			else player.inventory.closeButton.color.a = 1.0f;
 			renderTexture(&player.inventory.closeButton, player.inventory.closeButton.surface->clip_rect, getPoint(Q.closeButtonLocation.x, Q.closeButtonLocation.y));
 			//quests	   
-			SDL_Point questLocation = Q.location + Q.questsRenderArea*Q.zoom; int lastHeights = 0;
+			SDL_Point questLocation = Q.location + Q.questsRenderArea*Q.zoom; float lastHeights = 0;
 			for (Uint8 i = 0; i < player.quests.size(); i++){
-				lastHeights+=renderQuest(player.quests[i], getPoint(questLocation.x, (int)(questLocation.y + i*Q.distanceBetweenQuests*Q.zoom + lastHeights)));
+				lastHeights += renderQuest(player.quests[i], getPoint(questLocation.x, (int)(questLocation.y + i*Q.distanceBetweenQuests*Q.zoom + (Q.ScrollBar.barOffset * Q.ScrollBar.ratioBetweenBarAndOther * -1) + lastHeights)));
 			}
+			lastHeights = lastHeights / Q.zoom / Q.QRectH;
 			//scroll  bar
-			int sliderLocationX = (int)(2354 * Q.zoom + Q.location.x);
-			/*
-			openGLRenderSquare(	colorfSliderBC, 
-								LAYER_UI,
-								getRect(
-								sliderLocationX,
-								Q.slotLocationTopLeftBase.y + Q.location.y,
-								Q.imageScrollBubbleFull.w,
-								Q.imageScrollBubbleFull.h
-										)
-								);
-			openGLRenderSquare(	colorfSliderBar, 
-								LAYER_UI,
-								getRect(
-								sliderLocationX,
-								Q.slotLocationTopLeftBase.y + Q.location.y + (int)Q.scrollBarOffset,
-								Q.imageScrollBarFull.w,
-								Q.imageScrollBarFull.h
-										)
-								);*/
+			if (Q.ScrollBar.overallHeight != lastHeights){
+				Q.ScrollBar.overallHeight = lastHeights;
+				Q.ScrollBar.updateValues();
+			}
+			renderScrollBar(Q.ScrollBar, Q.location);
 		}
 	}
 	else if (manageClicks){
@@ -1642,6 +1598,25 @@ void functions::renderQuestsTab(bool manageClicks){
 			clickedOn = "";
 		}
 	}
+}
+void functions::renderScrollBar(userInterface::scrollBar &scrollBar, SDL_Point offset){
+	openGLRenderSquare(colorfSliderBC,
+		LAYER_UI,
+		getRect(
+		scrollBar.location + offset,
+		scrollBar.sliderWidth,
+		(int)scrollBar.bubbleHeight
+		)
+		);
+	openGLRenderSquare(colorfSliderBar,
+		LAYER_UI,
+		getRect(
+		scrollBar.location.x + offset.x,
+		scrollBar.location.y + offset.y + (int)scrollBar.barOffset,
+		scrollBar.sliderWidth,
+		(int)scrollBar.barHeight
+		)
+		);
 }
 void functions::renderEquipment(bool manageClicks){
 	characterSpace &pi = player.inventory;
@@ -1681,7 +1656,7 @@ void functions::renderEquipment(bool manageClicks){
 											else{
 												layer tempLayer = player.inventory.imageInventorySlot[0];
 												tempLayer.offset.x = Space2.slotLocationTopLeft.x + x2*Space2.distanceBetweenSlots;
-												tempLayer.offset.y = Space2.slotLocationTopLeft.y + y2*Space2.distanceBetweenSlots - (int)(Space2.scrollBarOffset*Space2.ratioBetweenBarAndSlots);
+												tempLayer.offset.y = Space2.slotLocationTopLeft.y + y2*Space2.distanceBetweenSlots - (int)(Space2.scrollBar.barOffset*Space2.scrollBar.ratioBetweenBarAndOther);
 												clipLayer(tempLayer, Space2.slotBoundary);
 												if (tempLayer.from.h > 0){
 													slotRect2 = getRect(tempLayer.offset, (int)(tempLayer.from.w*tempLayer.zoom*tempLayer.zoomWidth), (int)(tempLayer.from.h*tempLayer.zoom*tempLayer.zoomHeight));
@@ -1725,10 +1700,10 @@ void functions::renderEquipment(bool manageClicks){
 //openGLRender		   
 void functions::openGLRender(layer* texture, SDL_Rect* sourceRect, SDL_Rect* destRect){
 	if (texture->textureOpenGL != 0){
-		openGLRenderSquare(texture->r, texture->g, texture->b, texture->a, texture->z, *destRect, sourceRect, texture);
+		openGLRenderSquare(texture->color, texture->z, *destRect, sourceRect, texture);
 	}
 }
-void functions::openGLRenderSquare(float color_r, float color_g, float color_b, float color_a, float zLocation, SDL_Rect& destRect, SDL_Rect* sourceRect, layer* texture){
+void functions::openGLRenderSquare(SDL_Colorf colorf, float zLocation, SDL_Rect& destRect, SDL_Rect* sourceRect, layer* texture){
 	float point[8], cornerX[4], cornerY[4];
 	bool hasTexture = sourceRect != nullptr;
 	point[0] = 0.f; point[1] = point[0]; point[3] = point[0]; point[6] = point[0];
@@ -1751,7 +1726,7 @@ void functions::openGLRenderSquare(float color_r, float color_g, float color_b, 
 		glBindTexture(GL_TEXTURE_2D, texture->textureOpenGL);
 	}
 	else glBindTexture(GL_TEXTURE_2D, empty.textureOpenGL);
-	glColor4f(color_r, color_g, color_b, color_a);
+	glColor4f(colorf.r, colorf.g, colorf.b, colorf.a);
 	glBegin(GL_QUADS);
 	if (hasTexture) glTexCoord2f(cornerX[0], cornerY[0]);
 	else glTexCoord2f(point[0], point[1]);
@@ -1766,9 +1741,6 @@ void functions::openGLRenderSquare(float color_r, float color_g, float color_b, 
 	else glTexCoord2f(point[6], point[7]);
 	glVertex2f(point[6], point[7]);
 	glEnd();
-}
-void functions::openGLRenderSquare(SDL_Colorf colorf, float zLocation, SDL_Rect& destRect, SDL_Rect* sourceRect, layer* texture){
-	openGLRenderSquare(colorf.r, colorf.g, colorf.b, colorf.a, zLocation, destRect, sourceRect, texture);
 }
 /*texture*/			   
 void functions::renderTexture(layer* texture,SDL_Rect &sourceRect,SDL_Rect &destinationRect){
@@ -1785,6 +1757,11 @@ void functions::renderTexture(layer* texture, SDL_Rect &sourceRect, SDL_Point lo
 std::string functions::toString(int number){
 	std::stringstream ss;
 	ss << number;
+	return ss.str();
+}
+std::string functions::toString(SDL_Point number){
+	std::stringstream ss;
+	ss << "[" << number.x << ";" << number.y << "]" ;
 	return ss.str();
 }
 std::string functions::toString(double number){
@@ -2277,6 +2254,12 @@ SDL_Rect	functions::getRect(int x, int y, int w, int h){
 	returnValue.h = h;
 	return returnValue;
 }
+SDL_Rect	functions::getRect(SDL_Rectf Rectf){
+	return{ (int)Rectf.x, (int)Rectf.y, (int)Rectf.w, (int)Rectf.h };
+}
+libs::SDL_Rectf	functions::getRectf(SDL_Rect Rect){
+	return{ Rect.x, Rect.y, Rect.w, Rect.h};
+}
 SDL_Color	functions::getColor(int id){
 	if (id>0 && (Uint8)id<Colors.size()){
 		return Colors[id - 1];
@@ -2475,8 +2458,9 @@ void functions::clipLayer(layer &layeRef, SDL_Rect boundary){
 		(int)(layeRef.from.w / layeRef.zoom / layeRef.zoomWidth),
 		(int)(layeRef.from.h / layeRef.zoom / layeRef.zoomHeight));
 }
-void functions::clip(SDL_Rect boundary, SDL_Rect rectToClip, SDL_Rect &surfaceResult, SDL_Point &locationResult){
-	surfaceResult = getRect(0, 0, rectToClip.w, rectToClip.h);
+void functions::clip(SDL_Rectf boundary, SDL_Rectf rectToClip, SDL_Rectf &surfaceResult, SDL_Point &locationResult){
+	surfaceResult.x = 0;			surfaceResult.y = 0;
+	surfaceResult.w = rectToClip.w; surfaceResult.h = rectToClip.h;
 	if (rectToClip.x < boundary.x){ //clip left
 		surfaceResult.x = boundary.x - rectToClip.x;
 		surfaceResult.w = rectToClip.w - surfaceResult.x;
@@ -2493,7 +2477,22 @@ void functions::clip(SDL_Rect boundary, SDL_Rect rectToClip, SDL_Rect &surfaceRe
 	}
 	if (surfaceResult.w < 0) surfaceResult.w = 0;
 	if (surfaceResult.h < 0) surfaceResult.h = 0;
-	locationResult = getPoint(rectToClip.x + surfaceResult.x, rectToClip.y + surfaceResult.y);
+	locationResult = getPoint((int)(rectToClip.x + surfaceResult.x), (int)(rectToClip.y + surfaceResult.y));
+}
+void functions::clip(SDL_Rect boundary, SDL_Rect rectToClip, SDL_Rect &surfaceResult, SDL_Point &locationResult){
+	SDL_Rectf surfaceResultf = getRectf(surfaceResult);
+	clip(getRectf(boundary), getRectf(rectToClip), surfaceResultf, locationResult);
+	surfaceResult = getRect(surfaceResultf);
+}
+void functions::clip(SDL_Rectf boundary, SDL_Rectf rectToClip, SDL_Rect &surfaceResult, SDL_Point &locationResult){
+	SDL_Rectf surfaceResultf = getRectf(surfaceResult);
+	clip(boundary, rectToClip, surfaceResultf, locationResult);
+	surfaceResult = getRect(surfaceResultf);
+}
+void functions::clip(SDL_Rectf boundary, SDL_Rect rectToClip, SDL_Rect &surfaceResult, SDL_Point &locationResult){
+	SDL_Rectf surfaceResultf = getRectf(surfaceResult);
+	clip(boundary, getRectf(rectToClip), surfaceResultf, locationResult);
+	surfaceResult = getRect(surfaceResultf);
 }
 void functions::moveLayerWithinBorder(layer& layeref, SDL_Rect border, SDL_Rect& location){
 	SDL_Point temp = getPoint(location.x, location.y);
@@ -2511,3 +2510,4 @@ SDL_Surface* functions::createSurface(int width, int height){
 	createSurface(&returnValue, width, height);
 	return returnValue;
 }
+//

@@ -37,19 +37,52 @@ class userInterface{
 				catsTopYLocation = 0;
 			Cat category[3];
 		};
+		struct scrollBar{
+			int			
+				sliderWidth = 0;
+			float		
+				speed = 0.f,
+				barHeight = 0.f,
+				bubbleHeight = 0.f,
+				overallHeight = 0.f,
+				defaultHeight = 0.f,
+				ratioBetweenBarAndOther = 0.f,
+				countOfSlidesForOneUnit = 0.f,
+				furthestPossibleSliderLocation = 0.f,
+				unitConversionValue = 0.f,
+				barOffset = 0.f;
+			SDL_Point	
+				location;
+			void initialize(float BubbleHeight, int SliderWidth, float DefaultHeight, float OverallHeight, float UnitConversionValue, float CountOfSlidesForOneUnit, bool update = true){
+				bubbleHeight = BubbleHeight;
+				sliderWidth = SliderWidth;
+				defaultHeight = DefaultHeight;
+				overallHeight = OverallHeight;
+				unitConversionValue = UnitConversionValue;
+				countOfSlidesForOneUnit = CountOfSlidesForOneUnit;
+				if(update) updateValues();
+			}
+			void updateValues(){
+				if (overallHeight <= defaultHeight) defaultHeight = overallHeight;
+				barHeight = bubbleHeight / (1 + overallHeight - defaultHeight);
+				speed = barHeight / countOfSlidesForOneUnit;
+				furthestPossibleSliderLocation = bubbleHeight - barHeight;
+				ratioBetweenBarAndOther = (overallHeight - defaultHeight)*unitConversionValue / furthestPossibleSliderLocation;
+				if (barOffset > furthestPossibleSliderLocation) barOffset = furthestPossibleSliderLocation;
+			}
+		};
 		struct QuestsTab : tab, closeButton{
+			scrollBar ScrollBar;
 			layer details;
 			int questsIconWH = 0, //quests icons width and height
-				distanceBetweenQuests = 0,
-				furthestPossibleSliderLocation = 0;
+				distanceBetweenQuests = 0;
 			float QRectW = 0.f,
-				  QRectH = 0.f,
-				  scrollBarOffset = 0.f,
-				  sliderSpeed = 0.f;
-			std::string clickedQuest;
-			bool expand;
-			SDL_Point questIconOffset,
-					  slotLocationTopLeftBase;
+				  QRectH = 0.f;
+			std::string 
+				clickedQuest;
+			bool 
+				expand;
+			SDL_Point questIconOffset;
 			SDL_Rect questsRenderArea;
 		};
         Texolder botUItxl;

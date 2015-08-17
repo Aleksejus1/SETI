@@ -47,13 +47,14 @@ class functions: public variables, public libs{
 		void renderMenuPulse();
 		void renderFlameParticles();
 		/*UI*/				   
-		int renderQuest(quest&, SDL_Point, bool =false);
+		float renderQuest(quest&, SDL_Point, bool =false);
 		void renderQuestsTab(bool = false);
 		void renderEquipment(bool = false);
 		void renderStat(character::stat&, SDL_Point, float);
 		void renderStats(bool = false);
 		void renderItem(itemStack&, SDL_Rect&, SDL_Point, int = 0);//renderType - 0=default, 1=only item, 2=only item count
 		void renderUI();
+		void renderScrollBar(userInterface::scrollBar &scrollBar, SDL_Point offset);
 		void renderInventory(bool);//Presents renderer with all the necessary inventory pixel information
 		void renderSlots(space&, bool = false);
 		/*texture*/			   
@@ -62,12 +63,12 @@ class functions: public variables, public libs{
 		void renderTexture(layer*, SDL_Rect&, SDL_Point);//Render the texture from the given source rectangle to the given destination point [keeps the same size]
 		/*openGlRender*/	   
 		void openGLRender(layer*, SDL_Rect*, SDL_Rect*);
-		void openGLRenderSquare(float, float, float, float, float, SDL_Rect&, SDL_Rect* = nullptr, layer* = nullptr);
 		void openGLRenderSquare(SDL_Colorf, float, SDL_Rect&, SDL_Rect* = nullptr, layer* = nullptr);
 		//utility			
 		/*toString*/		   
 		std::string toString(int);//Return the string value of the given number
 		std::string toString(double);//Return the string value of the given number
+		std::string toString(SDL_Point);//Return the string value of the given number
 		std::string toString(int*);//Return the string value of the given number pointer
 		int convertNumbersByRelativity(int, int, int);
 		void spawnFlameParticle();
@@ -108,6 +109,8 @@ class functions: public variables, public libs{
 		SDL_Point getPoint(int, int);
 		SDL_Rect getRect(SDL_Point, int, int);
 		SDL_Rect getRect(int, int, int, int);
+		SDL_Rect getRect(SDL_Rectf);
+		SDL_Rectf getRectf(SDL_Rect);
 		void getEntityCornerColors(SDL_Surface*, SDL_Color[4], SDL_Point[4]);//gets the colors of all the four corners of the player
 		void getEntityCorner(int, SDL_Point, SDL_Rect&, SDL_Point&);//gets the corner corresponding to the corner variable: 1-top-left, 2-top-right, 3-bottom-right, 4-bottom-left
 		int getZoneId(SDL_Surface*);//Return the value of the corresponding zone id based on the players' current location and the given server layer. If fails to find a color between zone colors, returns -1
@@ -132,8 +135,12 @@ class functions: public variables, public libs{
 		void copySurface(SDL_Surface*, SDL_Surface*, SDL_Rect&, int, int, int, int);
 		void copySurface(SDL_Surface*, SDL_Surface*, SDL_Rect&, int, int);
 		void clipLayer(layer&, SDL_Rect);
+		void clip(SDL_Rectf, SDL_Rectf, SDL_Rectf&, SDL_Point&);
+		void clip(SDL_Rectf, SDL_Rectf, SDL_Rect&, SDL_Point&);
+		void clip(SDL_Rectf, SDL_Rect, SDL_Rect&, SDL_Point&);
 		void clip(SDL_Rect, SDL_Rect, SDL_Rect&, SDL_Point&);
 		bool pointInsideRect(SDL_Point, SDL_Rect);
+
 };
 
 #endif // FUNCTIONS_H

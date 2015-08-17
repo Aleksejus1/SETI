@@ -9,12 +9,19 @@ botUItxl(fp){
 	all[2] = &bar_grey;
 	TabStats.closeButtonOffsetFromTopRight = { 118, 118 };
 	QuestsTab& TQ = TabQuests;
+	TQ.zoom = 2.f / 5.f;
+	TQ.questsRenderArea = { 186, 239, 1680, 700 };
+	TQ.QRectH = TQ.questsRenderArea.h*TQ.zoom / 1.25f;
+	TQ.questsIconWH = (int)(TQ.QRectH / 1.25f);
 	TQ.location = { 0, 0 };
-	TQ.questsIconWH = 180;
-	TQ.QRectH = TQ.questsIconWH*1.25f;
 	TQ.questIconOffset.x = TQ.questsIconWH / 8; TQ.questIconOffset.y = TQ.questIconOffset.x;
 	TQ.closeButtonOffsetFromTopRight = { 108, 81 };
-	TQ.questsRenderArea = { 186, 239, 1680, 700};
 	TQ.distanceBetweenQuests = (int)(TQ.QRectH*0.25f);
-	TQ.slotLocationTopLeftBase = { 0, 0 };
+	TQ.ScrollBar.initialize(287, 5, 
+							TQ.questsRenderArea.h/(TQ.QRectH*1.25f),
+							0, //calculate each tick
+							TQ.QRectH*1.25f, //possibly leave to 1.f
+							50.f, //experiment or calculate
+							false);
+	TQ.ScrollBar.location = { 873, 87 };
 }

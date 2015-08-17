@@ -50,11 +50,7 @@ class variables{
 			layer background, gradient, logo, flameParticle[3], pulse;
 			std::vector<fl> flames;
 		};
-		struct SDL_Colorf{
-			float r = 1.f, g = 1.f, b = 1.f, a = 1.f;
-			SDL_Colorf(float rf, float gf, float bf, float af){ r = rf; g = gf; b = bf; a = af; }
-		};
-		SDL_Colorf		
+		libs::SDL_Colorf
 			colorfSliderBC = { 0.f, 0.f, 0.f, 94.f / 255.f },
 			colorfSliderBar = { 0.f, 0.f, 0.f, 220.f / 255.f };
 		layer			
@@ -67,7 +63,7 @@ class variables{
 			empty, //empty texture that has 1x1 white pixel
 			progressBar; //progress bar holder of all info that makes the progress bar
 		int				
-			currentMenu = MENU_START,
+			currentMenu = MENU_GAME,
 			moveObject = OBJECT_PLAYER,
 			fontSize = 14,
 			milisecond = 0,
@@ -75,7 +71,7 @@ class variables{
 			font_lithosProSize = 36,
 			font_lithosProForStatsSize = 64,
 			font_lithosProForLevelSize = 50,
-		    timeStamp = 0, //current time for program
+			timeStamp = 0, //current time for program
 			frame = 0, //current frame;
 			mouseButton = 0,
 			leftMouseButton = 0,
@@ -91,8 +87,7 @@ class variables{
 			SCREEN_WIDTH = 1280, //Application screen width in pixels
 			SCREEN_HEIGHT = 720, //Application screen height in pixels
 			mouseWheelMotion = 0, //Holder of mouse wheel interaction
-			sections = 0, //Amount of rows in the inventory
-			sliderCountForOneRow = 5;
+			sections = 0; //Amount of rows in the inventory
 		GLfloat			
 			rotationAngle=0.f;
 		SDL_GLContext	
@@ -138,7 +133,6 @@ class variables{
 		float			
 			characterUiZoom = 1.f / 3.f,
 			milisecondOffset = 0,
-			sliderSpeed = 10.f, //Speed that the slider goes in;
 			delay = 1000.f / FPS, //Amount of time to wait before going to the next frame in milliseconds
 			tatssbatm = 0.f; //Total Amount The Slider Should Be Able To Move - TATSSBATM
 		POINT			

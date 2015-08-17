@@ -26,14 +26,10 @@ class characterSpace: public space{
 		bool				
 			update;
 		int					
-			furthestPossibleSliderLocation = 0,
 			distanceBetweenEquipmentSlots = 0,
 			distanceBetweenStats = 0,
-			scrollBubbleHeight = 0,
-			scrollBarHeight = 0,
 			equipmentCount = 7,
-			doubleClick = -1,
-			sliderWidth = 0;
+			doubleClick = -1;
 		SDL_Point			
 			equipmentTopLeftLocation, 
 			statTopLeftLocation, 
@@ -46,7 +42,6 @@ class characterSpace: public space{
 			additionBar;
 		std::vector<bars>	
 			statsBar;
-
 };
 
 #endif // CHARACTERSPACE_H
