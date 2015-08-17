@@ -67,8 +67,8 @@ class userInterface{
 				barHeight = bubbleHeight / (1 + overallHeight - defaultHeight);
 				speed = barHeight / countOfSlidesForOneUnit;
 				furthestPossibleSliderLocation = bubbleHeight - barHeight;
-				ratioBetweenBarAndOther = (overallHeight - defaultHeight)*unitConversionValue / furthestPossibleSliderLocation;
 				if (barOffset > furthestPossibleSliderLocation) barOffset = furthestPossibleSliderLocation;
+				ratioBetweenBarAndOther = (overallHeight - defaultHeight)*unitConversionValue / furthestPossibleSliderLocation;
 			}
 		};
 		struct QuestsTab : tab, closeButton{

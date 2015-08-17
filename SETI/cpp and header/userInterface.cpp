@@ -17,11 +17,12 @@ botUItxl(fp){
 	TQ.questIconOffset.x = TQ.questsIconWH / 8; TQ.questIconOffset.y = TQ.questIconOffset.x;
 	TQ.closeButtonOffsetFromTopRight = { 108, 81 };
 	TQ.distanceBetweenQuests = (int)(TQ.QRectH*0.25f);
+	float unit = TQ.QRectH*1.25f;
 	TQ.ScrollBar.initialize(287, 5, 
-							TQ.questsRenderArea.h/(TQ.QRectH*1.25f),
+							TQ.questsRenderArea.h / unit + 0.2f,
 							0, //calculate each tick
-							TQ.QRectH*1.25f, //possibly leave to 1.f
-							50.f, //experiment or calculate
+							unit * TQ.zoom,
+							5.f,
 							false);
 	TQ.ScrollBar.location = { 873, 87 };
 }
