@@ -3,7 +3,6 @@
 
 #include "libs.h"
 #include "layer.h"
-#include "Texolder.h"
 
 class functions;
 
@@ -85,7 +84,6 @@ class userInterface{
 			SDL_Point questIconOffset;
 			SDL_Rect questsRenderArea;
 		};
-        Texolder botUItxl;
         layer bar_empty,
 			  characterUI,
 			  botUI,

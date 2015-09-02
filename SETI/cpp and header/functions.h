@@ -13,7 +13,7 @@ class functions: public variables, public libs{
         functions(); //Initialization function
         userInterface UI;
         character player; //Player information holder
-        Texolder menuTxl;
+
 		//music				
 		void controlMusic();
 		void loadSoundEffect(Mix_Chunk*&, std::string);
@@ -45,8 +45,10 @@ class functions: public variables, public libs{
 		//render			
 		/*Start Screen*/	   
 		void renderMenuPulse();
+		void renderStartMenu();
 		void renderFlameParticles();
 		/*UI*/				   
+		void renderMouse();
 		float renderQuest(quest&, SDL_Point, bool =false);
 		void renderQuestsTab(bool = false);
 		void renderEquipment(bool = false);
@@ -73,6 +75,9 @@ class functions: public variables, public libs{
 		int convertNumbersByRelativity(int, int, int);
 		void spawnFlameParticle();
 		bool equalColors(SDL_Color, SDL_Color);//Checks if both colors are equal/same
+		void updateMouseLocation();
+		void processEvents(); //read and assign user input events that happened since last activation of this cycle
+		void waitForNextFrame();
 		void loadMedia();//Pre-loads all the pictures and prepares some values
 		bool initialize();//Used to initialize SDL2 and its' modules
 		bool initGL();//Used to initialize OpenGL stuffs
@@ -90,7 +95,6 @@ class functions: public variables, public libs{
 		void createObject(int, std::string, int, int, bool);
 		void createSurface(SDL_Surface**, int, int);
 		SDL_Surface* createSurface(int, int);
-		void createTexture(layer&);
 		void createImage(std::string, std::string);
 		void createLayer(int, std::string);
 		//add				
@@ -106,7 +110,9 @@ class functions: public variables, public libs{
 		stage* addStage(float, bool, bool, std::string, gather&);
 		//get				
 		void getDesktopResolution(int&, int&);
-		SDL_Point getPoint(int, int);
+		SDL_Point getPointBetweenTwo(SDL_Point&, SDL_Point&, float);
+		SDL_Point getFlamePoint(variables::chance&);
+		float getDistanceBetweenTwoPoints(SDL_Point&, SDL_Point&);
 		SDL_Rect getRect(SDL_Point, int, int);
 		SDL_Rect getRect(int, int, int, int);
 		SDL_Rect getRect(SDL_Rectf);
@@ -140,7 +146,7 @@ class functions: public variables, public libs{
 		void clip(SDL_Rectf, SDL_Rect, SDL_Rect&, SDL_Point&);
 		void clip(SDL_Rect, SDL_Rect, SDL_Rect&, SDL_Point&);
 		bool pointInsideRect(SDL_Point, SDL_Rect);
-
+		bool pointInsideRect(_mouse, SDL_Rect);
 };
 
 #endif // FUNCTIONS_H

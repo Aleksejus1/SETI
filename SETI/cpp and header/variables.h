@@ -8,21 +8,12 @@
 #include "spell.h"
 #include "item.h"
 #include "userInterface.h"
-#include "Texolder.h"
 #include "map.h"
 #include "quest.h"
 
 class variables{
     public:
         variables(); //Initialization function
-        /*OpenGL*/	
-        layer imageOpenGL,imageOpenGL2;
-        enum stages{
-            STAGE_SDL,
-            STAGE_OPENGL
-        };
-        int GLStage=STAGE_SDL;
-        /*Other*/   
 		/*enum*/		
 		enum menus{ MENU_START, MENU_GAME };
 		enum enumObjects{ OBJECT_PLAYER, OBJECT_SCREEN };
@@ -31,39 +22,47 @@ class variables{
 		struct img{ layer image; std::string id; }; std::vector<img> images;//Hold all extra images
 		struct mo{ layer* layerp = nullptr; std::string objectName = ""; itemStack* ist; SDL_Rect From; int slotId; space* inventory; };//movable object
 		struct channe{ int startMenu = -2; } channel;
-		struct chance{ int from, width; };
-		struct buttn{ layer button[2]; };
+		struct chance{ SDL_Point from, to; };
+		struct buttn { layer button[2]; int state=0; };
 		struct fl{
 			SDL_Point startPoint, endPoint, location;
 			bool direction, rotationDirection;
 			int lifetime, creationTimeStamp, flameId, rotationSpeed;
 			float delta, initialSize, endingSize, oscillationSpeed, oscillationInitialAmplitude, oscillationEndingAmplitude, r = 255.f, g = 255.f, b = 255.f;
 		};
-		struct mnu{
+		struct _menu{
+			enum _type { OLD, NEW };
 			float pulseMaxAlpha = 0.5f;
 			bool pulseState = true;
 			int chanceToCreateFlameEachFrame,
+				type = NEW,
 				pulseLength = 0,
 				pulseTimeStamp = 0;
-			chance flameStartLine, flameEndLine, flameLifeTime;
+			chance flameStartLine, flameEndLine;
+			SDL_Point flameLifeTime;
 			buttn about, close, options, play;
 			layer background, gradient, logo, flameParticle[3], pulse;
 			std::vector<fl> flames;
-		};
+		} menu;
+		struct _mouse {
+			bool showImage = true;
+			SDL_Point location;
+			POINT point;
+			layer image;
+		} mouse;
 		libs::SDL_Colorf
 			colorfSliderBC = { 0.f, 0.f, 0.f, 94.f / 255.f },
 			colorfSliderBar = { 0.f, 0.f, 0.f, 220.f / 255.f };
 		layer			
 			iconMain, //main window icon
 			iconDebug, //debug window icon
-			cursorImage, //cursor image
 			message, //message layer holder #1
 			message2, //message layer holder #2
 			messageSlash, //layer holder of "/" symbol
 			empty, //empty texture that has 1x1 white pixel
 			progressBar; //progress bar holder of all info that makes the progress bar
 		int				
-			currentMenu = MENU_GAME,
+			currentMenu = MENU_START,
 			moveObject = OBJECT_PLAYER,
 			fontSize = 14,
 			milisecond = 0,
@@ -135,11 +134,8 @@ class variables{
 			milisecondOffset = 0,
 			delay = 1000.f / FPS, //Amount of time to wait before going to the next frame in milliseconds
 			tatssbatm = 0.f; //Total Amount The Slider Should Be Able To Move - TATSSBATM
-		POINT			
-			mousePoint;
 		SDL_Point		
 			windowPos,
-			mouse,
 			offset,
 			mouseOffsetFromMovableObject,
 			screenStartPosition; //[x;y] point that defines where the main application window should start relatively to the top left corner of the main screen
@@ -150,9 +146,7 @@ class variables{
 			drag;
 		MSG				
 			messages; //Some kind of weird windows thing that should be left alone
-        mnu				
-			menu;
-		Mix_Music		
+        Mix_Music		
 			*musicStartMenu = NULL;
 		Mix_Chunk		
 			*sfxStartMenu = NULL;

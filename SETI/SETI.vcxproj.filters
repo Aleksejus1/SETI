@@ -89,9 +89,6 @@
     <ClInclude Include="cpp and header\stage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cpp and header\Texolder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cpp and header\userInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -173,9 +170,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cpp and header\stage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cpp and header\Texolder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cpp and header\userInterface.cpp">

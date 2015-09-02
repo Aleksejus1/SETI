@@ -1,15 +1,12 @@
 #ifndef CHARACTERSPACE_H
 #define CHARACTERSPACE_H
 #include "space.h"
-#include "Texolder.h"
 
 class functions;
 
 class characterSpace: public space{
     public:
 		characterSpace(functions* fp);
-		Texolder			
-			txl;
 		float				
 			zoom = (float)1 / (float)5;
 		struct equipment{ itemStack item; std::string typeName; layer image; int x; int y; } 
