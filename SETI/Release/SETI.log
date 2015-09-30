@@ -1,0 +1,62 @@
+﻿Build started 9/30/2015 11:34:27 PM.
+     1>Project "C:\Users\AlekG\Desktop\SETI\SETI\SETI.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /IC:\Programming\C++\sdl\include\SDL2 /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt "cpp and header\bar.cpp" "cpp and header\character.cpp" "cpp and header\characterSpace.cpp" "cpp and header\entity.cpp" "cpp and header\event.cpp" "cpp and header\functions.cpp" "cpp and header\gather.cpp" "cpp and header\info.cpp" "cpp and header\interact.cpp" "cpp and header\item.cpp" "cpp and header\itemStack.cpp" "cpp and header\keyboard.cpp" "cpp and header\layer.cpp" "cpp and header\libs.cpp" "cpp and header\main.cpp" "cpp and header\map.cpp" "cpp and header\mobSpawner.cpp" "cpp and header\objects.cpp" "cpp and header\quest.cpp" "cpp and header\skill.cpp" "cpp and header\space.cpp" "cpp and header\spell.cpp" "cpp and header\stage.cpp" "cpp and header\task.cpp" "cpp and header\userInterface.cpp" "cpp and header\variables.cpp" "cpp and header\zone.cpp"
+         bar.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         character.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         characterSpace.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         entity.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         event.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         functions.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         gather.cpp
+         info.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         interact.cpp
+         item.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         itemStack.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         keyboard.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         layer.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         libs.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         main.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         map.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         mobSpawner.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         objects.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         quest.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         skill.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         Compiling...
+         space.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         spell.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         stage.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         task.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         userInterface.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         variables.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+         zone.cpp
+     1>c:\users\alekg\desktop\seti\seti\cpp and header\libs.h(3): fatal error C1083: Cannot open include file: 'SDL.h': No such file or directory
+     1>Done Building Project "C:\Users\AlekG\Desktop\SETI\SETI\SETI.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.65
